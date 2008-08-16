@@ -1,0 +1,106 @@
+ARROW_DN BITMAP "Bitmap_1.bmp"
+
+ARROW_DN4B BITMAP "Bitmap_2.bmp"
+
+ARROW_RG BITMAP "Bitmap_3.bmp"
+
+ARROW_RG4B BITMAP "Bitmap_4.bmp"
+
+ARROW_UP BITMAP "Bitmap_5.bmp"
+
+ARROW_UP4B BITMAP "Bitmap_6.bmp"
+
+BBABORT BITMAP "Bitmap_7.bmp"
+
+BBALL BITMAP "Bitmap_8.bmp"
+
+BBCANCEL BITMAP "Bitmap_9.bmp"
+
+BBCLOSE BITMAP "Bitmap_10.bmp"
+
+BBHELP BITMAP "Bitmap_11.bmp"
+
+BBIGNORE BITMAP "Bitmap_12.bmp"
+
+BBNO BITMAP "Bitmap_13.bmp"
+
+BBOK BITMAP "Bitmap_14.bmp"
+
+BBRETRY BITMAP "Bitmap_15.bmp"
+
+BBYES BITMAP "Bitmap_16.bmp"
+
+CMDBROWSE BITMAP "Bitmap_17.bmp"
+
+CMPBMPS BITMAP "Bitmap_18.bmp"
+
+CMPBMPSPRN BITMAP "Bitmap_19.bmp"
+
+COMPSAVE BITMAP "Bitmap_20.bmp"
+
+COMPVERT BITMAP "Bitmap_21.bmp"
+
+DISK35 BITMAP "Bitmap_22.bmp"
+
+DISK35O BITMAP "Bitmap_23.bmp"
+
+DISK525 BITMAP "Bitmap_24.bmp"
+
+DISK525O BITMAP "Bitmap_25.bmp"
+
+DISKCDROM BITMAP "Bitmap_26.bmp"
+
+DISKCDROMO BITMAP "Bitmap_27.bmp"
+
+DISKFTP BITMAP "Bitmap_28.bmp"
+
+DISKFTPO BITMAP "Bitmap_29.bmp"
+
+DISKHDD BITMAP "Bitmap_30.bmp"
+
+DISKHDDO BITMAP "Bitmap_31.bmp"
+
+DISKNET BITMAP "Bitmap_32.bmp"
+
+DISKNETHOOD BITMAP "Bitmap_33.bmp"
+
+DISKNETHOODO BITMAP "Bitmap_34.bmp"
+
+DISKNETO BITMAP "Bitmap_35.bmp"
+
+DISKNETX BITMAP "Bitmap_36.bmp"
+
+DISKNETXO BITMAP "Bitmap_37.bmp"
+
+DISKRAM BITMAP "Bitmap_38.bmp"
+
+DISKRAMO BITMAP "Bitmap_39.bmp"
+
+DISKREMOVE BITMAP "Bitmap_40.bmp"
+
+DISKREMOVEO BITMAP "Bitmap_41.bmp"
+
+FIND BITMAP "Bitmap_42.bmp"
+
+FINDNEXT BITMAP "Bitmap_43.bmp"
+
+HISTORYLIST1 BITMAP "Bitmap_44.bmp"
+
+HOTLIST1 BITMAP "Bitmap_45.bmp"
+
+LOCKED BITMAP "Bitmap_46.bmp"
+
+MININUMBERS BITMAP "Bitmap_47.bmp"
+
+OVERLAY_DELETE BITMAP "Bitmap_48.bmp"
+
+OVERLAY_DELETE4B BITMAP "Bitmap_49.bmp"
+
+OVERLAY_KEEP BITMAP "Bitmap_50.bmp"
+
+OVERLAY_KEEP4B BITMAP "Bitmap_51.bmp"
+
+SYNCHISTORY BITMAP "Bitmap_52.bmp"
+
+UNLOCKED BITMAP "Bitmap_53.bmp"
+
