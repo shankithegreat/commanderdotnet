@@ -43,11 +43,19 @@
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.rightDriveToolBar = new System.Windows.Forms.ToolBar();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.leftListView = new System.Windows.Forms.ListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.pathImageList = new System.Windows.Forms.ImageList(this.components);
+            this.largePathImageList = new System.Windows.Forms.ImageList(this.components);
+            this.testLabel = new System.Windows.Forms.Label();
             this.toolStrip.SuspendLayout();
+            this.bottomPanel.SuspendLayout();
             this.topPanel.SuspendLayout();
             this.topSplitContainer.Panel1.SuspendLayout();
             this.topSplitContainer.Panel2.SuspendLayout();
             this.topSplitContainer.SuspendLayout();
+            this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,6 +105,7 @@
             // 
             // bottomPanel
             // 
+            this.bottomPanel.Controls.Add(this.testLabel);
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bottomPanel.Location = new System.Drawing.Point(0, 312);
             this.bottomPanel.Name = "bottomPanel";
@@ -174,9 +183,57 @@
             this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer.Location = new System.Drawing.Point(0, 58);
             this.splitContainer.Name = "splitContainer";
+            // 
+            // splitContainer.Panel1
+            // 
+            this.splitContainer.Panel1.Controls.Add(this.leftListView);
             this.splitContainer.Size = new System.Drawing.Size(580, 254);
             this.splitContainer.SplitterDistance = 274;
             this.splitContainer.TabIndex = 3;
+            // 
+            // leftListView
+            // 
+            this.leftListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.leftListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.leftListView.LargeImageList = this.largePathImageList;
+            this.leftListView.Location = new System.Drawing.Point(0, 0);
+            this.leftListView.Name = "leftListView";
+            this.leftListView.Size = new System.Drawing.Size(274, 254);
+            this.leftListView.SmallImageList = this.pathImageList;
+            this.leftListView.TabIndex = 0;
+            this.leftListView.UseCompatibleStateImageBehavior = false;
+            this.leftListView.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Width = 98;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Width = 98;
+            // 
+            // pathImageList
+            // 
+            this.pathImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.pathImageList.ImageSize = new System.Drawing.Size(16, 16);
+            this.pathImageList.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // largePathImageList
+            // 
+            this.largePathImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.largePathImageList.ImageSize = new System.Drawing.Size(32, 32);
+            this.largePathImageList.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // testLabel
+            // 
+            this.testLabel.AutoSize = true;
+            this.testLabel.Location = new System.Drawing.Point(4, 13);
+            this.testLabel.Name = "testLabel";
+            this.testLabel.Size = new System.Drawing.Size(50, 13);
+            this.testLabel.TabIndex = 0;
+            this.testLabel.Text = "testLabel";
             // 
             // CommanderForm
             // 
@@ -192,12 +249,15 @@
             this.Text = "Form";
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
+            this.bottomPanel.ResumeLayout(false);
+            this.bottomPanel.PerformLayout();
             this.topPanel.ResumeLayout(false);
             this.topSplitContainer.Panel1.ResumeLayout(false);
             this.topSplitContainer.Panel1.PerformLayout();
             this.topSplitContainer.Panel2.ResumeLayout(false);
             this.topSplitContainer.Panel2.PerformLayout();
             this.topSplitContainer.ResumeLayout(false);
+            this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -219,6 +279,12 @@
         private System.Windows.Forms.ToolBar leftDrivesToolBar;
         private System.Windows.Forms.ToolBar rightDriveToolBar;
         private System.Windows.Forms.ImageList imageList;
+        private System.Windows.Forms.ListView leftListView;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ImageList pathImageList;
+        private System.Windows.Forms.ImageList largePathImageList;
+        private System.Windows.Forms.Label testLabel;
 
 
     }

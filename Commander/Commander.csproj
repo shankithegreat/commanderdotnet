@@ -54,6 +54,7 @@
     <Compile Include="CommanderForm.Designer.cs">
       <DependentUpon>CommanderForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SafeNativeMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CommanderForm.resx">

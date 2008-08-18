@@ -64,6 +64,9 @@ namespace Commander
         private void drivesToolBar_ButtonClick(object sender, ToolBarButtonClickEventArgs e)
         {
             SetPushedDriveButton((ToolBar)sender, e.Button);
+
+            DriveInfo drive = (DriveInfo)e.Button.Tag;            
+            LoadDirectory(drive.RootDirectory);
         }
 
         private void SetPushedDriveButton(ToolBar toolBar, ToolBarButton button)
@@ -74,6 +77,44 @@ namespace Commander
             {
                 leftDrivesToolBar.Buttons[i].Pushed = (i == index);
                 rightDriveToolBar.Buttons[i].Pushed = leftDrivesToolBar.Buttons[i].Pushed;
+            }
+        }
+
+        private void LoadDirectory(DirectoryInfo directory)
+        {
+            leftListView.Items.Clear();
+            pathImageList.Images.Clear();
+            largePathImageList.Images.Clear();
+
+            foreach (FileSystemInfo fsi in directory.GetFileSystemInfos())
+            {
+                leftListView.Items.Add(fsi.Name, GetImage(fsi));
+            }
+
+            
+        }
+
+
+        private int GetImage(FileSystemInfo fsi)
+        {
+            int i = 0;
+            Icon icon = SafeNativeMethods.GetSmallAssociatedIcon(fsi.FullName); //SafeNativeMethods.ExtractAssociatedIcon(fsi.FullName, 10, out i);
+            if (icon == null)
+            {
+                return -1;
+            }
+            Icon ic = new Icon(icon, 16, 16);
+            testLabel.Text = icon.Size.ToString() + " " + i.ToString();
+            try
+            {
+                //Icon icon = Icon.ExtractAssociatedIcon(fsi.FullName);                
+                pathImageList.Images.Add(ic);
+                largePathImageList.Images.Add(icon);
+                return pathImageList.Images.Count - 1;
+            }
+            catch
+            {
+                return -1;
             }
         }
     }
