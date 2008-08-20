@@ -41,14 +41,12 @@
             this.topPanel = new System.Windows.Forms.Panel();
             this.topSplitContainer = new System.Windows.Forms.SplitContainer();
             this.leftDrivesToolBar = new System.Windows.Forms.ToolBar();
-            this.imageList = new System.Windows.Forms.ImageList(this.components);
+            this.driveToolBarImageList = new System.Windows.Forms.ImageList(this.components);
             this.rightDriveToolBar = new System.Windows.Forms.ToolBar();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.leftListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.largePathImageList = new System.Windows.Forms.ImageList(this.components);
-            this.pathImageList = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.topPanel.SuspendLayout();
@@ -154,7 +152,7 @@
             this.leftDrivesToolBar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.leftDrivesToolBar.DropDownArrows = true;
             this.leftDrivesToolBar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.leftDrivesToolBar.ImageList = this.imageList;
+            this.leftDrivesToolBar.ImageList = this.driveToolBarImageList;
             this.leftDrivesToolBar.Location = new System.Drawing.Point(0, 0);
             this.leftDrivesToolBar.Name = "leftDrivesToolBar";
             this.leftDrivesToolBar.ShowToolTips = true;
@@ -163,14 +161,14 @@
             this.leftDrivesToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right;
             this.leftDrivesToolBar.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler(this.drivesToolBar_ButtonClick);
             // 
-            // imageList
+            // driveToolBarImageList
             // 
-            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
-            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList.Images.SetKeyName(0, "flopydrive.png");
-            this.imageList.Images.SetKeyName(1, "Drive.png");
-            this.imageList.Images.SetKeyName(2, "cddrive.png");
-            this.imageList.Images.SetKeyName(3, "net.png");
+            this.driveToolBarImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("driveToolBarImageList.ImageStream")));
+            this.driveToolBarImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.driveToolBarImageList.Images.SetKeyName(0, "flopydrive.png");
+            this.driveToolBarImageList.Images.SetKeyName(1, "Drive.png");
+            this.driveToolBarImageList.Images.SetKeyName(2, "cddrive.png");
+            this.driveToolBarImageList.Images.SetKeyName(3, "net.png");
             // 
             // rightDriveToolBar
             // 
@@ -178,7 +176,7 @@
             this.rightDriveToolBar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rightDriveToolBar.DropDownArrows = true;
             this.rightDriveToolBar.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rightDriveToolBar.ImageList = this.imageList;
+            this.rightDriveToolBar.ImageList = this.driveToolBarImageList;
             this.rightDriveToolBar.Location = new System.Drawing.Point(0, 0);
             this.rightDriveToolBar.Name = "rightDriveToolBar";
             this.rightDriveToolBar.ShowToolTips = true;
@@ -206,11 +204,9 @@
             this.columnHeader1,
             this.columnHeader2});
             this.leftListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.leftListView.LargeImageList = this.largePathImageList;
             this.leftListView.Location = new System.Drawing.Point(0, 0);
             this.leftListView.Name = "leftListView";
             this.leftListView.Size = new System.Drawing.Size(274, 254);
-            this.leftListView.SmallImageList = this.pathImageList;
             this.leftListView.TabIndex = 0;
             this.leftListView.UseCompatibleStateImageBehavior = false;
             this.leftListView.View = System.Windows.Forms.View.Details;
@@ -223,18 +219,6 @@
             // columnHeader2
             // 
             this.columnHeader2.Width = 98;
-            // 
-            // largePathImageList
-            // 
-            this.largePathImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.largePathImageList.ImageSize = new System.Drawing.Size(32, 32);
-            this.largePathImageList.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // pathImageList
-            // 
-            this.pathImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.pathImageList.ImageSize = new System.Drawing.Size(16, 16);
-            this.pathImageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // CommanderForm
             // 
@@ -279,13 +263,11 @@
         private System.Windows.Forms.SplitContainer topSplitContainer;
         private System.Windows.Forms.ToolBar leftDrivesToolBar;
         private System.Windows.Forms.ToolBar rightDriveToolBar;
-        private System.Windows.Forms.ImageList imageList;
         private System.Windows.Forms.ListView leftListView;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ImageList pathImageList;
-        private System.Windows.Forms.ImageList largePathImageList;
         private System.Windows.Forms.Label testLabel;
+        private System.Windows.Forms.ImageList driveToolBarImageList;
 
 
     }

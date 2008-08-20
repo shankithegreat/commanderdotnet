@@ -69,8 +69,6 @@ namespace Commander
 
             base.WndProc(ref m);
         }
-        
-        
 
         private static IntPtr[] GetPIDLs(string[] pathList)
         {
@@ -129,8 +127,7 @@ namespace Commander
                                         this.Handle,
                                         IntPtr.Zero);
 
-                    //br.OnContextMenuMouseHover(new ContextMenuMouseHoverEventArgs(string.Empty));
-
+                   
                     if (selected >= ShellAPI.CMD_FIRST)
                     {
                         string command = ContextMenuHelper.GetCommandString(iContextMenu, selected - ShellAPI.CMD_FIRST, true);
@@ -191,7 +188,5 @@ namespace Commander
                     Marshal.Release(iContextMenuPtr3);
             }
         }
-
-
     }
 }
