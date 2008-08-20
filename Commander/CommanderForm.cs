@@ -30,8 +30,8 @@ namespace Commander
             Load();
 
 #if DEBUG
-            TestForm testForem = new TestForm();
-            testForem.Show();
+            //TestForm testForem = new TestForm();
+            //testForem.Show();
 #endif
         }
 
@@ -39,6 +39,8 @@ namespace Commander
         {
             ShellImageList.SetSmallImageList(leftListView);
             ShellImageList.SetLargeImageList(leftListView);
+            ShellImageList.SetSmallImageList(rightListView);
+            ShellImageList.SetLargeImageList(rightListView);
             LoadDiskDrives(leftDrivesToolBar);
             LoadDiskDrives(rightDriveToolBar);
         }
@@ -89,24 +91,28 @@ namespace Commander
         private void LoadDirectory(DirectoryInfo directory)
         {
             leftListView.Items.Clear();
+            rightListView.Items.Clear();
 
             foreach (FileSystemInfo fsi in directory.GetFileSystemInfos())
             {
-                ListViewItem itm = leftListView.Items.Add(fsi.Name, SafeNativeMethods.GetAssociatedIconIndex(fsi.FullName));
-                itm.Tag = fsi;
+                ListViewItem item = leftListView.Items.Add(fsi.Name, SafeNativeMethods.GetAssociatedIconIndex(fsi.FullName));
+                item.Tag = fsi;
+                ListViewItem item2 = rightListView.Items.Add(fsi.Name, SafeNativeMethods.GetAssociatedIconIndex(fsi.FullName));
+                item2.Tag = fsi;
             }
         }
 
-        private void leftListView_MouseUp(object sender, MouseEventArgs e)
+        private void listView_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
-            { 
+            if (e.Button == MouseButtons.Right && sender is ListView)
+            {
+                ListView listView = (ListView)sender;
                 if (leftListView.SelectedItems.Count > 0)
                 {
-                    Point location = leftListView.PointToScreen(e.Location);
+                    Point location = listView.PointToScreen(e.Location);
 
-                    List<string> list = new List<string>(leftListView.SelectedItems.Count);
-                    foreach (ListViewItem selectItem in leftListView.SelectedItems)
+                    List<string> list = new List<string>(listView.SelectedItems.Count);
+                    foreach (ListViewItem selectItem in listView.SelectedItems)
                     {
                         FileSystemInfo fsi = (FileSystemInfo)selectItem.Tag;
                         list.Add(fsi.FullName);

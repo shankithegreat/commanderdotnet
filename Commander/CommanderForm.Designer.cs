@@ -47,6 +47,9 @@
             this.leftListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.rightListView = new System.Windows.Forms.ListView();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
             this.toolStrip.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.topPanel.SuspendLayout();
@@ -54,6 +57,7 @@
             this.topSplitContainer.Panel2.SuspendLayout();
             this.topSplitContainer.SuspendLayout();
             this.splitContainer.Panel1.SuspendLayout();
+            this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -194,12 +198,17 @@
             // splitContainer.Panel1
             // 
             this.splitContainer.Panel1.Controls.Add(this.leftListView);
+            // 
+            // splitContainer.Panel2
+            // 
+            this.splitContainer.Panel2.Controls.Add(this.rightListView);
             this.splitContainer.Size = new System.Drawing.Size(580, 254);
             this.splitContainer.SplitterDistance = 274;
             this.splitContainer.TabIndex = 3;
             // 
             // leftListView
             // 
+            this.leftListView.BackColor = System.Drawing.Color.Silver;
             this.leftListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
@@ -210,15 +219,38 @@
             this.leftListView.TabIndex = 0;
             this.leftListView.UseCompatibleStateImageBehavior = false;
             this.leftListView.View = System.Windows.Forms.View.Details;
-            this.leftListView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.leftListView_MouseUp);
+            this.leftListView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listView_MouseUp);
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Width = 98;
+            this.columnHeader1.Width = 200;
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Width = 98;
+            this.columnHeader2.Width = 10;
+            // 
+            // rightListView
+            // 
+            this.rightListView.BackColor = System.Drawing.Color.Silver;
+            this.rightListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3,
+            this.columnHeader4});
+            this.rightListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rightListView.Location = new System.Drawing.Point(0, 0);
+            this.rightListView.Name = "rightListView";
+            this.rightListView.Size = new System.Drawing.Size(302, 254);
+            this.rightListView.TabIndex = 1;
+            this.rightListView.UseCompatibleStateImageBehavior = false;
+            this.rightListView.View = System.Windows.Forms.View.Details;
+            this.rightListView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listView_MouseUp);
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Width = 200;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Width = 10;
             // 
             // CommanderForm
             // 
@@ -243,6 +275,7 @@
             this.topSplitContainer.Panel2.PerformLayout();
             this.topSplitContainer.ResumeLayout(false);
             this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel2.ResumeLayout(false);
             this.splitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -268,6 +301,9 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.Label testLabel;
         private System.Windows.Forms.ImageList driveToolBarImageList;
+        private System.Windows.Forms.ListView rightListView;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
 
 
     }
