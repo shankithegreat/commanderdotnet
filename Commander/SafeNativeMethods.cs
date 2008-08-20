@@ -72,5 +72,16 @@ namespace Commander
             return null;
         }
 
+
+        public static int GetAssociatedIconIndex(string path)
+        {
+            StringBuilder iconPath = new StringBuilder(260);
+            iconPath.Append(path);
+            SHFILEINFO fi = new SHFILEINFO();
+            int size = Marshal.SizeOf(fi);
+            SHGetFileInfo(iconPath, 0, ref fi, size, SHGFI_SMALLICON | SHGFI_SYSICONINDEX);
+            return fi.iIcon;
+        }
+
     }
 }

@@ -54,6 +54,8 @@
     <Compile Include="CommanderForm.Designer.cs">
       <DependentUpon>CommanderForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ContextMenu.cs" />
+    <Compile Include="ContextMenuHelper.cs" />
     <Compile Include="SafeNativeMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,12 +83,40 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Shell\Interfaces\IAdviseSink.cs" />
+    <Compile Include="Shell\Interfaces\IContextMenu.cs" />
+    <Compile Include="Shell\Interfaces\IDataObject.cs" />
+    <Compile Include="Shell\Interfaces\IDragSourceHelper.cs" />
+    <Compile Include="Shell\Interfaces\IDropSource.cs" />
+    <Compile Include="Shell\Interfaces\IDropTarget.cs" />
+    <Compile Include="Shell\Interfaces\IDropTargetHelper.cs" />
+    <Compile Include="Shell\Interfaces\IEnumFORMATETC.cs" />
+    <Compile Include="Shell\Interfaces\IEnumIDList.cs" />
+    <Compile Include="Shell\Interfaces\IEnumSTATSTG.cs" />
+    <Compile Include="Shell\Interfaces\IQueryInfo.cs" />
+    <Compile Include="Shell\Interfaces\IShellExtInit.cs" />
+    <Compile Include="Shell\Interfaces\IShellFolder.cs" />
+    <Compile Include="Shell\Interfaces\IStorage.cs" />
+    <Compile Include="Shell\Interfaces\IStream.cs" />
+    <Compile Include="Shell\PIDL.cs" />
+    <Compile Include="Shell\ShellAPI.cs" />
+    <Compile Include="Shell\ShellBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Shell\ShellBrowserUpdater.cs" />
+    <Compile Include="Shell\ShellFolder.cs" />
+    <Compile Include="Shell\ShellHelper.cs" />
+    <Compile Include="Shell\ShellImageList.cs" />
+    <Compile Include="Shell\ShellItem.cs" />
     <Compile Include="TestForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="TestForm.Designer.cs">
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BrowserWrapper\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

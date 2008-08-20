@@ -7,11 +7,16 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
+using ShellDll;
 
 namespace Commander
 {
     public partial class CommanderForm : Form
     {
+
+        private ShellBrowser shellBrowser = new ShellBrowser();
+        private ContextMenu contextMenu = new ContextMenu();
 
         private Dictionary<DriveType, int> imageIndexes = new Dictionary<DriveType, int>();
 
@@ -34,6 +39,8 @@ namespace Commander
 
         private void Load()
         {
+            ShellImageList.SetSmallImageList(leftListView);
+            ShellImageList.SetLargeImageList(leftListView);
             LoadDiskDrives(leftDrivesToolBar);
             LoadDiskDrives(rightDriveToolBar);
         }
@@ -49,9 +56,54 @@ namespace Commander
             return button;
         }
 
+        private ToolBarButton CreateDiskDriveButton(ShellItem drive)
+        {
+            ToolBarButton button = new ToolBarButton();
+            button.Name = string.Format("{0}DriveButton", drive.Text);
+            button.Text = drive.Text;
+            button.Tag = drive;
+            button.ImageIndex = drive.ImageIndex;
+
+            return button;
+        }
+
+
+        private ShellItem GetShellItem(string path)
+        {
+            IntPtr pidlPtr;
+            uint pchEaten = 0;
+            ShellAPI.SFGAO pdwAttributes = 0;
+            shellBrowser.DesktopItem.ShellFolder.ParseDisplayName(
+                IntPtr.Zero,
+                IntPtr.Zero,
+                path,
+                ref pchEaten,
+                out pidlPtr,
+                ref pdwAttributes);
+            PIDL pidl = new PIDL(pidlPtr, true);            
+            if (File.Exists(path))
+            {
+                path = Path.GetDirectoryName(path);
+            }
+            IntPtr shellFolder = ShellFolder.GetShellFolderIntPtr(path);
+            ShellItem item = new ShellItem(shellBrowser, pidlPtr, shellFolder);
+            return item;
+        }
+
+        
         private void LoadDiskDrives(ToolBar toolBar)
         {
             toolBar.Buttons.Clear();
+
+            //shellBrowser.DesktopItem.Expand(false, true, IntPtr.Zero);
+
+            /*
+
+            foreach (ShellItem desktopChild in shellBrowser.DesktopItem.SubFolders)
+            {
+                ToolBarButton button = CreateDiskDriveButton(desktopChild);
+                toolBar.Buttons.Add(button);
+            }*/
 
             DriveInfo[] allDrives = DriveInfo.GetDrives();
             foreach (DriveInfo d in allDrives)
@@ -83,15 +135,24 @@ namespace Commander
         private void LoadDirectory(DirectoryInfo directory)
         {
             leftListView.Items.Clear();
-            pathImageList.Images.Clear();
-            largePathImageList.Images.Clear();
+            //pathImageList.Images.Clear();
+            //largePathImageList.Images.Clear();
+
+            /*ShellItem item = GetShellItem(directory.FullName.Replace("\\", ""));
+
+            item.Expand(true, true, IntPtr.Zero);
+
+            foreach (ShellItem sub in item)
+            {
+                ListViewItem itm = leftListView.Items.Add(sub.Text, sub.ImageIndex);
+                itm.Tag = sub;
+            }*/
 
             foreach (FileSystemInfo fsi in directory.GetFileSystemInfos())
             {
-                leftListView.Items.Add(fsi.Name, GetImage(fsi));
+                ListViewItem itm = leftListView.Items.Add(fsi.Name, SafeNativeMethods.GetAssociatedIconIndex(fsi.FullName));
+                itm.Tag = fsi;
             }
-
-            
         }
 
 
@@ -117,5 +178,29 @@ namespace Commander
                 return -1;
             }
         }
+
+        private void leftListView_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (leftListView.SelectedItems.Count > 0)
+                {
+                    Point location = leftListView.PointToScreen(e.Location);
+                    ListViewItem selectItem = leftListView.SelectedItems[0];
+                    FileSystemInfo fsi = (FileSystemInfo)selectItem.Tag;
+                    if (fsi is FileInfo)
+                    {
+                        FileInfo[] list = new FileInfo[1];
+                        list[0] = (FileInfo)fsi;
+                        contextMenu.CreateNormalMenu(location, list);
+                    }
+                }
+            }
+        }
+
+        
+
+        
+        
     }
 }

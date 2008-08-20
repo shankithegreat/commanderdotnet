@@ -37,6 +37,7 @@
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.bottomPanel = new System.Windows.Forms.Panel();
+            this.testLabel = new System.Windows.Forms.Label();
             this.topPanel = new System.Windows.Forms.Panel();
             this.topSplitContainer = new System.Windows.Forms.SplitContainer();
             this.leftDrivesToolBar = new System.Windows.Forms.ToolBar();
@@ -46,9 +47,8 @@
             this.leftListView = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.pathImageList = new System.Windows.Forms.ImageList(this.components);
             this.largePathImageList = new System.Windows.Forms.ImageList(this.components);
-            this.testLabel = new System.Windows.Forms.Label();
+            this.pathImageList = new System.Windows.Forms.ImageList(this.components);
             this.toolStrip.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.topPanel.SuspendLayout();
@@ -111,6 +111,15 @@
             this.bottomPanel.Name = "bottomPanel";
             this.bottomPanel.Size = new System.Drawing.Size(580, 38);
             this.bottomPanel.TabIndex = 1;
+            // 
+            // testLabel
+            // 
+            this.testLabel.AutoSize = true;
+            this.testLabel.Location = new System.Drawing.Point(4, 13);
+            this.testLabel.Name = "testLabel";
+            this.testLabel.Size = new System.Drawing.Size(50, 13);
+            this.testLabel.TabIndex = 0;
+            this.testLabel.Text = "testLabel";
             // 
             // topPanel
             // 
@@ -205,6 +214,7 @@
             this.leftListView.TabIndex = 0;
             this.leftListView.UseCompatibleStateImageBehavior = false;
             this.leftListView.View = System.Windows.Forms.View.Details;
+            this.leftListView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.leftListView_MouseUp);
             // 
             // columnHeader1
             // 
@@ -214,26 +224,17 @@
             // 
             this.columnHeader2.Width = 98;
             // 
-            // pathImageList
-            // 
-            this.pathImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.pathImageList.ImageSize = new System.Drawing.Size(16, 16);
-            this.pathImageList.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // largePathImageList
             // 
             this.largePathImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
             this.largePathImageList.ImageSize = new System.Drawing.Size(32, 32);
             this.largePathImageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // testLabel
+            // pathImageList
             // 
-            this.testLabel.AutoSize = true;
-            this.testLabel.Location = new System.Drawing.Point(4, 13);
-            this.testLabel.Name = "testLabel";
-            this.testLabel.Size = new System.Drawing.Size(50, 13);
-            this.testLabel.TabIndex = 0;
-            this.testLabel.Text = "testLabel";
+            this.pathImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.pathImageList.ImageSize = new System.Drawing.Size(16, 16);
+            this.pathImageList.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // CommanderForm
             // 
