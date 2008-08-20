@@ -182,18 +182,19 @@ namespace Commander
         private void leftListView_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
-            {
+            { 
                 if (leftListView.SelectedItems.Count > 0)
                 {
                     Point location = leftListView.PointToScreen(e.Location);
-                    ListViewItem selectItem = leftListView.SelectedItems[0];
-                    FileSystemInfo fsi = (FileSystemInfo)selectItem.Tag;
-                    if (fsi is FileInfo)
+
+                    List<string> list = new List<string>(leftListView.SelectedItems.Count);
+                    foreach (ListViewItem selectItem in leftListView.SelectedItems)
                     {
-                        FileInfo[] list = new FileInfo[1];
-                        list[0] = (FileInfo)fsi;
-                        contextMenu.CreateNormalMenu(location, list);
+                        FileSystemInfo fsi = (FileSystemInfo)selectItem.Tag;
+                        list.Add(fsi.FullName);
                     }
+
+                    contextMenu.Show(location, list.ToArray());
                 }
             }
         }

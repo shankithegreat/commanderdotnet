@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
@@ -8,6 +9,27 @@ namespace ShellDll
 {
     public static class ShellFolder
     {
+        public static IntPtr GetPathPIDL(string path)
+        {
+            string parentDirectory = Path.GetDirectoryName(path);
+            string fileName = Path.GetFileName(path);
+
+            IShellFolder parentFolder = ShellFolder.GetShellFolder(parentDirectory);
+            if (parentFolder != null)
+            {
+                uint pchEaten = 0;
+                ShellAPI.SFGAO pdwAttributes = 0;
+                IntPtr pidl = IntPtr.Zero;
+                int result = parentFolder.ParseDisplayName(IntPtr.Zero, IntPtr.Zero, fileName, ref pchEaten, out pidl, ref pdwAttributes);
+                if (result == ShellAPI.S_OK)
+                {
+                    return pidl;
+                }
+            }
+
+            return IntPtr.Zero;
+        }
+
         public static IntPtr GetShellFolderIntPtr(string path)
         {
             IShellFolder desktopShellFolder = GetDesktopFolder();
@@ -48,11 +70,11 @@ namespace ShellDll
 
         public static IShellFolder GetDesktopFolder()
         {
-            IntPtr pUnkownDesktopFolder = IntPtr.Zero;
-            int nResult = ShellAPI.SHGetDesktopFolder(out pUnkownDesktopFolder);
-            IShellFolder _oDesktopFolder = (IShellFolder)Marshal.GetTypedObjectForIUnknown(pUnkownDesktopFolder, typeof(IShellFolder));
+            IntPtr desktopFolder = IntPtr.Zero;
+            int result = ShellAPI.SHGetDesktopFolder(out desktopFolder);
+            IShellFolder shellFolder = (IShellFolder)Marshal.GetTypedObjectForIUnknown(desktopFolder, typeof(IShellFolder));
 
-            return _oDesktopFolder;
+            return shellFolder;
         }
     }
 }

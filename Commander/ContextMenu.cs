@@ -72,57 +72,23 @@ namespace Commander
         
         
 
-        private static void FreePIDLs(IntPtr[] arrPIDLs)
+        private static IntPtr[] GetPIDLs(string[] pathList)
         {
-            if (null != arrPIDLs)
-            {
-                for (int n = 0; n < arrPIDLs.Length; n++)
-                {
-                    if (arrPIDLs[n] != IntPtr.Zero)
-                    {
-                        Marshal.FreeCoTaskMem(arrPIDLs[n]);
-                        arrPIDLs[n] = IntPtr.Zero;
-                    }
-                }
-            }
-        }
+            List<IntPtr> pidls = new List<IntPtr>(pathList.Length);
 
-        private static IntPtr[] GetPIDLs(FileInfo[] files)
-        {
-            if (null == files || 0 == files.Length)
+            foreach (string path in pathList)
             {
-                return null;
-            }
-
-            IShellFolder parentFolder = ShellFolder.GetShellFolder(files[0].DirectoryName);
-            if (null == parentFolder)
-            {
-                return null;
-            }
-
-            List<IntPtr> pidls = new List<IntPtr>(files.Length);
-            foreach (FileInfo file in files)
-            {
-                // Get the file relative to folder
-                uint pchEaten = 0;
-                ShellAPI.SFGAO pdwAttributes = 0;
-                IntPtr pidl = IntPtr.Zero;
-                int result = parentFolder.ParseDisplayName(IntPtr.Zero, IntPtr.Zero, file.Name, ref pchEaten, out pidl, ref pdwAttributes);
-                if (ShellAPI.S_OK != result)
-                {
-                    FreePIDLs(pidls.ToArray());
-                    return null;
-                }
-                pidls.Add(pidl);
+                pidls.Add(ShellFolder.GetPathPIDL(path));
             }
 
             return pidls.ToArray();
         }
 
-        public void CreateNormalMenu(Point location, FileInfo[] files)
+        public void Show(Point location, string[] pathList)
         {
-            IntPtr[] pidls = GetPIDLs(files);
-            IShellFolder parentShellFolder = ShellFolder.GetShellFolder(files[0].DirectoryName);
+            IntPtr[] pidls = GetPIDLs(pathList);
+            string parentDirectory = Path.GetDirectoryName(pathList[0]);
+            IShellFolder parentShellFolder = ShellFolder.GetShellFolder(parentDirectory);
 
             IntPtr contextMenu = IntPtr.Zero;
             IntPtr iContextMenuPtr = IntPtr.Zero;
@@ -185,7 +151,7 @@ namespace Commander
                             ContextMenuHelper.InvokeCommand(
                                 iContextMenu,
                                 selected - ShellAPI.CMD_FIRST,
-                                files[0].FullName,
+                                parentDirectory,
                                 location);
                         }
                     }
@@ -225,5 +191,7 @@ namespace Commander
                     Marshal.Release(iContextMenuPtr3);
             }
         }
+
+
     }
 }
