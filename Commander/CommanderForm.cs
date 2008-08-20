@@ -22,10 +22,11 @@ namespace Commander
         {
             InitializeComponent();
 
-            imageIndexes.Add(DriveType.Removable, 0);
+
             imageIndexes.Add(DriveType.Fixed, 1);
             imageIndexes.Add(DriveType.CDRom, 2);
-            imageIndexes.Add(DriveType.Network, 3);
+            imageIndexes.Add(DriveType.Removable, 3);
+            imageIndexes.Add(DriveType.Network, 4);
 
             Load();
 
@@ -121,6 +122,18 @@ namespace Commander
                     contextMenu.Show(location, list.ToArray());
                 }
             }
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            leftListView.View = View.Details;
+            rightListView.View = View.Details;
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            leftListView.View = View.Tile;
+            rightListView.View = View.Tile;
         }
 
         

@@ -36,6 +36,7 @@
             this.menuItem3 = new System.Windows.Forms.MenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.bottomPanel = new System.Windows.Forms.Panel();
             this.testLabel = new System.Windows.Forms.Label();
             this.topPanel = new System.Windows.Forms.Panel();
@@ -88,7 +89,8 @@
             // 
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1});
+            this.toolStripButton1,
+            this.toolStripButton2});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -104,6 +106,17 @@
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.Text = "toolStripButton";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton2.Text = "toolStripButton2";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // bottomPanel
             // 
@@ -172,7 +185,8 @@
             this.driveToolBarImageList.Images.SetKeyName(0, "flopydrive.png");
             this.driveToolBarImageList.Images.SetKeyName(1, "Drive.png");
             this.driveToolBarImageList.Images.SetKeyName(2, "cddrive.png");
-            this.driveToolBarImageList.Images.SetKeyName(3, "net.png");
+            this.driveToolBarImageList.Images.SetKeyName(3, "removabledrive.png");
+            this.driveToolBarImageList.Images.SetKeyName(4, "net.png");
             // 
             // rightDriveToolBar
             // 
@@ -213,10 +227,13 @@
             this.columnHeader1,
             this.columnHeader2});
             this.leftListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.leftListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.leftListView.FullRowSelect = true;
             this.leftListView.Location = new System.Drawing.Point(0, 0);
             this.leftListView.Name = "leftListView";
             this.leftListView.Size = new System.Drawing.Size(274, 254);
             this.leftListView.TabIndex = 0;
+            this.leftListView.TileSize = new System.Drawing.Size(188, 32);
             this.leftListView.UseCompatibleStateImageBehavior = false;
             this.leftListView.View = System.Windows.Forms.View.Details;
             this.leftListView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listView_MouseUp);
@@ -236,6 +253,7 @@
             this.columnHeader3,
             this.columnHeader4});
             this.rightListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rightListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rightListView.Location = new System.Drawing.Point(0, 0);
             this.rightListView.Name = "rightListView";
             this.rightListView.Size = new System.Drawing.Size(302, 254);
@@ -304,6 +322,7 @@
         private System.Windows.Forms.ListView rightListView;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
 
 
     }
