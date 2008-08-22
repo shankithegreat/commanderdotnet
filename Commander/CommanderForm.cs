@@ -22,6 +22,9 @@ namespace Commander
         {
             InitializeComponent();
 
+            leftDrivesToolBar.Tag = leftListView;
+            rightDriveToolBar.Tag = rightListView;
+
 
             imageIndexes.Add(DriveType.Fixed, 1);
             imageIndexes.Add(DriveType.CDRom, 2);
@@ -29,6 +32,11 @@ namespace Commander
             imageIndexes.Add(DriveType.Network, 4);
 
             Load();
+
+            toolStripButton2_Click(null, null);
+
+            drivesToolBar_ButtonClick(leftDrivesToolBar, new ToolBarButtonClickEventArgs(leftDrivesToolBar.Buttons[0]));
+            drivesToolBar_ButtonClick(rightDriveToolBar, new ToolBarButtonClickEventArgs(rightDriveToolBar.Buttons[1]));
 
 #if DEBUG
             //TestForm testForem = new TestForm();
@@ -72,10 +80,12 @@ namespace Commander
 
         private void drivesToolBar_ButtonClick(object sender, ToolBarButtonClickEventArgs e)
         {
-            SetPushedDriveButton((ToolBar)sender, e.Button);
+            ToolBar toolBar = (ToolBar)sender;
+            SetPushedDriveButton(toolBar, e.Button);
 
-            DriveInfo drive = (DriveInfo)e.Button.Tag;            
-            LoadDirectory(drive.RootDirectory);
+            ListView listView = (ListView)toolBar.Tag;
+            DriveInfo drive = (DriveInfo)e.Button.Tag;
+            LoadDirectory(listView, drive.RootDirectory);
         }
 
         private void SetPushedDriveButton(ToolBar toolBar, ToolBarButton button)
@@ -84,22 +94,26 @@ namespace Commander
 
             for (int i = 0; i < leftDrivesToolBar.Buttons.Count; i++)
             {
-                leftDrivesToolBar.Buttons[i].Pushed = (i == index);
-                rightDriveToolBar.Buttons[i].Pushed = leftDrivesToolBar.Buttons[i].Pushed;
+                toolBar.Buttons[i].Pushed = (i == index);
             }
         }
 
-        private void LoadDirectory(DirectoryInfo directory)
+        private void LoadDirectory(ListView listView, DirectoryInfo directory)
         {
-            leftListView.Items.Clear();
-            rightListView.Items.Clear();
+            if (directory == null)
+            {
+                return;
+            }
+
+            leftTitleLabel.Text = Path.Combine(directory.FullName, "*.*");
+
+            listView.Items.Clear();
+            listView.Tag = directory;
 
             foreach (FileSystemInfo fsi in directory.GetFileSystemInfos())
             {
-                ListViewItem item = leftListView.Items.Add(fsi.Name, SafeNativeMethods.GetAssociatedIconIndex(fsi.FullName));
+                ListViewItem item = listView.Items.Add(fsi.Name, SafeNativeMethods.GetAssociatedIconIndex(fsi.FullName));
                 item.Tag = fsi;
-                ListViewItem item2 = rightListView.Items.Add(fsi.Name, SafeNativeMethods.GetAssociatedIconIndex(fsi.FullName));
-                item2.Tag = fsi;
             }
         }
 
@@ -133,7 +147,44 @@ namespace Commander
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
             leftListView.View = View.Tile;
+            leftListView.TileSize = new Size(230, 32);
             rightListView.View = View.Tile;
+            rightListView.TileSize = new Size(230, 32);
+            
+            leftListView.View = View.Details;
+            rightListView.View = View.Details;
+
+            leftListView.View = View.Tile;
+            leftListView.TileSize = new Size(230, 32);
+            rightListView.View = View.Tile;
+            rightListView.TileSize = new Size(230, 32);
+        }
+
+        private void listView_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ListView listView = (ListView)sender;
+            if (listView.SelectedItems.Count > 0)
+            {
+                FileSystemInfo fsi = (FileSystemInfo)listView.SelectedItems[0].Tag;
+                if (fsi is DirectoryInfo)
+                {
+                    DirectoryInfo directory = (DirectoryInfo)fsi;
+                    LoadDirectory(listView, directory);
+                }
+            }
+
+        }
+
+        private void upButton_Click(object sender, EventArgs e)
+        {
+            DirectoryInfo directory = (DirectoryInfo)leftListView.Tag;
+            LoadDirectory(leftListView, directory.Parent);
+        }
+
+        private void rootButton_Click(object sender, EventArgs e)
+        {
+            DirectoryInfo directory = (DirectoryInfo)leftListView.Tag;
+            LoadDirectory(leftListView, directory.Root);
         }
 
         
