@@ -59,11 +59,20 @@
     </Compile>
     <Compile Include="ContextMenu.cs" />
     <Compile Include="ContextMenuHelper.cs" />
+    <Compile Include="FileView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FileView.Designer.cs">
+      <DependentUpon>FileView.cs</DependentUpon>
+    </Compile>
     <Compile Include="SafeNativeMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CommanderForm.resx">
       <DependentUpon>CommanderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileView.resx">
+      <DependentUpon>FileView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -112,6 +121,7 @@
     <Compile Include="Shell\ShellHelper.cs" />
     <Compile Include="Shell\ShellImageList.cs" />
     <Compile Include="Shell\ShellItem.cs" />
+    <Compile Include="Shell\SpecialFolders.cs" />
     <Compile Include="TestForm.cs">
       <SubType>Form</SubType>
     </Compile>

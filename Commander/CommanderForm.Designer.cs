@@ -45,29 +45,9 @@
             this.driveToolBarImageList = new System.Windows.Forms.ImageList(this.components);
             this.rightDriveToolBar = new System.Windows.Forms.ToolBar();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.leftListView = new System.Windows.Forms.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.leftTitlePanel = new System.Windows.Forms.Panel();
-            this.leftTitleLabel = new System.Windows.Forms.Label();
-            this.leftLinkButton = new System.Windows.Forms.Button();
+            this.leftFileView = new Commander.FileView();
+            this.rightFileView = new Commander.FileView();
             this.listImageList = new System.Windows.Forms.ImageList(this.components);
-            this.leftHistoryButton = new System.Windows.Forms.Button();
-            this.leftHintListPanel = new System.Windows.Forms.Panel();
-            this.leftHintLabel = new System.Windows.Forms.Label();
-            this.leftRootButton = new System.Windows.Forms.Button();
-            this.leftUpButton = new System.Windows.Forms.Button();
-            this.rightListView = new System.Windows.Forms.ListView();
-            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
-            this.rightTitlePanel = new System.Windows.Forms.Panel();
-            this.rightTitleLabel = new System.Windows.Forms.Label();
-            this.rightLinkButton = new System.Windows.Forms.Button();
-            this.rightHistoryButton = new System.Windows.Forms.Button();
-            this.rightHintPanel = new System.Windows.Forms.Panel();
-            this.rightHintLabel = new System.Windows.Forms.Label();
-            this.rightRootButton = new System.Windows.Forms.Button();
-            this.rightUpButton = new System.Windows.Forms.Button();
             this.toolStrip.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.topPanel.SuspendLayout();
@@ -77,10 +57,6 @@
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
-            this.leftTitlePanel.SuspendLayout();
-            this.leftHintListPanel.SuspendLayout();
-            this.rightTitlePanel.SuspendLayout();
-            this.rightHintPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenu
@@ -143,7 +119,7 @@
             // 
             this.bottomPanel.Controls.Add(this.testLabel);
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomPanel.Location = new System.Drawing.Point(0, 312);
+            this.bottomPanel.Location = new System.Drawing.Point(0, 249);
             this.bottomPanel.Name = "bottomPanel";
             this.bottomPanel.Size = new System.Drawing.Size(580, 38);
             this.bottomPanel.TabIndex = 1;
@@ -199,6 +175,7 @@
             this.leftDrivesToolBar.TabIndex = 0;
             this.leftDrivesToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right;
             this.leftDrivesToolBar.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler(this.drivesToolBar_ButtonClick);
+            this.leftDrivesToolBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.leftDrivesToolBar_MouseUp);
             // 
             // driveToolBarImageList
             // 
@@ -236,89 +213,30 @@
             // 
             // splitContainer.Panel1
             // 
-            this.splitContainer.Panel1.Controls.Add(this.leftListView);
-            this.splitContainer.Panel1.Controls.Add(this.leftTitlePanel);
-            this.splitContainer.Panel1.Controls.Add(this.leftHintListPanel);
+            this.splitContainer.Panel1.Controls.Add(this.leftFileView);
             // 
             // splitContainer.Panel2
             // 
-            this.splitContainer.Panel2.Controls.Add(this.rightListView);
-            this.splitContainer.Panel2.Controls.Add(this.rightTitlePanel);
-            this.splitContainer.Panel2.Controls.Add(this.rightHintPanel);
-            this.splitContainer.Size = new System.Drawing.Size(580, 254);
+            this.splitContainer.Panel2.Controls.Add(this.rightFileView);
+            this.splitContainer.Size = new System.Drawing.Size(580, 191);
             this.splitContainer.SplitterDistance = 274;
             this.splitContainer.TabIndex = 3;
             // 
-            // leftListView
+            // leftFileView
             // 
-            this.leftListView.BackColor = System.Drawing.Color.Silver;
-            this.leftListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
-            this.leftListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.leftListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.leftListView.FullRowSelect = true;
-            this.leftListView.Location = new System.Drawing.Point(0, 40);
-            this.leftListView.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.leftListView.Name = "leftListView";
-            this.leftListView.Size = new System.Drawing.Size(274, 214);
-            this.leftListView.TabIndex = 0;
-            this.leftListView.TileSize = new System.Drawing.Size(188, 32);
-            this.leftListView.UseCompatibleStateImageBehavior = false;
-            this.leftListView.View = System.Windows.Forms.View.Details;
-            this.leftListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_MouseDoubleClick);
-            this.leftListView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listView_MouseUp);
+            this.leftFileView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.leftFileView.Location = new System.Drawing.Point(0, 0);
+            this.leftFileView.Name = "leftFileView";
+            this.leftFileView.Size = new System.Drawing.Size(274, 191);
+            this.leftFileView.TabIndex = 0;
             // 
-            // columnHeader1
+            // rightFileView
             // 
-            this.columnHeader1.Width = 200;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Width = 10;
-            // 
-            // leftTitlePanel
-            // 
-            this.leftTitlePanel.AutoSize = true;
-            this.leftTitlePanel.Controls.Add(this.leftTitleLabel);
-            this.leftTitlePanel.Controls.Add(this.leftLinkButton);
-            this.leftTitlePanel.Controls.Add(this.leftHistoryButton);
-            this.leftTitlePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.leftTitlePanel.Location = new System.Drawing.Point(0, 20);
-            this.leftTitlePanel.MinimumSize = new System.Drawing.Size(0, 20);
-            this.leftTitlePanel.Name = "leftTitlePanel";
-            this.leftTitlePanel.Size = new System.Drawing.Size(274, 20);
-            this.leftTitlePanel.TabIndex = 2;
-            // 
-            // leftTitleLabel
-            // 
-            this.leftTitleLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.leftTitleLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.leftTitleLabel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.leftTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.leftTitleLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.leftTitleLabel.Location = new System.Drawing.Point(1, 1);
-            this.leftTitleLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.leftTitleLabel.MinimumSize = new System.Drawing.Size(0, 15);
-            this.leftTitleLabel.Name = "leftTitleLabel";
-            this.leftTitleLabel.Size = new System.Drawing.Size(232, 17);
-            this.leftTitleLabel.TabIndex = 0;
-            this.leftTitleLabel.Text = "c:\\*.*";
-            this.leftTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // leftLinkButton
-            // 
-            this.leftLinkButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.leftLinkButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.leftLinkButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.leftLinkButton.ImageKey = "star";
-            this.leftLinkButton.ImageList = this.listImageList;
-            this.leftLinkButton.Location = new System.Drawing.Point(232, 0);
-            this.leftLinkButton.Margin = new System.Windows.Forms.Padding(0);
-            this.leftLinkButton.Name = "leftLinkButton";
-            this.leftLinkButton.Size = new System.Drawing.Size(21, 20);
-            this.leftLinkButton.TabIndex = 2;
-            this.leftLinkButton.UseVisualStyleBackColor = true;
+            this.rightFileView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rightFileView.Location = new System.Drawing.Point(0, 0);
+            this.rightFileView.Name = "rightFileView";
+            this.rightFileView.Size = new System.Drawing.Size(302, 191);
+            this.rightFileView.TabIndex = 1;
             // 
             // listImageList
             // 
@@ -327,211 +245,11 @@
             this.listImageList.Images.SetKeyName(0, "star");
             this.listImageList.Images.SetKeyName(1, "downList");
             // 
-            // leftHistoryButton
-            // 
-            this.leftHistoryButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.leftHistoryButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.leftHistoryButton.ImageKey = "downList";
-            this.leftHistoryButton.ImageList = this.listImageList;
-            this.leftHistoryButton.Location = new System.Drawing.Point(253, 0);
-            this.leftHistoryButton.Margin = new System.Windows.Forms.Padding(0);
-            this.leftHistoryButton.Name = "leftHistoryButton";
-            this.leftHistoryButton.Size = new System.Drawing.Size(21, 20);
-            this.leftHistoryButton.TabIndex = 1;
-            this.leftHistoryButton.UseVisualStyleBackColor = true;
-            // 
-            // leftHintListPanel
-            // 
-            this.leftHintListPanel.AutoSize = true;
-            this.leftHintListPanel.Controls.Add(this.leftHintLabel);
-            this.leftHintListPanel.Controls.Add(this.leftRootButton);
-            this.leftHintListPanel.Controls.Add(this.leftUpButton);
-            this.leftHintListPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.leftHintListPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.leftHintListPanel.Location = new System.Drawing.Point(0, 0);
-            this.leftHintListPanel.MinimumSize = new System.Drawing.Size(0, 20);
-            this.leftHintListPanel.Name = "leftHintListPanel";
-            this.leftHintListPanel.Size = new System.Drawing.Size(274, 20);
-            this.leftHintListPanel.TabIndex = 1;
-            // 
-            // leftHintLabel
-            // 
-            this.leftHintLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.leftHintLabel.Location = new System.Drawing.Point(0, 0);
-            this.leftHintLabel.Name = "leftHintLabel";
-            this.leftHintLabel.Size = new System.Drawing.Size(228, 20);
-            this.leftHintLabel.TabIndex = 3;
-            this.leftHintLabel.Text = "Title";
-            this.leftHintLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // leftRootButton
-            // 
-            this.leftRootButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.leftRootButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.leftRootButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.leftRootButton.Location = new System.Drawing.Point(228, 0);
-            this.leftRootButton.Margin = new System.Windows.Forms.Padding(0);
-            this.leftRootButton.Name = "leftRootButton";
-            this.leftRootButton.Size = new System.Drawing.Size(23, 20);
-            this.leftRootButton.TabIndex = 2;
-            this.leftRootButton.Text = "\\";
-            this.leftRootButton.UseVisualStyleBackColor = true;
-            this.leftRootButton.Click += new System.EventHandler(this.rootButton_Click);
-            // 
-            // leftUpButton
-            // 
-            this.leftUpButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.leftUpButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.leftUpButton.Location = new System.Drawing.Point(251, 0);
-            this.leftUpButton.Margin = new System.Windows.Forms.Padding(0);
-            this.leftUpButton.Name = "leftUpButton";
-            this.leftUpButton.Size = new System.Drawing.Size(23, 20);
-            this.leftUpButton.TabIndex = 1;
-            this.leftUpButton.Text = "..";
-            this.leftUpButton.UseVisualStyleBackColor = true;
-            this.leftUpButton.Click += new System.EventHandler(this.upButton_Click);
-            // 
-            // rightListView
-            // 
-            this.rightListView.BackColor = System.Drawing.Color.Silver;
-            this.rightListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader3,
-            this.columnHeader4});
-            this.rightListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rightListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rightListView.Location = new System.Drawing.Point(0, 40);
-            this.rightListView.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.rightListView.Name = "rightListView";
-            this.rightListView.Size = new System.Drawing.Size(302, 214);
-            this.rightListView.TabIndex = 1;
-            this.rightListView.UseCompatibleStateImageBehavior = false;
-            this.rightListView.View = System.Windows.Forms.View.Details;
-            this.rightListView.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView_MouseDoubleClick);
-            this.rightListView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listView_MouseUp);
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Width = 200;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Width = 10;
-            // 
-            // rightTitlePanel
-            // 
-            this.rightTitlePanel.AutoSize = true;
-            this.rightTitlePanel.Controls.Add(this.rightTitleLabel);
-            this.rightTitlePanel.Controls.Add(this.rightLinkButton);
-            this.rightTitlePanel.Controls.Add(this.rightHistoryButton);
-            this.rightTitlePanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.rightTitlePanel.Location = new System.Drawing.Point(0, 20);
-            this.rightTitlePanel.MinimumSize = new System.Drawing.Size(0, 20);
-            this.rightTitlePanel.Name = "rightTitlePanel";
-            this.rightTitlePanel.Size = new System.Drawing.Size(302, 20);
-            this.rightTitlePanel.TabIndex = 3;
-            // 
-            // rightTitleLabel
-            // 
-            this.rightTitleLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.rightTitleLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.rightTitleLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.rightTitleLabel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.rightTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rightTitleLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.rightTitleLabel.Location = new System.Drawing.Point(1, 1);
-            this.rightTitleLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.rightTitleLabel.MinimumSize = new System.Drawing.Size(0, 15);
-            this.rightTitleLabel.Name = "rightTitleLabel";
-            this.rightTitleLabel.Size = new System.Drawing.Size(259, 17);
-            this.rightTitleLabel.TabIndex = 0;
-            this.rightTitleLabel.Text = "c:\\*.*";
-            this.rightTitleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // rightLinkButton
-            // 
-            this.rightLinkButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.rightLinkButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.rightLinkButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rightLinkButton.ImageKey = "star";
-            this.rightLinkButton.ImageList = this.listImageList;
-            this.rightLinkButton.Location = new System.Drawing.Point(260, 0);
-            this.rightLinkButton.Margin = new System.Windows.Forms.Padding(0);
-            this.rightLinkButton.Name = "rightLinkButton";
-            this.rightLinkButton.Size = new System.Drawing.Size(21, 20);
-            this.rightLinkButton.TabIndex = 2;
-            this.rightLinkButton.UseVisualStyleBackColor = true;
-            // 
-            // rightHistoryButton
-            // 
-            this.rightHistoryButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.rightHistoryButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.rightHistoryButton.ImageKey = "downList";
-            this.rightHistoryButton.ImageList = this.listImageList;
-            this.rightHistoryButton.Location = new System.Drawing.Point(281, 0);
-            this.rightHistoryButton.Margin = new System.Windows.Forms.Padding(0);
-            this.rightHistoryButton.Name = "rightHistoryButton";
-            this.rightHistoryButton.Size = new System.Drawing.Size(21, 20);
-            this.rightHistoryButton.TabIndex = 1;
-            this.rightHistoryButton.UseVisualStyleBackColor = true;
-            // 
-            // rightHintPanel
-            // 
-            this.rightHintPanel.AutoSize = true;
-            this.rightHintPanel.Controls.Add(this.rightHintLabel);
-            this.rightHintPanel.Controls.Add(this.rightRootButton);
-            this.rightHintPanel.Controls.Add(this.rightUpButton);
-            this.rightHintPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.rightHintPanel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rightHintPanel.Location = new System.Drawing.Point(0, 0);
-            this.rightHintPanel.MinimumSize = new System.Drawing.Size(0, 20);
-            this.rightHintPanel.Name = "rightHintPanel";
-            this.rightHintPanel.Size = new System.Drawing.Size(302, 20);
-            this.rightHintPanel.TabIndex = 2;
-            // 
-            // rightHintLabel
-            // 
-            this.rightHintLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rightHintLabel.Location = new System.Drawing.Point(0, 0);
-            this.rightHintLabel.Name = "rightHintLabel";
-            this.rightHintLabel.Size = new System.Drawing.Size(256, 20);
-            this.rightHintLabel.TabIndex = 3;
-            this.rightHintLabel.Text = "Title";
-            this.rightHintLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // rightRootButton
-            // 
-            this.rightRootButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.rightRootButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.rightRootButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rightRootButton.Location = new System.Drawing.Point(256, 0);
-            this.rightRootButton.Margin = new System.Windows.Forms.Padding(0);
-            this.rightRootButton.Name = "rightRootButton";
-            this.rightRootButton.Size = new System.Drawing.Size(23, 20);
-            this.rightRootButton.TabIndex = 2;
-            this.rightRootButton.Text = "\\";
-            this.rightRootButton.UseVisualStyleBackColor = true;
-            this.rightRootButton.Click += new System.EventHandler(this.rootButton_Click);
-            // 
-            // rightUpButton
-            // 
-            this.rightUpButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.rightUpButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.rightUpButton.Location = new System.Drawing.Point(279, 0);
-            this.rightUpButton.Margin = new System.Windows.Forms.Padding(0);
-            this.rightUpButton.Name = "rightUpButton";
-            this.rightUpButton.Size = new System.Drawing.Size(23, 20);
-            this.rightUpButton.TabIndex = 1;
-            this.rightUpButton.Text = "..";
-            this.rightUpButton.UseVisualStyleBackColor = true;
-            this.rightUpButton.Click += new System.EventHandler(this.upButton_Click);
-            // 
             // CommanderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(580, 350);
+            this.ClientSize = new System.Drawing.Size(580, 287);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.bottomPanel);
@@ -550,14 +268,8 @@
             this.topSplitContainer.Panel2.PerformLayout();
             this.topSplitContainer.ResumeLayout(false);
             this.splitContainer.Panel1.ResumeLayout(false);
-            this.splitContainer.Panel1.PerformLayout();
             this.splitContainer.Panel2.ResumeLayout(false);
-            this.splitContainer.Panel2.PerformLayout();
             this.splitContainer.ResumeLayout(false);
-            this.leftTitlePanel.ResumeLayout(false);
-            this.leftHintListPanel.ResumeLayout(false);
-            this.rightTitlePanel.ResumeLayout(false);
-            this.rightHintPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -577,32 +289,12 @@
         private System.Windows.Forms.SplitContainer topSplitContainer;
         private System.Windows.Forms.ToolBar leftDrivesToolBar;
         private System.Windows.Forms.ToolBar rightDriveToolBar;
-        private System.Windows.Forms.ListView leftListView;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.Label testLabel;
         private System.Windows.Forms.ImageList driveToolBarImageList;
-        private System.Windows.Forms.ListView rightListView;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
-        private System.Windows.Forms.Panel leftHintListPanel;
         private System.Windows.Forms.ImageList listImageList;
-        private System.Windows.Forms.Button leftRootButton;
-        private System.Windows.Forms.Button leftUpButton;
-        private System.Windows.Forms.Panel leftTitlePanel;
-        private System.Windows.Forms.Label leftTitleLabel;
-        private System.Windows.Forms.Button leftLinkButton;
-        private System.Windows.Forms.Button leftHistoryButton;
-        private System.Windows.Forms.Label leftHintLabel;
-        private System.Windows.Forms.Panel rightTitlePanel;
-        private System.Windows.Forms.Label rightTitleLabel;
-        private System.Windows.Forms.Button rightLinkButton;
-        private System.Windows.Forms.Button rightHistoryButton;
-        private System.Windows.Forms.Panel rightHintPanel;
-        private System.Windows.Forms.Label rightHintLabel;
-        private System.Windows.Forms.Button rightRootButton;
-        private System.Windows.Forms.Button rightUpButton;
+        private FileView leftFileView;
+        private FileView rightFileView;
 
 
     }

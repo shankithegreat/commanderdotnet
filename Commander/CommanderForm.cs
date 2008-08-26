@@ -14,16 +14,14 @@ namespace Commander
 {
     public partial class CommanderForm : Form
     {
-        private ContextMenu contextMenu = new ContextMenu();
-
         private Dictionary<DriveType, int> imageIndexes = new Dictionary<DriveType, int>();
 
         public CommanderForm()
         {
             InitializeComponent();
 
-            leftDrivesToolBar.Tag = leftListView;
-            rightDriveToolBar.Tag = rightListView;
+            leftDrivesToolBar.Tag = leftFileView;
+            rightDriveToolBar.Tag = rightFileView;
 
 
             imageIndexes.Add(DriveType.Fixed, 1);
@@ -46,10 +44,6 @@ namespace Commander
 
         private void Load()
         {
-            ShellImageList.SetSmallImageList(leftListView);
-            ShellImageList.SetLargeImageList(leftListView);
-            ShellImageList.SetSmallImageList(rightListView);
-            ShellImageList.SetLargeImageList(rightListView);
             LoadDiskDrives(leftDrivesToolBar);
             LoadDiskDrives(rightDriveToolBar);
         }
@@ -60,11 +54,11 @@ namespace Commander
             button.Name = string.Format("{0}DriveButton", drive.Name.ToLower());
             button.Text = drive.Name.Remove(drive.Name.Length - 2, 2).ToLower();
             button.Tag = drive;
-            button.ImageIndex = imageIndexes[drive.DriveType];
+            button.ImageIndex = imageIndexes[drive.DriveType];            
+
 
             return button;
         }
-
         
         private void LoadDiskDrives(ToolBar toolBar)
         {
@@ -83,9 +77,9 @@ namespace Commander
             ToolBar toolBar = (ToolBar)sender;
             SetPushedDriveButton(toolBar, e.Button);
 
-            ListView listView = (ListView)toolBar.Tag;
+            FileView fileView = (FileView)toolBar.Tag;
             DriveInfo drive = (DriveInfo)e.Button.Tag;
-            LoadDirectory(listView, drive.RootDirectory);
+            fileView.LoadDirectory(drive.RootDirectory);
         }
 
         private void SetPushedDriveButton(ToolBar toolBar, ToolBarButton button)
@@ -98,55 +92,15 @@ namespace Commander
             }
         }
 
-        private void LoadDirectory(ListView listView, DirectoryInfo directory)
-        {
-            if (directory == null)
-            {
-                return;
-            }
-
-            leftTitleLabel.Text = Path.Combine(directory.FullName, "*.*");
-
-            listView.Items.Clear();
-            listView.Tag = directory;
-
-            foreach (FileSystemInfo fsi in directory.GetFileSystemInfos())
-            {
-                ListViewItem item = listView.Items.Add(fsi.Name, SafeNativeMethods.GetAssociatedIconIndex(fsi.FullName));
-                item.Tag = fsi;
-            }
-        }
-
-        private void listView_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right && sender is ListView)
-            {
-                ListView listView = (ListView)sender;
-                if (leftListView.SelectedItems.Count > 0)
-                {
-                    Point location = listView.PointToScreen(e.Location);
-
-                    List<string> list = new List<string>(listView.SelectedItems.Count);
-                    foreach (ListViewItem selectItem in listView.SelectedItems)
-                    {
-                        FileSystemInfo fsi = (FileSystemInfo)selectItem.Tag;
-                        list.Add(fsi.FullName);
-                    }
-
-                    contextMenu.Show(location, list.ToArray());
-                }
-            }
-        }
-
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            leftListView.View = View.Details;
-            rightListView.View = View.Details;
+            //leftListView.View = View.Details;
+            //rightListView.View = View.Details;
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            leftListView.View = View.Tile;
+            /*leftListView.View = View.Tile;
             leftListView.TileSize = new Size(230, 32);
             rightListView.View = View.Tile;
             rightListView.TileSize = new Size(230, 32);
@@ -157,39 +111,13 @@ namespace Commander
             leftListView.View = View.Tile;
             leftListView.TileSize = new Size(230, 32);
             rightListView.View = View.Tile;
-            rightListView.TileSize = new Size(230, 32);
+            rightListView.TileSize = new Size(230, 32);*/
         }
 
-        private void listView_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void leftDrivesToolBar_MouseUp(object sender, MouseEventArgs e)
         {
-            ListView listView = (ListView)sender;
-            if (listView.SelectedItems.Count > 0)
-            {
-                FileSystemInfo fsi = (FileSystemInfo)listView.SelectedItems[0].Tag;
-                if (fsi is DirectoryInfo)
-                {
-                    DirectoryInfo directory = (DirectoryInfo)fsi;
-                    LoadDirectory(listView, directory);
-                }
-            }
-
+            Control control = leftDrivesToolBar.GetChildAtPoint(e.Location);
         }
 
-        private void upButton_Click(object sender, EventArgs e)
-        {
-            DirectoryInfo directory = (DirectoryInfo)leftListView.Tag;
-            LoadDirectory(leftListView, directory.Parent);
-        }
-
-        private void rootButton_Click(object sender, EventArgs e)
-        {
-            DirectoryInfo directory = (DirectoryInfo)leftListView.Tag;
-            LoadDirectory(leftListView, directory.Root);
-        }
-
-        
-
-        
-        
     }
 }

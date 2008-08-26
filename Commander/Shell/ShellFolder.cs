@@ -12,7 +12,15 @@ namespace ShellDll
         public static IntPtr GetPathPIDL(string path)
         {
             string parentDirectory = Path.GetDirectoryName(path);
+            if (parentDirectory == null)
+            {
+                parentDirectory = SpecialFolderPath.MyComputer;
+            }
             string fileName = Path.GetFileName(path);
+            if (string.IsNullOrEmpty(fileName))
+            {
+                fileName = path;
+            }
 
             IShellFolder parentFolder = ShellFolder.GetShellFolder(parentDirectory);
             if (parentFolder != null)

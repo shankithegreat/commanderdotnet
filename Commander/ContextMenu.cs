@@ -86,6 +86,10 @@ namespace Commander
         {
             IntPtr[] pidls = GetPIDLs(pathList);
             string parentDirectory = Path.GetDirectoryName(pathList[0]);
+            if (parentDirectory == null)
+            {
+                parentDirectory = SpecialFolderPath.MyComputer;
+            }
             IShellFolder parentShellFolder = ShellFolder.GetShellFolder(parentDirectory);
 
             IntPtr contextMenu = IntPtr.Zero;
@@ -154,7 +158,12 @@ namespace Commander
                     }
                 }
             }
-            catch (Exception) { }
+            catch (Exception e) 
+            {
+#if DEBUG
+                MessageBox.Show("", e.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
+#endif
+            }
             finally
             {
                 if (iContextMenu != null)
