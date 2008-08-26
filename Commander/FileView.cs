@@ -24,6 +24,14 @@ namespace Commander
             ShellImageList.SetLargeImageList(listView);
         }
 
+        public ListView ListView
+        {
+            get
+            {
+                return listView;
+            }
+        }
+
 
         public void LoadDirectory(DirectoryInfo directory)
         {
@@ -32,12 +40,24 @@ namespace Commander
                 return;
             }
 
+            FileSystemInfo[] list;
+
+            try
+            {
+                list = directory.GetFileSystemInfos();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             titleLabel.Text = Path.Combine(directory.FullName, "*.*");
 
             listView.Items.Clear();
             listView.Tag = directory;
 
-            foreach (FileSystemInfo fsi in directory.GetFileSystemInfos())
+            foreach (FileSystemInfo fsi in list)
             {
                 ListViewItem item = listView.Items.Add(fsi.Name, SafeNativeMethods.GetAssociatedIconIndex(fsi.FullName));
                 item.Tag = fsi;
@@ -65,12 +85,6 @@ namespace Commander
                     contextMenu.Show(location, list.ToArray());
                 }
             }
-        }
-
-        private void listView_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            
-
         }
 
         private void upButton_Click(object sender, EventArgs e)
