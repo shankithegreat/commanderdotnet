@@ -57,7 +57,7 @@
     <Compile Include="CommanderForm.Designer.cs">
       <DependentUpon>CommanderForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ContextMenu.cs" />
+    <Compile Include="ShellContextMenu.cs" />
     <Compile Include="ContextMenuHelper.cs" />
     <Compile Include="FileView.cs">
       <SubType>UserControl</SubType>

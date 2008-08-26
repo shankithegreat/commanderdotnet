@@ -13,7 +13,7 @@ namespace Commander
 {
     public partial class FileView : UserControl
     {
-        private ContextMenu contextMenu = new ContextMenu();
+        private ShellContextMenu contextMenu = new ShellContextMenu();
         private DirectoryInfo selectedDirectory = null;
 
         public FileView()
@@ -69,16 +69,7 @@ namespace Commander
 
         private void listView_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            ListView listView = (ListView)sender;
-            if (listView.SelectedItems.Count > 0)
-            {
-                FileSystemInfo fsi = (FileSystemInfo)listView.SelectedItems[0].Tag;
-                if (fsi is DirectoryInfo)
-                {
-                    DirectoryInfo directory = (DirectoryInfo)fsi;
-                    LoadDirectory(directory);
-                }
-            }
+            
 
         }
 
@@ -100,12 +91,22 @@ namespace Commander
             {
                 Point location = ((Control)sender).PointToScreen(e.Location);
 
-                List<string> list = new List<string>(1);
-                list.Add(selectedDirectory.FullName);
-                
-                contextMenu.Show(location, list.ToArray());
+                contextMenu.Show(location, selectedDirectory.FullName);
             }
         }
 
+        private void listView_ItemActivate(object sender, EventArgs e)
+        {
+            FileSystemInfo fsi = (FileSystemInfo)listView.SelectedItems[0].Tag;
+            if (fsi is DirectoryInfo)
+            {
+                DirectoryInfo directory = (DirectoryInfo)fsi;
+                LoadDirectory(directory);
+            }
+            else
+            {
+                contextMenu.DefaultCommand((FileInfo)fsi);
+            }
+        }
     }
 }

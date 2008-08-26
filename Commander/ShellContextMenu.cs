@@ -10,14 +10,14 @@ using ShellDll;
 
 namespace Commander
 {
-    public class ContextMenu : NativeWindow
+    public class ShellContextMenu : NativeWindow
     {
         private IContextMenu iContextMenu, newContextMenu;
         private IContextMenu2 iContextMenu2, newContextMenu2;
         private IContextMenu3 iContextMenu3, newContextMenu3;
         private IntPtr newSubmenuPtr;
 
-        public ContextMenu()
+        public ShellContextMenu()
         {
             this.CreateHandle(new CreateParams());
         }
@@ -70,7 +70,7 @@ namespace Commander
             base.WndProc(ref m);
         }
 
-        private static IntPtr[] GetPIDLs(string[] pathList)
+        private static IntPtr[] GetPIDLs(params string[] pathList)
         {
             List<IntPtr> pidls = new List<IntPtr>(pathList.Length);
 
@@ -82,7 +82,7 @@ namespace Commander
             return pidls.ToArray();
         }
 
-        public void Show(Point location, string[] pathList)
+        public void Show(Point location, params string[] pathList)
         {
             IntPtr[] pidls = GetPIDLs(pathList);
             string parentDirectory = Path.GetDirectoryName(pathList[0]);
@@ -195,6 +195,63 @@ namespace Commander
 
                 if (iContextMenuPtr3 != IntPtr.Zero)
                     Marshal.Release(iContextMenuPtr3);
+            }
+        }
+
+        public void DefaultCommand(FileInfo file)
+        {
+            DefaultCommand(file.FullName, file.DirectoryName);
+        }
+
+        public void DefaultCommand(string path)
+        {
+            string parentDirectory = Path.GetDirectoryName(path);
+            DefaultCommand(path, parentDirectory);
+        }
+
+        private void DefaultCommand(string path, string parentDirectory)
+        {
+            IntPtr[] pidls = GetPIDLs(path);
+
+            IntPtr icontextMenuPtr = IntPtr.Zero, context2Ptr = IntPtr.Zero, context3Ptr = IntPtr.Zero;
+            ContextMenu contextMenu = new ContextMenu();
+            IShellFolder parentShellFolder = ShellFolder.GetShellFolder(parentDirectory);
+
+            try
+            {
+                if (ContextMenuHelper.GetIContextMenu(parentShellFolder, pidls, out icontextMenuPtr, out iContextMenu))
+                {
+                    iContextMenu.QueryContextMenu(
+                        contextMenu.Handle,
+                        0,
+                        ShellAPI.CMD_FIRST,
+                        ShellAPI.CMD_LAST,
+                        ShellAPI.CMF.DEFAULTONLY);
+
+                    int defaultCommand = ShellAPI.GetMenuDefaultItem(contextMenu.Handle, false, 0);
+                    if (defaultCommand >= ShellAPI.CMD_FIRST)
+                    {
+                        ContextMenuHelper.InvokeCommand(
+                            iContextMenu,
+                            (uint)defaultCommand - ShellAPI.CMD_FIRST,
+                            parentDirectory,
+                            Control.MousePosition);
+                    }
+                }
+            }
+            catch (Exception) { }
+            finally
+            {
+                if (iContextMenu != null)
+                {
+                    Marshal.ReleaseComObject(iContextMenu);
+                    iContextMenu = null;
+                }
+
+                if (contextMenu.Handle != null)
+                    Marshal.FreeCoTaskMem(contextMenu.Handle);
+
+                Marshal.Release(icontextMenuPtr);
             }
         }
     }

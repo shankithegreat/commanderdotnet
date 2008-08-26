@@ -119,5 +119,31 @@ namespace Commander
             Control control = leftDrivesToolBar.GetChildAtPoint(e.Location);
         }
 
+        private void splitContainer_SplitterMoving(object sender, SplitterCancelEventArgs e)
+        {
+            //ShowSpliToolTip(e.MouseCursorX, e.MouseCursorY, e.SplitX);
+        }
+
+        private void splitContainer_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            topSplitContainer.SplitterDistance = e.SplitX;
+        }
+
+        private void ShowSpliToolTip(int x, int y, int splitterDistance)
+        {
+            int value = (int)(((float)splitterDistance) / (splitContainer.Width - splitContainer.SplitterWidth) * 100);
+            splitToolTip.Show(string.Format("{0}%", value), splitContainer, x, y - 20);
+        }
+
+        private void splitContainer_MouseDown(object sender, MouseEventArgs e)
+        {
+            //ShowSpliToolTip(e.X, e.Y, splitContainer.SplitterDistance);
+        }
+
+        private void splitContainer_MouseUp(object sender, MouseEventArgs e)
+        {
+            //splitToolTip.Hide(splitContainer);
+        }
+
     }
 }

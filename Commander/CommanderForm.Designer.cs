@@ -48,6 +48,7 @@
             this.leftFileView = new Commander.FileView();
             this.rightFileView = new Commander.FileView();
             this.listImageList = new System.Windows.Forms.ImageList(this.components);
+            this.splitToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.toolStrip.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.topPanel.SuspendLayout();
@@ -119,7 +120,7 @@
             // 
             this.bottomPanel.Controls.Add(this.testLabel);
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomPanel.Location = new System.Drawing.Point(0, 249);
+            this.bottomPanel.Location = new System.Drawing.Point(0, 311);
             this.bottomPanel.Name = "bottomPanel";
             this.bottomPanel.Size = new System.Drawing.Size(580, 38);
             this.bottomPanel.TabIndex = 1;
@@ -157,7 +158,7 @@
             // 
             this.topSplitContainer.Panel2.Controls.Add(this.rightDriveToolBar);
             this.topSplitContainer.Size = new System.Drawing.Size(580, 33);
-            this.topSplitContainer.SplitterDistance = 274;
+            this.topSplitContainer.SplitterDistance = 288;
             this.topSplitContainer.TabIndex = 0;
             // 
             // leftDrivesToolBar
@@ -171,7 +172,7 @@
             this.leftDrivesToolBar.Location = new System.Drawing.Point(0, 0);
             this.leftDrivesToolBar.Name = "leftDrivesToolBar";
             this.leftDrivesToolBar.ShowToolTips = true;
-            this.leftDrivesToolBar.Size = new System.Drawing.Size(274, 27);
+            this.leftDrivesToolBar.Size = new System.Drawing.Size(288, 27);
             this.leftDrivesToolBar.TabIndex = 0;
             this.leftDrivesToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right;
             this.leftDrivesToolBar.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler(this.drivesToolBar_ButtonClick);
@@ -200,7 +201,7 @@
             this.rightDriveToolBar.Location = new System.Drawing.Point(0, 0);
             this.rightDriveToolBar.Name = "rightDriveToolBar";
             this.rightDriveToolBar.ShowToolTips = true;
-            this.rightDriveToolBar.Size = new System.Drawing.Size(302, 27);
+            this.rightDriveToolBar.Size = new System.Drawing.Size(288, 27);
             this.rightDriveToolBar.TabIndex = 1;
             this.rightDriveToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right;
             this.rightDriveToolBar.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler(this.drivesToolBar_ButtonClick);
@@ -208,6 +209,7 @@
             // splitContainer
             // 
             this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer.ForeColor = System.Drawing.SystemColors.ControlText;
             this.splitContainer.Location = new System.Drawing.Point(0, 58);
             this.splitContainer.Name = "splitContainer";
             // 
@@ -218,16 +220,20 @@
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.rightFileView);
-            this.splitContainer.Size = new System.Drawing.Size(580, 191);
-            this.splitContainer.SplitterDistance = 274;
+            this.splitContainer.Size = new System.Drawing.Size(580, 253);
+            this.splitContainer.SplitterDistance = 288;
             this.splitContainer.TabIndex = 3;
+            this.splitContainer.SplitterMoving += new System.Windows.Forms.SplitterCancelEventHandler(this.splitContainer_SplitterMoving);
+            this.splitContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer_SplitterMoved);
+            this.splitContainer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.splitContainer_MouseDown);
+            this.splitContainer.MouseUp += new System.Windows.Forms.MouseEventHandler(this.splitContainer_MouseUp);
             // 
             // leftFileView
             // 
             this.leftFileView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.leftFileView.Location = new System.Drawing.Point(0, 0);
             this.leftFileView.Name = "leftFileView";
-            this.leftFileView.Size = new System.Drawing.Size(274, 191);
+            this.leftFileView.Size = new System.Drawing.Size(288, 253);
             this.leftFileView.TabIndex = 0;
             // 
             // rightFileView
@@ -235,7 +241,7 @@
             this.rightFileView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rightFileView.Location = new System.Drawing.Point(0, 0);
             this.rightFileView.Name = "rightFileView";
-            this.rightFileView.Size = new System.Drawing.Size(302, 191);
+            this.rightFileView.Size = new System.Drawing.Size(288, 253);
             this.rightFileView.TabIndex = 1;
             // 
             // listImageList
@@ -245,11 +251,17 @@
             this.listImageList.Images.SetKeyName(0, "star");
             this.listImageList.Images.SetKeyName(1, "downList");
             // 
+            // splitToolTip
+            // 
+            this.splitToolTip.AutomaticDelay = 0;
+            this.splitToolTip.UseAnimation = false;
+            this.splitToolTip.UseFading = false;
+            // 
             // CommanderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(580, 287);
+            this.ClientSize = new System.Drawing.Size(580, 349);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.bottomPanel);
@@ -295,6 +307,7 @@
         private System.Windows.Forms.ImageList listImageList;
         private FileView leftFileView;
         private FileView rightFileView;
+        private System.Windows.Forms.ToolTip splitToolTip;
 
 
     }
