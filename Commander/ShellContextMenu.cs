@@ -70,6 +70,18 @@ namespace Commander
             base.WndProc(ref m);
         }
 
+        private static IntPtr[] GetPIDLs(params FileSystemInfo[] list)
+        {
+            List<IntPtr> pidls = new List<IntPtr>(list.Length);
+
+            foreach (FileSystemInfo item in list)
+            {
+                pidls.Add(ShellFolder.GetPathPIDL(item.FullName));
+            }
+
+            return pidls.ToArray();
+        }
+
         private static IntPtr[] GetPIDLs(params string[] pathList)
         {
             List<IntPtr> pidls = new List<IntPtr>(pathList.Length);
@@ -195,6 +207,41 @@ namespace Commander
 
                 if (iContextMenuPtr3 != IntPtr.Zero)
                     Marshal.Release(iContextMenuPtr3);
+            }
+        }
+
+        public static DirectoryInfo GetParentDirectory(FileSystemInfo item)
+        {
+            if (item is FileInfo)
+            {
+                FileInfo file = (FileInfo)item;
+                return file.Directory;
+            }
+            else
+            {
+                DirectoryInfo directory = (DirectoryInfo)item;
+                return directory.Parent;
+            }
+        }
+
+        public static string GetParentDirectoryPath(FileSystemInfo item)
+        {
+            DirectoryInfo parentDirectory = GetParentDirectory(item);
+            if (parentDirectory == null)
+            {
+                return SpecialFolderPath.MyComputer;
+            }
+            return parentDirectory.FullName;
+        }
+
+        public void DeleteCommand(params FileSystemInfo[] items)
+        {
+            IntPtr[] pidls = GetPIDLs(items);
+            if (pidls.Length > 0)
+            {
+                string parentDirectory = GetParentDirectoryPath(items[0]);
+                IShellFolder parentShellFolder = ShellFolder.GetShellFolder(parentDirectory);
+                ContextMenuHelper.InvokeCommand(parentShellFolder, parentDirectory, pidls, "delete", new Point(0, 0));
             }
         }
 

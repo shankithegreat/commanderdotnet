@@ -57,6 +57,12 @@
     <Compile Include="CommanderForm.Designer.cs">
       <DependentUpon>CommanderForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreateFolderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateFolderForm.Designer.cs">
+      <DependentUpon>CreateFolderForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditableLabel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -76,6 +82,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CommanderForm.resx">
       <DependentUpon>CommanderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateFolderForm.resx">
+      <DependentUpon>CreateFolderForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditableLabel.resx">
       <DependentUpon>EditableLabel.cs</DependentUpon>

@@ -17,6 +17,7 @@ namespace Commander
     {
         private Dictionary<DriveType, int> imageIndexes = new Dictionary<DriveType, int>();
         private FileView selectedFileView = null;
+        private CreateFolderForm createFolderForm = new CreateFolderForm();
 
         public CommanderForm()
         {
@@ -183,7 +184,109 @@ namespace Commander
         {
             FileView fileView = (FileView)sender;
             selectedFileView = fileView;
-        }        
+        }
+
+        private void viewMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void editMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void copyMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void moveMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void createFolderMenuItem_Click(object sender, EventArgs e)
+        {
+            if (createFolderForm.ShowDialog() == DialogResult.OK)
+            {
+                if (CreateFolder(selectedFileView.SelectedDirectory, createFolderForm.DirectoryName))
+                {
+                    selectedFileView.Refresh();
+                }
+            }
+        }
+
+        private bool CreateFolder(DirectoryInfo directory, string localPath)
+        {
+            if (string.IsNullOrEmpty(localPath))
+            {
+                return false;
+            }
+
+            try
+            {
+                directory.CreateSubdirectory(localPath);
+                return true;                
+            }
+            catch (Exception e)
+            {
+                ShowErrorMessage(e);
+                return false;
+            }
+        }
+
+        private bool Delete(FileSystemInfo item)
+        {
+            try
+            {
+                item.Delete();
+                selectedFileView.Delete();
+                return true;
+            }
+            catch (Exception e)
+            {
+                ShowErrorMessage(e);
+                return false;
+            }
+        }
+
+        private void deleteMenuItem_Click(object sender, EventArgs e)
+        {
+            selectedFileView.Delete();
+        }
+
+        private void exitMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void ShowErrorMessage(Exception e)
+        {
+            ShowErrorMessage(e.Message);
+        }
+
+        private void ShowErrorMessage(string message)
+        {
+            MessageBox.Show(message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void fileView_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Delete:
+                    {
+                        deleteMenuItem_Click(sender, e);
+                        break;
+                    }
+                case Keys.Escape:
+                    {
+                        //
+                        break;
+                    }
+            }
+        }
 
     }
 }

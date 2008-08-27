@@ -142,6 +142,40 @@ namespace Commander
         /// <summary>
         /// Invokes a specific command for a set of pidls
         /// </summary>
+        /// <param name="parent">the parent IShellFolder which contains the pidls</param>
+        /// <param name="pidls">the pidls from the items for which to invoke</param>
+        /// <param name="cmd">the execute string from the command to invoke</param>
+        /// <param name="ptInvoke">the point (in screen coцrdinates) from which to invoke</param>
+        public static void InvokeCommand(IShellFolder parent, string parentPath, IntPtr[] pidls, string cmd, Point ptInvoke)
+        {
+            IntPtr icontextMenuPtr;
+            IContextMenu iContextMenu;
+
+            if (GetIContextMenu(parent, pidls, out icontextMenuPtr, out iContextMenu))
+            {
+                try
+                {
+                    InvokeCommand(
+                        iContextMenu,
+                        cmd,
+                        parentPath,
+                        ptInvoke);
+                }
+                catch (Exception) { }
+                finally
+                {
+                    if (iContextMenu != null)
+                        Marshal.ReleaseComObject(iContextMenu);
+
+                    if (icontextMenuPtr != IntPtr.Zero)
+                        Marshal.Release(icontextMenuPtr);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Invokes a specific command for a set of pidls
+        /// </summary>
         /// <param name="parent">the parent ShellItem which contains the pidls</param>
         /// <param name="pidls">the pidls from the items for which to invoke</param>
         /// <param name="cmd">the execute string from the command to invoke</param>

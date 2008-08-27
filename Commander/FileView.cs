@@ -60,6 +60,23 @@ namespace Commander
             }
         }
 
+        public void Delete()
+        {
+            bool directoryUpdated = false;
+            List<FileSystemInfo> list = new List<FileSystemInfo>();
+            foreach(ListViewItem item in listView.SelectedItems)
+            {
+                list.Add((FileSystemInfo)item.Tag);
+            }
+            contextMenu.DeleteCommand(list.ToArray());
+            this.Refresh();
+        }
+
+        private bool LoadDirectory()
+        {
+            return LoadDirectory(selectedDirectory);
+        }
+
         private bool LoadDirectory(DirectoryInfo directory)
         {
             if (directory == null)
@@ -206,6 +223,18 @@ namespace Commander
         private string GetTitleLabelText(DirectoryInfo directory)
         {
             return Path.Combine(directory.FullName, "*.*");
+        }
+
+        public override void Refresh()
+        {
+            base.Refresh();
+            
+            LoadDirectory();
+        }
+
+        private void listView_KeyDown(object sender, KeyEventArgs e)
+        {
+            OnKeyDown(e);
         }
     }
 }

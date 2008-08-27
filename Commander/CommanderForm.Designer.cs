@@ -33,6 +33,13 @@
             this.mainMenu = new System.Windows.Forms.MainMenu(this.components);
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.exitMenuItem = new System.Windows.Forms.MenuItem();
+            this.menuItem4 = new System.Windows.Forms.MenuItem();
+            this.viewMenuItem = new System.Windows.Forms.MenuItem();
+            this.editMenuItem = new System.Windows.Forms.MenuItem();
+            this.copyMenuItem = new System.Windows.Forms.MenuItem();
+            this.moveMenuItem = new System.Windows.Forms.MenuItem();
+            this.createFolderMenuItem = new System.Windows.Forms.MenuItem();
+            this.deleteMenuItem = new System.Windows.Forms.MenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -58,13 +65,6 @@
             this.rightFileView = new Commander.FileView();
             this.listImageList = new System.Windows.Forms.ImageList(this.components);
             this.splitToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.menuItem4 = new System.Windows.Forms.MenuItem();
-            this.copyMenuItem = new System.Windows.Forms.MenuItem();
-            this.moveMenuItem = new System.Windows.Forms.MenuItem();
-            this.createFolderMenuItem = new System.Windows.Forms.MenuItem();
-            this.deleteMenuItem = new System.Windows.Forms.MenuItem();
-            this.viewMenuItem = new System.Windows.Forms.MenuItem();
-            this.editMenuItem = new System.Windows.Forms.MenuItem();
             this.toolStrip.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -96,6 +96,61 @@
             this.exitMenuItem.Index = 0;
             this.exitMenuItem.Shortcut = System.Windows.Forms.Shortcut.AltF4;
             this.exitMenuItem.Text = "Exit";
+            this.exitMenuItem.Click += new System.EventHandler(this.exitMenuItem_Click);
+            // 
+            // menuItem4
+            // 
+            this.menuItem4.Index = 1;
+            this.menuItem4.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.viewMenuItem,
+            this.editMenuItem,
+            this.copyMenuItem,
+            this.moveMenuItem,
+            this.createFolderMenuItem,
+            this.deleteMenuItem});
+            this.menuItem4.Text = "Commands";
+            // 
+            // viewMenuItem
+            // 
+            this.viewMenuItem.Index = 0;
+            this.viewMenuItem.Shortcut = System.Windows.Forms.Shortcut.F3;
+            this.viewMenuItem.Text = "View";
+            this.viewMenuItem.Click += new System.EventHandler(this.viewMenuItem_Click);
+            // 
+            // editMenuItem
+            // 
+            this.editMenuItem.Index = 1;
+            this.editMenuItem.Shortcut = System.Windows.Forms.Shortcut.F4;
+            this.editMenuItem.Text = "Edit";
+            this.editMenuItem.Click += new System.EventHandler(this.editMenuItem_Click);
+            // 
+            // copyMenuItem
+            // 
+            this.copyMenuItem.Index = 2;
+            this.copyMenuItem.Shortcut = System.Windows.Forms.Shortcut.F5;
+            this.copyMenuItem.Text = "Copy";
+            this.copyMenuItem.Click += new System.EventHandler(this.copyMenuItem_Click);
+            // 
+            // moveMenuItem
+            // 
+            this.moveMenuItem.Index = 3;
+            this.moveMenuItem.Shortcut = System.Windows.Forms.Shortcut.F6;
+            this.moveMenuItem.Text = "Move";
+            this.moveMenuItem.Click += new System.EventHandler(this.moveMenuItem_Click);
+            // 
+            // createFolderMenuItem
+            // 
+            this.createFolderMenuItem.Index = 4;
+            this.createFolderMenuItem.Shortcut = System.Windows.Forms.Shortcut.F7;
+            this.createFolderMenuItem.Text = "Create Folder";
+            this.createFolderMenuItem.Click += new System.EventHandler(this.createFolderMenuItem_Click);
+            // 
+            // deleteMenuItem
+            // 
+            this.deleteMenuItem.Index = 5;
+            this.deleteMenuItem.Shortcut = System.Windows.Forms.Shortcut.F8;
+            this.deleteMenuItem.Text = "Delete";
+            this.deleteMenuItem.Click += new System.EventHandler(this.deleteMenuItem_Click);
             // 
             // toolStrip
             // 
@@ -214,6 +269,7 @@
             this.exitButton.TabIndex = 7;
             this.exitButton.Text = "Alt+F4 Exit";
             this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.exitMenuItem_Click);
             // 
             // deleteButton
             // 
@@ -224,6 +280,7 @@
             this.deleteButton.TabIndex = 6;
             this.deleteButton.Text = "F8 Delete";
             this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteMenuItem_Click);
             // 
             // creteFolderButton
             // 
@@ -234,6 +291,7 @@
             this.creteFolderButton.TabIndex = 5;
             this.creteFolderButton.Text = "F7 Folder";
             this.creteFolderButton.UseVisualStyleBackColor = true;
+            this.creteFolderButton.Click += new System.EventHandler(this.createFolderMenuItem_Click);
             // 
             // moveButton
             // 
@@ -244,6 +302,7 @@
             this.moveButton.TabIndex = 4;
             this.moveButton.Text = "F6 Move";
             this.moveButton.UseVisualStyleBackColor = true;
+            this.moveButton.Click += new System.EventHandler(this.moveMenuItem_Click);
             // 
             // copyButton
             // 
@@ -254,6 +313,7 @@
             this.copyButton.TabIndex = 3;
             this.copyButton.Text = "F5 Copy";
             this.copyButton.UseVisualStyleBackColor = true;
+            this.copyButton.Click += new System.EventHandler(this.copyMenuItem_Click);
             // 
             // editButton
             // 
@@ -264,6 +324,7 @@
             this.editButton.TabIndex = 2;
             this.editButton.Text = "F4 Edit";
             this.editButton.UseVisualStyleBackColor = true;
+            this.editButton.Click += new System.EventHandler(this.editMenuItem_Click);
             // 
             // viewButton
             // 
@@ -274,6 +335,7 @@
             this.viewButton.TabIndex = 1;
             this.viewButton.Text = "F3 View";
             this.viewButton.UseVisualStyleBackColor = true;
+            this.viewButton.Click += new System.EventHandler(this.viewMenuItem_Click);
             // 
             // topPanel
             // 
@@ -380,6 +442,7 @@
             this.leftFileView.DirectorySelected += new Commander.DirectorySelectedEventHandler(this.fileView_DirectorySelected);
             this.leftFileView.Leave += new System.EventHandler(this.fileView_Leave);
             this.leftFileView.Enter += new System.EventHandler(this.fileView_Enter);
+            this.leftFileView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fileView_KeyDown);
             // 
             // rightFileView
             // 
@@ -392,6 +455,7 @@
             this.rightFileView.DirectorySelected += new Commander.DirectorySelectedEventHandler(this.fileView_DirectorySelected);
             this.rightFileView.Leave += new System.EventHandler(this.fileView_Leave);
             this.rightFileView.Enter += new System.EventHandler(this.fileView_Enter);
+            this.rightFileView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fileView_KeyDown);
             // 
             // listImageList
             // 
@@ -405,54 +469,6 @@
             this.splitToolTip.AutomaticDelay = 0;
             this.splitToolTip.UseAnimation = false;
             this.splitToolTip.UseFading = false;
-            // 
-            // menuItem4
-            // 
-            this.menuItem4.Index = 1;
-            this.menuItem4.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.viewMenuItem,
-            this.editMenuItem,
-            this.copyMenuItem,
-            this.moveMenuItem,
-            this.createFolderMenuItem,
-            this.deleteMenuItem});
-            this.menuItem4.Text = "Commands";
-            // 
-            // copyMenuItem
-            // 
-            this.copyMenuItem.Index = 2;
-            this.copyMenuItem.Shortcut = System.Windows.Forms.Shortcut.F5;
-            this.copyMenuItem.Text = "Copy";
-            // 
-            // moveMenuItem
-            // 
-            this.moveMenuItem.Index = 3;
-            this.moveMenuItem.Shortcut = System.Windows.Forms.Shortcut.F6;
-            this.moveMenuItem.Text = "Move";
-            // 
-            // createFolderMenuItem
-            // 
-            this.createFolderMenuItem.Index = 4;
-            this.createFolderMenuItem.Shortcut = System.Windows.Forms.Shortcut.F7;
-            this.createFolderMenuItem.Text = "Create Folder";
-            // 
-            // deleteMenuItem
-            // 
-            this.deleteMenuItem.Index = 5;
-            this.deleteMenuItem.Shortcut = System.Windows.Forms.Shortcut.F8;
-            this.deleteMenuItem.Text = "Delete";
-            // 
-            // viewMenuItem
-            // 
-            this.viewMenuItem.Index = 0;
-            this.viewMenuItem.Shortcut = System.Windows.Forms.Shortcut.F3;
-            this.viewMenuItem.Text = "View";
-            // 
-            // editMenuItem
-            // 
-            this.editMenuItem.Index = 1;
-            this.editMenuItem.Shortcut = System.Windows.Forms.Shortcut.F4;
-            this.editMenuItem.Text = "Edit";
             // 
             // CommanderForm
             // 
