@@ -32,8 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CommanderForm));
             this.mainMenu = new System.Windows.Forms.MainMenu(this.components);
             this.menuItem1 = new System.Windows.Forms.MenuItem();
-            this.menuItem2 = new System.Windows.Forms.MenuItem();
-            this.menuItem3 = new System.Windows.Forms.MenuItem();
+            this.exitMenuItem = new System.Windows.Forms.MenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -42,13 +41,13 @@
             this.cmdComboBox = new System.Windows.Forms.ComboBox();
             this.cmdLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.exitButton = new System.Windows.Forms.Button();
+            this.deleteButton = new System.Windows.Forms.Button();
+            this.creteFolderButton = new System.Windows.Forms.Button();
+            this.moveButton = new System.Windows.Forms.Button();
+            this.copyButton = new System.Windows.Forms.Button();
+            this.editButton = new System.Windows.Forms.Button();
+            this.viewButton = new System.Windows.Forms.Button();
             this.topPanel = new System.Windows.Forms.Panel();
             this.topSplitContainer = new System.Windows.Forms.SplitContainer();
             this.leftDrivesToolBar = new System.Windows.Forms.ToolBar();
@@ -59,6 +58,13 @@
             this.rightFileView = new Commander.FileView();
             this.listImageList = new System.Windows.Forms.ImageList(this.components);
             this.splitToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.menuItem4 = new System.Windows.Forms.MenuItem();
+            this.copyMenuItem = new System.Windows.Forms.MenuItem();
+            this.moveMenuItem = new System.Windows.Forms.MenuItem();
+            this.createFolderMenuItem = new System.Windows.Forms.MenuItem();
+            this.deleteMenuItem = new System.Windows.Forms.MenuItem();
+            this.viewMenuItem = new System.Windows.Forms.MenuItem();
+            this.editMenuItem = new System.Windows.Forms.MenuItem();
             this.toolStrip.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -75,25 +81,21 @@
             // mainMenu
             // 
             this.mainMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.menuItem1});
+            this.menuItem1,
+            this.menuItem4});
             // 
             // menuItem1
             // 
             this.menuItem1.Index = 0;
             this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.menuItem2,
-            this.menuItem3});
+            this.exitMenuItem});
             this.menuItem1.Text = "File";
             // 
-            // menuItem2
+            // exitMenuItem
             // 
-            this.menuItem2.Index = 0;
-            this.menuItem2.Text = "Item";
-            // 
-            // menuItem3
-            // 
-            this.menuItem3.Index = 1;
-            this.menuItem3.Text = "Exit";
+            this.exitMenuItem.Index = 0;
+            this.exitMenuItem.Shortcut = System.Windows.Forms.Shortcut.AltF4;
+            this.exitMenuItem.Text = "Exit";
             // 
             // toolStrip
             // 
@@ -188,13 +190,13 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28633F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28633F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.28633F));
-            this.tableLayoutPanel1.Controls.Add(this.button7, 6, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button6, 5, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button5, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button4, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button3, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button2, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.exitButton, 6, 0);
+            this.tableLayoutPanel1.Controls.Add(this.deleteButton, 5, 0);
+            this.tableLayoutPanel1.Controls.Add(this.creteFolderButton, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.moveButton, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.copyButton, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.editButton, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.viewButton, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 28);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -203,75 +205,75 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(670, 27);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
-            // button7
+            // exitButton
             // 
-            this.button7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button7.Location = new System.Drawing.Point(573, 3);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(94, 21);
-            this.button7.TabIndex = 7;
-            this.button7.Text = "button7";
-            this.button7.UseVisualStyleBackColor = true;
+            this.exitButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.exitButton.Location = new System.Drawing.Point(573, 3);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(94, 21);
+            this.exitButton.TabIndex = 7;
+            this.exitButton.Text = "Alt+F4 Exit";
+            this.exitButton.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // deleteButton
             // 
-            this.button6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button6.Location = new System.Drawing.Point(478, 3);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(89, 21);
-            this.button6.TabIndex = 6;
-            this.button6.Text = "button6";
-            this.button6.UseVisualStyleBackColor = true;
+            this.deleteButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.deleteButton.Location = new System.Drawing.Point(478, 3);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(89, 21);
+            this.deleteButton.TabIndex = 6;
+            this.deleteButton.Text = "F8 Delete";
+            this.deleteButton.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // creteFolderButton
             // 
-            this.button5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button5.Location = new System.Drawing.Point(383, 3);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(89, 21);
-            this.button5.TabIndex = 5;
-            this.button5.Text = "button5";
-            this.button5.UseVisualStyleBackColor = true;
+            this.creteFolderButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.creteFolderButton.Location = new System.Drawing.Point(383, 3);
+            this.creteFolderButton.Name = "creteFolderButton";
+            this.creteFolderButton.Size = new System.Drawing.Size(89, 21);
+            this.creteFolderButton.TabIndex = 5;
+            this.creteFolderButton.Text = "F7 Folder";
+            this.creteFolderButton.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // moveButton
             // 
-            this.button4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button4.Location = new System.Drawing.Point(288, 3);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(89, 21);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
+            this.moveButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.moveButton.Location = new System.Drawing.Point(288, 3);
+            this.moveButton.Name = "moveButton";
+            this.moveButton.Size = new System.Drawing.Size(89, 21);
+            this.moveButton.TabIndex = 4;
+            this.moveButton.Text = "F6 Move";
+            this.moveButton.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // copyButton
             // 
-            this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button3.Location = new System.Drawing.Point(193, 3);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(89, 21);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.copyButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.copyButton.Location = new System.Drawing.Point(193, 3);
+            this.copyButton.Name = "copyButton";
+            this.copyButton.Size = new System.Drawing.Size(89, 21);
+            this.copyButton.TabIndex = 3;
+            this.copyButton.Text = "F5 Copy";
+            this.copyButton.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // editButton
             // 
-            this.button2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button2.Location = new System.Drawing.Point(98, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(89, 21);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
+            this.editButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.editButton.Location = new System.Drawing.Point(98, 3);
+            this.editButton.Name = "editButton";
+            this.editButton.Size = new System.Drawing.Size(89, 21);
+            this.editButton.TabIndex = 2;
+            this.editButton.Text = "F4 Edit";
+            this.editButton.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // viewButton
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(3, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(89, 21);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.viewButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.viewButton.Location = new System.Drawing.Point(3, 3);
+            this.viewButton.Name = "viewButton";
+            this.viewButton.Size = new System.Drawing.Size(89, 21);
+            this.viewButton.TabIndex = 1;
+            this.viewButton.Text = "F3 View";
+            this.viewButton.UseVisualStyleBackColor = true;
             // 
             // topPanel
             // 
@@ -404,6 +406,54 @@
             this.splitToolTip.UseAnimation = false;
             this.splitToolTip.UseFading = false;
             // 
+            // menuItem4
+            // 
+            this.menuItem4.Index = 1;
+            this.menuItem4.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.viewMenuItem,
+            this.editMenuItem,
+            this.copyMenuItem,
+            this.moveMenuItem,
+            this.createFolderMenuItem,
+            this.deleteMenuItem});
+            this.menuItem4.Text = "Commands";
+            // 
+            // copyMenuItem
+            // 
+            this.copyMenuItem.Index = 2;
+            this.copyMenuItem.Shortcut = System.Windows.Forms.Shortcut.F5;
+            this.copyMenuItem.Text = "Copy";
+            // 
+            // moveMenuItem
+            // 
+            this.moveMenuItem.Index = 3;
+            this.moveMenuItem.Shortcut = System.Windows.Forms.Shortcut.F6;
+            this.moveMenuItem.Text = "Move";
+            // 
+            // createFolderMenuItem
+            // 
+            this.createFolderMenuItem.Index = 4;
+            this.createFolderMenuItem.Shortcut = System.Windows.Forms.Shortcut.F7;
+            this.createFolderMenuItem.Text = "Create Folder";
+            // 
+            // deleteMenuItem
+            // 
+            this.deleteMenuItem.Index = 5;
+            this.deleteMenuItem.Shortcut = System.Windows.Forms.Shortcut.F8;
+            this.deleteMenuItem.Text = "Delete";
+            // 
+            // viewMenuItem
+            // 
+            this.viewMenuItem.Index = 0;
+            this.viewMenuItem.Shortcut = System.Windows.Forms.Shortcut.F3;
+            this.viewMenuItem.Text = "View";
+            // 
+            // editMenuItem
+            // 
+            this.editMenuItem.Index = 1;
+            this.editMenuItem.Shortcut = System.Windows.Forms.Shortcut.F4;
+            this.editMenuItem.Text = "Edit";
+            // 
             // CommanderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -441,8 +491,7 @@
         private System.Windows.Forms.MainMenu mainMenu;
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.MenuItem menuItem1;
-        private System.Windows.Forms.MenuItem menuItem2;
-        private System.Windows.Forms.MenuItem menuItem3;
+        private System.Windows.Forms.MenuItem exitMenuItem;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.Panel bottomPanel;
         private System.Windows.Forms.Panel topPanel;
@@ -459,14 +508,21 @@
         private System.Windows.Forms.ComboBox cmdComboBox;
         private System.Windows.Forms.Label cmdLabel;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button exitButton;
+        private System.Windows.Forms.Button deleteButton;
+        private System.Windows.Forms.Button creteFolderButton;
+        private System.Windows.Forms.Button moveButton;
+        private System.Windows.Forms.Button copyButton;
+        private System.Windows.Forms.Button editButton;
+        private System.Windows.Forms.Button viewButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.MenuItem menuItem4;
+        private System.Windows.Forms.MenuItem viewMenuItem;
+        private System.Windows.Forms.MenuItem editMenuItem;
+        private System.Windows.Forms.MenuItem copyMenuItem;
+        private System.Windows.Forms.MenuItem moveMenuItem;
+        private System.Windows.Forms.MenuItem createFolderMenuItem;
+        private System.Windows.Forms.MenuItem deleteMenuItem;
 
 
     }
