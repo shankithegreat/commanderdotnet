@@ -16,7 +16,7 @@ namespace Commander
     public partial class CommanderForm : Form
     {
         private Dictionary<DriveType, int> imageIndexes = new Dictionary<DriveType, int>();
-        private FileView fileView = null;
+        private FileView selectedFileView = null;
 
         public CommanderForm()
         {
@@ -39,8 +39,8 @@ namespace Commander
             drivesToolBar_ButtonClick(rightDriveToolBar, new ToolBarButtonClickEventArgs(rightDriveToolBar.Buttons[1]));
 
 #if DEBUG
-            //TestForm testForem = new TestForm();
-            //testForem.Show();
+            TestForm testForem = new TestForm();
+            testForem.Show();
 #endif
         }
 
@@ -171,6 +171,18 @@ namespace Commander
         {
             FileView fileView = (FileView)sender;
             cmdLabel.Text = string.Format("{0}>", directory.FullName);
+        }
+
+        private void fileView_Enter(object sender, EventArgs e)
+        {
+            FileView fileView = (FileView)sender;
+            selectedFileView = fileView;
+        }
+
+        private void fileView_Leave(object sender, EventArgs e)
+        {
+            FileView fileView = (FileView)sender;
+            selectedFileView = fileView;
         }        
 
     }

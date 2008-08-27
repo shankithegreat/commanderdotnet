@@ -34,7 +34,6 @@
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.titlePanel = new System.Windows.Forms.Panel();
-            this.titleLabel = new System.Windows.Forms.Label();
             this.linkButton = new System.Windows.Forms.Button();
             this.listImageList = new System.Windows.Forms.ImageList(this.components);
             this.historyButton = new System.Windows.Forms.Button();
@@ -42,6 +41,7 @@
             this.hintLabel = new System.Windows.Forms.Label();
             this.rootButton = new System.Windows.Forms.Button();
             this.upButton = new System.Windows.Forms.Button();
+            this.titleLabel = new Commander.EditableLabel();
             this.titlePanel.SuspendLayout();
             this.hintPanel.SuspendLayout();
             this.SuspendLayout();
@@ -86,25 +86,6 @@
             this.titlePanel.Name = "titlePanel";
             this.titlePanel.Size = new System.Drawing.Size(343, 20);
             this.titlePanel.TabIndex = 5;
-            // 
-            // titleLabel
-            // 
-            this.titleLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.titleLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.titleLabel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.titleLabel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.titleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.titleLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.titleLabel.Location = new System.Drawing.Point(1, 1);
-            this.titleLabel.Margin = new System.Windows.Forms.Padding(0);
-            this.titleLabel.MinimumSize = new System.Drawing.Size(0, 15);
-            this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(300, 17);
-            this.titleLabel.TabIndex = 0;
-            this.titleLabel.Text = "c:\\*.*";
-            this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.titleLabel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.titleLabel_MouseUp);
             // 
             // linkButton
             // 
@@ -191,6 +172,22 @@
             this.upButton.UseVisualStyleBackColor = true;
             this.upButton.Click += new System.EventHandler(this.upButton_Click);
             // 
+            // titleLabel
+            // 
+            this.titleLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.titleLabel.AutoSize = true;
+            this.titleLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.titleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.titleLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.titleLabel.Location = new System.Drawing.Point(3, 3);
+            this.titleLabel.Name = "titleLabel";
+            this.titleLabel.Size = new System.Drawing.Size(296, 13);
+            this.titleLabel.TabIndex = 3;
+            this.titleLabel.Text = "c:\\*.*";
+            this.titleLabel.TextBoxBackColor = System.Drawing.Color.Silver;
+            // 
             // FileView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -200,7 +197,10 @@
             this.Controls.Add(this.hintPanel);
             this.Name = "FileView";
             this.Size = new System.Drawing.Size(343, 240);
+            this.Leave += new System.EventHandler(this.FileView_Leave);
+            this.Enter += new System.EventHandler(this.FileView_Enter);
             this.titlePanel.ResumeLayout(false);
+            this.titlePanel.PerformLayout();
             this.hintPanel.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -213,7 +213,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.Panel titlePanel;
-        private System.Windows.Forms.Label titleLabel;
         private System.Windows.Forms.Button linkButton;
         private System.Windows.Forms.Button historyButton;
         private System.Windows.Forms.Panel hintPanel;
@@ -221,5 +220,6 @@
         private System.Windows.Forms.Button rootButton;
         private System.Windows.Forms.Button upButton;
         private System.Windows.Forms.ImageList listImageList;
+        private EditableLabel titleLabel;
     }
 }

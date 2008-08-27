@@ -24,6 +24,15 @@ namespace Commander
 
             ShellImageList.SetSmallImageList(listView);
             ShellImageList.SetLargeImageList(listView);
+
+            if (this.Focused)
+            {
+                FileView_Enter(this, null);
+            }
+            else
+            {
+                FileView_Leave(this, null);
+            }
         }
 
         public ListView ListView
@@ -147,6 +156,23 @@ namespace Commander
             {
                 DirectorySelected(this, directory);
             }
+        }
+
+        private void titleLabel_Click(object sender, EventArgs e)
+        {
+            listView.Focus();
+        }
+
+        private void FileView_Enter(object sender, EventArgs e)
+        {
+            titleLabel.BackColor = SystemColors.ActiveCaption;
+            titleLabel.ForeColor = SystemColors.ActiveCaptionText;
+        }
+
+        private void FileView_Leave(object sender, EventArgs e)
+        {
+            titleLabel.BackColor = SystemColors.InactiveCaption;
+            titleLabel.ForeColor = SystemColors.InactiveCaptionText;
         }
     }
 }

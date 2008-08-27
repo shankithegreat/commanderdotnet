@@ -124,7 +124,7 @@
             this.bottomPanel.Controls.Add(this.cmdComboBox);
             this.bottomPanel.Controls.Add(this.testLabel);
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomPanel.Location = new System.Drawing.Point(0, 451);
+            this.bottomPanel.Location = new System.Drawing.Point(0, 367);
             this.bottomPanel.Name = "bottomPanel";
             this.bottomPanel.Size = new System.Drawing.Size(756, 38);
             this.bottomPanel.TabIndex = 1;
@@ -250,7 +250,7 @@
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.rightFileView);
-            this.splitContainer.Size = new System.Drawing.Size(756, 393);
+            this.splitContainer.Size = new System.Drawing.Size(756, 309);
             this.splitContainer.SplitterDistance = 375;
             this.splitContainer.TabIndex = 3;
             this.splitContainer.SplitterMoving += new System.Windows.Forms.SplitterCancelEventHandler(this.splitContainer_SplitterMoving);
@@ -276,24 +276,30 @@
             this.leftFileView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.leftFileView.Location = new System.Drawing.Point(0, 0);
             this.leftFileView.Name = "leftFileView";
-            this.leftFileView.Size = new System.Drawing.Size(375, 393);
+            this.leftFileView.SelectedDirectory = null;
+            this.leftFileView.Size = new System.Drawing.Size(375, 309);
             this.leftFileView.TabIndex = 0;
             this.leftFileView.DirectorySelected += new Commander.DirectorySelectedEventHandler(this.fileView_DirectorySelected);
+            this.leftFileView.Leave += new System.EventHandler(this.fileView_Leave);
+            this.leftFileView.Enter += new System.EventHandler(this.fileView_Enter);
             // 
             // rightFileView
             // 
             this.rightFileView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rightFileView.Location = new System.Drawing.Point(0, 0);
             this.rightFileView.Name = "rightFileView";
-            this.rightFileView.Size = new System.Drawing.Size(377, 393);
+            this.rightFileView.SelectedDirectory = null;
+            this.rightFileView.Size = new System.Drawing.Size(377, 309);
             this.rightFileView.TabIndex = 1;
             this.rightFileView.DirectorySelected += new Commander.DirectorySelectedEventHandler(this.fileView_DirectorySelected);
+            this.rightFileView.Leave += new System.EventHandler(this.fileView_Leave);
+            this.rightFileView.Enter += new System.EventHandler(this.fileView_Enter);
             // 
             // CommanderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(756, 489);
+            this.ClientSize = new System.Drawing.Size(756, 405);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.bottomPanel);
