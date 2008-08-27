@@ -34,6 +34,7 @@
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.titlePanel = new System.Windows.Forms.Panel();
+            this.titleLabel = new Commander.EditableLabel();
             this.linkButton = new System.Windows.Forms.Button();
             this.listImageList = new System.Windows.Forms.ImageList(this.components);
             this.historyButton = new System.Windows.Forms.Button();
@@ -41,7 +42,6 @@
             this.hintLabel = new System.Windows.Forms.Label();
             this.rootButton = new System.Windows.Forms.Button();
             this.upButton = new System.Windows.Forms.Button();
-            this.titleLabel = new Commander.EditableLabel();
             this.titlePanel.SuspendLayout();
             this.hintPanel.SuspendLayout();
             this.SuspendLayout();
@@ -86,6 +86,24 @@
             this.titlePanel.Name = "titlePanel";
             this.titlePanel.Size = new System.Drawing.Size(343, 20);
             this.titlePanel.TabIndex = 5;
+            // 
+            // titleLabel
+            // 
+            this.titleLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.titleLabel.AutoSize = true;
+            this.titleLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.titleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.titleLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.titleLabel.Location = new System.Drawing.Point(3, 3);
+            this.titleLabel.Name = "titleLabel";
+            this.titleLabel.Size = new System.Drawing.Size(296, 13);
+            this.titleLabel.TabIndex = 3;
+            this.titleLabel.Text = "c:\\*.*";
+            this.titleLabel.TextBoxBackColor = System.Drawing.Color.Silver;
+            this.titleLabel.BeforeEdit += new Commander.BeforeEditEventHandler(this.titleLabel_BeforeEdit);
+            this.titleLabel.AfterEdit += new Commander.AfterEditEventHandler(this.titleLabel_AfterEdit);
             // 
             // linkButton
             // 
@@ -171,22 +189,6 @@
             this.upButton.Text = "..";
             this.upButton.UseVisualStyleBackColor = true;
             this.upButton.Click += new System.EventHandler(this.upButton_Click);
-            // 
-            // titleLabel
-            // 
-            this.titleLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.titleLabel.AutoSize = true;
-            this.titleLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.titleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.titleLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.titleLabel.Location = new System.Drawing.Point(3, 3);
-            this.titleLabel.Name = "titleLabel";
-            this.titleLabel.Size = new System.Drawing.Size(296, 13);
-            this.titleLabel.TabIndex = 3;
-            this.titleLabel.Text = "c:\\*.*";
-            this.titleLabel.TextBoxBackColor = System.Drawing.Color.Silver;
             // 
             // FileView
             // 

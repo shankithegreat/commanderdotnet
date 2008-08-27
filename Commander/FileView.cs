@@ -53,16 +53,18 @@ namespace Commander
             }
             set
             {
-                LoadDirectory(value);
+                if (LoadDirectory(value))
+                {
+                    titleLabel.Text = GetTitleLabelText(value);
+                }
             }
         }
 
-
-        private void LoadDirectory(DirectoryInfo directory)
+        private bool LoadDirectory(DirectoryInfo directory)
         {
             if (directory == null)
             {
-                return;
+                return false;
             }
 
             FileSystemInfo[] list;
@@ -74,10 +76,8 @@ namespace Commander
             catch (Exception e)
             {
                 MessageBox.Show(e.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                return false;
             }
-
-            titleLabel.Text = Path.Combine(directory.FullName, "*.*");
 
             listView.Items.Clear();
             listView.Tag = directory;
@@ -90,6 +90,7 @@ namespace Commander
 
             selectedDirectory = directory;
             OnDirectorySelected(selectedDirectory);
+            return true;
         }
 
         private void listView_MouseUp(object sender, MouseEventArgs e)
@@ -149,7 +150,6 @@ namespace Commander
             }
         }
 
-
         protected virtual void OnDirectorySelected(DirectoryInfo directory)
         {
             if(DirectorySelected != null)
@@ -173,6 +173,39 @@ namespace Commander
         {
             titleLabel.BackColor = SystemColors.InactiveCaption;
             titleLabel.ForeColor = SystemColors.InactiveCaptionText;
+        }
+
+        private void titleLabel_BeforeEdit(object sender, BeforeEditEventArgs e)
+        {
+            e.Text = selectedDirectory.FullName;
+        }
+
+        private void titleLabel_AfterEdit(object sender, AfterEditEventArgs e)
+        {
+            DirectoryInfo directory;
+            try
+            {
+                directory = new DirectoryInfo(e.Text);              
+            }
+            catch (Exception except)
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            if (LoadDirectory(directory))
+            {
+                e.Text = GetTitleLabelText(directory);
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private string GetTitleLabelText(DirectoryInfo directory)
+        {
+            return Path.Combine(directory.FullName, "*.*");
         }
     }
 }

@@ -9,12 +9,73 @@ using System.Windows.Forms;
 
 namespace Commander
 {
+    public class BeforeEditEventArgs
+    {
+        private string text;
+
+        public BeforeEditEventArgs(string text)
+        {
+            this.text = text;
+        }
+
+        public string Text
+        {
+            get
+            {
+                return text;
+            }
+            set
+            {
+                text = value;
+            }
+        }
+    }
+    public class AfterEditEventArgs
+    {
+        private string text;
+        private bool cancel = false;
+
+        public AfterEditEventArgs(string text)
+        {
+            this.text = text;
+        }
+
+        public string Text
+        {
+            get
+            {
+                return text;
+            }
+            set
+            {
+                text = value;
+            }
+        }
+
+        public bool Cancel
+        {
+            get
+            {
+                return cancel;
+            }
+            set
+            {
+                cancel = value;
+            }
+        }
+    }
+    public delegate void BeforeEditEventHandler(object sender, BeforeEditEventArgs e);
+    public delegate void AfterEditEventHandler(object sender, AfterEditEventArgs e);
+
     public partial class EditableLabel : UserControl
     {
         public EditableLabel()
         {            
             InitializeComponent();
         }
+
+        public event BeforeEditEventHandler BeforeEdit;
+        public event AfterEditEventHandler AfterEdit;
 
         [Browsable(true)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
@@ -51,8 +112,12 @@ namespace Commander
         private void HideTextBox()
         {
             textBox.Visible = false;
-            
-            label.Text = textBox.Text;
+            AfterEditEventArgs args = new AfterEditEventArgs(textBox.Text);
+            OnAfterEdit(args);
+            if (!args.Cancel)
+            {
+                label.Text = args.Text;
+            }            
         }
 
         private void textBox_KeyDown(object sender, KeyEventArgs e)
@@ -86,7 +151,9 @@ namespace Commander
         {
             if (textBox.Visible)
             {
-                textBox.Text = label.Text;
+                BeforeEditEventArgs args = new BeforeEditEventArgs(label.Text);
+                OnBeforeEdit(args);
+                textBox.Text = args.Text;
                 textBox.Focus();
             }
         }
@@ -95,6 +162,22 @@ namespace Commander
         {
             base.OnResize(e);
             base.Height = 13;
+        }
+
+        protected virtual void OnBeforeEdit(BeforeEditEventArgs e)
+        {
+            if (BeforeEdit != null)
+            {
+                BeforeEdit(this, e);
+            }
+        }
+
+        protected virtual void OnAfterEdit(AfterEditEventArgs e)
+        {
+            if (AfterEdit != null)
+            {
+                AfterEdit(this, e);
+            }
         }
     }
 }
