@@ -38,6 +38,8 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.bottomPanel = new System.Windows.Forms.Panel();
+            this.cmdLabel = new System.Windows.Forms.Label();
+            this.cmdComboBox = new System.Windows.Forms.ComboBox();
             this.testLabel = new System.Windows.Forms.Label();
             this.topPanel = new System.Windows.Forms.Panel();
             this.topSplitContainer = new System.Windows.Forms.SplitContainer();
@@ -118,15 +120,43 @@
             // 
             // bottomPanel
             // 
+            this.bottomPanel.Controls.Add(this.cmdLabel);
+            this.bottomPanel.Controls.Add(this.cmdComboBox);
             this.bottomPanel.Controls.Add(this.testLabel);
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomPanel.Location = new System.Drawing.Point(0, 400);
+            this.bottomPanel.Location = new System.Drawing.Point(0, 451);
             this.bottomPanel.Name = "bottomPanel";
             this.bottomPanel.Size = new System.Drawing.Size(756, 38);
             this.bottomPanel.TabIndex = 1;
             // 
+            // cmdLabel
+            // 
+            this.cmdLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cmdLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cmdLabel.Location = new System.Drawing.Point(0, 5);
+            this.cmdLabel.Name = "cmdLabel";
+            this.cmdLabel.Size = new System.Drawing.Size(247, 13);
+            this.cmdLabel.TabIndex = 2;
+            this.cmdLabel.Text = ">";
+            this.cmdLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.cmdLabel.UseMnemonic = false;
+            // 
+            // cmdComboBox
+            // 
+            this.cmdComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdComboBox.BackColor = System.Drawing.Color.Silver;
+            this.cmdComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.cmdComboBox.FormattingEnabled = true;
+            this.cmdComboBox.Location = new System.Drawing.Point(253, 2);
+            this.cmdComboBox.Name = "cmdComboBox";
+            this.cmdComboBox.Size = new System.Drawing.Size(501, 21);
+            this.cmdComboBox.TabIndex = 1;
+            this.cmdComboBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cmdComboBox_KeyDown);
+            // 
             // testLabel
             // 
+            this.testLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.testLabel.AutoSize = true;
             this.testLabel.Location = new System.Drawing.Point(4, 13);
             this.testLabel.Name = "testLabel";
@@ -220,7 +250,7 @@
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.rightFileView);
-            this.splitContainer.Size = new System.Drawing.Size(756, 342);
+            this.splitContainer.Size = new System.Drawing.Size(756, 393);
             this.splitContainer.SplitterDistance = 375;
             this.splitContainer.TabIndex = 3;
             this.splitContainer.SplitterMoving += new System.Windows.Forms.SplitterCancelEventHandler(this.splitContainer_SplitterMoving);
@@ -246,28 +276,31 @@
             this.leftFileView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.leftFileView.Location = new System.Drawing.Point(0, 0);
             this.leftFileView.Name = "leftFileView";
-            this.leftFileView.Size = new System.Drawing.Size(375, 342);
+            this.leftFileView.Size = new System.Drawing.Size(375, 393);
             this.leftFileView.TabIndex = 0;
+            this.leftFileView.DirectorySelected += new Commander.DirectorySelectedEventHandler(this.fileView_DirectorySelected);
             // 
             // rightFileView
             // 
             this.rightFileView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rightFileView.Location = new System.Drawing.Point(0, 0);
             this.rightFileView.Name = "rightFileView";
-            this.rightFileView.Size = new System.Drawing.Size(377, 342);
+            this.rightFileView.Size = new System.Drawing.Size(377, 393);
             this.rightFileView.TabIndex = 1;
+            this.rightFileView.DirectorySelected += new Commander.DirectorySelectedEventHandler(this.fileView_DirectorySelected);
             // 
             // CommanderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(756, 438);
+            this.ClientSize = new System.Drawing.Size(756, 489);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.bottomPanel);
             this.Controls.Add(this.toolStrip);
             this.Menu = this.mainMenu;
             this.Name = "CommanderForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form";
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
@@ -308,6 +341,8 @@
         private FileView leftFileView;
         private FileView rightFileView;
         private System.Windows.Forms.ToolTip splitToolTip;
+        private System.Windows.Forms.ComboBox cmdComboBox;
+        private System.Windows.Forms.Label cmdLabel;
 
 
     }

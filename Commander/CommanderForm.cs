@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using ShellDll;
 
+
 namespace Commander
 {
     public partial class CommanderForm : Form
@@ -143,6 +144,29 @@ namespace Commander
         private void splitContainer_MouseUp(object sender, MouseEventArgs e)
         {
             //splitToolTip.Hide(splitContainer);
+        }
+
+        private void cmdComboBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string cmd = cmdComboBox.Text;
+                cmdComboBox.Text = string.Empty;
+                cmdComboBox.Items.Add(cmdComboBox.Text);
+                try
+                {
+                    System.Diagnostics.Process.Start(cmd);                    
+                }
+                catch(Exception exp)
+                {
+                    MessageBox.Show(exp.Message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }      
+            }
+        }
+
+        private void fileView_DirectorySelected(DirectoryInfo directory)
+        {
+            cmdLabel.Text = string.Format("{0}>", directory.FullName);
         }
 
     }

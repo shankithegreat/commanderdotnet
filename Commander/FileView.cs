@@ -11,6 +11,8 @@ using ShellDll;
 
 namespace Commander
 {
+    public delegate void DirectorySelectedEventHandler(DirectoryInfo directory);
+
     public partial class FileView : UserControl
     {
         private ShellContextMenu contextMenu = new ShellContextMenu();
@@ -31,6 +33,8 @@ namespace Commander
                 return listView;
             }
         }
+
+        public event DirectorySelectedEventHandler DirectorySelected;
 
 
         public void LoadDirectory(DirectoryInfo directory)
@@ -64,6 +68,7 @@ namespace Commander
             }
 
             selectedDirectory = directory;
+            OnDirectorySelected(selectedDirectory);
         }
 
         private void listView_MouseUp(object sender, MouseEventArgs e)
@@ -120,6 +125,15 @@ namespace Commander
             else
             {
                 contextMenu.DefaultCommand((FileInfo)fsi);
+            }
+        }
+
+
+        protected virtual void OnDirectorySelected(DirectoryInfo directory)
+        {
+            if(DirectorySelected != null)
+            {
+                DirectorySelected(directory);
             }
         }
     }
