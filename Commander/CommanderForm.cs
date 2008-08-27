@@ -39,8 +39,8 @@ namespace Commander
             drivesToolBar_ButtonClick(rightDriveToolBar, new ToolBarButtonClickEventArgs(rightDriveToolBar.Buttons[1]));
 
 #if DEBUG
-            TestForm testForem = new TestForm();
-            testForem.Show();
+            //TestForm testForem = new TestForm();
+            //testForem.Show();
 #endif
         }
 
