@@ -16,6 +16,7 @@ namespace Commander
     public partial class CommanderForm : Form
     {
         private Dictionary<DriveType, int> imageIndexes = new Dictionary<DriveType, int>();
+        private FileView fileView = null;
 
         public CommanderForm()
         {
@@ -80,7 +81,7 @@ namespace Commander
 
             FileView fileView = (FileView)toolBar.Tag;
             DriveInfo drive = (DriveInfo)e.Button.Tag;
-            fileView.LoadDirectory(drive.RootDirectory);
+            fileView.SelectedDirectory = drive.RootDirectory;
         }
 
         private void SetPushedDriveButton(ToolBar toolBar, ToolBarButton button)
@@ -152,10 +153,12 @@ namespace Commander
             {
                 string cmd = cmdComboBox.Text;
                 cmdComboBox.Text = string.Empty;
-                cmdComboBox.Items.Add(cmdComboBox.Text);
+                cmdComboBox.Items.Add(cmd);
                 try
                 {
-                    System.Diagnostics.Process.Start(cmd);                    
+                    System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(cmd);
+                    psi.WorkingDirectory = rightFileView.SelectedDirectory.FullName;
+                    System.Diagnostics.Process.Start(psi);                    
                 }
                 catch(Exception exp)
                 {
@@ -164,10 +167,11 @@ namespace Commander
             }
         }
 
-        private void fileView_DirectorySelected(DirectoryInfo directory)
+        private void fileView_DirectorySelected(object sender, DirectoryInfo directory)
         {
+            FileView fileView = (FileView)sender;
             cmdLabel.Text = string.Format("{0}>", directory.FullName);
-        }
+        }        
 
     }
 }

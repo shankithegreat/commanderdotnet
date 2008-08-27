@@ -11,7 +11,7 @@ using ShellDll;
 
 namespace Commander
 {
-    public delegate void DirectorySelectedEventHandler(DirectoryInfo directory);
+    public delegate void DirectorySelectedEventHandler(object sender, DirectoryInfo directory);
 
     public partial class FileView : UserControl
     {
@@ -36,8 +36,20 @@ namespace Commander
 
         public event DirectorySelectedEventHandler DirectorySelected;
 
+        public DirectoryInfo SelectedDirectory
+        {
+            get
+            {
+                return selectedDirectory;
+            }
+            set
+            {
+                LoadDirectory(value);
+            }
+        }
 
-        public void LoadDirectory(DirectoryInfo directory)
+
+        private void LoadDirectory(DirectoryInfo directory)
         {
             if (directory == null)
             {
@@ -133,7 +145,7 @@ namespace Commander
         {
             if(DirectorySelected != null)
             {
-                DirectorySelected(directory);
+                DirectorySelected(this, directory);
             }
         }
     }
