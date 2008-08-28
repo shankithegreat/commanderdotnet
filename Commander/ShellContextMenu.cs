@@ -210,38 +210,41 @@ namespace Commander
             }
         }
 
-        public static DirectoryInfo GetParentDirectory(FileSystemInfo item)
+        
+
+        public void CreateNewFolder(DirectoryInfo directory)
         {
-            if (item is FileInfo)
-            {
-                FileInfo file = (FileInfo)item;
-                return file.Directory;
-            }
-            else
-            {
-                DirectoryInfo directory = (DirectoryInfo)item;
-                return directory.Parent;
-            }
+            Command("NewFolder", directory);
         }
 
-        public static string GetParentDirectoryPath(FileSystemInfo item)
+        public void CopyCommand(params FileSystemInfo[] items)
         {
-            DirectoryInfo parentDirectory = GetParentDirectory(item);
-            if (parentDirectory == null)
-            {
-                return SpecialFolderPath.MyComputer;
-            }
-            return parentDirectory.FullName;
+            Command("copy", items);
+        }
+
+        public void PasteCommand(DirectoryInfo directory)
+        {
+            Command("paste", directory);
+        }
+
+        public void CutCommand(params FileSystemInfo[] items)
+        {
+            Command("cut", items);
         }
 
         public void DeleteCommand(params FileSystemInfo[] items)
         {
+            Command("delete", items);
+        }
+
+        public void Command(string command, params FileSystemInfo[] items)
+        {
             IntPtr[] pidls = GetPIDLs(items);
             if (pidls.Length > 0)
             {
-                string parentDirectory = GetParentDirectoryPath(items[0]);
+                string parentDirectory = ShellFolder.GetParentDirectoryPath(items[0]);
                 IShellFolder parentShellFolder = ShellFolder.GetShellFolder(parentDirectory);
-                ContextMenuHelper.InvokeCommand(parentShellFolder, parentDirectory, pidls, "delete", new Point(0, 0));
+                ContextMenuHelper.InvokeCommand(parentShellFolder, parentDirectory, pidls, command, new Point(0, 0));
             }
         }
 

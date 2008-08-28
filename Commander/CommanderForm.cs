@@ -38,6 +38,7 @@ namespace Commander
 
             drivesToolBar_ButtonClick(leftDrivesToolBar, new ToolBarButtonClickEventArgs(leftDrivesToolBar.Buttons[0]));
             drivesToolBar_ButtonClick(rightDriveToolBar, new ToolBarButtonClickEventArgs(rightDriveToolBar.Buttons[1]));
+            rightFileView.CurrentDirectory = new DirectoryInfo(@"D:\Projects\Commander\Commander\bin\Debug\");
 
 #if DEBUG
             //TestForm testForem = new TestForm();
@@ -75,6 +76,35 @@ namespace Commander
             }
         }
 
+        private FileView GetDestinationFileView()
+        {
+            return GetLastFileView(selectedFileView);
+        }
+
+        private FileView GetLastFileView(FileView first)
+        {
+            if (first.Equals(leftFileView))
+            {
+                return rightFileView;
+            }
+            else
+            {
+                return leftFileView;
+            }
+        }
+
+        private ToolBar GetLastDriveToolBar(ToolBar first)
+        {
+            if (first.Equals(leftDrivesToolBar))
+            {
+                return rightDriveToolBar;
+            }
+            else
+            {
+                return leftDrivesToolBar;
+            }
+        }
+
         private void drivesToolBar_ButtonClick(object sender, ToolBarButtonClickEventArgs e)
         {
             ToolBar toolBar = (ToolBar)sender;
@@ -82,7 +112,15 @@ namespace Commander
 
             FileView fileView = (FileView)toolBar.Tag;
             DriveInfo drive = (DriveInfo)e.Button.Tag;
-            fileView.SelectedDirectory = drive.RootDirectory;
+            FileView lastFileView = GetLastFileView(fileView);
+            if (lastFileView.CurrentDirectory != null && lastFileView.CurrentDirectory.Root.FullName == drive.RootDirectory.FullName)
+            {
+                fileView.CurrentDirectory = lastFileView.CurrentDirectory;
+            }
+            else
+            {
+                fileView.CurrentDirectory = drive.RootDirectory;
+            }
         }
 
         private void SetPushedDriveButton(ToolBar toolBar, ToolBarButton button)
@@ -158,7 +196,7 @@ namespace Commander
                 try
                 {
                     System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(cmd);
-                    psi.WorkingDirectory = rightFileView.SelectedDirectory.FullName;
+                    psi.WorkingDirectory = rightFileView.CurrentDirectory.FullName;
                     System.Diagnostics.Process.Start(psi);                    
                 }
                 catch(Exception exp)
@@ -198,19 +236,22 @@ namespace Commander
 
         private void copyMenuItem_Click(object sender, EventArgs e)
         {
-
+            FileView fileView = selectedFileView;
+            fileView.Copy();
+            GetLastFileView(fileView).Paste();
         }
 
         private void moveMenuItem_Click(object sender, EventArgs e)
         {
-
+            selectedFileView.Cut();
+            GetDestinationFileView().Paste();
         }
 
         private void createFolderMenuItem_Click(object sender, EventArgs e)
         {
             if (createFolderForm.ShowDialog() == DialogResult.OK)
             {
-                if (CreateFolder(selectedFileView.SelectedDirectory, createFolderForm.DirectoryName))
+                if (CreateFolder(selectedFileView.CurrentDirectory, createFolderForm.DirectoryName))
                 {
                     selectedFileView.Refresh();
                 }
@@ -228,21 +269,6 @@ namespace Commander
             {
                 directory.CreateSubdirectory(localPath);
                 return true;                
-            }
-            catch (Exception e)
-            {
-                ShowErrorMessage(e);
-                return false;
-            }
-        }
-
-        private bool Delete(FileSystemInfo item)
-        {
-            try
-            {
-                item.Delete();
-                selectedFileView.Delete();
-                return true;
             }
             catch (Exception e)
             {
@@ -269,23 +295,6 @@ namespace Commander
         private void ShowErrorMessage(string message)
         {
             MessageBox.Show(message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        private void fileView_KeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                case Keys.Delete:
-                    {
-                        deleteMenuItem_Click(sender, e);
-                        break;
-                    }
-                case Keys.Escape:
-                    {
-                        //
-                        break;
-                    }
-            }
         }
 
     }

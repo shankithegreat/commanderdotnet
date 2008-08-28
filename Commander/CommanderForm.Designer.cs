@@ -433,29 +433,27 @@
             // 
             // leftFileView
             // 
+            this.leftFileView.CurrentDirectory = null;
             this.leftFileView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.leftFileView.Location = new System.Drawing.Point(0, 0);
             this.leftFileView.Name = "leftFileView";
-            this.leftFileView.SelectedDirectory = null;
             this.leftFileView.Size = new System.Drawing.Size(332, 305);
             this.leftFileView.TabIndex = 0;
             this.leftFileView.DirectorySelected += new Commander.DirectorySelectedEventHandler(this.fileView_DirectorySelected);
             this.leftFileView.Leave += new System.EventHandler(this.fileView_Leave);
             this.leftFileView.Enter += new System.EventHandler(this.fileView_Enter);
-            this.leftFileView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fileView_KeyDown);
             // 
             // rightFileView
             // 
+            this.rightFileView.CurrentDirectory = null;
             this.rightFileView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rightFileView.Location = new System.Drawing.Point(0, 0);
             this.rightFileView.Name = "rightFileView";
-            this.rightFileView.SelectedDirectory = null;
             this.rightFileView.Size = new System.Drawing.Size(334, 305);
             this.rightFileView.TabIndex = 1;
             this.rightFileView.DirectorySelected += new Commander.DirectorySelectedEventHandler(this.fileView_DirectorySelected);
             this.rightFileView.Leave += new System.EventHandler(this.fileView_Leave);
             this.rightFileView.Enter += new System.EventHandler(this.fileView_Enter);
-            this.rightFileView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fileView_KeyDown);
             // 
             // listImageList
             // 

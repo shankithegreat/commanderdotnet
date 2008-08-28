@@ -9,26 +9,85 @@ namespace ShellDll
 {
     public static class ShellFolder
     {
+        public static FileSystemInfo GetFileSystemInfo(string path)
+        {
+            if (File.Exists(path))
+            {
+                return new FileInfo(path);
+            }
+            else
+            {
+                return new DirectoryInfo(path);
+            }
+        }
+
+        public static DirectoryInfo GetParentDirectory(FileSystemInfo item)
+        {
+            if (item is FileInfo)
+            {
+                FileInfo file = (FileInfo)item;
+                return file.Directory;
+            }
+            else
+            {
+                DirectoryInfo directory = (DirectoryInfo)item;
+                return directory.Parent;
+            }
+        }
+
+        public static string GetParentDirectoryPath(FileSystemInfo item)
+        {
+            DirectoryInfo parentDirectory = GetParentDirectory(item);
+            if (parentDirectory == null)
+            {
+                return SpecialFolderPath.MyComputer;
+            }
+            return parentDirectory.FullName;
+        }
+
+        public static string GetParentDirectoryPath(string path)
+        {
+            return GetParentDirectoryPath(GetFileSystemInfo(path));
+        }
+
         public static IntPtr GetPathPIDL(string path)
         {
+            if (path.EndsWith(@"\"))
+            {
+                path = path.Remove(path.Length - 1);
+            }
             string parentDirectory = Path.GetDirectoryName(path);
             if (parentDirectory == null)
             {
                 parentDirectory = SpecialFolderPath.MyComputer;
             }
-            string fileName = Path.GetFileName(path);
-            if (string.IsNullOrEmpty(fileName))
+            string name = Path.GetFileName(path);
+            if (string.IsNullOrEmpty(name))
             {
-                fileName = path;
+                name = path;
             }
 
+            return GetPathPIDL(parentDirectory, name);
+        }
+
+        public static IntPtr GetPathPIDL(FileSystemInfo item)
+        {
+            string parentDirectory = GetParentDirectoryPath(item);
+            
+            string name = item.Name;
+
+            return GetPathPIDL(parentDirectory, name);
+        }
+
+        public static IntPtr GetPathPIDL(string parentDirectory, string name)
+        {
             IShellFolder parentFolder = ShellFolder.GetShellFolder(parentDirectory);
             if (parentFolder != null)
             {
                 uint pchEaten = 0;
                 ShellAPI.SFGAO pdwAttributes = 0;
                 IntPtr pidl = IntPtr.Zero;
-                int result = parentFolder.ParseDisplayName(IntPtr.Zero, IntPtr.Zero, fileName, ref pchEaten, out pidl, ref pdwAttributes);
+                int result = parentFolder.ParseDisplayName(IntPtr.Zero, IntPtr.Zero, name, ref pchEaten, out pidl, ref pdwAttributes);
                 if (result == ShellAPI.S_OK)
                 {
                     return pidl;
@@ -75,6 +134,19 @@ namespace ShellDll
 
             return (IShellFolder)Marshal.GetTypedObjectForIUnknown(shellFolder, typeof(IShellFolder));
         }
+
+        public static IShellFolder GetParentShellFolder(FileSystemInfo item)
+        {
+            string parentDirectory = ShellFolder.GetParentDirectoryPath(item);
+            IShellFolder parentShellFolder = ShellFolder.GetShellFolder(parentDirectory);
+            return parentShellFolder;
+        }
+
+        public static IShellFolder GetParentShellFolder(string path)
+        {
+            return GetParentShellFolder(GetFileSystemInfo(path));
+        }
+        
 
         public static IShellFolder GetDesktopFolder()
         {

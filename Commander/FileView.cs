@@ -16,7 +16,7 @@ namespace Commander
     public partial class FileView : UserControl
     {
         private ShellContextMenu contextMenu = new ShellContextMenu();
-        private DirectoryInfo selectedDirectory = null;
+        private DirectoryInfo currentDirectory = null;
 
         public FileView()
         {
@@ -45,11 +45,11 @@ namespace Commander
 
         public event DirectorySelectedEventHandler DirectorySelected;
 
-        public DirectoryInfo SelectedDirectory
+        public DirectoryInfo CurrentDirectory
         {
             get
             {
-                return selectedDirectory;
+                return currentDirectory;
             }
             set
             {
@@ -60,21 +60,56 @@ namespace Commander
             }
         }
 
-        public void Delete()
+        public FileSystemInfo[] GetSelected()
         {
-            bool directoryUpdated = false;
             List<FileSystemInfo> list = new List<FileSystemInfo>();
-            foreach(ListViewItem item in listView.SelectedItems)
+            foreach (ListViewItem item in listView.SelectedItems)
             {
                 list.Add((FileSystemInfo)item.Tag);
             }
-            contextMenu.DeleteCommand(list.ToArray());
+            return list.ToArray();
+        }
+
+        public DirectoryInfo GetSelectedDirectory()
+        {
+            if (listView.SelectedItems.Count == 1)
+            {
+                FileSystemInfo item = (FileSystemInfo)listView.SelectedItems[0].Tag;
+                if (item is DirectoryInfo)
+                {
+                    return (DirectoryInfo)item;
+                }
+            }
+            return currentDirectory;
+        }
+
+        public void Delete()
+        {
+            contextMenu.DeleteCommand(GetSelected());
+            this.Refresh();
+        }
+
+        public void Copy()
+        {
+            contextMenu.CopyCommand(GetSelected());
+            this.Refresh();
+        }
+
+        public void Paste()
+        {
+            contextMenu.PasteCommand(GetSelectedDirectory());
+            this.Refresh();
+        }
+
+        public void Cut()
+        {
+            contextMenu.CutCommand(GetSelected());
             this.Refresh();
         }
 
         private bool LoadDirectory()
         {
-            return LoadDirectory(selectedDirectory);
+            return LoadDirectory(currentDirectory);
         }
 
         private bool LoadDirectory(DirectoryInfo directory)
@@ -105,8 +140,8 @@ namespace Commander
                 item.Tag = fsi;
             }
 
-            selectedDirectory = directory;
-            OnDirectorySelected(selectedDirectory);
+            currentDirectory = directory;
+            OnDirectorySelected(currentDirectory);
             return true;
         }
 
@@ -149,7 +184,7 @@ namespace Commander
             {
                 Point location = ((Control)sender).PointToScreen(e.Location);
 
-                contextMenu.Show(location, selectedDirectory.FullName);
+                contextMenu.Show(location, currentDirectory.FullName);
             }
         }
 
@@ -194,7 +229,7 @@ namespace Commander
 
         private void titleLabel_BeforeEdit(object sender, BeforeEditEventArgs e)
         {
-            e.Text = selectedDirectory.FullName;
+            e.Text = currentDirectory.FullName;
         }
 
         private void titleLabel_AfterEdit(object sender, AfterEditEventArgs e)
@@ -234,7 +269,64 @@ namespace Commander
 
         private void listView_KeyDown(object sender, KeyEventArgs e)
         {
-            OnKeyDown(e);
+            bool directoryUpdated = false;
+            if (e.Control && !e.Shift && !e.Alt)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.C:
+                    case Keys.Insert:
+                        // Copy
+                        {
+                            this.Copy();
+                            break;
+                        }                        
+                    case Keys.V:
+                        // Paste
+                        {
+                            this.Paste();
+                            break;
+                        }
+                    case Keys.X:
+                        // Cut
+                        {
+                            this.Cut();
+                            break;
+                        }
+                        break;
+
+                    case Keys.A:
+                        // Select All
+                        {
+                            break;
+                        }
+                }
+            }
+            else
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Insert:
+                        // Paste
+                        if (e.Shift && !e.Control && !e.Alt)
+                        {
+                            this.Paste();
+                        }
+                        e.Handled = true;
+                        e.SuppressKeyPress = true;
+                        break;
+
+                    case Keys.Delete:
+                        // Delete
+                        if (!e.Control && !e.Alt)
+                        {
+                            this.Delete();
+                        }
+                        e.Handled = true;
+                        e.SuppressKeyPress = true;
+                        break;
+                }
+            }
         }
     }
 }
