@@ -17,13 +17,19 @@ namespace Commander
     {
         private ShellContextMenu contextMenu = new ShellContextMenu();
         private DirectoryInfo currentDirectory = null;
+        //private ShellDrag dragClass;
+        //private ShellDrop dropClass;
+        //private BrowserLVDropWrapper dw;
+        //private BrowserLVDragWrapper drw;
 
         public FileView()
         {
             InitializeComponent();
 
+            this.HandleCreated += new EventHandler(FileView_HandleCreated);
+
             ShellImageList.SetSmallImageList(listView);
-            ShellImageList.SetLargeImageList(listView);
+            ShellImageList.SetLargeImageList(listView);            
 
             if (this.Focused)
             {
@@ -35,7 +41,53 @@ namespace Commander
             }
         }
 
-        public ListView ListView
+        private void FileView_HandleCreated(object sender, EventArgs e)
+        {
+            //dropClass = new ShellDrop(listView);
+            //dropClass.RetrieveDestinationRirectory += new RetrieveDestinationRirectoryEventHandler(dropClass_RetrieveDestinationRirectory);
+            //dropClass.Drop += new DropEventHandler(dropClass_Drop);
+            //drw = new BrowserLVDragWrapper(this);
+            //dw = new BrowserLVDropWrapper(this);                
+            //dragClass = new ShellDrag();
+        }
+
+        private void dropClass_Drop(object sender, DropEventArgs e)
+        {
+        }
+
+        internal void dropClass_RetrieveDestinationRirectory(object sender, RetrieveDestinationRirectoryEventArgs e)
+        {
+            e.DestinationDirectory = GetDirectoryFromPoint(e.Point);
+        }
+
+        public FileSystemInfo GetFileSystemItemFromPoint(Point point)
+        {
+            ListViewHitTestInfo hitTest = listView.HitTest(point);
+            if (hitTest.Item != null)
+            {
+                ListViewItem item = hitTest.Item;
+                return (FileSystemInfo)item.Tag;
+            }
+            else
+            {
+                return currentDirectory;
+            }
+        }
+
+        public DirectoryInfo GetDirectoryFromPoint(Point point)
+        {
+            FileSystemInfo item = GetFileSystemItemFromPoint(point);
+            if (item is DirectoryInfo)
+            {
+                return (DirectoryInfo)item;
+            }
+            else
+            {
+                return currentDirectory;
+            }
+        }
+
+        internal ShellListView ListView
         {
             get
             {
@@ -81,6 +133,17 @@ namespace Commander
                 }
             }
             return currentDirectory;
+        }
+
+        public FileSystemInfo GetFocusedItem()
+        {
+            ListViewItem item = listView.FocusedItem;
+            if (item != null)
+            {
+                FileSystemInfo fsi = (FileSystemInfo)item.Tag;
+                return fsi;
+            }
+            return null;
         }
 
         public void Delete()
@@ -141,6 +204,7 @@ namespace Commander
             }
 
             currentDirectory = directory;
+            titleLabel.Text = GetTitleLabelText(currentDirectory);
             OnDirectorySelected(currentDirectory);
             return true;
         }
@@ -204,7 +268,7 @@ namespace Commander
 
         protected virtual void OnDirectorySelected(DirectoryInfo directory)
         {
-            if(DirectorySelected != null)
+            if (DirectorySelected != null)
             {
                 DirectorySelected(this, directory);
             }
@@ -237,7 +301,7 @@ namespace Commander
             DirectoryInfo directory;
             try
             {
-                directory = new DirectoryInfo(e.Text);              
+                directory = new DirectoryInfo(e.Text);
             }
             catch (Exception except)
             {
@@ -263,7 +327,7 @@ namespace Commander
         public override void Refresh()
         {
             base.Refresh();
-            
+
             LoadDirectory();
         }
 
@@ -280,7 +344,7 @@ namespace Commander
                         {
                             this.Copy();
                             break;
-                        }                        
+                        }
                     case Keys.V:
                         // Paste
                         {
@@ -327,6 +391,28 @@ namespace Commander
                         break;
                 }
             }
+            OnKeyDown(e);
         }
+
+        private void listView_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            //dragClass.DragCommand(e.Button, GetSelected());
+        }
+
+        private void listView_DragEnter(object sender, DragEventArgs e)
+        {
+            /*string[] ss = e.Data.GetFormats();
+            ShellDll.IDataObject d = (ShellDll.IDataObject)e.Data.GetData(typeof(ShellDll.IDataObject));
+            d.
+            IntPtr obj = (IntPtr)e.Data.GetData(typeof(IntPtr));
+            DragDropEffects effects = e.Effect;
+            dropClass.DragEnter(obj, (ShellAPI.MK)e.KeyState, new ShellAPI.POINT(e.X, e.Y), ref effects);
+            e.Effect = effects;*/
+        }
+
+        
     }
+
+       
+
 }

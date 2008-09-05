@@ -38,12 +38,6 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -51,6 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrowserWrapper\BrowserDragWrappers.cs" />
+    <Compile Include="BrowserWrapper\BrowserDropWrappers.cs" />
     <Compile Include="CommanderForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +59,9 @@
     <Compile Include="CreateFolderForm.Designer.cs">
       <DependentUpon>CreateFolderForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListViewSorter.cs" />
+    <Compile Include="ShellDrag.cs" />
+    <Compile Include="ShellDrop.cs" />
     <Compile Include="EditableLabel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -114,6 +113,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ShellListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Shell\Interfaces\IAdviseSink.cs" />
     <Compile Include="Shell\Interfaces\IContextMenu.cs" />
     <Compile Include="Shell\Interfaces\IDataObject.cs" />
@@ -146,9 +148,6 @@
     <Compile Include="TestForm.Designer.cs">
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BrowserWrapper\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

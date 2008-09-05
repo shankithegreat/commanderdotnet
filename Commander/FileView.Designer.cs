@@ -30,9 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileView));
-            this.listView = new System.Windows.Forms.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.titlePanel = new System.Windows.Forms.Panel();
             this.titleLabel = new Commander.EditableLabel();
             this.linkButton = new System.Windows.Forms.Button();
@@ -42,38 +39,12 @@
             this.hintLabel = new System.Windows.Forms.Label();
             this.rootButton = new System.Windows.Forms.Button();
             this.upButton = new System.Windows.Forms.Button();
+            this.listView = new Commander.ShellListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
             this.titlePanel.SuspendLayout();
             this.hintPanel.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // listView
-            // 
-            this.listView.BackColor = System.Drawing.Color.Silver;
-            this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
-            this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.listView.FullRowSelect = true;
-            this.listView.Location = new System.Drawing.Point(0, 40);
-            this.listView.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(343, 200);
-            this.listView.TabIndex = 3;
-            this.listView.TileSize = new System.Drawing.Size(188, 32);
-            this.listView.UseCompatibleStateImageBehavior = false;
-            this.listView.View = System.Windows.Forms.View.Details;
-            this.listView.ItemActivate += new System.EventHandler(this.listView_ItemActivate);
-            this.listView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listView_MouseUp);
-            this.listView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_KeyDown);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Width = 200;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Width = 10;
             // 
             // titlePanel
             // 
@@ -105,6 +76,8 @@
             this.titleLabel.TextBoxBackColor = System.Drawing.Color.Silver;
             this.titleLabel.BeforeEdit += new Commander.BeforeEditEventHandler(this.titleLabel_BeforeEdit);
             this.titleLabel.AfterEdit += new Commander.AfterEditEventHandler(this.titleLabel_AfterEdit);
+            this.titleLabel.Click += new System.EventHandler(this.titleLabel_Click);
+            this.titleLabel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.titleLabel_MouseUp);
             // 
             // linkButton
             // 
@@ -191,6 +164,40 @@
             this.upButton.UseVisualStyleBackColor = true;
             this.upButton.Click += new System.EventHandler(this.upButton_Click);
             // 
+            // listView
+            // 
+            this.listView.Alignment = System.Windows.Forms.ListViewAlignment.Left;
+            this.listView.BackColor = System.Drawing.Color.Silver;
+            this.listView.ColumnHeaderContextMenu = null;
+            this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listView.FullRowSelect = true;
+            this.listView.Location = new System.Drawing.Point(0, 40);
+            this.listView.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.listView.Name = "listView";
+            this.listView.OwnerDraw = true;
+            this.listView.Size = new System.Drawing.Size(343, 200);
+            this.listView.SuspendHeaderContextMenu = false;
+            this.listView.TabIndex = 3;
+            this.listView.TileSize = new System.Drawing.Size(188, 32);
+            this.listView.UseCompatibleStateImageBehavior = false;
+            this.listView.View = System.Windows.Forms.View.Details;
+            this.listView.ItemActivate += new System.EventHandler(this.listView_ItemActivate);
+            this.listView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listView_MouseUp);
+            this.listView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_KeyDown);
+            this.listView.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.listView_ItemDrag);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Width = 200;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Width = 10;
+            // 
             // FileView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -212,7 +219,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView listView;
+        private Commander.ShellListView listView;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.Panel titlePanel;

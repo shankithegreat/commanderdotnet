@@ -23,8 +23,13 @@ namespace Commander
         {
             InitializeComponent();
 
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+
             leftDrivesToolBar.Tag = leftFileView;
             rightDriveToolBar.Tag = rightFileView;
+            leftFileView.Tag = leftDrivesToolBar;
+            rightFileView.Tag = rightDriveToolBar;
 
 
             imageIndexes.Add(DriveType.Fixed, 1);
@@ -112,6 +117,14 @@ namespace Commander
 
             FileView fileView = (FileView)toolBar.Tag;
             DriveInfo drive = (DriveInfo)e.Button.Tag;
+            SelectDrive(drive, fileView);
+            
+            ToolBarButton selectedButton = GetDriveToolBarButtonFromDirectory(toolBar, fileView.CurrentDirectory);
+            SetPushedDriveButton(toolBar, selectedButton);
+        }
+
+        private void SelectDrive(DriveInfo drive, FileView fileView)
+        {
             FileView lastFileView = GetLastFileView(fileView);
             if (lastFileView.CurrentDirectory != null && lastFileView.CurrentDirectory.Root.FullName == drive.RootDirectory.FullName)
             {
@@ -209,13 +222,46 @@ namespace Commander
         private void fileView_DirectorySelected(object sender, DirectoryInfo directory)
         {
             FileView fileView = (FileView)sender;
+            SetCmdLabelText(directory);
+            
+            ToolBar toolBar = (ToolBar)fileView.Tag;
+            DriveToolBarSelectDrive(toolBar, directory);
+        }
+
+        private void SetCmdLabelText(DirectoryInfo directory)
+        {
             cmdLabel.Text = string.Format("{0}>", directory.FullName);
+        }
+
+        private ToolBarButton GetDriveToolBarButtonFromDirectory(ToolBar toolBar, DirectoryInfo directory)
+        {
+            foreach (ToolBarButton button in toolBar.Buttons)
+            {
+                DriveInfo d = (DriveInfo)button.Tag;
+                if (d.RootDirectory.FullName == directory.Root.FullName)
+                {
+                    return button;
+                }
+            }
+            return null;
+        }
+
+        private void DriveToolBarSelectDrive(ToolBar toolBar, DirectoryInfo directory)
+        {
+            ToolBarButton selectedButton = GetDriveToolBarButtonFromDirectory(toolBar, directory);
+
+            if (selectedButton != null && !selectedButton.Pushed)
+            {
+                drivesToolBar_ButtonClick(toolBar, new ToolBarButtonClickEventArgs(selectedButton));
+            }
         }
 
         private void fileView_Enter(object sender, EventArgs e)
         {
             FileView fileView = (FileView)sender;
             selectedFileView = fileView;
+
+            SetCmdLabelText(fileView.CurrentDirectory);
         }
 
         private void fileView_Leave(object sender, EventArgs e)
@@ -295,6 +341,38 @@ namespace Commander
         private void ShowErrorMessage(string message)
         {
             MessageBox.Show(message, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void fileView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && !e.Alt && !e.Shift)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Enter:
+                        {
+                            FileSystemInfo fsi = selectedFileView.GetFocusedItem();
+                            AddToCmd(fsi.Name);
+                            e.SuppressKeyPress = true;
+                            break;
+                        }
+                    case Keys.P:
+                        {
+                            FileSystemInfo fsi = selectedFileView.GetFocusedItem();
+                            AddToCmd(ShellFolder.GetParentDirectoryPath(fsi));
+                            break;
+                        }
+                }
+            }
+        }
+
+        private void AddToCmd(string text)
+        {
+            if (!string.IsNullOrEmpty(cmdComboBox.Text))
+            {
+                cmdComboBox.Text += " ";
+            }
+            cmdComboBox.Text += text;
         }
 
     }

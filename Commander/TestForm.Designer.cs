@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.toolStripDropDown1 = new System.Windows.Forms.ToolStripDropDown();
-            this.editableLabel1 = new Commander.EditableLabel();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // toolStripDropDown1
@@ -38,35 +38,29 @@
             this.toolStripDropDown1.Name = "toolStripDropDown1";
             this.toolStripDropDown1.Size = new System.Drawing.Size(2, 4);
             // 
-            // editableLabel1
+            // listView1
             // 
-            this.editableLabel1.AutoSize = true;
-            this.editableLabel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.editableLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.editableLabel1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.editableLabel1.Location = new System.Drawing.Point(68, 67);
-            this.editableLabel1.Name = "editableLabel1";
-            this.editableLabel1.Size = new System.Drawing.Size(174, 13);
-            this.editableLabel1.TabIndex = 1;
-            this.editableLabel1.Text = "1234";
-            this.editableLabel1.TextBoxBackColor = System.Drawing.Color.Silver;
+            this.listView1.Location = new System.Drawing.Point(52, 24);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(121, 97);
+            this.listView1.TabIndex = 1;
+            this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // TestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(292, 266);
-            this.Controls.Add(this.editableLabel1);
+            this.Controls.Add(this.listView1);
             this.Name = "TestForm";
             this.Text = "TestForm";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.ToolStripDropDown toolStripDropDown1;
-        private EditableLabel editableLabel1;
+        private System.Windows.Forms.ListView listView1;
     }
 }

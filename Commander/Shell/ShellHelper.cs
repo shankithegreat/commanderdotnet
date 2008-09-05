@@ -112,6 +112,30 @@ namespace ShellDll
         }
 
         /// <summary>
+        /// This method will use the GetUIObjectOf method of IShellFolder to obtain the IDataObject of a
+        /// ShellItem. 
+        /// </summary>
+        /// <returns>the IDataObject the ShellItem</returns>
+        public static IntPtr GetIDataObject(IntPtr[] pidls, IShellFolder parent)
+        {
+            IntPtr dataObjectPtr;
+            if (parent.GetUIObjectOf(
+                    IntPtr.Zero,
+                    (uint)pidls.Length,
+                    pidls,
+                    ref ShellAPI.IID_IDataObject,
+                    IntPtr.Zero,
+                    out dataObjectPtr) == ShellAPI.S_OK)
+            {
+                return dataObjectPtr;
+            }
+            else
+            {
+                return IntPtr.Zero;
+            }
+        }
+
+        /// <summary>
         /// This method will use the GetUIObjectOf method of IShellFolder to obtain the IDropTarget of a
         /// ShellItem. 
         /// </summary>
@@ -126,6 +150,36 @@ namespace ShellDll
                     IntPtr.Zero,
                     1,
                     new IntPtr[] { item.PIDLRel.Ptr },
+                    ref ShellAPI.IID_IDropTarget,
+                    IntPtr.Zero,
+                    out dropTargetPtr) == ShellAPI.S_OK)
+            {
+                dropTarget =
+                    (ShellDll.IDropTarget)Marshal.GetTypedObjectForIUnknown(dropTargetPtr, typeof(ShellDll.IDropTarget));
+
+                return true;
+            }
+            else
+            {
+                dropTarget = null;
+                dropTargetPtr = IntPtr.Zero;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// This method will use the GetUIObjectOf method of IShellFolder to obtain the IDropTarget of a
+        /// ShellItem. 
+        /// </summary>
+        /// <param name="item">The item for which to obtain the IDropTarget</param>
+        /// <param name="dropTargetPtr">A pointer to the returned IDropTarget</param>
+        /// <returns>the IDropTarget from the ShellItem</returns>
+        public static bool GetIDropTarget(IntPtr[] pidls, IShellFolder parent, out IntPtr dropTargetPtr, out ShellDll.IDropTarget dropTarget)
+        {
+            if (parent.GetUIObjectOf(
+                    IntPtr.Zero,
+                    1,
+                    pidls,
                     ref ShellAPI.IID_IDropTarget,
                     IntPtr.Zero,
                     out dropTargetPtr) == ShellAPI.S_OK)

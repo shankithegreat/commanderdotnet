@@ -39,7 +39,9 @@
             this.label.Name = "label";
             this.label.Size = new System.Drawing.Size(174, 13);
             this.label.TabIndex = 0;
+            this.label.Click += new System.EventHandler(this.label_Click);
             this.label.DoubleClick += new System.EventHandler(this.label_DoubleClick);
+            this.label.MouseUp += new System.Windows.Forms.MouseEventHandler(this.label_MouseUp);
             // 
             // textBox
             // 

@@ -52,7 +52,7 @@ namespace ShellDll
 
         public static IntPtr GetPathPIDL(string path)
         {
-            if (path.EndsWith(@"\"))
+            if (path.EndsWith(@"\") && !path.EndsWith(@":\"))
             {
                 path = path.Remove(path.Length - 1);
             }
@@ -96,6 +96,31 @@ namespace ShellDll
 
             return IntPtr.Zero;
         }
+
+        public static IntPtr[] GetPIDLs(params FileSystemInfo[] list)
+        {
+            List<IntPtr> pidls = new List<IntPtr>(list.Length);
+
+            foreach (FileSystemInfo item in list)
+            {
+                pidls.Add(GetPathPIDL(item.FullName));
+            }
+
+            return pidls.ToArray();
+        }
+
+        public static IntPtr[] GetPIDLs(params string[] pathList)
+        {
+            List<IntPtr> pidls = new List<IntPtr>(pathList.Length);
+
+            foreach (string path in pathList)
+            {
+                pidls.Add(GetPathPIDL(path));
+            }
+
+            return pidls.ToArray();
+        }
+
 
         public static IntPtr GetShellFolderIntPtr(string path)
         {

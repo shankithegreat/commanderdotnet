@@ -10,7 +10,7 @@ using ShellDll;
 
 namespace Commander
 {
-    public class ShellContextMenu : NativeWindow
+    internal class ShellContextMenu : NativeWindow
     {
         private IContextMenu iContextMenu, newContextMenu;
         private IContextMenu2 iContextMenu2, newContextMenu2;
@@ -69,39 +69,11 @@ namespace Commander
 
             base.WndProc(ref m);
         }
-
-        private static IntPtr[] GetPIDLs(params FileSystemInfo[] list)
-        {
-            List<IntPtr> pidls = new List<IntPtr>(list.Length);
-
-            foreach (FileSystemInfo item in list)
-            {
-                pidls.Add(ShellFolder.GetPathPIDL(item.FullName));
-            }
-
-            return pidls.ToArray();
-        }
-
-        private static IntPtr[] GetPIDLs(params string[] pathList)
-        {
-            List<IntPtr> pidls = new List<IntPtr>(pathList.Length);
-
-            foreach (string path in pathList)
-            {
-                pidls.Add(ShellFolder.GetPathPIDL(path));
-            }
-
-            return pidls.ToArray();
-        }
-
+        
         public void Show(Point location, params string[] pathList)
         {
-            IntPtr[] pidls = GetPIDLs(pathList);
-            string parentDirectory = Path.GetDirectoryName(pathList[0]);
-            if (parentDirectory == null)
-            {
-                parentDirectory = SpecialFolderPath.MyComputer;
-            }
+            IntPtr[] pidls = ShellFolder.GetPIDLs(pathList);
+            string parentDirectory = ShellFolder.GetParentDirectoryPath(pathList[0]);
             IShellFolder parentShellFolder = ShellFolder.GetShellFolder(parentDirectory);
 
             IntPtr contextMenu = IntPtr.Zero;
@@ -211,7 +183,6 @@ namespace Commander
         }
 
         
-
         public void CreateNewFolder(DirectoryInfo directory)
         {
             Command("NewFolder", directory);
@@ -239,7 +210,7 @@ namespace Commander
 
         public void Command(string command, params FileSystemInfo[] items)
         {
-            IntPtr[] pidls = GetPIDLs(items);
+            IntPtr[] pidls = ShellFolder.GetPIDLs(items);
             if (pidls.Length > 0)
             {
                 string parentDirectory = ShellFolder.GetParentDirectoryPath(items[0]);
@@ -261,7 +232,7 @@ namespace Commander
 
         private void DefaultCommand(string path, string parentDirectory)
         {
-            IntPtr[] pidls = GetPIDLs(path);
+            IntPtr[] pidls = ShellFolder.GetPIDLs(path);
 
             IntPtr icontextMenuPtr = IntPtr.Zero, context2Ptr = IntPtr.Zero, context3Ptr = IntPtr.Zero;
             ContextMenu contextMenu = new ContextMenu();
@@ -304,5 +275,6 @@ namespace Commander
                 Marshal.Release(icontextMenuPtr);
             }
         }
+        
     }
 }

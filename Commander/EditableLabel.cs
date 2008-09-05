@@ -147,6 +147,16 @@ namespace Commander
             textBox.Visible = true;
         }
 
+        private void label_Click(object sender, EventArgs e)
+        {
+            OnClick(e);
+        }
+
+        private void label_MouseUp(object sender, MouseEventArgs e)
+        {
+            OnMouseUp(e);
+        }
+
         private void textBox_VisibleChanged(object sender, EventArgs e)
         {
             if (textBox.Visible)

@@ -11,9 +11,13 @@ namespace Commander
 {
     public partial class TestForm : Form
     {
+        private ShellDrop sd;
+
         public TestForm()
         {
             InitializeComponent();
+
+            sd = new ShellDrop(listView1);
         }
     }
 }
