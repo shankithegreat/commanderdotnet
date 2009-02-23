@@ -21,15 +21,20 @@ namespace Commander
         //private ShellDrop dropClass;
         //private BrowserLVDropWrapper dw;
         //private BrowserLVDragWrapper drw;
+        ThumbnailCreator thumbnailCreator = new ThumbnailCreator();
 
         public FileView()
         {
             InitializeComponent();
 
+            thumbnailCreator.DesiredSize = new Size(256, 256);
+
             this.HandleCreated += new EventHandler(FileView_HandleCreated);
 
             ShellImageList.SetSmallImageList(listView);
-            ShellImageList.SetLargeImageList(listView);            
+            //ShellImageList.SetLargeImageList(listView);
+            //listView.LargeImageList = largeImageList;
+            largeImageList.ImageSize = thumbnailCreator.DesiredSize;
 
             if (this.Focused)
             {
@@ -195,18 +200,56 @@ namespace Commander
             }
 
             listView.Items.Clear();
+            largeImageList.Images.Clear();
             listView.Tag = directory;
 
-            foreach (FileSystemInfo fsi in list)
-            {
-                ListViewItem item = listView.Items.Add(fsi.Name, SafeNativeMethods.GetAssociatedIconIndex(fsi.FullName));
-                item.Tag = fsi;
-            }
+            FillListView(directory, list);
 
             currentDirectory = directory;
             titleLabel.Text = GetTitleLabelText(currentDirectory);
             OnDirectorySelected(currentDirectory);
             return true;
+        }
+
+        private void FillListView(DirectoryInfo directory, FileSystemInfo[] list)
+        {
+            if (directory.Parent != null)
+            {
+                ListViewItem item = listView.Items.Add("..");
+                item.Tag = directory.Parent;
+            }
+
+            foreach (FileSystemInfo fsi in list)
+            {
+                ListViewItem item = listView.Items.Add(fsi.Name, GetImageIndex(fsi));
+                item.Tag = fsi;
+            }
+        }
+
+        private int GetImageIndex(FileSystemInfo item)
+        {
+            if (listView.View == View.LargeIcon)
+            {
+                try
+                {
+                    Bitmap bmp = thumbnailCreator.GetThumbnail(item.FullName);
+                    if (bmp != null)
+                    {
+                        return largeImageList.Images.Add(bmp, Color.Transparent);
+                    }
+                }
+                catch
+                {
+                }
+                Icon icon = SafeNativeMethods.GetLargeAssociatedIcon(item.FullName);
+                if (icon != null)
+                {
+                    largeImageList.Images.Add(icon);
+                    return largeImageList.Images.Count - 1;
+                }
+                return -1;
+            }
+            return SafeNativeMethods.GetAssociatedIconIndex(item.FullName);
         }
 
         private void listView_MouseUp(object sender, MouseEventArgs e)
@@ -362,6 +405,7 @@ namespace Commander
                     case Keys.A:
                         // Select All
                         {
+                            SelectAll();
                             break;
                         }
                 }
@@ -394,6 +438,19 @@ namespace Commander
             OnKeyDown(e);
         }
 
+        private void SelectAll()
+        {
+            if (listView.Items.Count >= 1)
+            {
+                listView.Items[0].Selected = (currentDirectory.Parent == null);
+            }
+            for (int i = 1; i < listView.Items.Count; i++)
+            {
+                ListViewItem item = listView.Items[i];
+                item.Selected = true;
+            }
+        }
+
         private void listView_ItemDrag(object sender, ItemDragEventArgs e)
         {
             //dragClass.DragCommand(e.Button, GetSelected());
@@ -410,6 +467,24 @@ namespace Commander
             e.Effect = effects;*/
         }
 
+
+        public void SetView(View view)
+        {
+            if (view == View.LargeIcon)
+            {
+                //listView.LargeImageList = largeImageList;
+                ShellImageList.SetLargeImageList(listView, largeImageList.Handle);
+            }
+            else
+            {
+                ShellImageList.SetLargeImageList(listView);
+            }
+            listView.View = view;
+            if (view == View.LargeIcon)
+            {
+                LoadDirectory();
+            }
+        }
         
     }
 

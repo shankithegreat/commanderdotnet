@@ -145,6 +145,11 @@ namespace ShellDll
             ShellAPI.SendMessage(listView.Handle, ShellAPI.WM.LVM_SETIMAGELIST, TVSIL_NORMAL, largeImageListHandle);
         }
 
+        internal static void SetLargeImageList(ListView listView, IntPtr handle)
+        {
+            ShellAPI.SendMessage(listView.Handle, ShellAPI.WM.LVM_SETIMAGELIST, TVSIL_NORMAL, handle);
+        }
+
         #endregion
     }
 }

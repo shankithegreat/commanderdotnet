@@ -42,6 +42,7 @@
             this.listView = new Commander.ShellListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.largeImageList = new System.Windows.Forms.ImageList(this.components);
             this.titlePanel.SuspendLayout();
             this.hintPanel.SuspendLayout();
             this.SuspendLayout();
@@ -99,6 +100,7 @@
             this.listImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.listImageList.Images.SetKeyName(0, "star");
             this.listImageList.Images.SetKeyName(1, "downList");
+            this.listImageList.Images.SetKeyName(2, "back.png");
             // 
             // historyButton
             // 
@@ -198,6 +200,12 @@
             // 
             this.columnHeader2.Width = 10;
             // 
+            // largeImageList
+            // 
+            this.largeImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            this.largeImageList.ImageSize = new System.Drawing.Size(108, 108);
+            this.largeImageList.TransparentColor = System.Drawing.Color.Transparent;
+            // 
             // FileView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -231,5 +239,6 @@
         private System.Windows.Forms.Button upButton;
         private System.Windows.Forms.ImageList listImageList;
         private EditableLabel titleLabel;
+        private System.Windows.Forms.ImageList largeImageList;
     }
 }

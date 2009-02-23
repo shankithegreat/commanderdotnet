@@ -148,24 +148,30 @@ namespace Commander
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            leftFileView.ListView.View = View.Details;
-            rightFileView.ListView.View = View.Details;
+            leftFileView.SetView(View.Details);
+            rightFileView.SetView(View.Details);
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            leftFileView.ListView.View = View.Tile;
+            leftFileView.SetView(View.Tile);
             leftFileView.ListView.TileSize = new Size(230, 32);
-            rightFileView.ListView.View = View.Tile;
+            rightFileView.SetView(View.Tile);
             rightFileView.ListView.TileSize = new Size(230, 32);
             
-            leftFileView.ListView.View = View.Details;
-            rightFileView.ListView.View = View.Details;
+            leftFileView.SetView(View.Details);
+            rightFileView.SetView(View.Details);
 
-            leftFileView.ListView.View = View.Tile;
+            leftFileView.SetView(View.Tile);
             leftFileView.ListView.TileSize = new Size(230, 32);
-            rightFileView.ListView.View = View.Tile;
+            rightFileView.SetView(View.Tile);
             rightFileView.ListView.TileSize = new Size(230, 32);
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            leftFileView.SetView(View.LargeIcon);
+            rightFileView.SetView(View.LargeIcon);
         }
 
         private void leftDrivesToolBar_MouseUp(object sender, MouseEventArgs e)

@@ -43,6 +43,7 @@
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.bottomPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.cmdComboBox = new System.Windows.Forms.ComboBox();
@@ -157,7 +158,8 @@
             this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton1,
-            this.toolStripButton2});
+            this.toolStripButton2,
+            this.toolStripButton3});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
@@ -185,12 +187,22 @@
             this.toolStripButton2.Text = "toolStripButton2";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton3.Text = "toolStripButton3";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            // 
             // bottomPanel
             // 
             this.bottomPanel.Controls.Add(this.tableLayoutPanel2);
             this.bottomPanel.Controls.Add(this.tableLayoutPanel1);
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomPanel.Location = new System.Drawing.Point(0, 279);
+            this.bottomPanel.Location = new System.Drawing.Point(0, 333);
             this.bottomPanel.Name = "bottomPanel";
             this.bottomPanel.Size = new System.Drawing.Size(670, 55);
             this.bottomPanel.TabIndex = 1;
@@ -423,7 +435,7 @@
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.rightFileView);
-            this.splitContainer.Size = new System.Drawing.Size(670, 221);
+            this.splitContainer.Size = new System.Drawing.Size(670, 275);
             this.splitContainer.SplitterDistance = 332;
             this.splitContainer.TabIndex = 3;
             this.splitContainer.SplitterMoving += new System.Windows.Forms.SplitterCancelEventHandler(this.splitContainer_SplitterMoving);
@@ -437,7 +449,7 @@
             this.leftFileView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.leftFileView.Location = new System.Drawing.Point(0, 0);
             this.leftFileView.Name = "leftFileView";
-            this.leftFileView.Size = new System.Drawing.Size(332, 221);
+            this.leftFileView.Size = new System.Drawing.Size(332, 275);
             this.leftFileView.TabIndex = 0;
             this.leftFileView.DirectorySelected += new Commander.DirectorySelectedEventHandler(this.fileView_DirectorySelected);
             this.leftFileView.Leave += new System.EventHandler(this.fileView_Leave);
@@ -450,7 +462,7 @@
             this.rightFileView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rightFileView.Location = new System.Drawing.Point(0, 0);
             this.rightFileView.Name = "rightFileView";
-            this.rightFileView.Size = new System.Drawing.Size(334, 221);
+            this.rightFileView.Size = new System.Drawing.Size(334, 275);
             this.rightFileView.TabIndex = 1;
             this.rightFileView.DirectorySelected += new Commander.DirectorySelectedEventHandler(this.fileView_DirectorySelected);
             this.rightFileView.Leave += new System.EventHandler(this.fileView_Leave);
@@ -474,7 +486,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(670, 334);
+            this.ClientSize = new System.Drawing.Size(670, 388);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.bottomPanel);
@@ -539,6 +551,7 @@
         private System.Windows.Forms.MenuItem moveMenuItem;
         private System.Windows.Forms.MenuItem createFolderMenuItem;
         private System.Windows.Forms.MenuItem deleteMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButton3;
 
 
     }
