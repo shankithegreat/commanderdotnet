@@ -62,10 +62,10 @@
             this.driveToolBarImageList = new System.Windows.Forms.ImageList(this.components);
             this.rightDriveToolBar = new System.Windows.Forms.ToolBar();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.leftFileView = new Commander.FileView();
-            this.rightFileView = new Commander.FileView();
             this.listImageList = new System.Windows.Forms.ImageList(this.components);
             this.splitToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.leftFileView = new Commander.FileView();
+            this.rightFileView = new Commander.FileView();
             this.toolStrip.SuspendLayout();
             this.bottomPanel.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -202,7 +202,7 @@
             this.bottomPanel.Controls.Add(this.tableLayoutPanel2);
             this.bottomPanel.Controls.Add(this.tableLayoutPanel1);
             this.bottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bottomPanel.Location = new System.Drawing.Point(0, 333);
+            this.bottomPanel.Location = new System.Drawing.Point(0, 291);
             this.bottomPanel.Name = "bottomPanel";
             this.bottomPanel.Size = new System.Drawing.Size(670, 55);
             this.bottomPanel.TabIndex = 1;
@@ -435,39 +435,13 @@
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.rightFileView);
-            this.splitContainer.Size = new System.Drawing.Size(670, 275);
+            this.splitContainer.Size = new System.Drawing.Size(670, 233);
             this.splitContainer.SplitterDistance = 332;
             this.splitContainer.TabIndex = 3;
             this.splitContainer.SplitterMoving += new System.Windows.Forms.SplitterCancelEventHandler(this.splitContainer_SplitterMoving);
             this.splitContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer_SplitterMoved);
             this.splitContainer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.splitContainer_MouseDown);
             this.splitContainer.MouseUp += new System.Windows.Forms.MouseEventHandler(this.splitContainer_MouseUp);
-            // 
-            // leftFileView
-            // 
-            this.leftFileView.CurrentDirectory = null;
-            this.leftFileView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.leftFileView.Location = new System.Drawing.Point(0, 0);
-            this.leftFileView.Name = "leftFileView";
-            this.leftFileView.Size = new System.Drawing.Size(332, 275);
-            this.leftFileView.TabIndex = 0;
-            this.leftFileView.DirectorySelected += new Commander.DirectorySelectedEventHandler(this.fileView_DirectorySelected);
-            this.leftFileView.Leave += new System.EventHandler(this.fileView_Leave);
-            this.leftFileView.Enter += new System.EventHandler(this.fileView_Enter);
-            this.leftFileView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fileView_KeyDown);
-            // 
-            // rightFileView
-            // 
-            this.rightFileView.CurrentDirectory = null;
-            this.rightFileView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rightFileView.Location = new System.Drawing.Point(0, 0);
-            this.rightFileView.Name = "rightFileView";
-            this.rightFileView.Size = new System.Drawing.Size(334, 275);
-            this.rightFileView.TabIndex = 1;
-            this.rightFileView.DirectorySelected += new Commander.DirectorySelectedEventHandler(this.fileView_DirectorySelected);
-            this.rightFileView.Leave += new System.EventHandler(this.fileView_Leave);
-            this.rightFileView.Enter += new System.EventHandler(this.fileView_Enter);
-            this.rightFileView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fileView_KeyDown);
             // 
             // listImageList
             // 
@@ -482,11 +456,35 @@
             this.splitToolTip.UseAnimation = false;
             this.splitToolTip.UseFading = false;
             // 
+            // leftFileView
+            // 
+            this.leftFileView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.leftFileView.Location = new System.Drawing.Point(0, 0);
+            this.leftFileView.Name = "leftFileView";
+            this.leftFileView.Size = new System.Drawing.Size(332, 233);
+            this.leftFileView.TabIndex = 0;
+            this.leftFileView.DirectorySelected += new Commander.DirectorySelectedEventHandler(this.fileView_DirectorySelected);
+            this.leftFileView.Leave += new System.EventHandler(this.fileView_Leave);
+            this.leftFileView.Enter += new System.EventHandler(this.fileView_Enter);
+            this.leftFileView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fileView_KeyDown);
+            // 
+            // rightFileView
+            // 
+            this.rightFileView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rightFileView.Location = new System.Drawing.Point(0, 0);
+            this.rightFileView.Name = "rightFileView";
+            this.rightFileView.Size = new System.Drawing.Size(334, 233);
+            this.rightFileView.TabIndex = 1;
+            this.rightFileView.DirectorySelected += new Commander.DirectorySelectedEventHandler(this.fileView_DirectorySelected);
+            this.rightFileView.Leave += new System.EventHandler(this.fileView_Leave);
+            this.rightFileView.Enter += new System.EventHandler(this.fileView_Enter);
+            this.rightFileView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fileView_KeyDown);
+            // 
             // CommanderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(670, 388);
+            this.ClientSize = new System.Drawing.Size(670, 346);
             this.Controls.Add(this.splitContainer);
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.bottomPanel);
