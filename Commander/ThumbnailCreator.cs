@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -293,30 +294,14 @@ namespace Commander
         #region Member Variables
         private IMalloc alloc = null;
         private bool disposed = false;
-        private System.Drawing.Size desiredSize = new System.Drawing.Size(100, 100);
-        private System.Drawing.Bitmap thumbNail = null;
+
         #endregion
 
         #region Implementation
-        public System.Drawing.Bitmap ThumbNail
-        {
-            get
-            {
-                return thumbNail;
-            }
-        }
 
-        public System.Drawing.Size DesiredSize
-        {
-            get
-            {
-                return desiredSize;
-            }
-            set
-            {
-                desiredSize = value;
-            }
-        }
+        public System.Drawing.Bitmap ThumbNail { get; private set; }
+
+        public Size DesiredSize { get; set; }
 
         private IMalloc Allocator
         {
@@ -347,21 +332,14 @@ namespace Commander
                 file);
             }
 
-            if (thumbNail != null)
+            if (ThumbNail != null)
             {
-                thumbNail.Dispose();
-                thumbNail = null;
+                ThumbNail.Dispose();
+                ThumbNail = null;
             }
 
             IShellFolder folder = null;
-            try
-            {
-                folder = getDesktopFolder;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            folder = DesktopFolder;
 
             if (folder != null)
             {
@@ -372,18 +350,17 @@ namespace Commander
                     int pdwAttrib = 0;
                     string filePath = Path.GetDirectoryName(file);
                     pidlMain = IntPtr.Zero;
-                    folder.ParseDisplayName(
-                        IntPtr.Zero,
-                        IntPtr.Zero,
-                        filePath,
-                        out cParsed,
-                        out pidlMain,
-                        out pdwAttrib);
+                    folder.ParseDisplayName(IntPtr.Zero,
+                                            IntPtr.Zero,
+                                            filePath,
+                                            out cParsed,
+                                            out pidlMain,
+                                            out pdwAttrib);
                 }
-                catch (Exception ex)
+                catch
                 {
                     Marshal.ReleaseComObject(folder);
-                    throw ex;
+                    throw;
                 }
 
                 if (pidlMain != IntPtr.Zero)
@@ -395,14 +372,14 @@ namespace Commander
 
                     try
                     {
-                        folder.BindToObject(pidlMain, IntPtr.Zero, ref
-iidShellFolder, ref item);
+                        folder.BindToObject(pidlMain, IntPtr.Zero, ref iidShellFolder, ref item);
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         Marshal.ReleaseComObject(folder);
                         Allocator.Free(pidlMain);
-                        throw ex;
+                        
+                        throw;
                     }
 
                     if (item != null)
@@ -412,16 +389,16 @@ iidShellFolder, ref item);
                         try
                         {
                             item.EnumObjects(
-                            IntPtr.Zero,
-                            (ESHCONTF.SHCONTF_FOLDERS |
-                            ESHCONTF.SHCONTF_NONFOLDERS),
-                            ref idEnum);
+                                IntPtr.Zero,
+                                (ESHCONTF.SHCONTF_FOLDERS | ESHCONTF.SHCONTF_NONFOLDERS),
+                                ref idEnum);
                         }
-                        catch (Exception ex)
+                        catch
                         {
                             Marshal.ReleaseComObject(folder);
                             Allocator.Free(pidlMain);
-                            throw ex;
+                            
+                            throw;
                         }
 
                         if (idEnum != null)
@@ -464,7 +441,7 @@ iidShellFolder, ref item);
 
                 Marshal.ReleaseComObject(folder);
             }
-            return thumbNail;
+            return ThumbNail;
         }
 
         private bool getThumbnail(string file, IntPtr pidl, IShellFolder item)
@@ -488,8 +465,8 @@ iidShellFolder, ref item);
                     {
                         //Got an IExtractImage object!
                         SIZE sz = new SIZE();
-                        sz.cx = desiredSize.Width;
-                        sz.cy = desiredSize.Height;
+                        sz.cx = DesiredSize.Width;
+                        sz.cy = DesiredSize.Height;
                         StringBuilder location = new StringBuilder(260, 260);
                         int priority = 0;
                         int requestedColourDepth = 32;
@@ -502,7 +479,7 @@ iidShellFolder, ref item);
                         if (hBmp != IntPtr.Zero)
                         {
                             // create the image object:
-                            thumbNail = System.Drawing.Image.FromHbitmap(hBmp);
+                            ThumbNail = System.Drawing.Image.FromHbitmap(hBmp);
                             // is thumbNail owned by the Bitmap?
                         }
 
@@ -516,7 +493,7 @@ iidShellFolder, ref item);
                     return false;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 if (hBmp != IntPtr.Zero)
                 {
@@ -527,7 +504,17 @@ iidShellFolder, ref item);
                     Marshal.ReleaseComObject(extractImage);
                 }
 
-                throw ex;
+                throw;
+            }
+        }
+
+        private static IShellFolder DesktopFolder
+        {
+            get
+            {
+                IShellFolder ppshf;
+                int r = UnManagedMethods.SHGetDesktopFolder(out ppshf);
+                return ppshf;
             }
         }
 
@@ -543,22 +530,13 @@ iidShellFolder, ref item);
             {
                 return path.ToString();
             }
-        }
-
-        private IShellFolder getDesktopFolder
-        {
-            get
-            {
-                IShellFolder ppshf;
-                int r = UnManagedMethods.SHGetDesktopFolder(out ppshf);
-                return ppshf;
-            }
-        }
+        }        
         #endregion
 
         #region Constructor, Destructor, Dispose
         public ThumbnailCreator()
         {
+            DesiredSize = new System.Drawing.Size(100, 100);
         }
 
         public void Dispose()
@@ -571,9 +549,9 @@ iidShellFolder, ref item);
                 }
                 alloc = null;
 
-                if (thumbNail != null)
+                if (ThumbNail != null)
                 {
-                    thumbNail.Dispose();
+                    ThumbNail.Dispose();
                 }
 
                 disposed = true;
