@@ -12,16 +12,10 @@ using System.ComponentModel;
 
 namespace Commander
 {
-    
+
     internal class ShellListView : ListView
     {
-
-        private ArrayList selectedOrder;
-
-        private ContextMenu columnHeaderContextMenu;
-        private bool suspendHeaderContextMenu;
         private int columnHeight = 0;
-
         private BrowserListSorter sorter;
 
         public ShellListView()
@@ -32,9 +26,9 @@ namespace Commander
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
 
-            DrawItem += new DrawListViewItemEventHandler(BrowserListView_DrawItem);
-            DrawSubItem += new DrawListViewSubItemEventHandler(BrowserListView_DrawSubItem);
-            DrawColumnHeader += new DrawListViewColumnHeaderEventHandler(BrowserListView_DrawColumnHeader);
+            DrawItem += BrowserListView_DrawItem;
+            DrawSubItem += BrowserListView_DrawSubItem;
+            DrawColumnHeader += BrowserListView_DrawColumnHeader;
 
             this.Alignment = ListViewAlignment.Left;
         }
@@ -67,20 +61,26 @@ namespace Commander
 
                 if (value == View.Details)
                 {
-                    foreach (ColumnHeader col in Columns)
-                        if (col.Width == 0)
-                            col.Width = 120;
+                    foreach (ColumnHeader column in Columns)
+                    {
+                        if (column.Width == 0)
+                        {
+                            column.Width = 120;
+                        }
+                    }
                 }
             }
         }
 
         protected override void WndProc(ref Message m)
         {
-            if (this.View == View.Details && columnHeaderContextMenu != null &&
-                (int)m.Msg == (int)ShellAPI.WM.CONTEXTMENU)
+            if (this.View == View.Details && ColumnHeaderContextMenu != null &&
+                m.Msg == (int)ShellAPI.WM.CONTEXTMENU)
             {
-                if (suspendHeaderContextMenu)
-                    suspendHeaderContextMenu = false;
+                if (SuspendHeaderContextMenu)
+                {
+                    SuspendHeaderContextMenu = false;
+                }
                 else
                 {
                     int x = (int)ShellHelper.LoWord(m.LParam);
@@ -88,7 +88,9 @@ namespace Commander
                     Point clientPoint = PointToClient(new Point(x, y));
 
                     if (clientPoint.Y <= columnHeight)
-                        columnHeaderContextMenu.Show(this, clientPoint);
+                    {
+                        ColumnHeaderContextMenu.Show(this, clientPoint);
+                    }
                 }
 
                 return;
@@ -109,35 +111,33 @@ namespace Commander
         [Browsable(false)]
         public ArrayList SelectedOrder
         {
-            get { return selectedOrder; }
+            get;
+            private set;
         }
 
         [Browsable(false)]
         public bool SuspendHeaderContextMenu
         {
-            get { return suspendHeaderContextMenu; }
-            set { suspendHeaderContextMenu = value; }
+            get;
+            set;
         }
 
         [Browsable(true)]
         public ContextMenu ColumnHeaderContextMenu
         {
-            get { return columnHeaderContextMenu; }
-            set { columnHeaderContextMenu = value; }
+            get;
+            set;
         }
 
         public void SetSorting(bool sorting)
         {
-            if (sorting)
-                this.ListViewItemSorter = sorter;
-            else
-                this.ListViewItemSorter = null;
+            this.ListViewItemSorter = sorting ? sorter : null;
         }
 
         public void ClearSelections()
         {
-            selectedOrder.Clear();
-            selectedOrder.Capacity = 0;
+            SelectedOrder.Clear();
+            SelectedOrder.Capacity = 0;
         }
 
         public bool GetListItem(ShellItem shellItem, out ListViewItem listItem)
