@@ -5,10 +5,6 @@ using System.Text;
 
 namespace Commander
 {
-    #region ThumbnailCreator
-
-    /// Summary description for ThumbnailCreator.
-
     public class ThumbnailCreator : IDisposable
     {
         #region ShellFolder Enumerations
@@ -377,12 +373,12 @@ namespace Commander
                     string filePath = Path.GetDirectoryName(file);
                     pidlMain = IntPtr.Zero;
                     folder.ParseDisplayName(
-                    IntPtr.Zero,
-                    IntPtr.Zero,
-                    filePath,
-                    out cParsed,
-                    out pidlMain,
-                    out pdwAttrib);
+                        IntPtr.Zero,
+                        IntPtr.Zero,
+                        filePath,
+                        out cParsed,
+                        out pidlMain,
+                        out pdwAttrib);
                 }
                 catch (Exception ex)
                 {
@@ -506,7 +502,7 @@ iidShellFolder, ref item);
                         if (hBmp != IntPtr.Zero)
                         {
                             // create the image object:
-                            thumbNail = System.Drawing.Bitmap.FromHbitmap(hBmp);
+                            thumbNail = System.Drawing.Image.FromHbitmap(hBmp);
                             // is thumbNail owned by the Bitmap?
                         }
 
@@ -530,6 +526,7 @@ iidShellFolder, ref item);
                 {
                     Marshal.ReleaseComObject(extractImage);
                 }
+
                 throw ex;
             }
         }
@@ -589,5 +586,4 @@ iidShellFolder, ref item);
         }
         #endregion
     }
-    #endregion
 }
