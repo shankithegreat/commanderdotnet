@@ -41,7 +41,7 @@ namespace Commander
 
         public static Icon ExtractAssociatedIcon(string path)
         {
-            int i = 0;
+            int i;
             return ExtractAssociatedIcon(path, 0, out i);
         }
 
@@ -85,7 +85,6 @@ namespace Commander
             }
             return null;
         }
-
 
         public static int GetAssociatedIconIndex(string path)
         {

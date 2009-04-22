@@ -13,7 +13,7 @@ namespace Commander
     /// This class provides static methods which are being used to retrieve IContextMenu's for specific items
     /// and to invoke certain commands.
     /// </summary>
-    internal static class ContextMenuHelper
+    public static class ContextMenuHelper
     {
 
         public static string GetCommandString(IContextMenu iContextMenu, uint idcmd, bool executeString)
@@ -21,7 +21,9 @@ namespace Commander
             string command = GetCommandStringW(iContextMenu, idcmd, executeString);
 
             if (string.IsNullOrEmpty(command))
+            {
                 command = GetCommandStringA(iContextMenu, idcmd, executeString);
+            }
 
             return command;
         }
@@ -38,21 +40,24 @@ namespace Commander
         {
             string info = string.Empty;
             byte[] bytes = new byte[256];
-            int index;
 
             iContextMenu.GetCommandString(
-                idcmd,
-                (executeString ? ShellAPI.GCS.VERBA : ShellAPI.GCS.HELPTEXTA),
-                0,
-                bytes,
-                ShellAPI.MAX_PATH);
+                                          idcmd,
+                                          (executeString ? ShellAPI.GCS.VERBA : ShellAPI.GCS.HELPTEXTA),
+                                          0,
+                                          bytes,
+                                          ShellAPI.MAX_PATH);
 
-            index = 0;
+            int index = 0;
             while (index < bytes.Length && bytes[index] != 0)
-            { index++; }
+            {
+                index++;
+            }
 
             if (index < bytes.Length)
+            {
                 info = Encoding.Default.GetString(bytes, 0, index);
+            }
 
             return info;
         }
@@ -69,21 +74,24 @@ namespace Commander
         {
             string info = string.Empty;
             byte[] bytes = new byte[256];
-            int index;
 
             iContextMenu.GetCommandString(
-                idcmd,
-                (executeString ? ShellAPI.GCS.VERBW : ShellAPI.GCS.HELPTEXTW),
-                0,
-                bytes,
-                ShellAPI.MAX_PATH);
+                                            idcmd,
+                                            (executeString ? ShellAPI.GCS.VERBW : ShellAPI.GCS.HELPTEXTW),
+                                            0,
+                                            bytes,
+                                            ShellAPI.MAX_PATH);
 
-            index = 0;
+            int index = 0;
             while (index < bytes.Length - 1 && (bytes[index] != 0 || bytes[index + 1] != 0))
-            { index += 2; }
+            {
+                index += 2;
+            }
 
             if (index < bytes.Length - 1)
+            {
                 info = Encoding.Unicode.GetString(bytes, 0, index + 1);
+            }
 
             return info;
         }
@@ -118,8 +126,7 @@ namespace Commander
         /// Invokes a specific command from an IContextMenu
         /// </summary>
         /// <param name="iContextMenu">the IContextMenu containing the item</param>
-        /// <param name="cmdA">the Ansi execute string to invoke</param>
-        /// <param name="cmdW">the Unicode execute string to invoke</param>
+        /// <param name="cmd">the execute string to invoke</param>
         /// <param name="parentDir">the parent directory from where to invoke</param>
         /// <param name="ptInvoke">the point (in screen coцrdinates) from which to invoke</param>
         public static void InvokeCommand(IContextMenu iContextMenu, string cmd, string parentDir, Point ptInvoke)
@@ -143,6 +150,7 @@ namespace Commander
         /// Invokes a specific command for a set of pidls
         /// </summary>
         /// <param name="parent">the parent IShellFolder which contains the pidls</param>
+        /// <param name="parentPath">the parent path</param>
         /// <param name="pidls">the pidls from the items for which to invoke</param>
         /// <param name="cmd">the execute string from the command to invoke</param>
         /// <param name="ptInvoke">the point (in screen coцrdinates) from which to invoke</param>
@@ -155,20 +163,22 @@ namespace Commander
             {
                 try
                 {
-                    InvokeCommand(
-                        iContextMenu,
-                        cmd,
-                        parentPath,
-                        ptInvoke);
+                    InvokeCommand(iContextMenu, cmd, parentPath, ptInvoke);
                 }
-                catch (Exception) { }
+                catch
+                {
+                }
                 finally
                 {
                     if (iContextMenu != null)
+                    {
                         Marshal.ReleaseComObject(iContextMenu);
+                    }
 
                     if (icontextMenuPtr != IntPtr.Zero)
+                    {
                         Marshal.Release(icontextMenuPtr);
+                    }
                 }
             }
         }
@@ -190,12 +200,14 @@ namespace Commander
                 try
                 {
                     InvokeCommand(
-                        iContextMenu,
-                        cmd,
-                        ShellItem.GetRealPath(parent),
-                        ptInvoke);
+                                    iContextMenu,
+                                    cmd,
+                                    ShellItem.GetRealPath(parent),
+                                    ptInvoke);
                 }
-                catch (Exception) { }
+                catch
+                {
+                }
                 finally
                 {
                     if (iContextMenu != null)
@@ -213,7 +225,7 @@ namespace Commander
         /// </summary>
         /// <param name="parent">the parent IShellFolder which contains the items</param>
         /// <param name="pidls">the pidls of the items for which to retrieve the IContextMenu</param>
-        /// <param name="icontextMenuPtr">the pointer to the IContextMenu</param>
+        /// <param name="iContextMenuPtr">the pointer to the IContextMenu</param>
         /// <param name="iContextMenu">the IContextMenu for the items</param>
         /// <returns>true if the IContextMenu has been retrieved succesfully, false otherwise</returns>
         public static bool GetIContextMenu(
@@ -223,16 +235,14 @@ namespace Commander
             out IContextMenu iContextMenu)
         {
             if (parent.GetUIObjectOf(
-                        IntPtr.Zero,
-                        (uint)pidls.Length,
-                        pidls,
-                        ref ShellAPI.IID_IContextMenu,
-                        IntPtr.Zero,
-                        out iContextMenuPtr) == ShellAPI.S_OK)
+                                     IntPtr.Zero,
+                                     (uint)pidls.Length,
+                                     pidls,
+                                     ref ShellAPI.IID_IContextMenu,
+                                     IntPtr.Zero,
+                                     out iContextMenuPtr) == ShellAPI.S_OK)
             {
-                iContextMenu =
-                    (IContextMenu)Marshal.GetTypedObjectForIUnknown(
-                        iContextMenuPtr, typeof(IContextMenu));
+                iContextMenu = (IContextMenu)Marshal.GetTypedObjectForIUnknown(iContextMenuPtr, typeof(IContextMenu));
 
                 return true;
             }
@@ -262,13 +272,14 @@ namespace Commander
                     ref ShellAPI.IID_IShellExtInit,
                     out iShellExtInitPtr) == ShellAPI.S_OK)
                 {
-                    IShellExtInit iShellExtInit = Marshal.GetTypedObjectForIUnknown(
-                        iShellExtInitPtr, typeof(IShellExtInit)) as IShellExtInit;
+                    IShellExtInit iShellExtInit = Marshal.GetTypedObjectForIUnknown(iShellExtInitPtr, typeof(IShellExtInit)) as IShellExtInit;
 
                     PIDL pidlFull = item.PIDLFull;
-                    iShellExtInit.Initialize(pidlFull.Ptr, IntPtr.Zero, 0);
-
-                    Marshal.ReleaseComObject(iShellExtInit);
+                    if (iShellExtInit != null)
+                    {
+                        iShellExtInit.Initialize(pidlFull.Ptr, IntPtr.Zero, 0);
+                        Marshal.ReleaseComObject(iShellExtInit);
+                    }
                     Marshal.Release(iShellExtInitPtr);
                     pidlFull.Free();
 

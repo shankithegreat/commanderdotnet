@@ -10,66 +10,20 @@ using ShellDll;
 
 namespace Commander
 {
-    internal class ShellContextMenu : NativeWindow
+    public class ShellContextMenu : NativeWindow
     {
-        private IContextMenu iContextMenu, newContextMenu;
+        private IContextMenu iContextMenu;
         private IContextMenu2 iContextMenu2, newContextMenu2;
         private IContextMenu3 iContextMenu3, newContextMenu3;
         private IntPtr newSubmenuPtr;
+
 
         public ShellContextMenu()
         {
             this.CreateHandle(new CreateParams());
         }
-
-        /// <summary>
-        /// This method receives WindowMessages. It will make the "Open With" and "Send To" work 
-        /// by calling HandleMenuMsg and HandleMenuMsg2. It will also call the OnContextMenuMouseHover 
-        /// method of Browser when hovering over a ContextMenu item.
-        /// </summary>
-        /// <param name="m">the Message of the Browser's WndProc</param>
-        /// <returns>true if the message has been handled, false otherwise</returns>
-        protected override void WndProc(ref Message m)
-        {
-            if (iContextMenu2 != null &&
-                (m.Msg == (int)ShellAPI.WM.INITMENUPOPUP ||
-                 m.Msg == (int)ShellAPI.WM.MEASUREITEM ||
-                 m.Msg == (int)ShellAPI.WM.DRAWITEM))
-            {
-                if (iContextMenu2.HandleMenuMsg(
-                    (uint)m.Msg, m.WParam, m.LParam) == ShellAPI.S_OK)
-                    return;
-            }
-
-            if (newContextMenu2 != null &&
-                ((m.Msg == (int)ShellAPI.WM.INITMENUPOPUP && m.WParam == newSubmenuPtr) ||
-                 m.Msg == (int)ShellAPI.WM.MEASUREITEM ||
-                 m.Msg == (int)ShellAPI.WM.DRAWITEM))
-            {
-                if (newContextMenu2.HandleMenuMsg(
-                    (uint)m.Msg, m.WParam, m.LParam) == ShellAPI.S_OK)
-                    return;
-            }
-
-            if (iContextMenu3 != null &&
-                m.Msg == (int)ShellAPI.WM.MENUCHAR)
-            {
-                if (iContextMenu3.HandleMenuMsg2(
-                    (uint)m.Msg, m.WParam, m.LParam, IntPtr.Zero) == ShellAPI.S_OK)
-                    return;
-            }
-
-            if (newContextMenu3 != null &&
-                m.Msg == (int)ShellAPI.WM.MENUCHAR)
-            {
-                if (newContextMenu3.HandleMenuMsg2(
-                    (uint)m.Msg, m.WParam, m.LParam, IntPtr.Zero) == ShellAPI.S_OK)
-                    return;
-            }
-
-            base.WndProc(ref m);
-        }
         
+
         public void Show(Point location, params string[] pathList)
         {
             IntPtr[] pidls = ShellFolder.GetPIDLs(pathList);
@@ -105,7 +59,9 @@ namespace Commander
 
                         iContextMenu3 = (IContextMenu3)Marshal.GetTypedObjectForIUnknown(iContextMenuPtr3, typeof(IContextMenu3));
                     }
-                    catch (Exception) { }
+                    catch (Exception)
+                    {
+                    }
 
                     uint selected = ShellAPI.TrackPopupMenuEx(
                                         contextMenu,
@@ -115,7 +71,7 @@ namespace Commander
                                         this.Handle,
                                         IntPtr.Zero);
 
-                   
+
                     if (selected >= ShellAPI.CMD_FIRST)
                     {
                         string command = ContextMenuHelper.GetCommandString(iContextMenu, selected - ShellAPI.CMD_FIRST, true);
@@ -142,7 +98,7 @@ namespace Commander
                     }
                 }
             }
-            catch (Exception e) 
+            catch (Exception e)
             {
 #if DEBUG
                 MessageBox.Show("", e.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -182,7 +138,6 @@ namespace Commander
             }
         }
 
-        
         public void CreateNewFolder(DirectoryInfo directory)
         {
             Command("NewFolder", directory);
@@ -230,11 +185,63 @@ namespace Commander
             DefaultCommand(path, parentDirectory);
         }
 
+
+        /// <summary>
+        /// This method receives WindowMessages. It will make the "Open With" and "Send To" work 
+        /// by calling HandleMenuMsg and HandleMenuMsg2. It will also call the OnContextMenuMouseHover 
+        /// method of Browser when hovering over a ContextMenu item.
+        /// </summary>
+        /// <param name="m">the Message of the Browser's WndProc</param>
+        /// <returns>true if the message has been handled, false otherwise</returns>
+        protected override void WndProc(ref Message m)
+        {
+            if (iContextMenu2 != null &&
+                (m.Msg == (int)ShellAPI.WM.INITMENUPOPUP ||
+                 m.Msg == (int)ShellAPI.WM.MEASUREITEM ||
+                 m.Msg == (int)ShellAPI.WM.DRAWITEM))
+            {
+                if (iContextMenu2.HandleMenuMsg((uint)m.Msg, m.WParam, m.LParam) == ShellAPI.S_OK)
+                {
+                    return;
+                }
+            }
+
+            if (newContextMenu2 != null &&
+                ((m.Msg == (int)ShellAPI.WM.INITMENUPOPUP && m.WParam == newSubmenuPtr) ||
+                 m.Msg == (int)ShellAPI.WM.MEASUREITEM ||
+                 m.Msg == (int)ShellAPI.WM.DRAWITEM))
+            {
+                if (newContextMenu2.HandleMenuMsg((uint)m.Msg, m.WParam, m.LParam) == ShellAPI.S_OK)
+                {
+                    return;
+                }
+            }
+
+            if (iContextMenu3 != null && m.Msg == (int)ShellAPI.WM.MENUCHAR)
+            {
+                if (iContextMenu3.HandleMenuMsg2((uint)m.Msg, m.WParam, m.LParam, IntPtr.Zero) == ShellAPI.S_OK)
+                {
+                    return;
+                }
+            }
+
+            if (newContextMenu3 != null && m.Msg == (int)ShellAPI.WM.MENUCHAR)
+            {
+                if (newContextMenu3.HandleMenuMsg2((uint)m.Msg, m.WParam, m.LParam, IntPtr.Zero) == ShellAPI.S_OK)
+                {
+                    return;
+                }
+            }
+
+            base.WndProc(ref m);
+        }
+
+        
         private void DefaultCommand(string path, string parentDirectory)
         {
             IntPtr[] pidls = ShellFolder.GetPIDLs(path);
 
-            IntPtr icontextMenuPtr = IntPtr.Zero, context2Ptr = IntPtr.Zero, context3Ptr = IntPtr.Zero;
+            IntPtr icontextMenuPtr = IntPtr.Zero;
             ContextMenu contextMenu = new ContextMenu();
             IShellFolder parentShellFolder = ShellFolder.GetShellFolder(parentDirectory);
 
@@ -260,7 +267,9 @@ namespace Commander
                     }
                 }
             }
-            catch (Exception) { }
+            catch (Exception)
+            {
+            }
             finally
             {
                 if (iContextMenu != null)
@@ -275,6 +284,6 @@ namespace Commander
                 Marshal.Release(icontextMenuPtr);
             }
         }
-        
+
     }
 }
