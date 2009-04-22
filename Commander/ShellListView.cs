@@ -16,13 +16,14 @@ namespace Commander
     public class ShellListView : ListView
     {
         private int columnHeight = 0;
-        private BrowserListSorter sorter;
+        private BrowserListSorter sorter = new BrowserListSorter();
+
 
         public ShellListView()
         {
             OwnerDraw = true;
 
-            HandleCreated += new EventHandler(BrowserListView_HandleCreated);
+            HandleCreated += BrowserListView_HandleCreated;
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
 
@@ -32,22 +33,7 @@ namespace Commander
 
             this.Alignment = ListViewAlignment.Left;
         }
-
-        void BrowserListView_DrawItem(object sender, DrawListViewItemEventArgs e)
-        {
-            e.DrawDefault = true;
-        }
-
-        void BrowserListView_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
-        {
-            e.DrawDefault = true;
-        }
-
-        void BrowserListView_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
-        {
-            e.DrawDefault = true;
-            columnHeight = e.Bounds.Height;
-        }
+        
 
         public new View View
         {
@@ -70,7 +56,47 @@ namespace Commander
                     }
                 }
             }
+        }                
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public ArrayList SelectedOrder { get; private set; }
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool SuspendHeaderContextMenu { get; set; }
+        
+        [Browsable(true)]
+        public ContextMenu ColumnHeaderContextMenu { get; set; }
+
+        
+        public void SetSorting(bool sorting)
+        {
+            this.ListViewItemSorter = sorting ? sorter : null;
         }
+
+        public void ClearSelections()
+        {
+            SelectedOrder.Clear();
+            SelectedOrder.Capacity = 0;
+        }
+
+        public bool GetListItem(ShellItem shellItem, out ListViewItem listItem)
+        {
+            listItem = null;
+
+            foreach (ListViewItem item in Items)
+            {
+                if (shellItem.Equals(item.Tag))
+                {
+                    listItem = item;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
 
         protected override void WndProc(ref Message m)
         {
@@ -99,61 +125,30 @@ namespace Commander
             base.WndProc(ref m);
         }
 
+
+        private void BrowserListView_DrawItem(object sender, DrawListViewItemEventArgs e)
+        {
+            e.DrawDefault = true;
+        }
+
+        private void BrowserListView_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
+        {
+            e.DrawDefault = true;
+        }
+
+        private void BrowserListView_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
+        {
+            e.DrawDefault = true;
+            columnHeight = e.Bounds.Height;
+        }
+
         /// <summary>
         /// Once the handle is created we can assign the image lists to the ListView
         /// </summary>
-        void BrowserListView_HandleCreated(object sender, EventArgs e)
+        private void BrowserListView_HandleCreated(object sender, EventArgs e)
         {
             ShellImageList.SetSmallImageList(this);
             ShellImageList.SetLargeImageList(this);
-        }
-
-        [Browsable(false)]
-        public ArrayList SelectedOrder
-        {
-            get;
-            private set;
-        }
-
-        [Browsable(false)]
-        public bool SuspendHeaderContextMenu
-        {
-            get;
-            set;
-        }
-
-        [Browsable(true)]
-        public ContextMenu ColumnHeaderContextMenu
-        {
-            get;
-            set;
-        }
-
-        public void SetSorting(bool sorting)
-        {
-            this.ListViewItemSorter = sorting ? sorter : null;
-        }
-
-        public void ClearSelections()
-        {
-            SelectedOrder.Clear();
-            SelectedOrder.Capacity = 0;
-        }
-
-        public bool GetListItem(ShellItem shellItem, out ListViewItem listItem)
-        {
-            listItem = null;
-
-            foreach (ListViewItem item in Items)
-            {
-                if (shellItem.Equals(item.Tag))
-                {
-                    listItem = item;
-                    return true;
-                }
-            }
-
-            return false;
         }
     }
 }

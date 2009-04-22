@@ -15,10 +15,8 @@ namespace Commander
     /// <summary>
     /// This class is used to sort the ListViewItems in the BrowserListView
     /// </summary>
-    internal class BrowserListSorter : IComparer
+    public class BrowserListSorter : IComparer
     {
-        #region IComparer Members
-
         /// <summary>
         /// This method will compare the ShellItems of the ListViewItems to determine the return value for
         /// comparing the ListViewItems.
@@ -28,14 +26,15 @@ namespace Commander
             ListViewItem itemX = x as ListViewItem;
             ListViewItem itemY = y as ListViewItem;
 
-            if (itemX.Tag != null)
+            if (itemX != null && itemX.Tag != null)
+            {
                 return 1;
-            else if (itemY.Tag != null)
+            }
+            else if (itemY != null && itemY.Tag != null)
+            {
                 return -1;
-            else
-                return 0;
+            }
+            return 0;
         }
-
-        #endregion
     }
 }
