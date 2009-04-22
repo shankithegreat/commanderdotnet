@@ -16,6 +16,7 @@ namespace Commander
             InitializeComponent();
         }
 
+        
         public string DirectoryName
         {
             get
@@ -28,6 +29,7 @@ namespace Commander
             }
         }
 
+        
         private void okButton_Click(object sender, EventArgs e)
         {
             comboBox.Items.Add(comboBox.Text);
