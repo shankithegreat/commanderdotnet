@@ -17,11 +17,7 @@ namespace Commander
     {
         private ShellContextMenu contextMenu = new ShellContextMenu();
         private DirectoryInfo currentDirectory = null;
-        //private ShellDrag dragClass;
-        //private ShellDrop dropClass;
-        //private BrowserLVDropWrapper dw;
-        //private BrowserLVDragWrapper drw;
-        ThumbnailCreator thumbnailCreator = new ThumbnailCreator();
+        private ThumbnailCreator thumbnailCreator = new ThumbnailCreator();
 
         public FileView()
         {
@@ -29,11 +25,7 @@ namespace Commander
 
             thumbnailCreator.DesiredSize = new Size(256, 256);
 
-            this.HandleCreated += new EventHandler(FileView_HandleCreated);
-
             ShellImageList.SetSmallImageList(listView);
-            //ShellImageList.SetLargeImageList(listView);
-            //listView.LargeImageList = largeImageList;
             largeImageList.ImageSize = thumbnailCreator.DesiredSize;
 
             if (this.Focused)
@@ -46,24 +38,37 @@ namespace Commander
             }
         }
 
-        private void FileView_HandleCreated(object sender, EventArgs e)
+
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public ShellListView ListView
         {
-            //dropClass = new ShellDrop(listView);
-            //dropClass.RetrieveDestinationRirectory += new RetrieveDestinationRirectoryEventHandler(dropClass_RetrieveDestinationRirectory);
-            //dropClass.Drop += new DropEventHandler(dropClass_Drop);
-            //drw = new BrowserLVDragWrapper(this);
-            //dw = new BrowserLVDropWrapper(this);                
-            //dragClass = new ShellDrag();
+            get
+            {
+                return listView;
+            }
         }
 
-        private void dropClass_Drop(object sender, DropEventArgs e)
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public DirectoryInfo CurrentDirectory
         {
+            get
+            {
+                return currentDirectory;
+            }
+            set
+            {
+                if (LoadDirectory(value))
+                {
+                    titleLabel.Text = GetTitleLabelText(value);
+                }
+            }
         }
 
-        internal void dropClass_RetrieveDestinationRirectory(object sender, RetrieveDestinationRirectoryEventArgs e)
-        {
-            e.DestinationDirectory = GetDirectoryFromPoint(e.Point);
-        }
+
+        public event DirectorySelectedEventHandler DirectorySelected;
+
 
         public FileSystemInfo GetFileSystemItemFromPoint(Point point)
         {
@@ -89,31 +94,6 @@ namespace Commander
             else
             {
                 return currentDirectory;
-            }
-        }
-
-        internal ShellListView ListView
-        {
-            get
-            {
-                return listView;
-            }
-        }
-
-        public event DirectorySelectedEventHandler DirectorySelected;
-
-        public DirectoryInfo CurrentDirectory
-        {
-            get
-            {
-                return currentDirectory;
-            }
-            set
-            {
-                if (LoadDirectory(value))
-                {
-                    titleLabel.Text = GetTitleLabelText(value);
-                }
             }
         }
 
@@ -174,6 +154,42 @@ namespace Commander
             contextMenu.CutCommand(GetSelected());
             this.Refresh();
         }
+
+        public override void Refresh()
+        {
+            base.Refresh();
+
+            LoadDirectory();
+        }
+
+        public void SetView(View view)
+        {
+            if (view == View.LargeIcon)
+            {
+                ShellImageList.SetLargeImageList(listView, largeImageList.Handle);
+            }
+            else
+            {
+                ShellImageList.SetLargeImageList(listView);
+            }
+
+            listView.View = view;
+
+            if (view == View.LargeIcon)
+            {
+                LoadDirectory();
+            }
+        }
+
+
+        protected virtual void OnDirectorySelected(DirectoryInfo directory)
+        {
+            if (DirectorySelected != null)
+            {
+                DirectorySelected(this, directory);
+            }
+        }
+
 
         private bool LoadDirectory()
         {
@@ -241,6 +257,7 @@ namespace Commander
                 catch
                 {
                 }
+
                 Icon icon = SafeNativeMethods.GetLargeAssociatedIcon(item.FullName);
                 if (icon != null)
                 {
@@ -309,14 +326,6 @@ namespace Commander
             }
         }
 
-        protected virtual void OnDirectorySelected(DirectoryInfo directory)
-        {
-            if (DirectorySelected != null)
-            {
-                DirectorySelected(this, directory);
-            }
-        }
-
         private void titleLabel_Click(object sender, EventArgs e)
         {
             listView.Focus();
@@ -346,7 +355,7 @@ namespace Commander
             {
                 directory = new DirectoryInfo(e.Text);
             }
-            catch (Exception except)
+            catch
             {
                 e.Cancel = true;
                 return;
@@ -362,48 +371,38 @@ namespace Commander
             }
         }
 
-        private string GetTitleLabelText(DirectoryInfo directory)
+        private static string GetTitleLabelText(DirectoryInfo directory)
         {
             return Path.Combine(directory.FullName, "*.*");
         }
 
-        public override void Refresh()
-        {
-            base.Refresh();
-
-            LoadDirectory();
-        }
-
         private void listView_KeyDown(object sender, KeyEventArgs e)
         {
-            bool directoryUpdated = false;
             if (e.Control && !e.Shift && !e.Alt)
             {
                 switch (e.KeyCode)
                 {
+                    // Copy
                     case Keys.C:
                     case Keys.Insert:
-                        // Copy
                         {
                             this.Copy();
                             break;
                         }
+                    // Paste
                     case Keys.V:
-                        // Paste
                         {
                             this.Paste();
                             break;
                         }
+                    // Cut
                     case Keys.X:
-                        // Cut
                         {
                             this.Cut();
                             break;
                         }
-                        break;
-
+                    // Select All
                     case Keys.A:
-                        // Select All
                         {
                             SelectAll();
                             break;
@@ -414,27 +413,35 @@ namespace Commander
             {
                 switch (e.KeyCode)
                 {
+                    // Paste
                     case Keys.Insert:
-                        // Paste
-                        if (e.Shift && !e.Control && !e.Alt)
                         {
-                            this.Paste();
-                        }
-                        e.Handled = true;
-                        e.SuppressKeyPress = true;
-                        break;
+                            if (e.Shift && !e.Control && !e.Alt)
+                            {
+                                this.Paste();
+                            }
 
-                    case Keys.Delete:
-                        // Delete
-                        if (!e.Control && !e.Alt)
-                        {
-                            this.Delete();
+                            e.Handled = true;
+                            e.SuppressKeyPress = true;
+
+                            break;
                         }
-                        e.Handled = true;
-                        e.SuppressKeyPress = true;
-                        break;
+                    // Delete
+                    case Keys.Delete:
+                        {
+                            if (!e.Control && !e.Alt)
+                            {
+                                this.Delete();
+                            }
+
+                            e.Handled = true;
+                            e.SuppressKeyPress = true;
+
+                            break;
+                        }
                 }
             }
+
             OnKeyDown(e);
         }
 
@@ -444,6 +451,7 @@ namespace Commander
             {
                 listView.Items[0].Selected = (currentDirectory.Parent == null);
             }
+
             for (int i = 1; i < listView.Items.Count; i++)
             {
                 ListViewItem item = listView.Items[i];
@@ -451,43 +459,8 @@ namespace Commander
             }
         }
 
-        private void listView_ItemDrag(object sender, ItemDragEventArgs e)
-        {
-            //dragClass.DragCommand(e.Button, GetSelected());
-        }
-
-        private void listView_DragEnter(object sender, DragEventArgs e)
-        {
-            /*string[] ss = e.Data.GetFormats();
-            ShellDll.IDataObject d = (ShellDll.IDataObject)e.Data.GetData(typeof(ShellDll.IDataObject));
-            d.
-            IntPtr obj = (IntPtr)e.Data.GetData(typeof(IntPtr));
-            DragDropEffects effects = e.Effect;
-            dropClass.DragEnter(obj, (ShellAPI.MK)e.KeyState, new ShellAPI.POINT(e.X, e.Y), ref effects);
-            e.Effect = effects;*/
-        }
-
-
-        public void SetView(View view)
-        {
-            if (view == View.LargeIcon)
-            {
-                //listView.LargeImageList = largeImageList;
-                ShellImageList.SetLargeImageList(listView, largeImageList.Handle);
-            }
-            else
-            {
-                ShellImageList.SetLargeImageList(listView);
-            }
-            listView.View = view;
-            if (view == View.LargeIcon)
-            {
-                LoadDirectory();
-            }
-        }
-        
     }
 
-       
+
 
 }

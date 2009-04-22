@@ -190,7 +190,6 @@
             this.listView.ItemActivate += new System.EventHandler(this.listView_ItemActivate);
             this.listView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listView_MouseUp);
             this.listView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_KeyDown);
-            this.listView.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.listView_ItemDrag);
             // 
             // columnHeader1
             // 

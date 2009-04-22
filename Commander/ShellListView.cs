@@ -13,7 +13,7 @@ using System.ComponentModel;
 namespace Commander
 {
 
-    internal class ShellListView : ListView
+    public class ShellListView : ListView
     {
         private int columnHeight = 0;
         private BrowserListSorter sorter;
