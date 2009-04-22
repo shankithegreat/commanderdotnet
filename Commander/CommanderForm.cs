@@ -37,36 +37,36 @@ namespace Commander
             imageIndexes.Add(DriveType.Removable, 3);
             imageIndexes.Add(DriveType.Network, 4);
 
-            Load();
+            LoadDiskDrives();
 
-            toolStripButton2_Click(null, null);
+            toolStripButton2_Click(null, EventArgs.Empty);
 
             drivesToolBar_ButtonClick(leftDrivesToolBar, new ToolBarButtonClickEventArgs(leftDrivesToolBar.Buttons[0]));
             drivesToolBar_ButtonClick(rightDriveToolBar, new ToolBarButtonClickEventArgs(rightDriveToolBar.Buttons[1]));
-            rightFileView.CurrentDirectory = new DirectoryInfo(@"D:\Projects\Commander\Commander\bin\Debug\");
-
-#if DEBUG
-            //TestForm testForem = new TestForm();
-            //testForem.Show();
-#endif
+            
+            // Debug folder.
+            rightFileView.CurrentDirectory = new DirectoryInfo(Path.GetDirectoryName(Application.ExecutablePath));
         }
-
-        private void Load()
-        {
-            LoadDiskDrives(leftDrivesToolBar);
-            LoadDiskDrives(rightDriveToolBar);
-        }
+        
 
         private ToolBarButton CreateDiskDriveButton(DriveInfo drive)
         {
-            ToolBarButton button = new ToolBarButton();
-            button.Name = string.Format("{0}DriveButton", drive.Name.ToLower());
-            button.Text = drive.Name.Remove(drive.Name.Length - 2, 2).ToLower();
-            button.Tag = drive;
-            button.ImageIndex = imageIndexes[drive.DriveType];            
+            ToolBarButton button = new ToolBarButton
+            {
+                Name = string.Format("{0}DriveButton", drive.Name.ToLower()),
+                Text = drive.Name.Remove(drive.Name.Length - 2, 2).ToLower(),
+                Tag = drive,
+                ImageIndex = imageIndexes[drive.DriveType]
+            };
 
 
             return button;
+        }
+
+        private void LoadDiskDrives()
+        {
+            LoadDiskDrives(leftDrivesToolBar);
+            LoadDiskDrives(rightDriveToolBar);
         }
         
         private void LoadDiskDrives(ToolBar toolBar)
@@ -239,7 +239,7 @@ namespace Commander
             cmdLabel.Text = string.Format("{0}>", directory.FullName);
         }
 
-        private ToolBarButton GetDriveToolBarButtonFromDirectory(ToolBar toolBar, DirectoryInfo directory)
+        private static ToolBarButton GetDriveToolBarButtonFromDirectory(ToolBar toolBar, DirectoryInfo directory)
         {
             foreach (ToolBarButton button in toolBar.Buttons)
             {
