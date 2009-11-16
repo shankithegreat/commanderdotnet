@@ -13,7 +13,6 @@ namespace Commander
         private const Decimal OneMegaByte = OneKiloByte * 1024M;
         private const Decimal OneGigaByte = OneMegaByte * 1024M;
 
-        #region IFormatProvider Members
 
         object IFormatProvider.GetFormat(Type formatType)
         {
@@ -27,20 +26,16 @@ namespace Commander
             }
         }
 
-        #endregion
-
-        #region ICustomFormatter Members
-
         string ICustomFormatter.Format(string format, object arg, IFormatProvider formatProvider)
         {
             if (format == null || !format.StartsWith(defaultFileSizeFormat))
             {
-                return defaultFormat(format, arg, formatProvider);
+                return DefaultFormat(format, arg, formatProvider);
             }
 
             if (arg is string)
             {
-                return defaultFormat(format, arg, formatProvider);
+                return DefaultFormat(format, arg, formatProvider);
             }
 
             Decimal size;
@@ -51,7 +46,7 @@ namespace Commander
             }
             catch (InvalidCastException)
             {
-                return defaultFormat(format, arg, formatProvider);
+                return DefaultFormat(format, arg, formatProvider);
             }
 
             string suffix = String.Empty;
@@ -86,15 +81,15 @@ namespace Commander
             return String.Format("{0:N" + precision + "}{1}", size, suffix);
         }
 
-        #endregion
 
-        private static string defaultFormat(string format, object arg, IFormatProvider formatProvider)
+        private static string DefaultFormat(string format, object arg, IFormatProvider formatProvider)
         {
             IFormattable formattableArg = arg as IFormattable;
             if (formattableArg != null)
             {
                 return formattableArg.ToString(format, formatProvider);
             }
+
             return arg.ToString();
         }
     }

@@ -113,7 +113,7 @@ namespace Commander
         /// <summary>
         /// Occurs when the Text property value changes.
         /// </summary>
-        public event EventHandler TextChanged
+        public new event EventHandler TextChanged
         {
             add
             {

@@ -8,7 +8,7 @@ namespace Commander
 {
     public static class DataGridViewUtilities
     {
-        public static DataGridViewFreeDimension GetFreeDimensionFromConstraint(System.Drawing.Size constraintSize)
+        public static DataGridViewFreeDimension GetFreeDimensionFromConstraint(Size constraintSize)
         {
             if (constraintSize.Width == 0)
             {
@@ -138,8 +138,8 @@ namespace Commander
             int horizontalPadding = (borders.Left + borders.Width) + cellStyle.Padding.Horizontal;
             int verticalPadding = (borders.Top + borders.Height) + cellStyle.Padding.Vertical;
 
-            DataGridViewFreeDimension freeDimensionFromConstraint = DataGridViewUtilities.GetFreeDimensionFromConstraint(constraintSize);
-            TextFormatFlags flags = DataGridViewUtilities.ComputeTextFormatFlagsForCellStyleAlignment(parent.RightToLeft == RightToLeft.Yes, cellStyle.Alignment, cellStyle.WrapMode);
+            DataGridViewFreeDimension freeDimensionFromConstraint = GetFreeDimensionFromConstraint(constraintSize);
+            TextFormatFlags flags = ComputeTextFormatFlagsForCellStyleAlignment(parent.RightToLeft == RightToLeft.Yes, cellStyle.Alignment, cellStyle.WrapMode);
 
             if (string.IsNullOrEmpty(text))
             {

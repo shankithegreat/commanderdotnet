@@ -22,16 +22,13 @@ namespace Commander
         private bool hideSelection = true;
         private Pen gridPen = new Pen(Color.Black);
 
-        public CustomDataGridView()
-        {
-        }
 
         /// <summary>
         /// Gets or sets a value indicating whether the selected item in the control 
         /// remains highlighted when the control loses focus.
         /// </summary>
         [Category("Behavior")]
-        [DefaultValue(true)]        
+        [DefaultValue(true)]
         public bool HideSelection
         {
             get
@@ -114,8 +111,8 @@ namespace Commander
 
         protected override void PaintBackground(Graphics graphics, Rectangle clipBounds, Rectangle gridBounds)
         {
-            base.PaintBackground(graphics, clipBounds, gridBounds);  
-          
+            base.PaintBackground(graphics, clipBounds, gridBounds);
+
             this.gridPen.Color = this.GridColor;
 
             if (ColumnHeadersVisible)
@@ -224,7 +221,7 @@ namespace Commander
             }
         }
     }
-    
+
     public class DataGridViewBorderedTextBoxColumn : DataGridViewTextBoxColumn
     {
         public DataGridViewBorderedTextBoxColumn()
@@ -234,5 +231,5 @@ namespace Commander
     }
 
 
-   
+
 }

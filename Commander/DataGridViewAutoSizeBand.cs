@@ -163,7 +163,7 @@ namespace Commander
     public class CustomDataGridViewImageCell : DataGridViewImageCell
     {
         private string text = string.Empty;
-        private Image image = null;
+        private Image image;
         private static Rectangle defaultBorders = new Rectangle(1, 1, 2, 1);
         private Rectangle borders = new Rectangle(1, 1, 2, 1);
 

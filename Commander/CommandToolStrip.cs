@@ -100,7 +100,7 @@ namespace Commander
         private ToolStripButton CreateButton(string path)
         {
             ToolStripButton button = new ToolStripButton();
-            button.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            button.DisplayStyle = ToolStripItemDisplayStyle.Image;
             button.Image = GetImage(path);
             button.Text = path;
             button.Tag = path;
@@ -136,7 +136,7 @@ namespace Commander
             {
             }
 
-            return ((System.Drawing.Image)(Properties.Resources.ResourceManager.GetObject("toolStripButton1.Image")));
+            return ((Image)(Properties.Resources.ResourceManager.GetObject("toolStripButton1.Image")));
         }
 
         private void deleteStripMenuItem_Click(object sender, EventArgs e)

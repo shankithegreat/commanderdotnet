@@ -30,7 +30,7 @@ namespace Commander
             imageIndexes.Add(DriveType.Removable, 3);
             imageIndexes.Add(DriveType.Network, 4);
 
-            RefreshDrives += delegate() { LoadDiskDrives(); };
+            RefreshDrives += LoadDiskDrives;
             OnRefreshDrives();
         }
 
