@@ -37,8 +37,6 @@ namespace ShellDll
             IntPtr pbc,
             ref Guid riid,
             out IntPtr ppv);
-
-        void BindToObject(IntPtr pidl, IntPtr pbcReserved, ref Guid riid, ref IShellFolder ppvOut);
         
         // Requests a pointer to an object's storage interface. 
         // Return value: error code, if any
