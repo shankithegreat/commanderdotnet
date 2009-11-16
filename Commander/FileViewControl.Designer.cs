@@ -1,6 +1,6 @@
 ﻿namespace Commander
 {
-    partial class FileView
+    partial class FileViewControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,20 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileView));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileViewControl));
             this.titlePanel = new System.Windows.Forms.Panel();
             this.titleLabel = new Commander.EditableLabel();
             this.linkButton = new System.Windows.Forms.Button();
-            this.listImageList = new System.Windows.Forms.ImageList(this.components);
+            this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.historyButton = new System.Windows.Forms.Button();
             this.hintPanel = new System.Windows.Forms.Panel();
             this.hintLabel = new System.Windows.Forms.Label();
             this.rootButton = new System.Windows.Forms.Button();
             this.upButton = new System.Windows.Forms.Button();
-            this.listView = new Commander.ShellListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-            this.largeImageList = new System.Windows.Forms.ImageList(this.components);
+            this.listView = new Commander.FileListView();
             this.titlePanel.SuspendLayout();
             this.hintPanel.SuspendLayout();
             this.SuspendLayout();
@@ -86,7 +83,7 @@
             this.linkButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.linkButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.linkButton.ImageKey = "star";
-            this.linkButton.ImageList = this.listImageList;
+            this.linkButton.ImageList = this.imageList;
             this.linkButton.Location = new System.Drawing.Point(301, 0);
             this.linkButton.Margin = new System.Windows.Forms.Padding(0);
             this.linkButton.Name = "linkButton";
@@ -94,20 +91,20 @@
             this.linkButton.TabIndex = 2;
             this.linkButton.UseVisualStyleBackColor = true;
             // 
-            // listImageList
+            // imageList
             // 
-            this.listImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("listImageList.ImageStream")));
-            this.listImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.listImageList.Images.SetKeyName(0, "star");
-            this.listImageList.Images.SetKeyName(1, "downList");
-            this.listImageList.Images.SetKeyName(2, "back.png");
+            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
+            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList.Images.SetKeyName(0, "star");
+            this.imageList.Images.SetKeyName(1, "downList");
+            this.imageList.Images.SetKeyName(2, "back.png");
             // 
             // historyButton
             // 
             this.historyButton.Dock = System.Windows.Forms.DockStyle.Right;
             this.historyButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.historyButton.ImageKey = "downList";
-            this.historyButton.ImageList = this.listImageList;
+            this.historyButton.ImageList = this.imageList;
             this.historyButton.Location = new System.Drawing.Point(322, 0);
             this.historyButton.Margin = new System.Windows.Forms.Padding(0);
             this.historyButton.Name = "historyButton";
@@ -170,49 +167,26 @@
             // 
             this.listView.Alignment = System.Windows.Forms.ListViewAlignment.Left;
             this.listView.BackColor = System.Drawing.Color.Silver;
-            this.listView.ColumnHeaderContextMenu = null;
-            this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
             this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listView.FullRowSelect = true;
+            this.listView.HideSelection = false;
+            this.listView.LabelWrap = false;
             this.listView.Location = new System.Drawing.Point(0, 40);
-            this.listView.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.listView.Name = "listView";
-            this.listView.OwnerDraw = true;
             this.listView.Size = new System.Drawing.Size(343, 200);
-            this.listView.SuspendHeaderContextMenu = false;
-            this.listView.TabIndex = 3;
-            this.listView.TileSize = new System.Drawing.Size(188, 32);
+            this.listView.TabIndex = 6;
             this.listView.UseCompatibleStateImageBehavior = false;
-            this.listView.View = System.Windows.Forms.View.Details;
-            this.listView.ItemActivate += new System.EventHandler(this.listView_ItemActivate);
-            this.listView.MouseUp += new System.Windows.Forms.MouseEventHandler(this.listView_MouseUp);
-            this.listView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_KeyDown);
+            this.listView.CurrentDirectoryChanged += new Commander.DirectorySelectedEventHandler(this.listView_DirectorySelected);
             // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Width = 200;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Width = 10;
-            // 
-            // largeImageList
-            // 
-            this.largeImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
-            this.largeImageList.ImageSize = new System.Drawing.Size(108, 108);
-            this.largeImageList.TransparentColor = System.Drawing.Color.Transparent;
-            // 
-            // FileView
+            // FileViewControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.listView);
             this.Controls.Add(this.titlePanel);
             this.Controls.Add(this.hintPanel);
-            this.Name = "FileView";
+            this.Name = "FileViewControl";
             this.Size = new System.Drawing.Size(343, 240);
             this.Leave += new System.EventHandler(this.FileView_Leave);
             this.Enter += new System.EventHandler(this.FileView_Enter);
@@ -226,9 +200,6 @@
 
         #endregion
 
-        private Commander.ShellListView listView;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.Panel titlePanel;
         private System.Windows.Forms.Button linkButton;
         private System.Windows.Forms.Button historyButton;
@@ -236,8 +207,8 @@
         private System.Windows.Forms.Label hintLabel;
         private System.Windows.Forms.Button rootButton;
         private System.Windows.Forms.Button upButton;
-        private System.Windows.Forms.ImageList listImageList;
         private EditableLabel titleLabel;
-        private System.Windows.Forms.ImageList largeImageList;
+        private FileListView listView;
+        private System.Windows.Forms.ImageList imageList;
     }
 }
