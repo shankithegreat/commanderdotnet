@@ -52,22 +52,29 @@ namespace ShellDll
 
         public static IntPtr GetPathPIDL(string path)
         {
-            if (path.EndsWith(@"\") && !path.EndsWith(@":\"))
+            if (path.StartsWith("::{"))
             {
-                path = path.Remove(path.Length - 1);
+                return GetPathPIDL(null, path);
             }
-            string parentDirectory = Path.GetDirectoryName(path);
-            if (parentDirectory == null)
+            else
             {
-                parentDirectory = SpecialFolderPath.MyComputer;
-            }
-            string name = Path.GetFileName(path);
-            if (string.IsNullOrEmpty(name))
-            {
-                name = path;
-            }
+                if (path.EndsWith(@"\") && !path.EndsWith(@":\"))
+                {
+                    path = path.Remove(path.Length - 1);
+                }
+                string parentDirectory = Path.GetDirectoryName(path);
+                if (parentDirectory == null)
+                {
+                    parentDirectory = SpecialFolderPath.MyComputer;
+                }
+                string name = Path.GetFileName(path);
+                if (string.IsNullOrEmpty(name))
+                {
+                    name = path;
+                }
 
-            return GetPathPIDL(parentDirectory, name);
+                return GetPathPIDL(parentDirectory, name);
+            }
         }
 
         public static IntPtr GetPathPIDL(FileSystemInfo item)
@@ -81,7 +88,7 @@ namespace ShellDll
 
         public static IntPtr GetPathPIDL(string parentDirectory, string name)
         {
-            IShellFolder parentFolder = ShellFolder.GetShellFolder(parentDirectory);
+            IShellFolder parentFolder = (!string.IsNullOrEmpty(parentDirectory) ? ShellFolder.GetShellFolder(parentDirectory) : ShellFolder.GetDesktopFolder());
             if (parentFolder != null)
             {
                 uint pchEaten = 0;

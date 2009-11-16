@@ -10,146 +10,142 @@ namespace ShellDll
 {
     public static class ShellImageList
     {
-        private static IntPtr smallImageListHandle, largeImageListHandle;
-        private static Hashtable imageTable;
-
         private const int TVSIL_NORMAL = 0;
         private const int TVSIL_SMALL = 1;
+        private static Hashtable imageTable = new Hashtable();        
 
         static ShellImageList()
         {
-            imageTable = new Hashtable();
-
-            ShellAPI.SHGFI flag = ShellAPI.SHGFI.USEFILEATTRIBUTES | ShellAPI.SHGFI.SYSICONINDEX | ShellAPI.SHGFI.SMALLICON;
-            ShellAPI.SHFILEINFO shfiSmall = new ShellAPI.SHFILEINFO();
-            smallImageListHandle = ShellAPI.SHGetFileInfo(".txt", ShellAPI.FILE_ATTRIBUTE.NORMAL, ref shfiSmall, ShellAPI.cbFileInfo, flag);
-
-            flag = ShellAPI.SHGFI.USEFILEATTRIBUTES | ShellAPI.SHGFI.SYSICONINDEX | ShellAPI.SHGFI.LARGEICON;
-            ShellAPI.SHFILEINFO shfiLarge = new ShellAPI.SHFILEINFO();
-            largeImageListHandle = ShellAPI.SHGetFileInfo(".txt", ShellAPI.FILE_ATTRIBUTE.NORMAL, ref shfiLarge, ShellAPI.cbFileInfo, flag);
-        }
-
-        internal static void SetIconIndex(ShellItem item, int index, bool SelectedIcon)
-        {
-            bool HasOverlay = false; //true if it's an overlay
-            int rVal = 0; //The returned Index
-
-            ShellAPI.SHGFI dwflag = ShellAPI.SHGFI.SYSICONINDEX | ShellAPI.SHGFI.PIDL | ShellAPI.SHGFI.ICON;
-            ShellAPI.FILE_ATTRIBUTE dwAttr = 0;
-            //build Key into HashTable for this Item
-            int Key = index * 256;
-            if (item.IsLink)
-            {
-                Key = Key | 1;
-                dwflag = dwflag | ShellAPI.SHGFI.LINKOVERLAY;
-                HasOverlay = true;
-            }
-            if (item.IsShared)
-            {
-                Key = Key | 2;
-                dwflag = dwflag | ShellAPI.SHGFI.ADDOVERLAYS;
-                HasOverlay = true;
-            }
-            if (SelectedIcon)
-            {
-                Key = Key | 4;
-                dwflag = dwflag | ShellAPI.SHGFI.OPENICON;
-                HasOverlay = true; //not really an overlay, but handled the same
-            }
+            ShellAPI.SHFILEINFO fileInfo = new ShellAPI.SHFILEINFO();
             
-            if (imageTable.ContainsKey(Key))
-            {
-                rVal = (int)imageTable[Key];
-            }
-            else if (!HasOverlay && !item.IsHidden) //for non-overlay icons, we already have
-            {                
-                rVal = (int)System.Math.Floor((double)Key / 256); // the right index -- put in table
-                imageTable[Key] = rVal;
-            }
-            else //don't have iconindex for an overlay, get it.
-            {
-                if (item.IsFileSystem & !item.IsDisk & !item.IsFolder)
-                {
-                    dwflag = dwflag | ShellAPI.SHGFI.USEFILEATTRIBUTES;
-                    dwAttr = dwAttr | ShellAPI.FILE_ATTRIBUTE.NORMAL;
-                }
-
-                PIDL pidlFull = item.PIDLFull;
-
-                ShellAPI.SHFILEINFO shfiSmall = new ShellAPI.SHFILEINFO();
-                ShellAPI.SHGetFileInfo(pidlFull.Ptr, dwAttr, ref shfiSmall, ShellAPI.cbFileInfo, dwflag | ShellAPI.SHGFI.SMALLICON);
-
-                ShellAPI.SHFILEINFO shfiLarge = new ShellAPI.SHFILEINFO();
-                ShellAPI.SHGetFileInfo(pidlFull.Ptr, dwAttr, ref shfiLarge, ShellAPI.cbFileInfo, dwflag | ShellAPI.SHGFI.LARGEICON);
-
-                Marshal.FreeCoTaskMem(pidlFull.Ptr);
-
-                lock (imageTable)
-                {
-                    rVal = ShellAPI.ImageList_ReplaceIcon(smallImageListHandle, -1, shfiSmall.hIcon);
-                    ShellAPI.ImageList_ReplaceIcon(largeImageListHandle, -1, shfiLarge.hIcon);
-                }
-
-                ShellAPI.DestroyIcon(shfiSmall.hIcon);
-                ShellAPI.DestroyIcon(shfiLarge.hIcon);
-                imageTable[Key] = rVal;
-            }
-
-            if (SelectedIcon)
-                item.SelectedImageIndex = rVal;
-            else
-                item.ImageIndex = rVal;
+            SmallImageList = ShellAPI.SHGetFileInfo(".txt", ShellAPI.FILE_ATTRIBUTE.NORMAL, ref fileInfo, ShellAPI.cbFileInfo, ShellAPI.SHGFI.USEFILEATTRIBUTES | ShellAPI.SHGFI.SYSICONINDEX | ShellAPI.SHGFI.SMALLICON);
+            LargeImageList = ShellAPI.SHGetFileInfo(".txt", ShellAPI.FILE_ATTRIBUTE.NORMAL, ref fileInfo, ShellAPI.cbFileInfo, ShellAPI.SHGFI.USEFILEATTRIBUTES | ShellAPI.SHGFI.SYSICONINDEX | ShellAPI.SHGFI.LARGEICON);
         }
+               
+
+        internal static IntPtr SmallImageList { get; private set; }
+        internal static IntPtr LargeImageList { get; private set; }
+
 
         public static Icon GetIcon(int index, bool small)
         {
-            IntPtr iconPtr;
-
-            if (small)
-                iconPtr = ShellAPI.ImageList_GetIcon(smallImageListHandle, index, ShellAPI.ILD.NORMAL);
-            else
-                iconPtr = ShellAPI.ImageList_GetIcon(largeImageListHandle, index, ShellAPI.ILD.NORMAL);
+            IntPtr iconPtr = ShellAPI.ImageList_GetIcon(small ? SmallImageList : LargeImageList, index, ShellAPI.ILD.NORMAL);
 
             if (iconPtr != IntPtr.Zero)
             {
                 Icon icon = Icon.FromHandle(iconPtr);
-                Icon retVal = (Icon)icon.Clone();
+                Icon result = (Icon)icon.Clone();                
                 ShellAPI.DestroyIcon(iconPtr);
-                return retVal;
+                
+                return result;
             }
-            else
-                return null;
+
+            return null;
         }
 
-        internal static IntPtr SmallImageList { get { return smallImageListHandle; } }
-        internal static IntPtr LargeImageList { get { return largeImageListHandle; } }
 
-        #region Set Small Handle
+        internal static void SetIconIndex(ShellItem item, int index, bool selectedIcon)
+        {
+            bool hasOverlay = false;
+            int result; // The returned Index
 
+            ShellAPI.SHGFI flag = ShellAPI.SHGFI.SYSICONINDEX | ShellAPI.SHGFI.PIDL | ShellAPI.SHGFI.ICON;
+            ShellAPI.FILE_ATTRIBUTE attribute = 0;
+            
+            // build Key into HashTable for this Item
+            int Key = index * 256;
+
+            if (item.IsLink)
+            {
+                Key = Key | 1;
+                flag = flag | ShellAPI.SHGFI.LINKOVERLAY;
+                hasOverlay = true;
+            }
+            if (item.IsShared)
+            {
+                Key = Key | 2;
+                flag = flag | ShellAPI.SHGFI.ADDOVERLAYS;
+                hasOverlay = true;
+            }
+            if (selectedIcon)
+            {
+                Key = Key | 4;
+                flag = flag | ShellAPI.SHGFI.OPENICON;
+                hasOverlay = true; // not really an overlay, but handled the same
+            }
+
+            if (imageTable.ContainsKey(Key))
+            {
+                result = (int)imageTable[Key];
+            }
+            else if (!hasOverlay && !item.IsHidden) // for non-overlay icons, we already have
+            {
+                result = (int)System.Math.Floor((double)Key / 256); // the right index -- put in table
+                imageTable[Key] = result;
+            }
+            else // don't have iconindex for an overlay, get it.
+            {
+                if (item.IsFileSystem & !item.IsDisk & !item.IsFolder)
+                {
+                    flag = flag | ShellAPI.SHGFI.USEFILEATTRIBUTES;
+                    attribute = attribute | ShellAPI.FILE_ATTRIBUTE.NORMAL;
+                }
+
+                PIDL pidl = item.PIDLFull;
+
+                ShellAPI.SHFILEINFO smallFileInfo = new ShellAPI.SHFILEINFO();
+                ShellAPI.SHGetFileInfo(pidl.Ptr, attribute, ref smallFileInfo, ShellAPI.cbFileInfo, flag | ShellAPI.SHGFI.SMALLICON);
+
+                ShellAPI.SHFILEINFO largeFileInfo = new ShellAPI.SHFILEINFO();
+                ShellAPI.SHGetFileInfo(pidl.Ptr, attribute, ref largeFileInfo, ShellAPI.cbFileInfo, flag | ShellAPI.SHGFI.LARGEICON);
+
+                Marshal.FreeCoTaskMem(pidl.Ptr);
+
+                lock (imageTable)
+                {
+                    result = ShellAPI.ImageList_ReplaceIcon(SmallImageList, -1, smallFileInfo.hIcon);
+                    ShellAPI.ImageList_ReplaceIcon(LargeImageList, -1, largeFileInfo.hIcon);
+                }
+
+                ShellAPI.DestroyIcon(smallFileInfo.hIcon);
+                ShellAPI.DestroyIcon(largeFileInfo.hIcon);
+                
+                imageTable[Key] = result;
+            }
+
+            if (selectedIcon)
+            {
+                item.SelectedImageIndex = result;
+            }
+            else
+            {
+                item.ImageIndex = result;
+            }
+        }
+        
         internal static void SetSmallImageList(TreeView treeView)
         {
-            ShellAPI.SendMessage(treeView.Handle, ShellAPI.WM.TVM_SETIMAGELIST, TVSIL_NORMAL, smallImageListHandle);
+            ShellAPI.SendMessage(treeView.Handle, ShellAPI.WM.TVM_SETIMAGELIST, TVSIL_NORMAL, SmallImageList);
         }
 
         internal static void SetSmallImageList(ListView listView)
         {
-            ShellAPI.SendMessage(listView.Handle, ShellAPI.WM.LVM_SETIMAGELIST, TVSIL_SMALL, smallImageListHandle);
+            ShellAPI.SendMessage(listView.Handle, ShellAPI.WM.LVM_SETIMAGELIST, TVSIL_SMALL, SmallImageList);
         }
-
-        #endregion
-
-        #region Set Large Handle
-
+        
+        internal static void Set32SmallImageList(ListView listView)
+        {
+            ShellAPI.SendMessage(listView.Handle, ShellAPI.WM.LVM_SETIMAGELIST, TVSIL_SMALL, LargeImageList);
+        }
+       
         internal static void SetLargeImageList(ListView listView)
         {
-            ShellAPI.SendMessage(listView.Handle, ShellAPI.WM.LVM_SETIMAGELIST, TVSIL_NORMAL, largeImageListHandle);
+            ShellAPI.SendMessage(listView.Handle, ShellAPI.WM.LVM_SETIMAGELIST, TVSIL_NORMAL, LargeImageList);
         }
 
         internal static void SetLargeImageList(ListView listView, IntPtr handle)
         {
             ShellAPI.SendMessage(listView.Handle, ShellAPI.WM.LVM_SETIMAGELIST, TVSIL_NORMAL, handle);
         }
-
-        #endregion
     }
 }

@@ -22,13 +22,22 @@ namespace Commander
         {
             this.CreateHandle(new CreateParams());
         }
-        
+
 
         public void Show(Point location, params string[] pathList)
         {
             IntPtr[] pidls = ShellFolder.GetPIDLs(pathList);
-            string parentDirectory = ShellFolder.GetParentDirectoryPath(pathList[0]);
-            IShellFolder parentShellFolder = ShellFolder.GetShellFolder(parentDirectory);
+            IShellFolder parentShellFolder;
+            string parentDirectory = null;
+            if (pathList[0].StartsWith("::{"))
+            {
+                parentShellFolder = ShellFolder.GetDesktopFolder();
+            }
+            else
+            {
+                parentDirectory = ShellFolder.GetParentDirectoryPath(pathList[0]);
+                parentShellFolder = ShellFolder.GetShellFolder(parentDirectory);
+            }
 
             IntPtr contextMenu = IntPtr.Zero;
             IntPtr iContextMenuPtr = IntPtr.Zero;
@@ -148,6 +157,11 @@ namespace Commander
             Command("copy", items);
         }
 
+        public void CopyCommand(params string[] items)
+        {
+            Command("copy", items);
+        }
+
         public void PasteCommand(DirectoryInfo directory)
         {
             Command("paste", directory);
@@ -158,9 +172,30 @@ namespace Commander
             Command("cut", items);
         }
 
+        public void CutCommand(params string[] items)
+        {
+            Command("cut", items);
+        }
+
         public void DeleteCommand(params FileSystemInfo[] items)
         {
             Command("delete", items);
+        }
+
+        public void DeleteCommand(params string[] items)
+        {
+            Command("delete", items);
+        }
+
+        public void Command(string command, params string[] items)
+        {
+            IntPtr[] pidls = ShellFolder.GetPIDLs(items);
+            if (pidls.Length > 0)
+            {
+                string parentDirectory = ShellFolder.GetParentDirectoryPath(items[0]);
+                IShellFolder parentShellFolder = ShellFolder.GetShellFolder(parentDirectory);
+                ContextMenuHelper.InvokeCommand(parentShellFolder, parentDirectory, pidls, command, new Point(0, 0));
+            }
         }
 
         public void Command(string command, params FileSystemInfo[] items)
@@ -236,7 +271,7 @@ namespace Commander
             base.WndProc(ref m);
         }
 
-        
+
         private void DefaultCommand(string path, string parentDirectory)
         {
             IntPtr[] pidls = ShellFolder.GetPIDLs(path);

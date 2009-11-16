@@ -15,26 +15,24 @@ namespace Commander
 
     public class ShellListView : ListView
     {
-        private int columnHeight = 0;
+        private int columnHeight;
         private BrowserListSorter sorter = new BrowserListSorter();
 
 
         public ShellListView()
-        {
-            OwnerDraw = true;
-
-            HandleCreated += BrowserListView_HandleCreated;
+        {   
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
 
-            DrawItem += BrowserListView_DrawItem;
-            DrawSubItem += BrowserListView_DrawSubItem;
-            DrawColumnHeader += BrowserListView_DrawColumnHeader;
-
+            this.OwnerDraw = true;
             this.Alignment = ListViewAlignment.Left;
         }
         
-
+        /// <summary>
+        /// Gets or sets how items are displayed in the control.
+        /// </summary>
+        [Category("Appearance")]
+        [DefaultValue(View.LargeIcon)]
         public new View View
         {
             get
@@ -125,30 +123,35 @@ namespace Commander
             base.WndProc(ref m);
         }
 
-
-        private void BrowserListView_DrawItem(object sender, DrawListViewItemEventArgs e)
+        protected override void OnHandleCreated(EventArgs e)
         {
-            e.DrawDefault = true;
+            base.OnHandleCreated(e);
+            
+            // Assign the image lists to the ListView
+            ShellImageList.SetSmallImageList(this);
+            ShellImageList.SetLargeImageList(this);
         }
 
-        private void BrowserListView_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
+        protected override void OnDrawItem(DrawListViewItemEventArgs e)
         {
             e.DrawDefault = true;
+
+            base.OnDrawItem(e);
         }
 
-        private void BrowserListView_DrawColumnHeader(object sender, DrawListViewColumnHeaderEventArgs e)
+        protected override void OnDrawSubItem(DrawListViewSubItemEventArgs e)
+        {
+            e.DrawDefault = true;
+
+            base.OnDrawSubItem(e);
+        }
+
+        protected override void OnDrawColumnHeader(DrawListViewColumnHeaderEventArgs e)
         {
             e.DrawDefault = true;
             columnHeight = e.Bounds.Height;
-        }
 
-        /// <summary>
-        /// Once the handle is created we can assign the image lists to the ListView
-        /// </summary>
-        private void BrowserListView_HandleCreated(object sender, EventArgs e)
-        {
-            ShellImageList.SetSmallImageList(this);
-            ShellImageList.SetLargeImageList(this);
+            base.OnDrawColumnHeader(e);
         }
     }
 }
