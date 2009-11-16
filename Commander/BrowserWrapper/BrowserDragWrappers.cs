@@ -12,12 +12,12 @@ namespace Commander
     /// <summary>
     /// This class takes care of every drag operation in a BrowserListView
     /// </summary>
-    internal class BrowserLVDragWrapper : IDropSource, IDisposable
+    internal class BrowserDragWrapper : IDropSource, IDisposable
     {
         #region Fields
 
         // The browser for which to do the drag work
-        private FileView fileView;
+        private FileListView listView;
 
         // The pointer to the IDataObject being dragged
         private IntPtr dataObjectPtr;
@@ -38,13 +38,14 @@ namespace Commander
         /// Registers the ListView.ItemDrag to receive the event when an item is being dragged
         /// </summary>
         /// <param name="br">The browser for which to support the drag</param>
-        public BrowserLVDragWrapper(FileView br)
+        public BrowserDragWrapper(FileListView listView)
         {
-            this.fileView = br;
-            fileView.ListView.ItemDrag += new ItemDragEventHandler(ItemDrag);
+            this.listView = listView;
+            this.listView.AllowDrop = true;
+            this.listView.ItemDrag += ItemDrag;
         }
 
-        ~BrowserLVDragWrapper()
+        ~BrowserDragWrapper()
         {
             ((IDisposable)this).Dispose();
         }
@@ -86,15 +87,15 @@ namespace Commander
 
             startButton = e.Button;
 
-            FileSystemInfo[] items = fileView.GetSelected();
+            FileSystemInfo[] items = listView.GetSelected();
 
             List<ShellItem> list = new List<ShellItem>();
             foreach (FileSystemInfo f in items)
             {
                 //IntPtr[] pidls = ShellFolder.GetPIDLs(items);
-                IntPtr pidl = ShellFolder.GetPathPIDL(items[0]);
+                IntPtr pidl = ShellFolder.GetPathPIDL(f);
                 //IShellFolder parentShellFolder = ShellFolder.GetParentShellFolder(items[0]);
-                string parentDirectory = ShellFolder.GetParentDirectoryPath(items[0]);
+                string parentDirectory = ShellFolder.GetParentDirectoryPath(f);
                 IntPtr parentShellFolder = ShellFolder.GetShellFolderIntPtr(parentDirectory);
 
 
@@ -143,7 +144,7 @@ namespace Commander
         public void Dispose()
         {
             if (!disposed)
-            {                
+            {
                 ReleaseCom();
                 GC.SuppressFinalize(this);
 
@@ -166,9 +167,20 @@ namespace Commander
         #endregion
     }
 
-    #region Event Classes
+    internal delegate void DragEnterEventHandler(object sender, DragEnterEventArgs e);
 
-    
+    internal class DragEnterEventArgs : EventArgs
+    {
+        private IShellFolder parent;
+        private Control dragStartControl;
 
-    #endregion
+        public DragEnterEventArgs(IShellFolder parent, Control dragStartControl)
+        {
+            this.parent = parent;
+            this.dragStartControl = dragStartControl;
+        }
+
+        public IShellFolder Parent { get { return parent; } }
+        public Control DragStartControl { get { return dragStartControl; } }
+    }
 }

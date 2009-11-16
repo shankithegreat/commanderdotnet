@@ -840,7 +840,7 @@ namespace ShellDll
         {
             if (item.Equals(item.browser.DesktopItem))
             {
-                return "::{450d8fba-ad25-11d0-98a8-0800361b1103}";
+                return SpecialFolderPath.MyDocuments;
             }
             else if (item.Type == item.Browser.SystemFolderName)
             {

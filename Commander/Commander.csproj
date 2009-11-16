@@ -15,6 +15,21 @@
     <TargetFrameworkSubset>Client</TargetFrameworkSubset>
     <SignAssembly>false</SignAssembly>
     <SignManifests>false</SignManifests>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,11 +62,29 @@
   <ItemGroup>
     <Compile Include="BrowserWrapper\BrowserDragWrappers.cs" />
     <Compile Include="BrowserWrapper\BrowserDropWrappers.cs" />
+    <Compile Include="ButtonCommandBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ButtonCommandBar.Designer.cs">
+      <DependentUpon>ButtonCommandBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="CommanderForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CommanderForm.Designer.cs">
       <DependentUpon>CommanderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommandBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommandBar.Designer.cs">
+      <DependentUpon>CommandBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommandToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandToolStrip.Designer.cs">
+      <DependentUpon>CommandToolStrip.cs</DependentUpon>
     </Compile>
     <Compile Include="CreateFolderForm.cs">
       <SubType>Form</SubType>
@@ -59,9 +92,35 @@
     <Compile Include="CreateFolderForm.Designer.cs">
       <DependentUpon>CreateFolderForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataGridViewAutoSizeBand.cs" />
+    <Compile Include="DatagridViewCheckBoxHeaderCell.cs" />
+    <Compile Include="DataGridViewUtilities.cs" />
+    <Compile Include="DriveToolBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DriveToolBar.Designer.cs">
+      <DependentUpon>DriveToolBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FileListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FileListView.Designer.cs">
+      <DependentUpon>FileListView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FileSizeFormatProvider.cs" />
+    <Compile Include="GroupDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ListViewSorter.cs" />
-    <Compile Include="ShellDrag.cs" />
-    <Compile Include="ShellDrop.cs" />
+    <Compile Include="MainViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MainViewControl.Designer.cs">
+      <DependentUpon>MainViewControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditableLabel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -69,32 +128,56 @@
       <DependentUpon>EditableLabel.cs</DependentUpon>
     </Compile>
     <Compile Include="ShellContextMenu.cs" />
-    <Compile Include="ContextMenuHelper.cs" />
-    <Compile Include="FileView.cs">
+    <Compile Include="Utility\ContextMenuHelper.cs" />
+    <Compile Include="FileViewControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="FileView.Designer.cs">
-      <DependentUpon>FileView.cs</DependentUpon>
+    <Compile Include="FileViewControl.Designer.cs">
+      <DependentUpon>FileViewControl.cs</DependentUpon>
     </Compile>
     <Compile Include="SafeNativeMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ButtonCommandBar.resx">
+      <DependentUpon>ButtonCommandBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBar.resx">
+      <DependentUpon>CommandBar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CommanderForm.resx">
       <DependentUpon>CommanderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandToolStrip.resx">
+      <DependentUpon>CommandToolStrip.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateFolderForm.resx">
       <DependentUpon>CreateFolderForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DriveToolBar.resx">
+      <DependentUpon>DriveToolBar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditableLabel.resx">
       <DependentUpon>EditableLabel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FileView.resx">
-      <DependentUpon>FileView.cs</DependentUpon>
+    <EmbeddedResource Include="FileListView.resx">
+      <DependentUpon>FileListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileViewControl.resx">
+      <DependentUpon>FileViewControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GroupDataGridView.resx">
+      <DependentUpon>GroupDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainViewControl.resx">
+      <DependentUpon>MainViewControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShellListView.resx">
+      <DependentUpon>ShellListView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TestForm.resx">
       <DependentUpon>TestForm.cs</DependentUpon>
@@ -116,6 +199,7 @@
     <Compile Include="ShellListView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Shell\FileSystemWatcher.cs" />
     <Compile Include="Shell\Interfaces\IAdviseSink.cs" />
     <Compile Include="Shell\Interfaces\IContextMenu.cs" />
     <Compile Include="Shell\Interfaces\IDataObject.cs" />
@@ -149,6 +233,40 @@
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ThumbnailCreator.cs" />
+    <Compile Include="Utility\IoHelper.cs" />
+    <Compile Include="Utility\StringHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework Client Profile</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,6 +5,7 @@ using ShellDll;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Drawing;
+using System.IO;
 
 namespace Commander
 {
@@ -12,13 +13,13 @@ namespace Commander
     /// <summary>
     /// This class takes care of every drop operation in a BrowserListView
     /// </summary>
-    internal class BrowserLVDropWrapper : ShellDll.IDropTarget, IDisposable
+    internal class BrowserDropWrapper : ShellDll.IDropTarget, IDisposable
     {
         #region Fields
 
         // The browser for which to do the drop work
-        private FileView fileView;
-        
+        private FileListView listView;
+
         private IntPtr listViewHandle;
 
         // The current IDropTarget the cursor is over and the pointers to the target and dataobject
@@ -48,26 +49,94 @@ namespace Commander
         // The event for when a drop is occuring
         public event DropEventHandler Drop;
 
+        private ShellBrowser browser = new ShellBrowser();
+
         #endregion
 
         /// <summary>
         /// Registers the ListView for drag/drop operations and uses this class as the IDropTarget
         /// </summary>
         /// <param name="br">The browser for which to support the drop</param>
-        public BrowserLVDropWrapper(FileView fileView)
+        public BrowserDropWrapper(FileListView listView)
         {
-            this.fileView = fileView;
+            this.listView = listView;
+            this.listView.AllowDrop = true;
 
-            listViewHandle = fileView.ListView.Handle;
-            ShellAPI.RegisterDragDrop(listViewHandle, this);
+            listViewHandle = this.listView.Handle;
+            //ShellAPI.RegisterDragDrop(this.listView.Handle, this);
 
-            fileView.ListView.HandleCreated += new EventHandler(FileView_HandleCreated);
-            fileView.ListView.HandleDestroyed += new EventHandler(FileView_HandleDestroyed);
+            listView.HandleCreated += new EventHandler(FileView_HandleCreated);
+            listView.HandleDestroyed += new EventHandler(FileView_HandleDestroyed);
+            listView.DragEnter += new DragEventHandler(listView_DragEnter);
+            listView.DragOver += new DragEventHandler(listView_DragOver);
+            listView.DragLeave += new EventHandler(listView_DragLeave);
+            listView.DragDrop += new DragEventHandler(listView_DragDrop);
 
             ShellHelper.GetIDropTargetHelper(out dropHelperPtr, out dropHelper);
         }
 
-        ~BrowserLVDropWrapper()
+        void listView_DragEnter(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            IntPtr data = GetIDataObject(files);
+            ShellAPI.MK keyState = (ShellAPI.MK)(int)e.KeyState;
+            ShellAPI.POINT point = new ShellAPI.POINT(e.X, e.Y);
+            DragDropEffects effects = e.AllowedEffect;
+
+            DragEnter(data, keyState, point, ref effects);
+
+            e.Effect = effects;
+        }
+
+        void listView_DragOver(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            IntPtr data = GetIDataObject(files);
+            ShellAPI.MK keyState = (ShellAPI.MK)(int)e.KeyState;
+            ShellAPI.POINT point = new ShellAPI.POINT(e.X, e.Y);
+            DragDropEffects effects = e.AllowedEffect; ;
+
+            DragOver(keyState, point, ref effects);
+
+            e.Effect = effects;
+        }
+
+        void listView_DragLeave(object sender, EventArgs e)
+        {
+            DragLeave();
+        }
+
+        void listView_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            IntPtr data = GetIDataObject(files);
+            ShellAPI.MK keyState = (ShellAPI.MK)(int)e.KeyState;
+            ShellAPI.POINT point = new ShellAPI.POINT(e.X, e.Y);
+            DragDropEffects effects = e.AllowedEffect;
+
+            DragDrop(data, keyState, point, ref effects);
+
+            e.Effect = effects;
+        }
+
+        private IntPtr GetIDataObject(string[] fileDropData)
+        {
+            List<ShellItem> list = new List<ShellItem>();
+            foreach (string f in fileDropData)
+            {
+                IntPtr pidl = ShellFolder.GetPathPIDL(f);
+                string parentDirectory = ShellFolder.GetParentDirectoryPath(f);
+                IntPtr parentShellFolder = ShellFolder.GetShellFolderIntPtr(parentDirectory);
+
+
+                ShellItem item = new ShellItem(browser, pidl, parentShellFolder);
+                list.Add(item);
+            }
+
+            return ShellHelper.GetIDataObject(list.ToArray());
+        }
+
+        ~BrowserDropWrapper()
         {
             ((IDisposable)this).Dispose();
         }
@@ -76,7 +145,7 @@ namespace Commander
 
         void FileView_HandleCreated(object sender, EventArgs e)
         {
-            listViewHandle = fileView.ListView.Handle;
+            listViewHandle = listView.Handle;
             ShellAPI.RegisterDragDrop(listViewHandle, this);
         }
 
@@ -123,17 +192,17 @@ namespace Commander
             mouseButtons = grfKeyState;
             startEffects = pdwEffect;
 
-            fileView.ListView.Focus();
+            listView.Focus();
             //fileView.SelectionChange = false;
             ReleaseCom();
 
             dropDataObject = pDataObj;
 
             #region Get DropItem
-            Point point = fileView.ListView.PointToClient(new Point(pt.x, pt.y));
-            ListViewHitTestInfo hitTest = fileView.ListView.HitTest(point);
-            if (hitTest.Item != null && 
-                (fileView.ListView.View != View.Details || hitTest.SubItem == null || hitTest.Item.Name == hitTest.SubItem.Name) &&
+            Point point = listView.PointToClient(new Point(pt.x, pt.y));
+            ListViewHitTestInfo hitTest = listView.HitTest(point);
+            if (hitTest.Item != null &&
+                (listView.View != View.Details || hitTest.SubItem == null || hitTest.Item.Name == hitTest.SubItem.Name) &&
                 (hitTest.Location == ListViewHitTestLocations.Image ||
                  hitTest.Location == ListViewHitTestLocations.Label ||
                  hitTest.Location == ListViewHitTestLocations.StateImage))
@@ -143,7 +212,7 @@ namespace Commander
                 wasSelected = dropListItem.Selected;
                 dropListItem.Selected = true;
 
-                ShellItem item = (ShellItem)dropListItem.Tag;
+                ShellItem item = GetShellItem(hitTest.Item);
                 parentDropItem = item;
 
                 ShellHelper.GetIDropTarget(item, out dropTargetPtr, out dropTarget);
@@ -151,8 +220,9 @@ namespace Commander
             else
             {
                 dropListItem = null;
-                //parentDropItem = fileView.SelectedItem;
-                //ShellHelper.GetIDropTarget(fileView.SelectedItem, out dropTargetPtr, out dropTarget);
+                ShellItem item = GetShellItem(listView.CurrentDirectory);
+                parentDropItem = item;
+                ShellHelper.GetIDropTarget(item, out dropTargetPtr, out dropTarget);
             }
             #endregion
 
@@ -160,7 +230,7 @@ namespace Commander
                 dropTarget.DragEnter(pDataObj, grfKeyState, pt, ref pdwEffect);
 
             if (dropHelper != null)
-                dropHelper.DragEnter(fileView.Handle, pDataObj, ref pt, pdwEffect);
+                dropHelper.DragEnter(listView.Handle, pDataObj, ref pt, pdwEffect);
 
             return ShellAPI.S_OK;
         }
@@ -171,14 +241,14 @@ namespace Commander
 
             #region Get DropItem
 
-            Point point = fileView.ListView.PointToClient(new Point(pt.x, pt.y));
-            ListViewHitTestInfo hitTest = fileView.ListView.HitTest(point);
+            Point point = listView.PointToClient(new Point(pt.x, pt.y));
+            ListViewHitTestInfo hitTest = listView.HitTest(point);
             if (hitTest.Item != null &&
-                (fileView.ListView.View != View.Details || hitTest.SubItem == null || hitTest.Item.Name == hitTest.SubItem.Name) &&
+                (listView.View != View.Details || hitTest.SubItem == null || hitTest.Item.Name == hitTest.SubItem.Name) &&
                 (hitTest.Location == ListViewHitTestLocations.Image ||
                  hitTest.Location == ListViewHitTestLocations.Label ||
                  hitTest.Location == ListViewHitTestLocations.StateImage))
-            {                
+            {
                 if (!hitTest.Item.Equals(dropListItem))
                 {
                     if (dropTarget != null)
@@ -193,7 +263,7 @@ namespace Commander
                     wasSelected = dropListItem.Selected;
                     dropListItem.Selected = true;
 
-                    ShellItem item = (ShellItem)dropListItem.Tag;
+                    ShellItem item = GetShellItem(hitTest.Item);
                     parentDropItem = item;
 
                     ShellHelper.GetIDropTarget(item, out dropTargetPtr, out dropTarget);
@@ -212,9 +282,11 @@ namespace Commander
                     dropListItem.Selected = wasSelected;
 
                     dropListItem = null;
-                    //parentDropItem = fileView.SelectedItem;
 
-                    //ShellHelper.GetIDropTarget(fileView.SelectedItem, out dropTargetPtr, out dropTarget);
+                    ShellItem item = GetShellItem(listView.CurrentDirectory);
+                    parentDropItem = item;
+                    ShellHelper.GetIDropTarget(item, out dropTargetPtr, out dropTarget);
+
                     reset = true;
                 }
             }
@@ -224,7 +296,9 @@ namespace Commander
             if (dropTarget != null)
             {
                 if (reset)
+                {
                     dropTarget.DragEnter(dropDataObject, grfKeyState, pt, ref pdwEffect);
+                }
                 else
                     dropTarget.DragOver(grfKeyState, pt, ref pdwEffect);
             }
@@ -235,6 +309,21 @@ namespace Commander
                 dropHelper.DragOver(ref pt, pdwEffect);
 
             return ShellAPI.S_OK;
+        }
+
+        private ShellItem GetShellItem(ListViewItem item)
+        {
+            FileSystemInfo fsi = listView.GetFileSystemInfo(item);
+            return GetShellItem(fsi);
+        }
+
+        private ShellItem GetShellItem(FileSystemInfo fsi)
+        {
+            IntPtr pidl = ShellFolder.GetPathPIDL(fsi);
+            string parentDirectory = ShellFolder.GetParentDirectoryPath(fsi);
+            IntPtr parentShellFolder = ShellFolder.GetShellFolderIntPtr(parentDirectory);
+
+            return new ShellItem(browser, pidl, parentShellFolder);
         }
 
         public int DragLeave()
@@ -256,7 +345,7 @@ namespace Commander
 
         public int DragDrop(IntPtr pDataObj, ShellAPI.MK grfKeyState, ShellAPI.POINT pt, ref DragDropEffects pdwEffect)
         {
-            OnDrop(new DropEventArgs(mouseButtons, fileView.ListView));
+            OnDrop(new DropEventArgs(mouseButtons, listView));
 
             if (!((mouseButtons & ShellAPI.MK.RBUTTON) != 0 ||
                   grfKeyState == ShellAPI.MK.CONTROL ||
@@ -330,7 +419,7 @@ namespace Commander
 
             if (dropHelper != null)
             {
-                Marshal.ReleaseComObject(dropHelper);                
+                Marshal.ReleaseComObject(dropHelper);
             }
         }
 
@@ -351,11 +440,9 @@ namespace Commander
         #endregion
     }
 
-    #region Event Classes
+    internal delegate void DropEventHandler(object sender, DropEventArgs e);
 
-    //internal delegate void DropEventHandler(object sender, DropEventArgs e);
-
-    /*internal class DropEventArgs : EventArgs
+    internal class DropEventArgs : EventArgs
     {
         private ShellAPI.MK mouseButtons;
         private Control dragStartControl;
@@ -368,7 +455,5 @@ namespace Commander
 
         public ShellAPI.MK MouseButtons { get { return mouseButtons; } }
         public Control DragStartControl { get { return dragStartControl; } }
-    }*/
-
-    #endregion
+    }
 }

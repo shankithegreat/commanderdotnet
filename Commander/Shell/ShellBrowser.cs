@@ -58,13 +58,14 @@ namespace ShellDll
             desktopItem = new ShellItem(this, tempPidl, desktopFolderPtr);
             //
 
+
             //My Documents
             uint pchEaten = 0;
             ShellAPI.SFGAO pdwAttributes = 0;
             desktopItem.ShellFolder.ParseDisplayName(
                 IntPtr.Zero,
                 IntPtr.Zero,
-                "::{450d8fba-ad25-11d0-98a8-0800361b1103}",
+                SpecialFolderPath.MyDocuments,
                 ref pchEaten,
                 out tempPidl,
                 ref pdwAttributes);
@@ -85,6 +86,13 @@ namespace ShellDll
         }
 
         #region ShellBrowser Update
+
+        public static IntPtr GetDesctopPidl()
+        {
+            IntPtr tempPidl = IntPtr.Zero;
+            ShellAPI.SHGetSpecialFolderLocation(IntPtr.Zero, ShellAPI.CSIDL.DESKTOP, out tempPidl);
+            return tempPidl;
+        }
 
         internal void OnShellItemUpdate(object sender, ShellItemUpdateEventArgs e)
         {
@@ -124,7 +132,7 @@ namespace ShellDll
         internal ShellItem[] GetPath(ShellItem item)
         {
             ArrayList pathList = new ArrayList();
-            
+
             ShellItem currentItem = item;
             while (currentItem.ParentItem != null)
             {

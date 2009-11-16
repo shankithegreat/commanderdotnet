@@ -24,13 +24,27 @@ namespace ShellDll
             entry.pIdl = br.DesktopItem.PIDLRel.Ptr;
             entry.Recursively = true;
 
-            notifyId = ShellAPI.SHChangeNotifyRegister(
-                this.Handle,
-                ShellAPI.SHCNRF.InterruptLevel | ShellAPI.SHCNRF.ShellLevel,
-                ShellAPI.SHCNE.ALLEVENTS | ShellAPI.SHCNE.INTERRUPT,
-                ShellAPI.WM.SH_NOTIFY,
-                1,
-                new ShellAPI.SHChangeNotifyEntry[] { entry });
+            notifyId = RegisterShellNotify(this.Handle, entry);
+        }
+
+        public static uint RegisterShellNotify(IntPtr handle, ShellAPI.SHChangeNotifyEntry entry)
+        {
+            return ShellAPI.SHChangeNotifyRegister(
+                                                    handle,
+                                                    ShellAPI.SHCNRF.InterruptLevel | ShellAPI.SHCNRF.ShellLevel,
+                                                    ShellAPI.SHCNE.ALLEVENTS | ShellAPI.SHCNE.INTERRUPT,
+                                                    ShellAPI.WM.SH_NOTIFY,
+                                                    1,
+                                                    new ShellAPI.SHChangeNotifyEntry[] { entry });
+        }
+
+        public static uint RegisterShellNotify(IntPtr handle)
+        {
+            ShellAPI.SHChangeNotifyEntry entry = new ShellAPI.SHChangeNotifyEntry();
+            entry.pIdl = ShellBrowser.GetDesctopPidl();
+            entry.Recursively = true;
+
+            return RegisterShellNotify(handle, entry);
         }
 
         ~ShellBrowserUpdater()
@@ -51,9 +65,9 @@ namespace ShellDll
 
                 //Console.Out.WriteLine("Event: {0}", (ShellAPI.SHCNE)m.LParam);
                 //if (shNotify.dwItem1 != IntPtr.Zero)
-                    //PIDL.Write(shNotify.dwItem1);
+                //PIDL.Write(shNotify.dwItem1);
                 //if (shNotify.dwItem2 != IntPtr.Zero)
-                    //PIDL.Write(shNotify.dwItem2);
+                //PIDL.Write(shNotify.dwItem2);
 
                 switch ((ShellAPI.SHCNE)m.LParam)
                 {
@@ -77,7 +91,7 @@ namespace ShellDll
                                         out relative);
                                     parentItem.AddItem(new ShellItem(br, parentItem, relative));
                                 }
-                                    
+
                                 Marshal.FreeCoTaskMem(child);
                                 parentPIDL.Free();
                             }
@@ -139,9 +153,9 @@ namespace ShellDll
 
                     #region Folder Changes
 
-                    case ShellAPI.SHCNE.MKDIR:                        
+                    case ShellAPI.SHCNE.MKDIR:
                     case ShellAPI.SHCNE.DRIVEADD:
-                    case ShellAPI.SHCNE.DRIVEADDGUI:                        
+                    case ShellAPI.SHCNE.DRIVEADDGUI:
                         #region Make Directory
                         {
                             if (!PIDL.IsEmpty(shNotify.dwItem1))
@@ -253,7 +267,7 @@ namespace ShellDll
                     case ShellAPI.SHCNE.ASSOCCHANGED:
                         #region Update Images
                         {
-                            
+
                         }
                         #endregion
                         break;
