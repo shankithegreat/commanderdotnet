@@ -73,7 +73,7 @@ namespace Commander
 
     public class DataGridViewGroupHeader : DataGridViewRow
     {
-        private Font font = null;
+        private Font font;
         private Color lineColor = Color.FromArgb(61, 149, 255);
         private string text;
 

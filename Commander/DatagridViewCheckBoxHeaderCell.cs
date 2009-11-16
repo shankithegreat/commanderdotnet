@@ -12,10 +12,10 @@ namespace Commander
 {
     public class DatagridViewCheckBoxHeaderCell : DataGridViewColumnHeaderCell
     {
-        private Rectangle checkBox = new Rectangle();
-        private Rectangle checkRectangle = new Rectangle();
-        private bool check = false;
-        private bool mouseInCheckBox = false;
+        private Rectangle checkBox;
+        private Rectangle checkRectangle;
+        private bool check;
+        private bool mouseInCheckBox;
         private ButtonState checkBoxState = ButtonState.Normal;
 
 
@@ -44,7 +44,7 @@ namespace Commander
 
         protected override void Paint(Graphics graphics, Rectangle clipBounds, Rectangle cellBounds, int rowIndex, DataGridViewElementStates dataGridViewElementState, object value, object formattedValue, string errorText, DataGridViewCellStyle cellStyle, DataGridViewAdvancedBorderStyle advancedBorderStyle, DataGridViewPaintParts paintParts)
         {
-            this.checkBox.Size = CheckBoxRenderer.GetGlyphSize(graphics, System.Windows.Forms.VisualStyles.CheckBoxState.UncheckedNormal);
+            this.checkBox.Size = CheckBoxRenderer.GetGlyphSize(graphics, CheckBoxState.UncheckedNormal);
             this.checkBox.Location = new Point(2, cellBounds.Height / 2 - this.checkBox.Height / 2);
             this.checkRectangle.Size = new Size(this.checkBox.Right + 1, clipBounds.Height);
 
