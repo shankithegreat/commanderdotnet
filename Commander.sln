@@ -1,17 +1,17 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commander", "Commander\Commander.csproj", "{5CDC86F4-93E1-4974-93E8-04B0E8997EE3}"
-EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "CommanderSetup", "CommanderSetup\CommanderSetup.vdproj", "{2880F372-A30C-48A3-ABAC-3C6CDB505823}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommanderTest", "CommanderTest\CommanderTest.csproj", "{209F2F8E-3DDE-4B47-8FBA-A505F8FFCA8C}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0F448B68-164D-4A62-959F-B7DC96EE6C2D}"
 	ProjectSection(SolutionItems) = preProject
 		Commander.vsmdi = Commander.vsmdi
 		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commander", "Commander\Commander.csproj", "{5CDC86F4-93E1-4974-93E8-04B0E8997EE3}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "CommanderSetup", "CommanderSetup\CommanderSetup.vdproj", "{2880F372-A30C-48A3-ABAC-3C6CDB505823}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommanderTest", "CommanderTest\CommanderTest.csproj", "{209F2F8E-3DDE-4B47-8FBA-A505F8FFCA8C}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
