@@ -15,14 +15,14 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_92F7DDECCDB24C99A8AC9773A5080A9F"
+        "MsmKey" = "8:_C8236B5D2FCF4873918ED2957055F705"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_92F7DDECCDB24C99A8AC9773A5080A9F"
+        "OwnerKey" = "8:_C8236B5D2FCF4873918ED2957055F705"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -122,7 +122,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:3.5.30729"
+                "FrameworkVersion" = "8:.NETFramework,Version=v4.0"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=76617"
                 }
@@ -706,9 +706,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_92F7DDECCDB24C99A8AC9773A5080A9F"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_C8236B5D2FCF4873918ED2957055F705"
             {
-            "SourcePath" = "8:..\\Commander\\obj\\Release\\Commander.exe"
+            "SourcePath" = "8:..\\Commander\\obj\\Debug\\Commander.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_043B7050841643A0BA085E9F2B778D8F"
