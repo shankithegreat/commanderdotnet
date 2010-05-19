@@ -44,15 +44,15 @@ namespace Commander
             this.dragWrapper = new BrowserDragWrapper(this);
             this.dropWrapper = new BrowserDropWrapper(this);
 
-            this.dragWrapper.DragEnd += delegate(object sender, EventArgs e)
-            {
-                currentDirectory.Refresh();
-            };
+            this.dragWrapper.DragEnd += delegate
+                                            {
+                                                currentDirectory.Refresh();
+                                            };
 
-            this.dropWrapper.Drop += delegate(object sender, DropEventArgs e)
-            {
-                currentDirectory.Refresh();
-            };
+            this.dropWrapper.Drop += delegate
+                                         {
+                                             currentDirectory.Refresh();
+                                         };
         }
 
         /// <summary>
