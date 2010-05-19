@@ -165,7 +165,6 @@ namespace Commander
             return null;
         }
 
-
         public FileSystemInfo GetFileSystemItemFromPoint(Point point)
         {
             ListViewHitTestInfo hitTest = this.HitTest(point);
@@ -192,6 +191,7 @@ namespace Commander
                 return currentDirectory;
             }
         }
+
 
         protected virtual void OnCurrentDirectoryChanged(DirectoryInfo directory)
         {
@@ -563,11 +563,6 @@ namespace Commander
             return this.list;
         }
 
-        private void FileListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
-        {
-            e.Item = GetItem(e.ItemIndex);
-        }
-
         private ListViewItem GetItem(int index)
         {
             if (this.items.ContainsKey(index))
@@ -645,6 +640,11 @@ namespace Commander
                 ListViewItem item = this.Items[i];
                 item.Selected = true;
             }
+        }
+
+        private void FileListView_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+        {
+            e.Item = GetItem(e.ItemIndex);
         }
 
         private void fileSystemWatcher_Changed(object sender, FileSystemEventArgs e)

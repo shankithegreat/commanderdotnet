@@ -313,8 +313,8 @@ namespace Commander
                     iContextMenu = null;
                 }
 
-                if (contextMenu.Handle != null)
-                    Marshal.FreeCoTaskMem(contextMenu.Handle);
+                //if (contextMenu.Handle != null)
+                //    Marshal.FreeCoTaskMem(contextMenu.Handle);
 
                 Marshal.Release(icontextMenuPtr);
             }
