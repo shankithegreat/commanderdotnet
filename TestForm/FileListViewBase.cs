@@ -64,7 +64,6 @@ namespace TestForm
         {
             var item = items[this.SelectedIndices[0]];
 
-
             if (item != null)
             {
                 FileSystemNode node = (FileSystemNode)item.Tag;
@@ -73,6 +72,11 @@ namespace TestForm
                 {
                     this.SelectedNode = node;
                 }
+                else if(node is IExecutive)
+                {
+                    ((IExecutive)node).Activate(contextMenu);
+                }
+
             }
 
             base.OnItemActivate(e);

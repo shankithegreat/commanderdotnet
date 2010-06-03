@@ -43,9 +43,16 @@ namespace Commander
             iconPath.Append(path);
             IntPtr handle = IntExtractAssociatedIcon(NullHandleRef, iconPath, ref index);
             i = index;
-            if (handle != IntPtr.Zero)
+            try
             {
-                return Icon.FromHandle(handle);
+                if (handle != IntPtr.Zero)
+                {
+                    return Icon.FromHandle(handle);
+                }
+            }
+            finally
+            {
+                DestroyIcon(handle);
             }
             return null;
         }
@@ -66,9 +73,16 @@ namespace Commander
         {
             SHFILEINFO fi = GetFileInfo(path, SHGFI_SMALLICON | SHGFI_ICON);
 
-            if (fi.hIcon != IntPtr.Zero)
+            try
             {
-                return Icon.FromHandle(fi.hIcon);
+                if (fi.hIcon != IntPtr.Zero)
+                {
+                    return Icon.FromHandle(fi.hIcon);
+                }
+            }
+            finally
+            {
+                DestroyIcon(fi.hIcon);
             }
 
             return null;
@@ -78,9 +92,16 @@ namespace Commander
         {
             SHFILEINFO fi = GetFileInfo(path, SHGFI_LARGEICON | SHGFI_ICON);
 
-            if (fi.hIcon != IntPtr.Zero)
+            try
             {
-                return Icon.FromHandle(fi.hIcon);
+                if (fi.hIcon != IntPtr.Zero)
+                {
+                    return Icon.FromHandle(fi.hIcon);
+                }
+            }
+            finally
+            {
+                DestroyIcon(fi.hIcon);
             }
 
             return null;
@@ -89,23 +110,28 @@ namespace Commander
         public static int GetSmallAssociatedIconIndex(string path)
         {
             SHFILEINFO fi = GetFileInfo(path, SHGFI_SMALLICON | SHGFI_SYSICONINDEX);
+            DestroyIcon(fi.hIcon);
             return fi.iIcon;
         }
 
         public static int GetLargeAssociatedIconIndex(string path)
         {
             SHFILEINFO fi = GetFileInfo(path, SHGFI_LARGEICON | SHGFI_SYSICONINDEX);
+            DestroyIcon(fi.hIcon);
             return fi.iIcon;
         }
 
 
-        [DllImport("shell32.dll", EntryPoint = "ExtractAssociatedIcon", CharSet = CharSet.Auto)]
+        [DllImport("shell32.dll", EntryPoint = "ExtractAssociatedIcon")]
         internal static extern IntPtr IntExtractAssociatedIcon(HandleRef hInst, StringBuilder iconPath, ref int index);
 
-        [DllImport("shfolder.dll", CharSet = CharSet.Auto)]
+        [DllImport("shfolder.dll")]
         internal static extern int SHGetFolderPath(IntPtr hwndOwner, int nFolder, IntPtr hToken, int dwFlags, StringBuilder lpszPath);
 
-        [DllImport("shell32.dll", EntryPoint = "SHGetFileInfo", CharSet = CharSet.Auto)]
+        [DllImport("shell32.dll")]
         internal static extern IntPtr SHGetFileInfo(StringBuilder path, int fileAttributes, ref SHFILEINFO psfi, int fileInfo, int flags);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        internal extern static bool DestroyIcon(IntPtr handle);
     }
 }
