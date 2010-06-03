@@ -43,9 +43,16 @@ namespace TestForm
             iconPath.Append(path);
             IntPtr handle = IntExtractAssociatedIcon(NullHandleRef, iconPath, ref index);
             i = index;
-            if (handle != IntPtr.Zero)
+            try
             {
-                return Icon.FromHandle(handle);
+                if (handle != IntPtr.Zero)
+                {
+                    return Icon.FromHandle(handle);
+                }
+            }
+            finally
+            {
+                DestroyIcon(handle);
             }
             return null;
         }
@@ -66,9 +73,16 @@ namespace TestForm
         {
             SHFILEINFO fi = GetFileInfo(path, SHGFI_SMALLICON | SHGFI_ICON);
 
-            if (fi.hIcon != IntPtr.Zero)
+            try
             {
-                return Icon.FromHandle(fi.hIcon);
+                if (fi.hIcon != IntPtr.Zero)
+                {
+                    return Icon.FromHandle(fi.hIcon);
+                }
+            }
+            finally
+            {
+                DestroyIcon(fi.hIcon);
             }
 
             return null;
@@ -78,9 +92,16 @@ namespace TestForm
         {
             SHFILEINFO fi = GetFileInfo(path, SHGFI_LARGEICON | SHGFI_ICON);
 
-            if (fi.hIcon != IntPtr.Zero)
+            try
             {
-                return Icon.FromHandle(fi.hIcon);
+                if (fi.hIcon != IntPtr.Zero)
+                {
+                    return Icon.FromHandle(fi.hIcon);
+                }
+            }
+            finally
+            {
+                DestroyIcon(fi.hIcon);
             }
 
             return null;
@@ -89,12 +110,14 @@ namespace TestForm
         public static int GetSmallAssociatedIconIndex(string path)
         {
             SHFILEINFO fi = GetFileInfo(path, SHGFI_SMALLICON | SHGFI_SYSICONINDEX);
+            DestroyIcon(fi.hIcon);
             return fi.iIcon;
         }
 
         public static int GetLargeAssociatedIconIndex(string path)
         {
             SHFILEINFO fi = GetFileInfo(path, SHGFI_LARGEICON | SHGFI_SYSICONINDEX);
+            DestroyIcon(fi.hIcon);
             return fi.iIcon;
         }
 
@@ -107,5 +130,8 @@ namespace TestForm
 
         [DllImport("shell32.dll", EntryPoint = "SHGetFileInfo", CharSet = CharSet.Auto)]
         internal static extern IntPtr SHGetFileInfo(StringBuilder path, int fileAttributes, ref SHFILEINFO psfi, int fileInfo, int flags);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        internal extern static bool DestroyIcon(IntPtr handle);
     }
 }
