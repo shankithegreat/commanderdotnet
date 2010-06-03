@@ -122,13 +122,13 @@ namespace TestForm
         }
 
 
-        [DllImport("shell32.dll", EntryPoint = "ExtractAssociatedIcon", CharSet = CharSet.Auto)]
+        [DllImport("shell32.dll", EntryPoint = "ExtractAssociatedIcon")]
         internal static extern IntPtr IntExtractAssociatedIcon(HandleRef hInst, StringBuilder iconPath, ref int index);
 
-        [DllImport("shfolder.dll", CharSet = CharSet.Auto)]
+        [DllImport("shfolder.dll")]
         internal static extern int SHGetFolderPath(IntPtr hwndOwner, int nFolder, IntPtr hToken, int dwFlags, StringBuilder lpszPath);
 
-        [DllImport("shell32.dll", EntryPoint = "SHGetFileInfo", CharSet = CharSet.Auto)]
+        [DllImport("shell32.dll")]
         internal static extern IntPtr SHGetFileInfo(StringBuilder path, int fileAttributes, ref SHFILEINFO psfi, int fileInfo, int flags);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
