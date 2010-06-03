@@ -100,7 +100,7 @@ namespace TestForm
                 result.Add(new UpLink(this));
             }
 
-            var list = info.GetFileSystemInfos();
+            FileSystemInfo[] list = info.GetFileSystemInfos();
             foreach (FileSystemInfo item in list)
             {
                 if (item is DirectoryInfo)

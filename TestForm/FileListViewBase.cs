@@ -15,6 +15,7 @@ namespace TestForm
     {
         private FileSystemNode selectedNode;
         private Dictionary<int, ListViewItem> items = new Dictionary<int, ListViewItem>();
+        private ShellContextMenu contextMenu = new ShellContextMenu();
 
 
         public FileListViewBase()
@@ -33,8 +34,18 @@ namespace TestForm
             {
                 if (selectedNode != value)
                 {
-                    selectedNode = value;
-                    LoadNode(selectedNode);
+                    try
+                    {
+                        if (value.ChildNodes != null && value.ChildNodes.Length > 0)
+                        {
+                            selectedNode = value;
+                            LoadNode(value);
+                        }                        
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
@@ -65,6 +76,34 @@ namespace TestForm
             }
 
             base.OnItemActivate(e);
+        }
+
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (this.SelectedIndices.Count > 0)
+                {
+                    Point location = this.PointToScreen(e.Location);
+
+                    List<string> list = new List<string>(this.SelectedIndices.Count);
+                    foreach (int index in this.SelectedIndices)
+                    {
+                        var item = items[this.SelectedIndices[0]];
+
+                        if (item != null)
+                        {
+                            FileSystemNode node = (FileSystemNode)item.Tag;
+
+                            list.Add(node.Path);
+                        }
+                    }
+
+                    contextMenu.Show(location, list.ToArray());
+                }
+            }
+
+            base.OnMouseUp(e);
         }
 
 
