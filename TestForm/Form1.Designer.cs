@@ -28,19 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.view = new TestForm.FileListViewBase();
+            this.view = new TestForm.FileListView();
+            this.textBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // view
             // 
             this.view.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.view.Location = new System.Drawing.Point(0, 0);
+            this.view.Location = new System.Drawing.Point(0, 20);
             this.view.Name = "view";
             this.view.SelectedNode = null;
-            this.view.Size = new System.Drawing.Size(292, 266);
+            this.view.Size = new System.Drawing.Size(292, 246);
             this.view.TabIndex = 0;
             this.view.UseCompatibleStateImageBehavior = false;
             this.view.View = System.Windows.Forms.View.Details;
+            // 
+            // textBox
+            // 
+            this.textBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.textBox.Location = new System.Drawing.Point(0, 0);
+            this.textBox.Name = "textBox";
+            this.textBox.Size = new System.Drawing.Size(292, 20);
+            this.textBox.TabIndex = 1;
             // 
             // Form1
             // 
@@ -48,15 +57,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(292, 266);
             this.Controls.Add(this.view);
+            this.Controls.Add(this.textBox);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private FileListViewBase view;
+        private FileListView view;
+        private System.Windows.Forms.TextBox textBox;
     }
 }
 
