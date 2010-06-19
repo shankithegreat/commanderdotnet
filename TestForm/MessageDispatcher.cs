@@ -19,6 +19,8 @@ namespace TestForm
         }
 
 
+        public readonly static MessageDispatcher Dispatcher = new MessageDispatcher();
+
         public int Number { get; private set; }
 
 
@@ -43,7 +45,7 @@ namespace TestForm
                         throw new ArgumentException();
                     }
 
-                    if (types[0].ParameterType != ((MessageAttribute)attribute).paramType)
+                    if (types[0].ParameterType != ((MessageAttribute)attribute).ArgumentType)
                     {
                         throw new ArgumentException();
                     }
@@ -68,7 +70,7 @@ namespace TestForm
                 param = new MessageArgs();
             }
 
-            if (attribute.paramType != param.GetType())
+            if (attribute.ArgumentType != param.GetType())
             {
                 throw new ArgumentException("Invalid parameter argument type");
             }
@@ -147,7 +149,7 @@ namespace TestForm
 
     public class MessageAttribute : Attribute
     {
-        public Type paramType = typeof(MessageArgs);
+        public Type ArgumentType = typeof(MessageArgs);
     }
 
     public class MessageArgs
