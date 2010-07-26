@@ -28,47 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.view = new TestForm.FileListView();
-            this.textBox = new System.Windows.Forms.TextBox();
+            this.fileViewPanel1 = new Commander.FileViewPanel();
             this.SuspendLayout();
             // 
-            // view
+            // fileViewPanel1
             // 
-            this.view.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.view.Location = new System.Drawing.Point(0, 20);
-            this.view.Name = "view";
-            this.view.SelectedNode = null;
-            this.view.Size = new System.Drawing.Size(292, 246);
-            this.view.TabIndex = 0;
-            this.view.UseCompatibleStateImageBehavior = false;
-            this.view.View = System.Windows.Forms.View.Details;
-            // 
-            // textBox
-            // 
-            this.textBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox.Location = new System.Drawing.Point(0, 0);
-            this.textBox.Name = "textBox";
-            this.textBox.Size = new System.Drawing.Size(292, 20);
-            this.textBox.TabIndex = 1;
+            this.fileViewPanel1.Location = new System.Drawing.Point(39, 26);
+            this.fileViewPanel1.Name = "fileViewPanel1";
+            this.fileViewPanel1.Size = new System.Drawing.Size(343, 240);
+            this.fileViewPanel1.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 266);
-            this.Controls.Add(this.view);
-            this.Controls.Add(this.textBox);
+            this.ClientSize = new System.Drawing.Size(533, 290);
+            this.Controls.Add(this.fileViewPanel1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private FileListView view;
-        private System.Windows.Forms.TextBox textBox;
+        private Commander.FileViewPanel fileViewPanel1;
+
+
+
+
+
     }
 }
 
