@@ -19,11 +19,5 @@ namespace TestForm
 
             MessageDispatcher.Dispatcher.Invoke(new DirectorySelectedAttribute(), new DirectorySelectedArgs(@"C:\"));
         }
-
-
-        protected void OnSelectedDirectory(string directory)
-        {
-            MessageDispatcher.Dispatcher.Invoke(new DirectorySelectedAttribute(), new DirectorySelectedArgs(directory));
-        }
     }
 }
