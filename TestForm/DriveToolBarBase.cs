@@ -203,7 +203,7 @@ namespace Commander
             foreach (ToolBarButton button in this.Buttons)
             {
                 DriveInfo d = (DriveInfo)button.Tag;
-                if (d.Name == drive.Name)
+                if (string.Equals(d.Name, drive.Name, StringComparison.OrdinalIgnoreCase))
                 {
                     return button;
                 }
