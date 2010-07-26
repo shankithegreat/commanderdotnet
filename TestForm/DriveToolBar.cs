@@ -27,7 +27,6 @@ namespace TestForm
             MessageDispatcher.Dispatcher.Invoke(new DirectorySelectedAttribute(), new DirectorySelectedArgs(drive.RootDirectory.FullName));
         }
 
-
         [DirectorySelected]
         private void dispatcher_DirectorySelected(DirectorySelectedArgs e)
         {

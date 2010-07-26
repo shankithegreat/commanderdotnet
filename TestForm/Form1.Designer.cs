@@ -31,11 +31,12 @@
             this.components = new System.ComponentModel.Container();
             this.fileViewPanel1 = new Commander.FileViewPanel();
             this.driveToolBar1 = new TestForm.DriveToolBar();
+            this.commandBar1 = new TestForm.CommandBar();
             this.SuspendLayout();
             // 
             // fileViewPanel1
             // 
-            this.fileViewPanel1.Location = new System.Drawing.Point(423, 38);
+            this.fileViewPanel1.Location = new System.Drawing.Point(12, 38);
             this.fileViewPanel1.Name = "fileViewPanel1";
             this.fileViewPanel1.Size = new System.Drawing.Size(343, 240);
             this.fileViewPanel1.TabIndex = 0;
@@ -54,11 +55,21 @@
             this.driveToolBar1.TabIndex = 1;
             this.driveToolBar1.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right;
             // 
+            // commandBar1
+            // 
+            this.commandBar1.Lines = "";
+            this.commandBar1.Location = new System.Drawing.Point(12, 412);
+            this.commandBar1.Name = "commandBar1";
+            this.commandBar1.Size = new System.Drawing.Size(856, 27);
+            this.commandBar1.TabIndex = 2;
+            this.commandBar1.Title = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(996, 290);
+            this.ClientSize = new System.Drawing.Size(996, 451);
+            this.Controls.Add(this.commandBar1);
             this.Controls.Add(this.driveToolBar1);
             this.Controls.Add(this.fileViewPanel1);
             this.Name = "Form1";
@@ -71,6 +82,7 @@
 
         private Commander.FileViewPanel fileViewPanel1;
         private DriveToolBar driveToolBar1;
+        private CommandBar commandBar1;
 
 
 

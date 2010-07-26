@@ -17,9 +17,6 @@ namespace TestForm
         {
             InitializeComponent();
 
-            //view.SelectedNode = new DirectoryNode(null, new DirectoryInfo(@"C:\"));
-
-            //MessageDispatcher.Dispatcher.Subscribe(this);
             MessageDispatcher.Dispatcher.Invoke(new DirectorySelectedAttribute(), new DirectorySelectedArgs(@"C:\"));
         }
 
@@ -27,24 +24,6 @@ namespace TestForm
         protected void OnSelectedDirectory(string directory)
         {
             MessageDispatcher.Dispatcher.Invoke(new DirectorySelectedAttribute(), new DirectorySelectedArgs(directory));
-        }
-
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            switch (keyData)
-            {
-                case Keys.Enter:
-                    {
-                        /*if (Directory.Exists(textBox.Text))
-                        {
-                            OnSelectedDirectory(textBox.Text);                            
-                        }*/
-
-                        return true;
-                    }
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

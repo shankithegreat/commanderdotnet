@@ -71,6 +71,30 @@
   <ItemGroup>
     <Compile Include="ArchivedDirectoryNode.cs" />
     <Compile Include="ArchivedFileNode.cs" />
+    <Compile Include="ButtonCommandBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ButtonCommandBar.Designer.cs">
+      <DependentUpon>ButtonCommandBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ButtonCommandBarBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ButtonCommandBarBase.Designer.cs">
+      <DependentUpon>ButtonCommandBarBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommandBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommandBar.Designer.cs">
+      <DependentUpon>CommandBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommandBarBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommandBarBase.Designer.cs">
+      <DependentUpon>CommandBarBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="DriveToolBar.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -127,6 +151,15 @@
     <Compile Include="Messages\DirectorySelectedAttribute.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ButtonCommandBarBase.resx">
+      <DependentUpon>ButtonCommandBarBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBar.resx">
+      <DependentUpon>CommandBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBarBase.resx">
+      <DependentUpon>CommandBarBase.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DriveToolBar.resx">
       <DependentUpon>DriveToolBar.cs</DependentUpon>
     </EmbeddedResource>
