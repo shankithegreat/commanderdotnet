@@ -20,64 +20,15 @@ namespace TestForm
         }
 
 
-        public override long Size
-        {
-            get
-            {
-                return IoHelper.GetDirectorySize(info);
-            }
-            set
-            {
-            }
-        }
+        public override long Size { get { return IoHelper.GetDirectorySize(info); } set { } }
 
-        public override string Name
-        {
-            get
-            {
-                return info.Name;
-            }
-            set
-            {
-                base.Name = value;
-            }
-        }
+        public override string Name { get { return info.Name; } set { base.Name = value; } }
 
-        public override string Path
-        {
-            get
-            {
-                return info.FullName;
-            }
-            set
-            {
-                base.Path = value;
-            }
-        }
+        public override string Path { get { return info.FullName; } set { base.Path = value; } }
 
-        public override FileSystemNode[] ChildNodes
-        {
-            get
-            {
-                return base.ChildNodes ?? (base.ChildNodes = GetChildNodes());
-            }
-            set
-            {
-                base.ChildNodes = value;
-            }
-        }
+        public override FileSystemNode[] ChildNodes { get { return base.ChildNodes ?? (base.ChildNodes = GetChildNodes()); } set { base.ChildNodes = value; } }
 
-        public override bool AllowOpen
-        {
-            get
-            {
-                return true;
-            }
-            set
-            {
-                base.AllowOpen = value;
-            }
-        }
+        public override bool AllowOpen { get { return true; } set { base.AllowOpen = value; } }
 
 
         public override int GetImageIndex()
