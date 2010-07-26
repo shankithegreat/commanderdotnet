@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace TestForm
 {
-    internal class SafeNativeMethods
+    public static class SafeNativeMethods
     {
         internal static HandleRef NullHandleRef;
 

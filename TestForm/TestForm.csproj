@@ -95,6 +95,18 @@
     <Compile Include="CommandBarBase.Designer.cs">
       <DependentUpon>CommandBarBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="CommandToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandToolStrip.Designer.cs">
+      <DependentUpon>CommandToolStrip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommandToolStripBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandToolStripBase.Designer.cs">
+      <DependentUpon>CommandToolStripBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="DriveToolBar.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -159,6 +171,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CommandBarBase.resx">
       <DependentUpon>CommandBarBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandToolStrip.resx">
+      <DependentUpon>CommandToolStrip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandToolStripBase.resx">
+      <DependentUpon>CommandToolStripBase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DriveToolBar.resx">
       <DependentUpon>DriveToolBar.cs</DependentUpon>
