@@ -17,9 +17,9 @@ namespace TestForm
         {
             InitializeComponent();
 
-            view.SelectedNode = new DirectoryNode(null, new DirectoryInfo(@"C:\"));
+            //view.SelectedNode = new DirectoryNode(null, new DirectoryInfo(@"C:\"));
 
-            MessageDispatcher.Dispatcher.Subscribe(this);                        
+            //MessageDispatcher.Dispatcher.Subscribe(this);                        
         }
 
 
@@ -35,10 +35,10 @@ namespace TestForm
             {
                 case Keys.Enter:
                     {
-                        if (Directory.Exists(textBox.Text))
+                        /*if (Directory.Exists(textBox.Text))
                         {
                             OnSelectedDirectory(textBox.Text);                            
-                        }
+                        }*/
 
                         return true;
                     }

@@ -71,6 +71,18 @@
   <ItemGroup>
     <Compile Include="ArchivedDirectoryNode.cs" />
     <Compile Include="ArchivedFileNode.cs" />
+    <Compile Include="EditablePathBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EditablePathBase.Designer.cs">
+      <DependentUpon>EditablePathBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditablePath.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EditablePath.Designer.cs">
+      <DependentUpon>EditablePath.cs</DependentUpon>
+    </Compile>
     <Compile Include="FileListView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -86,6 +98,12 @@
     </Compile>
     <Compile Include="FileNode.cs" />
     <Compile Include="FileSystemNode.cs" />
+    <Compile Include="FileViewPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FileViewPanel.Designer.cs">
+      <DependentUpon>FileViewPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,8 +115,17 @@
     <Compile Include="Messages\DirectorySelectedAttribute.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="EditablePathBase.resx">
+      <DependentUpon>EditablePathBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditablePath.resx">
+      <DependentUpon>EditablePath.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FileListViewBase.resx">
       <DependentUpon>FileListViewBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileViewPanel.resx">
+      <DependentUpon>FileViewPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

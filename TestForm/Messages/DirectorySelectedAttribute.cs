@@ -23,4 +23,21 @@ namespace TestForm.Messages
 
         public string SelectedDirectory { get; set; }
     }
+
+
+    public class UpDirectorySelectedAttribute : MessageAttribute
+    {
+        public UpDirectorySelectedAttribute()
+        {
+            this.ArgumentType = typeof(MessageArgs);
+        }
+    }
+
+    public class RootDirectorySelectedAttribute : MessageAttribute
+    {
+        public RootDirectorySelectedAttribute()
+        {
+            this.ArgumentType = typeof(MessageArgs);
+        }
+    }
 }
