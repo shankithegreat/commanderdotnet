@@ -17,6 +17,18 @@ namespace TestForm
 
 
         public override FileSystemNode[] ChildNodes { get { return (this.ParentNode.ParentNode != null ? this.ParentNode.ParentNode.ChildNodes : null); } }
+
+        public override string Path
+        {
+            get
+            {
+                return this.ParentNode.ParentNode.Path;
+            }
+            set
+            {
+                this.ParentNode.ParentNode.Path = value;
+            }
+        }
         
 
         public override int GetImageIndex()

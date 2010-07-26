@@ -70,8 +70,6 @@
             this.editablePath1.Name = "editablePath1";
             this.editablePath1.Size = new System.Drawing.Size(295, 13);
             this.editablePath1.TabIndex = 3;
-            this.editablePath1.Text = "c:\\*.*";
-            //this.editablePath1.TextBoxBackColor = System.Drawing.Color.Silver;
             // 
             // linkButton
             // 
@@ -179,7 +177,7 @@
             this.Controls.Add(this.view);
             this.Controls.Add(this.titlePanel);
             this.Controls.Add(this.hintPanel);
-            this.Name = "FileViewControl";
+            this.Name = "FileViewPanel";
             this.Size = new System.Drawing.Size(343, 240);
             this.titlePanel.ResumeLayout(false);
             this.titlePanel.PerformLayout();

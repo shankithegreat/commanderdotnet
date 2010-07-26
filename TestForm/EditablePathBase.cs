@@ -22,7 +22,7 @@ namespace Commander
         [Browsable(true)]
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public override string Text { get { return textBox.Text; } set { textBox.Text = value; } }
+        public override string Text { get { return label.Text; } set { label.Text = value; } }
 
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -42,6 +42,11 @@ namespace Commander
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void label_MouseUp(object sender, MouseEventArgs e)
+        {
+            OnMouseUp(e);
         }
 
 

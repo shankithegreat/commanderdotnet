@@ -14,6 +14,9 @@ namespace TestForm
 {
     public partial class EditablePath : EditablePathBase
     {
+        private ShellContextMenu contextMenu = new ShellContextMenu();
+
+
         public EditablePath()
         {
             InitializeComponent();
@@ -28,6 +31,15 @@ namespace TestForm
             if (Directory.Exists(e.SelectedDirectory))
             {
                 this.Text = e.SelectedDirectory;
+            }
+        }
+
+        private void EditablePath_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && Directory.Exists(this.Text))
+            {
+                Point location = this.PointToScreen(e.Location);
+                contextMenu.Show(location, this.Text);
             }
         }
     }

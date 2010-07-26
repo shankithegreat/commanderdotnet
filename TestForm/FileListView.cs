@@ -20,14 +20,22 @@ namespace TestForm
             MessageDispatcher.Dispatcher.Subscribe(this);
         }
 
-        
+
+        protected override void OnNodeSelected(FileSystemNode node)
+        {
+            base.OnNodeSelected(node);
+
+            MessageDispatcher.Dispatcher.Invoke(new DirectorySelectedAttribute(), new DirectorySelectedArgs(node.Path));
+        }
+
+
         [DirectorySelected]
         private void dispatcher_DirectorySelected(DirectorySelectedArgs e)
         {
-           if(Directory.Exists(e.SelectedDirectory))
-           {
-               this.SelectedNode = new DirectoryNode(null, new DirectoryInfo(e.SelectedDirectory));
-           }
+            if (this.SelectedNode == null || (this.SelectedNode.Path != e.SelectedDirectory && Directory.Exists(e.SelectedDirectory)))
+            {
+                this.SelectedNode = new DirectoryNode(null, new DirectoryInfo(e.SelectedDirectory));
+            }
         }
     }
 }

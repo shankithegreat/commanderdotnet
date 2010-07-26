@@ -28,20 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox = new System.Windows.Forms.TextBox();
+            this.label = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox
+            // label
             // 
-            this.textBox.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.textBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.textBox.Location = new System.Drawing.Point(0, 0);
-            this.textBox.Name = "textBox";
-            this.textBox.ReadOnly = true;
-            this.textBox.Size = new System.Drawing.Size(203, 13);
-            this.textBox.TabIndex = 1;
+            this.label.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
+            this.label.AutoEllipsis = true;
+            this.label.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label.Location = new System.Drawing.Point(0, 0);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(203, 13);
+            this.label.TabIndex = 0;
+            this.label.Text = "label";
+            this.label.MouseUp += new System.Windows.Forms.MouseEventHandler(this.label_MouseUp);
             // 
             // EditablePathBase
             // 
@@ -49,17 +51,17 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.Controls.Add(this.textBox);
+            this.Controls.Add(this.label);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Name = "EditablePathBase";
             this.Size = new System.Drawing.Size(203, 13);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox;
+        private System.Windows.Forms.Label label;
+
     }
 }

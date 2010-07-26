@@ -34,10 +34,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Name = "EditablePath";
-            this.Size = new System.Drawing.Size(203, 13);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.EditablePath_MouseUp);
             this.ResumeLayout(false);
             this.PerformLayout();
 
