@@ -19,7 +19,8 @@ namespace TestForm
 
             //view.SelectedNode = new DirectoryNode(null, new DirectoryInfo(@"C:\"));
 
-            //MessageDispatcher.Dispatcher.Subscribe(this);                        
+            //MessageDispatcher.Dispatcher.Subscribe(this);
+            MessageDispatcher.Dispatcher.Invoke(new DirectorySelectedAttribute(), new DirectorySelectedArgs(@"C:\"));
         }
 
 

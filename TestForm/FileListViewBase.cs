@@ -40,6 +40,7 @@ namespace TestForm
                         {
                             selectedNode = value;
                             LoadNode(value);
+                            OnNodeSelected(value);
                         }                        
                     }
                     catch (Exception e)
@@ -49,6 +50,9 @@ namespace TestForm
                 }
             }
         }
+
+
+        public NodeSelectedEventHandler NodeSelected;
 
 
         protected override void OnHandleCreated(EventArgs e)
@@ -108,6 +112,14 @@ namespace TestForm
             }
 
             base.OnMouseUp(e);
+        }
+
+        protected virtual void OnNodeSelected(FileSystemNode node)
+        {
+            if (NodeSelected != null)
+            {
+                NodeSelected(this, node);
+            }
         }
 
 
