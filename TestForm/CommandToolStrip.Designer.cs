@@ -1,6 +1,6 @@
 ﻿namespace TestForm
 {
-    partial class Form1
+    partial class CommandToolStrip
     {
         /// <summary>
         /// Required designer variable.
@@ -20,34 +20,23 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
         /// <summary>
-        /// Required method for Designer support - do not modify
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
             this.SuspendLayout();
             // 
-            // Form1
+            // CommandToolStrip
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(996, 451);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.ButtonClick += new Commander.ButtonClickEventHandler(this.CommandToolStrip_ButtonClick);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-
-
-
-
-
     }
 }
-
