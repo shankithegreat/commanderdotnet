@@ -71,6 +71,18 @@
   <ItemGroup>
     <Compile Include="ArchivedDirectoryNode.cs" />
     <Compile Include="ArchivedFileNode.cs" />
+    <Compile Include="DriveToolBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DriveToolBar.Designer.cs">
+      <DependentUpon>DriveToolBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DriveToolBarBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DriveToolBarBase.Designer.cs">
+      <DependentUpon>DriveToolBarBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditablePathBase.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -115,6 +127,12 @@
     <Compile Include="Messages\DirectorySelectedAttribute.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DriveToolBar.resx">
+      <DependentUpon>DriveToolBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DriveToolBarBase.resx">
+      <DependentUpon>DriveToolBarBase.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditablePathBase.resx">
       <DependentUpon>EditablePathBase.cs</DependentUpon>
     </EmbeddedResource>
