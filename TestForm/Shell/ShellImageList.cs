@@ -12,18 +12,20 @@ namespace ShellDll
     {
         private const int TVSIL_NORMAL = 0;
         private const int TVSIL_SMALL = 1;
-        private static Hashtable imageTable = new Hashtable();        
+        private static Hashtable imageTable = new Hashtable();
+
 
         static ShellImageList()
         {
             ShellAPI.SHFILEINFO fileInfo = new ShellAPI.SHFILEINFO();
-            
+
             SmallImageList = ShellAPI.SHGetFileInfo(".txt", ShellAPI.FILE_ATTRIBUTE.NORMAL, ref fileInfo, ShellAPI.cbFileInfo, ShellAPI.SHGFI.USEFILEATTRIBUTES | ShellAPI.SHGFI.SYSICONINDEX | ShellAPI.SHGFI.SMALLICON);
             LargeImageList = ShellAPI.SHGetFileInfo(".txt", ShellAPI.FILE_ATTRIBUTE.NORMAL, ref fileInfo, ShellAPI.cbFileInfo, ShellAPI.SHGFI.USEFILEATTRIBUTES | ShellAPI.SHGFI.SYSICONINDEX | ShellAPI.SHGFI.LARGEICON);
         }
-               
+
 
         internal static IntPtr SmallImageList { get; private set; }
+
         internal static IntPtr LargeImageList { get; private set; }
 
 
@@ -34,9 +36,9 @@ namespace ShellDll
             if (iconPtr != IntPtr.Zero)
             {
                 Icon icon = Icon.FromHandle(iconPtr);
-                Icon result = (Icon)icon.Clone();                
+                Icon result = (Icon)icon.Clone();
                 ShellAPI.DestroyIcon(iconPtr);
-                
+
                 return result;
             }
 
@@ -51,7 +53,7 @@ namespace ShellDll
 
             ShellAPI.SHGFI flag = ShellAPI.SHGFI.SYSICONINDEX | ShellAPI.SHGFI.PIDL | ShellAPI.SHGFI.ICON;
             ShellAPI.FILE_ATTRIBUTE attribute = 0;
-            
+
             // build Key into HashTable for this Item
             int Key = index * 256;
 
@@ -109,7 +111,7 @@ namespace ShellDll
 
                 ShellAPI.DestroyIcon(smallFileInfo.hIcon);
                 ShellAPI.DestroyIcon(largeFileInfo.hIcon);
-                
+
                 imageTable[Key] = result;
             }
 
@@ -122,7 +124,7 @@ namespace ShellDll
                 item.ImageIndex = result;
             }
         }
-        
+
         internal static void SetSmallImageList(TreeView treeView)
         {
             ShellAPI.SendMessage(treeView.Handle, ShellAPI.WM.TVM_SETIMAGELIST, TVSIL_NORMAL, SmallImageList);
@@ -132,12 +134,12 @@ namespace ShellDll
         {
             ShellAPI.SendMessage(listView.Handle, ShellAPI.WM.LVM_SETIMAGELIST, TVSIL_SMALL, SmallImageList);
         }
-        
+
         internal static void Set32SmallImageList(ListView listView)
         {
             ShellAPI.SendMessage(listView.Handle, ShellAPI.WM.LVM_SETIMAGELIST, TVSIL_SMALL, LargeImageList);
         }
-       
+
         internal static void SetLargeImageList(ListView listView)
         {
             ShellAPI.SendMessage(listView.Handle, ShellAPI.WM.LVM_SETIMAGELIST, TVSIL_NORMAL, LargeImageList);
