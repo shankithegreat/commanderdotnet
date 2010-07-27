@@ -11,8 +11,8 @@ namespace TestForm
         public ArchivedFileNode(FileSystemNode parent, HeaderData info)
             : base(parent)
         {
-            this.Name = info.FileName;
-            this.Path = System.IO.Path.Combine(info.ArcName, info.FileName);
+            this.Name = System.IO.Path.GetFileName(info.FileName);
+            this.Path = info.FileName;
             this.Size = info.UnpSize;
             this.Attributes = info.FileAttr;            
         }
