@@ -65,12 +65,13 @@ namespace TestForm
                     {
                         case ".7z":
                             {
-                                result.Add(new ArchiveNode(this, fi));
+                                result.Add(new Zip7ArchiveNode(this, fi));
                                 break;
                             }
+                        case ".bz":
                         case ".zip":
                             {
-                                result.Add(new ZipArchiveNode(this, fi));
+                                result.Add(new BZip2ArchiveNode(this, fi));
                                 break;
                             }
 
