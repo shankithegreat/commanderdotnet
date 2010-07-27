@@ -60,7 +60,31 @@ namespace TestForm
                 }
                 else if (item is FileInfo)
                 {
-                    result.Add(new FileNode(this, (FileInfo)item));
+                    FileInfo fi = (FileInfo) item;
+                    switch (fi.Extension)
+                    {
+                        case ".7z":
+                            {
+                                result.Add(new ArchiveNode(this, fi));
+                                break;
+                            }
+                        case ".zip":
+                            {
+                                result.Add(new ZipArchiveNode(this, fi));
+                                break;
+                            }
+
+                        case ".iso":
+                            {
+                                result.Add(new IsoArchiveNode(this, fi));
+                                break;
+                            }
+                        default:
+                            {
+                                result.Add(new FileNode(this, fi));
+                                break;
+                            }
+                    }                    
                 }
             }
 
