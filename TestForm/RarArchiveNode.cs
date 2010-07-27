@@ -6,9 +6,9 @@ using System.Text;
 
 namespace TestForm
 {
-    public class Zip7ArchiveNode : ArchiveNode
+    public class RarArchiveNode : ArchiveNode
     {
-        public Zip7ArchiveNode(FileSystemNode parent, FileInfo file)
+        public RarArchiveNode(FileSystemNode parent, FileInfo file)
             : base(parent, file)
         {
         }
@@ -16,14 +16,14 @@ namespace TestForm
 
         public override void Dispose()
         {
-            Zip7ArchiveHelper.CloseArchive(this.Handle);
+            RarArchiveHelper.CloseArchive(this.Handle);
         }
 
 
         protected override int GetHandle()
         {
             OpenArchiveData archiveData = new OpenArchiveData { ArcName = this.Path };
-            return Zip7ArchiveHelper.OpenArchive(ref archiveData);
+            return RarArchiveHelper.OpenArchive(ref archiveData);
         }
 
         protected override HeaderData[] GetList()
@@ -31,9 +31,9 @@ namespace TestForm
             List<HeaderData> items = new List<HeaderData>(40);
 
             HeaderData data = new HeaderData { ArcName = new string((char)0, 260), FileName = new string((char)0, 260) };
-            while (Zip7ArchiveHelper.ReadHeader(this.Handle, ref data) == 0)
+            while (RarArchiveHelper.ReadHeader(this.Handle, ref data) == 0)
             {
-                Zip7ArchiveHelper.ProcessFile(this.Handle, OperationMode.Skip, null, null);
+                RarArchiveHelper.ProcessFile(this.Handle, OperationMode.Skip, null, null);
 
                 items.Add(data);
             }

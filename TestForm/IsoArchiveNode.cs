@@ -6,72 +6,39 @@ using System.Text;
 
 namespace TestForm
 {
-    public class IsoArchiveNode : FileNode, IDisposable
+    public class IsoArchiveNode : ArchiveNode
     {
-        private int handle;
-
-
         public IsoArchiveNode(FileSystemNode parent, FileInfo file)
             : base(parent, file)
         {
-            OpenArchiveData v = new OpenArchiveData();
-
-            v.ArcName = file.FullName;
-            handle = IsoArchiveHelper.OpenArchive(ref v);
         }
 
 
-        public override bool AllowOpen { get { return true; } set { base.AllowOpen = value; } }
-
-        public override FileSystemNode[] ChildNodes { get { return base.ChildNodes ?? (base.ChildNodes = GetChildNodes()); } set { base.ChildNodes = value; } }
-
-
-        public void Dispose()
+        public override void Dispose()
         {
-            IsoArchiveHelper.CloseArchive(handle);
+            IsoArchiveHelper.CloseArchive(this.Handle);
         }
 
 
-        private FileSystemNode[] GetChildNodes()
+        protected override int GetHandle()
         {
-            List<FileSystemNode> result = new List<FileSystemNode>(10);
+            OpenArchiveData archiveData = new OpenArchiveData {ArcName = this.Path};
+            return IsoArchiveHelper.OpenArchive(ref archiveData);
+        }
 
-            if (this.ParentNode != null)
-            {
-                result.Add(new ArchiveUpLink(this));
-            }
-
+        protected override HeaderData[] GetList()
+        {
             List<HeaderData> items = new List<HeaderData>(40);
 
             HeaderData data = new HeaderData { ArcName = new string((char)0, 260), FileName = new string((char)0, 260) };
-            while (IsoArchiveHelper.ReadHeader(handle, ref data) == 0)
+            while (IsoArchiveHelper.ReadHeader(this.Handle, ref data) == 0)
             {
-                IsoArchiveHelper.ProcessFile(handle, OperationMode.Skip, null, null);
+                IsoArchiveHelper.ProcessFile(this.Handle, OperationMode.Skip, null, null);
 
-                items.Add(data);                
+                items.Add(data);
             }
 
-            HeaderData[] list = items.ToArray();
-            foreach (HeaderData item in list)
-            {
-                if ((item.FileAttr & FileAttributes.Directory) == FileAttributes.Directory)
-                {
-                    if (!item.FileName.Contains(System.IO.Path.DirectorySeparatorChar))
-                    {
-                        result.Add(new ArchivedDirectoryNode(this, item, list));
-                    }
-                }
-                else
-                {
-                    if (!item.FileName.Contains(System.IO.Path.DirectorySeparatorChar))
-                    {
-                        result.Add(new ArchivedFileNode(this, item));
-                    }
-                }
-            }
-
-
-            return result.ToArray();
+            return items.ToArray();
         }
     }
 }

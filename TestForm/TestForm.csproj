@@ -71,7 +71,9 @@
   <ItemGroup>
     <Compile Include="ArchivedDirectoryNode.cs" />
     <Compile Include="ArchivedFileNode.cs" />
+    <Compile Include="ArchiveNode.cs" />
     <Compile Include="ArchiveUpLink.cs" />
+    <Compile Include="RarArchiveNode.cs" />
     <Compile Include="Zip7ArchiveNode.cs" />
     <Compile Include="ButtonCommandBar.cs">
       <SubType>UserControl</SubType>
@@ -284,6 +286,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="iso.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="unrar.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

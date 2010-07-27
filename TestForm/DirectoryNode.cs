@@ -80,6 +80,11 @@ namespace TestForm
                                 result.Add(new IsoArchiveNode(this, fi));
                                 break;
                             }
+                        case ".rar":
+                            {
+                                result.Add(new RarArchiveNode(this, fi));
+                                break;
+                            }
                         default:
                             {
                                 result.Add(new FileNode(this, fi));
