@@ -47,14 +47,14 @@ namespace TestForm
             {
                 if ((item.FileAttr & FileAttributes.Directory) == FileAttributes.Directory)
                 {
-                    if (!item.FileName.Contains(System.IO.Path.DirectorySeparatorChar))
+                    if (item.FileName.IndexOfAny(new[] { System.IO.Path.DirectorySeparatorChar, '/' }) == -1)
                     {
                         result.Add(new ArchivedDirectoryNode(this, item, list));
                     }
                 }
                 else
                 {
-                    if (!item.FileName.Contains(System.IO.Path.DirectorySeparatorChar))
+                    if (item.FileName.IndexOfAny(new[] { System.IO.Path.DirectorySeparatorChar, '/' }) == -1)
                     {
                         result.Add(new ArchivedFileNode(this, item));
                     }
