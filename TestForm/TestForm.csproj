@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="ArchivedDirectoryNode.cs" />
     <Compile Include="ArchivedFileNode.cs" />
+    <Compile Include="ArchiveNode.cs" />
     <Compile Include="ButtonCommandBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -159,8 +160,10 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="IExecutive.cs" />
+    <Compile Include="IsoArchiveNode.cs" />
     <Compile Include="MessageDispatcher.cs" />
     <Compile Include="Messages\DirectorySelectedAttribute.cs" />
+    <Compile Include="ArchiveHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ButtonCommandBarBase.resx">
@@ -252,6 +255,7 @@
     <Compile Include="Utility\ContextMenuHelper.cs" />
     <Compile Include="Utility\IoHelper.cs" />
     <Compile Include="Utility\StringHelper.cs" />
+    <Compile Include="ZipArchiveNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -271,6 +275,17 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="7zip.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="bzip2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="iso.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
