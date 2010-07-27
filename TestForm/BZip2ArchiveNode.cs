@@ -41,23 +41,31 @@ namespace TestForm
                 result.Add(new ArchiveUpLink(this));
             }
 
-            HeaderData data = new HeaderData { ArcName = new string((char)0, 260), FileName = new string((char)0, 260) };
-            while (Zip7ArchiveHelper.ReadHeader(handle, ref data) == 0)
-            {
-                Zip7ArchiveHelper.ProcessFile(handle, OperationMode.Skip, null, null);
+            List<HeaderData> items = new List<HeaderData>(40);
 
-                if ((data.FileAttr & FileAttributes.Directory) == FileAttributes.Directory)
+            HeaderData data = new HeaderData { ArcName = new string((char)0, 260), FileName = new string((char)0, 260) };
+            while (BZip2ArchiveHelper.ReadHeader(handle, ref data) == 0)
+            {
+                BZip2ArchiveHelper.ProcessFile(handle, OperationMode.Skip, null, null);
+
+                items.Add(data);
+            }
+
+            HeaderData[] list = items.ToArray();
+            foreach (HeaderData item in list)
+            {
+                if ((item.FileAttr & FileAttributes.Directory) == FileAttributes.Directory)
                 {
-                    if (!data.FileName.Contains(System.IO.Path.DirectorySeparatorChar))
+                    if (!item.FileName.Contains(System.IO.Path.DirectorySeparatorChar))
                     {
-                        result.Add(new ArchivedDirectoryNode(this, data));
+                        result.Add(new ArchivedDirectoryNode(this, item, list));
                     }
                 }
                 else
                 {
-                    if (!data.FileName.Contains(System.IO.Path.DirectorySeparatorChar))
+                    if (!item.FileName.Contains(System.IO.Path.DirectorySeparatorChar))
                     {
-                        result.Add(new ArchivedFileNode(this, data));
+                        result.Add(new ArchivedFileNode(this, item));
                     }
                 }
             }
