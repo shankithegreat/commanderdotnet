@@ -28,6 +28,8 @@ namespace TestForm
 
         public virtual bool AllowOpen { get; set; }
 
+        public virtual bool IsVirtual { get { return false; } }
+
 
         public string Extension { get; set; }
 

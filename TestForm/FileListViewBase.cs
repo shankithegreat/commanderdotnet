@@ -103,11 +103,17 @@ namespace TestForm
                         {
                             FileSystemNode node = (FileSystemNode)item.Tag;
 
-                            list.Add(node.Path);
+                            if (!node.IsVirtual)
+                            {
+                                list.Add(node.Path);
+                            }
                         }
                     }
 
-                    contextMenu.Show(location, list.ToArray());
+                    if (list.Count > 0)
+                    {
+                        contextMenu.Show(location, list.ToArray());
+                    }
                 }
             }
 
