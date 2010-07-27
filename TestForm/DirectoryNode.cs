@@ -63,13 +63,17 @@ namespace TestForm
                     FileInfo fi = (FileInfo) item;
                     switch (fi.Extension)
                     {
+                        case ".zip":
+                            {
+                                result.Add(new ZipArchiveNode(this, fi));
+                                break;
+                            }
                         case ".7z":
                             {
                                 result.Add(new Zip7ArchiveNode(this, fi));
                                 break;
                             }
                         case ".bz":
-                        case ".zip":
                             {
                                 result.Add(new BZip2ArchiveNode(this, fi));
                                 break;
@@ -79,7 +83,7 @@ namespace TestForm
                             {
                                 result.Add(new IsoArchiveNode(this, fi));
                                 break;
-                            }
+                            }                        
                         case ".rar":
                             {
                                 result.Add(new RarArchiveNode(this, fi));

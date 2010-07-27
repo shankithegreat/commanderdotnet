@@ -42,7 +42,7 @@ namespace TestForm
 
             foreach (HeaderData item in list)
             {
-                if (item.FileName.StartsWith(this.InternalPath + System.IO.Path.DirectorySeparatorChar))
+                if (item.FileName.StartsWith(this.InternalPath + System.IO.Path.DirectorySeparatorChar) || item.FileName.StartsWith(this.InternalPath + "/"))
                 {
                     string subPath = item.FileName.Substring(this.InternalPath.Length + 1);
 
