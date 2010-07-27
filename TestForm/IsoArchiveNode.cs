@@ -14,7 +14,7 @@ namespace TestForm
         public IsoArchiveNode(FileSystemNode parent, FileInfo file)
             : base(parent, file)
         {
-            tOpenArchiveData v = new tOpenArchiveData();
+            OpenArchiveData v = new OpenArchiveData();
 
             v.ArcName = file.FullName;
             handle = IsoArchiveHelper.OpenArchive(ref v);
@@ -41,17 +41,10 @@ namespace TestForm
                 result.Add(new UpLink(this));
             }
 
-
-
-            while (true)
+            HeaderData data = new HeaderData { ArcName = new string((char)0, 260), FileName = new string((char)0, 260) };
+            while (IsoArchiveHelper.ReadHeader(handle, ref data) == 0)
             {
-                tHeaderData data = new tHeaderData { ArcName = new string((char)0, 260), FileName = new string((char)0, 260) };
-                int r = IsoArchiveHelper.ReadHeader(handle, ref data);
                 IsoArchiveHelper.ProcessFile(handle, OperationMode.Skip, null, null);
-                if (r != 0)
-                {
-                    break;
-                }
 
                 if ((data.FileAttr & FileAttributes.Directory) == FileAttributes.Directory)
                 {

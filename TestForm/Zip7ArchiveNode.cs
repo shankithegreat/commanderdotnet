@@ -6,18 +6,18 @@ using System.Text;
 
 namespace TestForm
 {
-    public class ZipArchiveNode : FileNode, IDisposable
+    public class Zip7ArchiveNode : FileNode, IDisposable
     {
         private int handle;
 
 
-        public ZipArchiveNode(FileSystemNode parent, FileInfo file)
+        public Zip7ArchiveNode(FileSystemNode parent, FileInfo file)
             : base(parent, file)
         {
-            tOpenArchiveData v = new tOpenArchiveData();
+            OpenArchiveData v = new OpenArchiveData();
 
             v.ArcName = file.FullName;
-            handle = ZipArchiveHelper.OpenArchive(ref v);
+            handle = Zip7ArchiveHelper.OpenArchive(ref v);
         }
 
 
@@ -28,7 +28,7 @@ namespace TestForm
 
         public void Dispose()
         {
-            ZipArchiveHelper.CloseArchive(handle);
+            Zip7ArchiveHelper.CloseArchive(handle);
         }
 
 
@@ -41,17 +41,10 @@ namespace TestForm
                 result.Add(new UpLink(this));
             }
 
-            
-            
-            while (true)
+            HeaderData data = new HeaderData();
+            while (Zip7ArchiveHelper.ReadHeader(handle, ref data) == 0)
             {
-                tHeaderData data = new tHeaderData();
-                int r = ZipArchiveHelper.ReadHeader(handle, ref data);
-                ZipArchiveHelper.ProcessFile(handle, OperationMode.Skip, null, null);
-                if (r != 0)
-                {
-                    break;
-                }
+                Zip7ArchiveHelper.ProcessFile(handle, OperationMode.Skip, null, null);
 
                 if ((data.FileAttr & FileAttributes.Directory) == FileAttributes.Directory)
                 {

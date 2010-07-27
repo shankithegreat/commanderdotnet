@@ -71,7 +71,7 @@
   <ItemGroup>
     <Compile Include="ArchivedDirectoryNode.cs" />
     <Compile Include="ArchivedFileNode.cs" />
-    <Compile Include="ArchiveNode.cs" />
+    <Compile Include="Zip7ArchiveNode.cs" />
     <Compile Include="ButtonCommandBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -255,7 +255,7 @@
     <Compile Include="Utility\ContextMenuHelper.cs" />
     <Compile Include="Utility\IoHelper.cs" />
     <Compile Include="Utility\StringHelper.cs" />
-    <Compile Include="ZipArchiveNode.cs" />
+    <Compile Include="BZip2ArchiveNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
