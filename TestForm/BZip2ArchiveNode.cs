@@ -38,29 +38,27 @@ namespace TestForm
 
             if (this.ParentNode != null)
             {
-                result.Add(new UpLink(this));
+                result.Add(new ArchiveUpLink(this));
             }
 
-            HeaderData data = new HeaderData() { ArcName = new string((char)0, 260), FileName = new string((char)0, 260) };
+            HeaderData data = new HeaderData { ArcName = new string((char)0, 260), FileName = new string((char)0, 260) };
             while (Zip7ArchiveHelper.ReadHeader(handle, ref data) == 0)
             {
                 Zip7ArchiveHelper.ProcessFile(handle, OperationMode.Skip, null, null);
 
                 if ((data.FileAttr & FileAttributes.Directory) == FileAttributes.Directory)
                 {
-                    var item = new ArchivedDirectoryNode(this);
-                    item.Name = data.FileName;
-                    item.Size = data.UnpSize;
-
-                    result.Add(item);
+                    if (!data.FileName.Contains(System.IO.Path.DirectorySeparatorChar))
+                    {
+                        result.Add(new ArchivedDirectoryNode(this, data));
+                    }
                 }
                 else
                 {
-                    var item = new ArchivedFileNode(this);
-                    item.Name = data.FileName;
-                    item.Size = data.UnpSize;
-
-                    result.Add(item);
+                    if (!data.FileName.Contains(System.IO.Path.DirectorySeparatorChar))
+                    {
+                        result.Add(new ArchivedFileNode(this, data));
+                    }
                 }
             }
 

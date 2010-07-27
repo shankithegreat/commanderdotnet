@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="ArchivedDirectoryNode.cs" />
     <Compile Include="ArchivedFileNode.cs" />
+    <Compile Include="ArchiveUpLink.cs" />
     <Compile Include="Zip7ArchiveNode.cs" />
     <Compile Include="ButtonCommandBar.cs">
       <SubType>UserControl</SubType>

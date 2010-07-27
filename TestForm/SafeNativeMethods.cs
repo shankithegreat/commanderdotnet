@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
@@ -10,25 +11,6 @@ namespace TestForm
     public static class SafeNativeMethods
     {
         internal static HandleRef NullHandleRef;
-
-        internal static int SHGFI_ICON = 0x000000100;
-        internal static int SHGFI_LARGEICON = 0x000000000;     // get large icon
-        internal static int SHGFI_SMALLICON = 0x000000001;    // get small icon
-        internal static int SHGFI_SYSICONINDEX = 0x000004000;
-        internal static int SHGFI_TYPENAME = 0x000000400;
-
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct SHFILEINFO
-        {
-            public IntPtr hIcon;
-            public int iIcon;
-            public int dwAttributes;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 256)]
-            public Char[] szDisplayName;
-            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 80)]
-            public Char[] szTypeName;
-        }
 
 
         public static Icon ExtractAssociatedIcon(string path)
@@ -41,7 +23,7 @@ namespace TestForm
         {
             StringBuilder iconPath = new StringBuilder(260);
             iconPath.Append(path);
-            IntPtr handle = IntExtractAssociatedIcon(NullHandleRef, iconPath, ref index);
+            IntPtr handle = ExtractAssociatedIcon(NullHandleRef, iconPath, ref index);
             i = index;
             try
             {
@@ -54,35 +36,25 @@ namespace TestForm
             {
                 DestroyIcon(handle);
             }
+
             return null;
-        }
-
-        public static SHFILEINFO GetFileInfo(string path, int flag)
-        {
-            StringBuilder iconPath = new StringBuilder(260);
-            iconPath.Append(path);
-            SHFILEINFO fileInfo = new SHFILEINFO();
-            int size = Marshal.SizeOf(fileInfo);
-
-            SHGetFileInfo(iconPath, 0, ref fileInfo, size, flag);
-
-            return fileInfo;
         }
 
         public static Icon GetSmallAssociatedIcon(string path)
         {
-            SHFILEINFO fi = GetFileInfo(path, SHGFI_SMALLICON | SHGFI_ICON);
+            ShFileInfo fileInfo = new ShFileInfo();
+            SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), FileInfoType.SmallIcon | FileInfoType.Icon);
 
             try
             {
-                if (fi.hIcon != IntPtr.Zero)
+                if (fileInfo.IconHandle != IntPtr.Zero)
                 {
-                    return Icon.FromHandle(fi.hIcon);
+                    return Icon.FromHandle(fileInfo.IconHandle);
                 }
             }
             finally
             {
-                DestroyIcon(fi.hIcon);
+                DestroyIcon(fileInfo.IconHandle);
             }
 
             return null;
@@ -90,18 +62,19 @@ namespace TestForm
 
         public static Icon GetLargeAssociatedIcon(string path)
         {
-            SHFILEINFO fi = GetFileInfo(path, SHGFI_LARGEICON | SHGFI_ICON);
+            ShFileInfo fileInfo = new ShFileInfo();
+            SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), FileInfoType.LargeIcon | FileInfoType.Icon);
 
             try
             {
-                if (fi.hIcon != IntPtr.Zero)
+                if (fileInfo.IconHandle != IntPtr.Zero)
                 {
-                    return Icon.FromHandle(fi.hIcon);
+                    return Icon.FromHandle(fileInfo.IconHandle);
                 }
             }
             finally
             {
-                DestroyIcon(fi.hIcon);
+                DestroyIcon(fileInfo.IconHandle);
             }
 
             return null;
@@ -109,29 +82,112 @@ namespace TestForm
 
         public static int GetSmallAssociatedIconIndex(string path)
         {
-            SHFILEINFO fi = GetFileInfo(path, SHGFI_SMALLICON | SHGFI_SYSICONINDEX);
-            DestroyIcon(fi.hIcon);
-            return fi.iIcon;
+            ShFileInfo fileInfo = new ShFileInfo();
+
+            SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), FileInfoType.SmallIcon | FileInfoType.SysIconIndex);
+            DestroyIcon(fileInfo.IconHandle);
+
+            return fileInfo.IconIndex;
+        }
+
+        public static int GetSmallAssociatedIconIndex(string path, FileAttributes attributes)
+        {
+            ShFileInfo fileInfo = new ShFileInfo();
+
+            SHGetFileInfo(path, attributes, ref fileInfo, Marshal.SizeOf(fileInfo), FileInfoType.SmallIcon | FileInfoType.SysIconIndex | FileInfoType.UseFileAttributes);
+            DestroyIcon(fileInfo.IconHandle);
+
+            return fileInfo.IconIndex;
         }
 
         public static int GetLargeAssociatedIconIndex(string path)
         {
-            SHFILEINFO fi = GetFileInfo(path, SHGFI_LARGEICON | SHGFI_SYSICONINDEX);
-            DestroyIcon(fi.hIcon);
-            return fi.iIcon;
+            ShFileInfo fileInfo = new ShFileInfo();
+
+            SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), FileInfoType.LargeIcon | FileInfoType.SysIconIndex);
+            DestroyIcon(fileInfo.IconHandle);
+
+            return fileInfo.IconIndex;
+        }
+
+        public static int GetLargeAssociatedIconIndex(string path, FileAttributes attributes)
+        {
+            ShFileInfo fileInfo = new ShFileInfo();
+
+            SHGetFileInfo(path, attributes, ref fileInfo, Marshal.SizeOf(fileInfo), FileInfoType.LargeIcon | FileInfoType.SysIconIndex | FileInfoType.UseFileAttributes);
+            DestroyIcon(fileInfo.IconHandle);
+
+            return fileInfo.IconIndex;
         }
 
 
         [DllImport("shell32.dll", EntryPoint = "ExtractAssociatedIcon")]
-        internal static extern IntPtr IntExtractAssociatedIcon(HandleRef hInst, StringBuilder iconPath, ref int index);
+        internal static extern IntPtr ExtractAssociatedIcon(HandleRef handle, StringBuilder iconPath, ref int index);
 
         [DllImport("shfolder.dll")]
-        internal static extern int SHGetFolderPath(IntPtr hwndOwner, int nFolder, IntPtr hToken, int dwFlags, StringBuilder lpszPath);
+        internal static extern int SHGetFolderPath(IntPtr owner, int folderIndex, IntPtr hToken, int flags, StringBuilder path);
 
         [DllImport("shell32.dll")]
-        internal static extern IntPtr SHGetFileInfo(StringBuilder path, int fileAttributes, ref SHFILEINFO psfi, int fileInfo, int flags);
+        internal static extern IntPtr SHGetFileInfo(string path, int fileAttributes, ref ShFileInfo psfi, int fileInfo, FileInfoType flags);
+
+        [DllImport("shell32.dll")]
+        internal static extern IntPtr SHGetFileInfo(string path, FileAttributes fileAttributes, ref ShFileInfo psfi, int fileInfo, FileInfoType flags);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         internal extern static bool DestroyIcon(IntPtr handle);
+    }
+
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct ShFileInfo
+    {
+        public IntPtr IconHandle;
+        public int IconIndex;
+        public int Attributes;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+        public string DisplayName;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
+        public string TypeName;
+    }
+
+    [Flags]
+    public enum FileInfoType
+    {
+        /// <summary>get icon</summary>
+        Icon = 0x000000100,
+        /// <summary>get display name</summary>
+        DisplayName = 0x000000200,
+        /// <summary>get type name</summary>
+        TypeName = 0x000000400,
+        /// <summary>get attributes</summary>
+        Attributes = 0x000000800,
+        /// <summary>get icon location</summary>
+        IconLocation = 0x000001000,
+        /// <summary>return exe type</summary>
+        ExeType = 0x000002000,
+        /// <summary>get system icon index</summary>
+        SysIconIndex = 0x000004000,
+        /// <summary>put a link overlay on icon</summary>
+        LinkOverlay = 0x000008000,
+        /// <summary>show icon in selected state</summary>
+        Selected = 0x000010000,
+        /// <summary>get only specified attributes</summary>
+        Attr_Specified = 0x000020000,
+        /// <summary>get large icon</summary>
+        LargeIcon = 0x000000000,
+        /// <summary>get small icon</summary>
+        SmallIcon = 0x000000001,
+        /// <summary>get open icon</summary>
+        OpenIcon = 0x000000002,
+        /// <summary>get shell size icon</summary>
+        ShellIconSize = 0x000000004,
+        /// <summary>pszPath is a pidl</summary>
+        PIDL = 0x000000008,
+        /// <summary>use passed dwFileAttribute</summary>
+        UseFileAttributes = 0x000000010,
+        /// <summary>apply the appropriate overlays</summary>
+        AddOverlays = 0x000000020,
+        /// <summary>Get the index of the overlay in the upper 8 bits of the iIcon</summary>
+        OverlayIndex = 0x000000040,
     }
 }
