@@ -6,16 +6,12 @@ using System.Text;
 
 namespace TestForm
 {
-    public class ArchivedDirectoryNode : FileSystemNode
+    public class ArchiveUpLink : UpLink
     {
-        public ArchivedDirectoryNode(FileSystemNode parent, HeaderData info)
+        public ArchiveUpLink(FileSystemNode parent)
             : base(parent)
         {
-            this.Name = info.FileName;
-            this.Path = info.FileName;
-            this.Size = info.UnpSize;
         }
-
 
         public override int GetImageIndex()
         {
