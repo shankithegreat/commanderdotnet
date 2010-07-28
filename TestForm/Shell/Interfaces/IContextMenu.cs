@@ -11,17 +11,17 @@ namespace ShellDll
     public interface IContextMenu
     {
         // Adds commands to a shortcut menu
-        [PreserveSig()]
+        [PreserveSig]
         Int32 QueryContextMenu(IntPtr hmenu, uint iMenu, uint idCmdFirst, uint idCmdLast, CMF uFlags);
 
         // Carries out the command associated with a shortcut menu item
-        [PreserveSig()]
+        [PreserveSig]
         Int32 InvokeCommand(ref CMINVOKECOMMANDINFOEX info);
 
         // Retrieves information about a shortcut menu command, 
         // including the help string and the language-independent, 
         // or canonical, name for the command
-        [PreserveSig()]
+        [PreserveSig]
         Int32 GetCommandString(uint idcmd, GCS uflags, uint reserved, [MarshalAs(UnmanagedType.LPArray)] byte[] commandstring, int cch);
     }
 
@@ -30,17 +30,17 @@ namespace ShellDll
     public interface IContextMenu2
     {
         // Adds commands to a shortcut menu
-        [PreserveSig()]
+        [PreserveSig]
         Int32 QueryContextMenu(IntPtr hmenu, uint iMenu, uint idCmdFirst, uint idCmdLast, CMF uFlags);
 
         // Carries out the command associated with a shortcut menu item
-        [PreserveSig()]
+        [PreserveSig]
         Int32 InvokeCommand(ref CMINVOKECOMMANDINFOEX info);
 
         // Retrieves information about a shortcut menu command, 
         // including the help string and the language-independent, 
         // or canonical, name for the command
-        [PreserveSig()]
+        [PreserveSig]
         Int32 GetCommandString(uint idcmd, GCS uflags, uint reserved, [MarshalAs(UnmanagedType.LPWStr)] StringBuilder commandstring, int cch);
 
         // Allows client objects of the IContextMenu interface to 
@@ -54,17 +54,17 @@ namespace ShellDll
     public interface IContextMenu3
     {
         // Adds commands to a shortcut menu
-        [PreserveSig()]
+        [PreserveSig]
         Int32 QueryContextMenu(IntPtr hmenu, uint iMenu, uint idCmdFirst, uint idCmdLast, CMF uFlags);
 
         // Carries out the command associated with a shortcut menu item
-        [PreserveSig()]
+        [PreserveSig]
         Int32 InvokeCommand(ref CMINVOKECOMMANDINFOEX info);
 
         // Retrieves information about a shortcut menu command, 
         // including the help string and the language-independent, 
         // or canonical, name for the command
-        [PreserveSig()]
+        [PreserveSig]
         Int32 GetCommandString(uint idcmd, GCS uflags, uint reserved, [MarshalAs(UnmanagedType.LPWStr)] StringBuilder commandstring, int cch);
 
         // Allows client objects of the IContextMenu interface to 

@@ -89,17 +89,15 @@ namespace ShellDll
 
         public static IntPtr GetPathPIDL(string parentDirectory, string name)
         {
-            IShellFolder parentFolder = (!string.IsNullOrEmpty(parentDirectory) ? ShellFolder.GetShellFolder(parentDirectory) : ShellFolder.GetDesktopFolder());
+            IShellFolder parentFolder = (!string.IsNullOrEmpty(parentDirectory) ? GetShellFolder(parentDirectory) : GetDesktopFolder());
             if (parentFolder != null)
             {
                 uint pchEaten = 0;
-                SFGAO pdwAttributes = 0;
-                IntPtr pidl = IntPtr.Zero;
-                int result = parentFolder.ParseDisplayName(IntPtr.Zero, IntPtr.Zero, name, ref pchEaten, out pidl, ref pdwAttributes);
-                if (result == ShellAPI.S_OK)
-                {
-                    return pidl;
-                }
+                SFGAO attributes = 0;
+                IntPtr pidl;
+                parentFolder.ParseDisplayName(IntPtr.Zero, IntPtr.Zero, name, ref pchEaten, out pidl, ref attributes);
+
+                return pidl;
             }
 
             return IntPtr.Zero;
@@ -131,28 +129,19 @@ namespace ShellDll
 
         public static IntPtr GetShellFolderIntPtr(string path)
         {
-            IShellFolder desktopShellFolder = GetDesktopFolder();
-            if (null == desktopShellFolder)
-            {
-                return IntPtr.Zero;
-            }
+            IShellFolder desktopFolder = GetDesktopFolder();
 
-            // Get the PIDL for the folder file is in
-            IntPtr pidl = IntPtr.Zero;
+            // Get PIDL            
             uint pchEaten = 0;
+            IntPtr pidl;
             SFGAO pdwAttributes = 0;
-            int result = desktopShellFolder.ParseDisplayName(IntPtr.Zero, IntPtr.Zero, path, ref pchEaten, out pidl, ref pdwAttributes);
-            if (ShellAPI.S_OK != result)
-            {
-                return IntPtr.Zero;
-            }
+            desktopFolder.ParseDisplayName(IntPtr.Zero, IntPtr.Zero, path, ref pchEaten, out pidl, ref pdwAttributes);
 
-            // Get the IShellFolder for folder
-            IntPtr shellFolder = IntPtr.Zero;
-            result = desktopShellFolder.BindToObject(pidl, IntPtr.Zero, ref ShellAPI.IID_IShellFolder, out shellFolder);
-            // Free the PIDL first
+            // Get IShellFolder
+            IntPtr shellFolder;
+            int result = desktopFolder.BindToObject(pidl, IntPtr.Zero, ref ShellGuids.IShellFolder, out shellFolder);
             Marshal.FreeCoTaskMem(pidl);
-            if (ShellAPI.S_OK != result)
+            if (result != 0)
             {
                 return IntPtr.Zero;
             }
@@ -182,11 +171,16 @@ namespace ShellDll
 
         public static IShellFolder GetDesktopFolder()
         {
-            IntPtr desktopFolder = IntPtr.Zero;
-            int result = ShellAPI.SHGetDesktopFolder(out desktopFolder);
-            IShellFolder shellFolder = (IShellFolder)Marshal.GetTypedObjectForIUnknown(desktopFolder, typeof(IShellFolder));
+            IntPtr p = IntPtr.Zero;
+            ShellApi.SHGetDesktopFolder(out p);
 
-            return shellFolder;
+            IShellFolder result = (IShellFolder)Marshal.GetTypedObjectForIUnknown(p, typeof(IShellFolder));
+            if (result == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            return result;
         }
     }
 }

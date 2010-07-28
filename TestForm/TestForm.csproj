@@ -91,6 +91,7 @@
     <Compile Include="ArchiveNode.cs" />
     <Compile Include="ArchiveUpLink.cs" />
     <Compile Include="RarArchiveNode.cs" />
+    <Compile Include="Shell\ShellGuids.cs" />
     <Compile Include="Zip7ArchiveNode.cs" />
     <Compile Include="ButtonCommandBar.cs">
       <SubType>UserControl</SubType>

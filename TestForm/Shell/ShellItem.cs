@@ -23,7 +23,7 @@ namespace ShellDll
             SubFiles = new ShellItemCollection(this);
             SubFolders = new ShellItemCollection(this);
 
-            PIDLRel = new PIDL(pidl, false);
+            PIDLRel = new Pidl(pidl, false);
 
             Text = "Desktop";
             Path = "Desktop";
@@ -31,7 +31,7 @@ namespace ShellDll
             SetAttributesDesktop(this);
 
             SHFILEINFO info = new SHFILEINFO();
-            ShellAPI.SHGetFileInfo(PIDLRel.Ptr, 0, ref info, ShellAPI.cbFileInfo, SHGFI.PIDL | SHGFI.TYPENAME | SHGFI.SYSICONINDEX);
+            ShellApi.SHGetFileInfo(PIDLRel.Ptr, 0, ref info, ShellApi.cbFileInfo, SHGFI.PIDL | SHGFI.TYPENAME | SHGFI.SYSICONINDEX);
 
             Type = info.szTypeName;
 
@@ -51,7 +51,7 @@ namespace ShellDll
             SubFiles = new ShellItemCollection(this);
             SubFolders = new ShellItemCollection(this);
 
-            PIDLRel = new PIDL(pidl, false);
+            PIDLRel = new Pidl(pidl, false);
 
             SetText(this);
             SetPath(this);
@@ -67,7 +67,7 @@ namespace ShellDll
 
             this.ParentItem = parentItem;
 
-            PIDLRel = new PIDL(pidl, false);
+            PIDLRel = new Pidl(pidl, false);
 
             SetText(this);
             SetPath(this);
@@ -95,7 +95,7 @@ namespace ShellDll
                     Marshal.ReleaseComObject(shellFolder);
                     Marshal.Release(shellFolderPtr);
 
-                    if (ParentItem.ShellFolder.BindToObject(PIDLRel.Ptr, IntPtr.Zero, ref ShellAPI.IID_IShellFolder, out shellFolderPtr) == ShellAPI.S_OK)
+                    if (ParentItem.ShellFolder.BindToObject(PIDLRel.Ptr, IntPtr.Zero, ref ShellGuids.IShellFolder, out shellFolderPtr) == 0)
                     {
                         shellFolder = (IShellFolder) Marshal.GetTypedObjectForIUnknown(shellFolderPtr, typeof (IShellFolder));
                     }
@@ -111,13 +111,13 @@ namespace ShellDll
 
         public int SelectedImageIndex { get; set; }
 
-        public PIDL PIDLRel { get; private set; }
+        public Pidl PIDLRel { get; private set; }
 
-        public PIDL PIDLFull
+        public Pidl PIDLFull
         {
             get
             {
-                PIDL pidlFull = new PIDL(PIDLRel.Ptr, true);
+                Pidl pidlFull = new Pidl(PIDLRel.Ptr, true);
                 ShellItem current = ParentItem;
                 while (current != null)
                 {
@@ -206,11 +206,11 @@ namespace ShellDll
                     {
                         if (this.Equals(Browser.DesktopItem) || ParentItem.Equals(Browser.DesktopItem))
                         {
-                            if (ShellFolder.EnumObjects(winHandle, fileFlag, out fileEnumPtr) == ShellAPI.S_OK)
+                            if (ShellFolder.EnumObjects(winHandle, fileFlag, out fileEnumPtr) == 0)
                             {
                                 fileEnum = (IEnumIDList) Marshal.GetTypedObjectForIUnknown(fileEnumPtr, typeof (IEnumIDList));
                                 SFGAO attribs = SFGAO.FOLDER;
-                                while (fileEnum.Next(1, out pidlSubItem, out celtFetched) == ShellAPI.S_OK && celtFetched == 1)
+                                while (fileEnum.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
                                 {
                                     ShellFolder.GetAttributesOf(1, new IntPtr[] {pidlSubItem}, ref attribs);
 
@@ -235,10 +235,10 @@ namespace ShellDll
                         }
                         else
                         {
-                            if (ShellFolder.EnumObjects(winHandle, fileFlag, out fileEnumPtr) == ShellAPI.S_OK)
+                            if (ShellFolder.EnumObjects(winHandle, fileFlag, out fileEnumPtr) == 0)
                             {
                                 fileEnum = (IEnumIDList) Marshal.GetTypedObjectForIUnknown(fileEnumPtr, typeof (IEnumIDList));
-                                while (fileEnum.Next(1, out pidlSubItem, out celtFetched) == ShellAPI.S_OK && celtFetched == 1)
+                                while (fileEnum.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
                                 {
                                     ShellItem newItem = new ShellItem(Browser, this, pidlSubItem);
                                     SubFiles.Add(newItem);
@@ -256,13 +256,13 @@ namespace ShellDll
 
                     if (expandFolders)
                     {
-                        if (ShellFolder.EnumObjects(winHandle, folderFlag, out folderEnumPtr) == ShellAPI.S_OK)
+                        if (ShellFolder.EnumObjects(winHandle, folderFlag, out folderEnumPtr) == 0)
                         {
                             folderEnum = (IEnumIDList) Marshal.GetTypedObjectForIUnknown(folderEnumPtr, typeof (IEnumIDList));
-                            while (folderEnum.Next(1, out pidlSubItem, out celtFetched) == ShellAPI.S_OK && celtFetched == 1)
+                            while (folderEnum.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
                             {
                                 IntPtr shellFolderPtr;
-                                if (ShellFolder.BindToObject(pidlSubItem, IntPtr.Zero, ref ShellAPI.IID_IShellFolder, out shellFolderPtr) == ShellAPI.S_OK)
+                                if (ShellFolder.BindToObject(pidlSubItem, IntPtr.Zero, ref ShellGuids.IShellFolder, out shellFolderPtr) == 0)
                                 {
                                     ShellItem newItem = new ShellItem(Browser, this, pidlSubItem, shellFolderPtr);
                                     SubFolders.Add(newItem);
@@ -389,11 +389,11 @@ namespace ShellDll
 
                             if (this.Equals(Browser.DesktopItem) || ParentItem.Equals(Browser.DesktopItem))
                             {
-                                if (ShellFolder.EnumObjects(IntPtr.Zero, fileFlag, out fileEnumPtr) == ShellAPI.S_OK)
+                                if (ShellFolder.EnumObjects(IntPtr.Zero, fileFlag, out fileEnumPtr) == 0)
                                 {
                                     fileEnum = (IEnumIDList) Marshal.GetTypedObjectForIUnknown(fileEnumPtr, typeof (IEnumIDList));
                                     SFGAO attribs = SFGAO.FOLDER;
-                                    while (Browser.UpdateCondition.ContinueUpdate && fileEnum.Next(1, out pidlSubItem, out celtFetched) == ShellAPI.S_OK && celtFetched == 1)
+                                    while (Browser.UpdateCondition.ContinueUpdate && fileEnum.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
                                     {
                                         ShellFolder.GetAttributesOf(1, new IntPtr[] {pidlSubItem}, ref attribs);
 
@@ -425,10 +425,10 @@ namespace ShellDll
                             }
                             else
                             {
-                                if (ShellFolder.EnumObjects(IntPtr.Zero, fileFlag, out fileEnumPtr) == ShellAPI.S_OK)
+                                if (ShellFolder.EnumObjects(IntPtr.Zero, fileFlag, out fileEnumPtr) == 0)
                                 {
                                     fileEnum = (IEnumIDList) Marshal.GetTypedObjectForIUnknown(fileEnumPtr, typeof (IEnumIDList));
-                                    while (Browser.UpdateCondition.ContinueUpdate && fileEnum.Next(1, out pidlSubItem, out celtFetched) == ShellAPI.S_OK && celtFetched == 1)
+                                    while (Browser.UpdateCondition.ContinueUpdate && fileEnum.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
                                     {
                                         if ((index = SubFiles.IndexOf(pidlSubItem)) == -1)
                                         {
@@ -472,7 +472,7 @@ namespace ShellDll
                                         add.Remove(newItem);
 
                                         oldItem.PIDLRel.Free();
-                                        oldItem.PIDLRel = new PIDL(newItem.PIDLRel.Ptr, true);
+                                        oldItem.PIDLRel = new Pidl(newItem.PIDLRel.Ptr, true);
 
                                         oldItem.shellFolder = newItem.shellFolder;
                                         oldItem.shellFolderPtr = newItem.shellFolderPtr;
@@ -517,15 +517,15 @@ namespace ShellDll
 
                             #region Add Folders
 
-                            if (ShellFolder.EnumObjects(IntPtr.Zero, folderFlag, out folderEnumPtr) == ShellAPI.S_OK)
+                            if (ShellFolder.EnumObjects(IntPtr.Zero, folderFlag, out folderEnumPtr) == 0)
                             {
                                 folderEnum = (IEnumIDList) Marshal.GetTypedObjectForIUnknown(folderEnumPtr, typeof (IEnumIDList));
-                                while (Browser.UpdateCondition.ContinueUpdate && folderEnum.Next(1, out pidlSubItem, out celtFetched) == ShellAPI.S_OK && celtFetched == 1)
+                                while (Browser.UpdateCondition.ContinueUpdate && folderEnum.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
                                 {
                                     if ((index = SubFolders.IndexOf(pidlSubItem)) == -1)
                                     {
                                         IntPtr shellFolderPtr;
-                                        if (ShellFolder.BindToObject(pidlSubItem, IntPtr.Zero, ref ShellAPI.IID_IShellFolder, out shellFolderPtr) == ShellAPI.S_OK)
+                                        if (ShellFolder.BindToObject(pidlSubItem, IntPtr.Zero, ref ShellGuids.IShellFolder, out shellFolderPtr) == 0)
                                         {
                                             add.Add(new ShellItem(Browser, this, pidlSubItem, shellFolderPtr));
                                         }
@@ -567,7 +567,7 @@ namespace ShellDll
                                         add.Remove(newItem);
 
                                         oldItem.PIDLRel.Free();
-                                        oldItem.PIDLRel = new PIDL(newItem.PIDLRel, true);
+                                        oldItem.PIDLRel = new Pidl(newItem.PIDLRel, true);
 
                                         Marshal.ReleaseComObject(oldItem.shellFolder);
                                         Marshal.Release(oldItem.shellFolderPtr);
@@ -669,10 +669,10 @@ namespace ShellDll
 
                 if (newPidlFull != IntPtr.Zero)
                 {
-                    IntPtr tempPidl = PIDL.ILClone(PIDL.ILFindLastID(newPidlFull)), newPidlRel, newShellFolderPtr;
-                    ShellAPI.SHGetRealIDL(ParentItem.ShellFolder, tempPidl, out newPidlRel);
+                    IntPtr tempPidl = Pidl.ILClone(Pidl.ILFindLastID(newPidlFull)), newPidlRel, newShellFolderPtr;
+                    ShellApi.SHGetRealIDL(ParentItem.ShellFolder, tempPidl, out newPidlRel);
 
-                    if (IsFolder && ParentItem.ShellFolder.BindToObject(newPidlRel, IntPtr.Zero, ref ShellAPI.IID_IShellFolder, out newShellFolderPtr) == ShellAPI.S_OK)
+                    if (IsFolder && ParentItem.ShellFolder.BindToObject(newPidlRel, IntPtr.Zero, ref ShellGuids.IShellFolder, out newShellFolderPtr) == 0)
                     {
                         Marshal.ReleaseComObject(shellFolder);
                         Marshal.Release(shellFolderPtr);
@@ -680,7 +680,7 @@ namespace ShellDll
 
                         shellFolderPtr = newShellFolderPtr;
                         shellFolder = (IShellFolder) Marshal.GetTypedObjectForIUnknown(shellFolderPtr, typeof (IShellFolder));
-                        PIDLRel = new PIDL(newPidlRel, false);
+                        PIDLRel = new Pidl(newPidlRel, false);
 
                         foreach (ShellItem child in SubFolders)
                         {
@@ -690,7 +690,7 @@ namespace ShellDll
                     else
                     {
                         PIDLRel.Free();
-                        PIDLRel = new PIDL(newPidlRel, false);
+                        PIDLRel = new Pidl(newPidlRel, false);
                     }
 
                     Marshal.FreeCoTaskMem(tempPidl);
@@ -769,13 +769,13 @@ namespace ShellDll
             }
             else if (item.Type == item.Browser.SystemFolderName)
             {
-                IntPtr strr = Marshal.AllocCoTaskMem(ShellAPI.MAX_PATH * 2 + 4);
+                IntPtr strr = Marshal.AllocCoTaskMem(ShellApi.MAX_PATH * 2 + 4);
                 Marshal.WriteInt32(strr, 0, 0);
-                StringBuilder buf = new StringBuilder(ShellAPI.MAX_PATH);
+                StringBuilder buf = new StringBuilder(ShellApi.MAX_PATH);
 
-                if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, SHGNO.FORPARSING, strr) == ShellAPI.S_OK)
+                if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, SHGNO.FORPARSING, strr) == 0)
                 {
-                    ShellAPI.StrRetToBuf(strr, item.PIDLRel.Ptr, buf, ShellAPI.MAX_PATH);
+                    ShellApi.StrRetToBuf(strr, item.PIDLRel.Ptr, buf, ShellApi.MAX_PATH);
                 }
 
                 Marshal.FreeCoTaskMem(strr);
@@ -1035,13 +1035,13 @@ namespace ShellDll
 
         private static void SetText(ShellItem item)
         {
-            IntPtr strr = Marshal.AllocCoTaskMem(ShellAPI.MAX_PATH * 2 + 4);
+            IntPtr strr = Marshal.AllocCoTaskMem(ShellApi.MAX_PATH * 2 + 4);
             Marshal.WriteInt32(strr, 0, 0);
-            StringBuilder buf = new StringBuilder(ShellAPI.MAX_PATH);
+            StringBuilder buf = new StringBuilder(ShellApi.MAX_PATH);
 
-            if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, SHGNO.INFOLDER, strr) == ShellAPI.S_OK)
+            if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, SHGNO.INFOLDER, strr) == 0)
             {
-                ShellAPI.StrRetToBuf(strr, item.PIDLRel.Ptr, buf, ShellAPI.MAX_PATH);
+                ShellApi.StrRetToBuf(strr, item.PIDLRel.Ptr, buf, ShellApi.MAX_PATH);
                 item.Text = buf.ToString();
             }
 
@@ -1050,13 +1050,13 @@ namespace ShellDll
 
         private static void SetPath(ShellItem item)
         {
-            IntPtr strr = Marshal.AllocCoTaskMem(ShellAPI.MAX_PATH * 2 + 4);
+            IntPtr strr = Marshal.AllocCoTaskMem(ShellApi.MAX_PATH * 2 + 4);
             Marshal.WriteInt32(strr, 0, 0);
-            StringBuilder buf = new StringBuilder(ShellAPI.MAX_PATH);
+            StringBuilder buf = new StringBuilder(ShellApi.MAX_PATH);
 
-            if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, SHGNO.FORADDRESSBAR | SHGNO.FORPARSING, strr) == ShellAPI.S_OK)
+            if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, SHGNO.FORADDRESSBAR | SHGNO.FORPARSING, strr) == 0)
             {
-                ShellAPI.StrRetToBuf(strr, item.PIDLRel.Ptr, buf, ShellAPI.MAX_PATH);
+                ShellApi.StrRetToBuf(strr, item.PIDLRel.Ptr, buf, ShellApi.MAX_PATH);
                 item.Path = buf.ToString();
             }
 
@@ -1065,10 +1065,10 @@ namespace ShellDll
 
         private static void SetInfo(ShellItem item)
         {
-            PIDL pidlFull = item.PIDLFull;
+            Pidl pidlFull = item.PIDLFull;
 
             SHFILEINFO info = new SHFILEINFO();
-            ShellAPI.SHGetFileInfo(pidlFull.Ptr, 0, ref info, ShellAPI.cbFileInfo, SHGFI.PIDL | SHGFI.TYPENAME | SHGFI.SYSICONINDEX);
+            ShellApi.SHGetFileInfo(pidlFull.Ptr, 0, ref info, ShellApi.cbFileInfo, SHGFI.PIDL | SHGFI.TYPENAME | SHGFI.SYSICONINDEX);
 
             pidlFull.Free();
 

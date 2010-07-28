@@ -10,12 +10,11 @@ namespace ShellDll
     /// This class contains every method, enumeration, struct and constants from the Windows API, which are
     /// required by the FileBrowser
     /// </summary>
-    public static class ShellAPI
+    public static class ShellApi
     {
         public const int MAX_PATH = 260;
         public const uint CMD_FIRST = 1;
         public const uint CMD_LAST = 30000;
-        public const int S_OK = 0, S_FALSE = 1;
         public const int DRAGDROP_S_DROP = 0x00040100;
         public const int DRAGDROP_S_CANCEL = 0x00040101;
         public const int DRAGDROP_S_USEDEFAULTCURSORS = 0x00040102;
@@ -23,32 +22,6 @@ namespace ShellDll
         public static int cbMenuItemInfo = Marshal.SizeOf(typeof(MENUITEMINFO));
         public static int cbTpmParams = Marshal.SizeOf(typeof(TPMPARAMS));
         public static int cbInvokeCommand = Marshal.SizeOf(typeof(CMINVOKECOMMANDINFOEX));
-
-        public static Guid IID_DesktopGUID = new Guid("{00021400-0000-0000-C000-000000000046}");
-
-        public static Guid IID_IShellFolder = new Guid("{000214E6-0000-0000-C000-000000000046}");
-        public static Guid IID_IContextMenu = new Guid("{000214e4-0000-0000-c000-000000000046}");
-        public static Guid IID_IContextMenu2 = new Guid("{000214f4-0000-0000-c000-000000000046}");
-        public static Guid IID_IContextMenu3 = new Guid("{bcfce0a0-ec17-11d0-8d10-00a0c90f2719}");
-
-        public static Guid IID_IDropTarget = new Guid("{00000122-0000-0000-C000-000000000046}");
-        public static Guid IID_IDataObject = new Guid("{0000010e-0000-0000-C000-000000000046}");
-
-        public static Guid IID_IQueryInfo = new Guid("{00021500-0000-0000-C000-000000000046}");
-        public static Guid IID_IPersistFile = new Guid("{0000010b-0000-0000-C000-000000000046}");
-
-        public static Guid CLSID_DragDropHelper = new Guid("{4657278A-411B-11d2-839A-00C04FD918D0}");
-        public static Guid CLSID_NewMenu = new Guid("{D969A300-E7FF-11d0-A93B-00A0C90F2719}");
-        public static Guid IID_IDragSourceHelper = new Guid("{DE5BF786-477A-11d2-839D-00C04FD918D0}");
-        public static Guid IID_IDropTargetHelper = new Guid("{4657278B-411B-11d2-839A-00C04FD918D0}");
-
-        public static Guid IID_IShellExtInit = new Guid("{000214e8-0000-0000-c000-000000000046}");
-        public static Guid IID_IStream = new Guid("{0000000c-0000-0000-c000-000000000046}");
-        public static Guid IID_IStorage = new Guid("{0000000B-0000-0000-C000-000000000046}");
-
-        #region DLL Import
-
-        #region Shell32
 
         // Retrieves information about an object in the file system,
         // such as a file, a folder, a directory, or a drive root.
@@ -99,18 +72,14 @@ namespace ShellDll
         [DllImport("shell32.dll", EntryPoint = "ILIsEqual", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
         public static extern bool ILIsEqual(IntPtr pidl1, IntPtr pidl2);
 
-        #endregion
 
-        #region ShlwAPI
 
         // Takes a STRRET structure returned by IShellFolder::GetDisplayNameOf,
         // converts it to a string, and places the result in a buffer. 
         [DllImport("shlwapi.dll", EntryPoint = "StrRetToBuf", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
         public static extern Int32 StrRetToBuf(IntPtr pstr, IntPtr pidl, StringBuilder pszBuf, int cchBuf);
 
-        #endregion
 
-        #region User32
 
         // Sends the specified message to a window or windows
         [DllImport("user32", EntryPoint = "SendMessage", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
@@ -176,9 +145,7 @@ namespace ShellDll
         [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern bool GetComboBoxInfo(IntPtr hwndCombo, ref COMBOBOXINFO info);
 
-        #endregion
 
-        #region Comctl
 
         // Replaces an image with an icon or cursor
         [DllImport("comctl32", EntryPoint = "ImageList_ReplaceIcon", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
@@ -192,9 +159,6 @@ namespace ShellDll
         [DllImport("comctl32", EntryPoint = "ImageList_GetIcon", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
         public static extern IntPtr ImageList_GetIcon(IntPtr himl, int index, ILD flags);
 
-        #endregion
-
-        #region Ole32
 
         // Registers the specified window as one that can be the target of an OLE drag-and-drop 
         // operation and specifies the IDropTarget instance to use for drop operations
@@ -221,10 +185,6 @@ namespace ShellDll
         // Retrieves a data object that you can use to access the contents of the clipboard
         [DllImport("ole32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int OleGetClipboard(out IntPtr ppDataObj);
-
-        #endregion
-
-        #endregion
 
 
         public static DateTime FileTimeToDateTime(FILETIME fileTime)
@@ -262,7 +222,7 @@ namespace ShellDll
         public int iIcon;
         public SFGAO dwAttributes;
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = ShellAPI.MAX_PATH)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = ShellApi.MAX_PATH)]
         public string szDisplayName;
 
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
@@ -311,7 +271,7 @@ namespace ShellDll
     {
         public MENUITEMINFO(string text)
         {
-            cbSize = ShellAPI.cbMenuItemInfo;
+            cbSize = ShellApi.cbMenuItemInfo;
             dwTypeData = text;
             cch = text.Length;
             fMask = 0;

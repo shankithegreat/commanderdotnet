@@ -39,7 +39,7 @@ namespace Commander
         {
             if (notifyId > 0)
             {
-                ShellAPI.SHChangeNotifyDeregister(notifyId);
+                ShellApi.SHChangeNotifyDeregister(notifyId);
                 GC.SuppressFinalize(this);
             }
         }
