@@ -9,7 +9,7 @@ namespace ShellDll
     public interface IEnumIDList
     {
         // Retrieves the specified number of item identifiers in the enumeration 
-        // sequence and advances the current position by the number of list retrieved
+        // sequence and advances the current position by the number of items retrieved
         [PreserveSig()]
         Int32 Next(
             int celt, 

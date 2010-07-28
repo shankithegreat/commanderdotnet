@@ -35,7 +35,7 @@ namespace ShellDll
         #region Shell32
 
         // Retrieves information about an object in the file system,
-        // such as a file, a folder, a node, or a drive node.
+        // such as a file, a folder, a directory, or a drive root.
         [DllImport("shell32", 
             EntryPoint = "SHGetFileInfo", 
             ExactSpelling = false, 
@@ -49,7 +49,7 @@ namespace ShellDll
             SHGFI uFlags);
 
         // Retrieves information about an object in the file system,
-        // such as a file, a folder, a node, or a drive node.
+        // such as a file, a folder, a directory, or a drive root.
         [DllImport("shell32", 
             EntryPoint = "SHGetFileInfo", 
             ExactSpelling = false, 
@@ -72,7 +72,7 @@ namespace ShellDll
             StringBuilder pszPath);
 
         // Retrieves the IShellFolder interface for the desktop folder,
-        // which is the node of the Shell's namespace. 
+        // which is the root of the Shell's namespace. 
         [DllImport("shell32.dll")]
         public static extern Int32 SHGetDesktopFolder(
             out IntPtr ppshf);
@@ -180,7 +180,7 @@ namespace ShellDll
             IntPtr hIcon);
 
         // Displays a shortcut menu at the specified location and 
-        // tracks the selection of list on the shortcut menu
+        // tracks the selection of items on the shortcut menu
         [DllImport("user32.dll", 
             ExactSpelling=true,
             CharSet = CharSet.Auto)]
@@ -193,7 +193,7 @@ namespace ShellDll
             IntPtr lptpm);
 
         // Creates a popup-menu. The menu is initially empty, but it can be filled with 
-        // menu list by using the InsertMenuItem, AppendMenu, and InsertMenu functions
+        // menu items by using the InsertMenuItem, AppendMenu, and InsertMenu functions
         [DllImport("user32",
             SetLastError = true, 
             CharSet = CharSet.Auto)]
@@ -219,7 +219,7 @@ namespace ShellDll
             [MarshalAs(UnmanagedType.LPTStr)]
             string lpNewItem);
 
-        // Inserts a new menu item into a menu, moving other list down the menu
+        // Inserts a new menu item into a menu, moving other items down the menu
         [DllImport("user32", 
             SetLastError = true, 
             CharSet = CharSet.Auto)]
@@ -666,7 +666,7 @@ namespace ShellDll
 
         #region Enums
 
-        // Used to retrieve node paths to system special folders
+        // Used to retrieve directory paths to system special folders
         public enum CSIDL
         {
             ADMINTOOLS = 0x30,
@@ -781,7 +781,7 @@ namespace ShellDll
             VALIDATE = 0x1000000
         }
 
-        // Determines the type of list included in an enumeration. 
+        // Determines the type of items included in an enumeration. 
         // These values are used with the IShellFolder::EnumObjects method
         [Flags]
         public enum SHCONTF

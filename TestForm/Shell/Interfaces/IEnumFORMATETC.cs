@@ -11,7 +11,7 @@ namespace ShellDll
     public interface IEnumFORMATETC
     {
         // Retrieves the specified number of FORMATETC structures in the enumeration 
-        // sequence and advances the current position by the number of list retrieved
+        // sequence and advances the current position by the number of items retrieved
         [PreserveSig]
         int GetNext(
             int celt, 

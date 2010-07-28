@@ -68,7 +68,7 @@ namespace ShellDll
             int cch);
 
         // Allows client objects of the IContextMenu interface to 
-        // handle messages associated with owner-drawn menu list
+        // handle messages associated with owner-drawn menu items
         [PreserveSig]
         Int32 HandleMenuMsg(
             uint uMsg, 
@@ -107,7 +107,7 @@ namespace ShellDll
             int cch);
 
         // Allows client objects of the IContextMenu interface to 
-        // handle messages associated with owner-drawn menu list
+        // handle messages associated with owner-drawn menu items
         [PreserveSig]
         Int32 HandleMenuMsg(
             uint uMsg, 
@@ -115,7 +115,7 @@ namespace ShellDll
             IntPtr lParam);
 
         // Allows client objects of the IContextMenu3 interface to 
-        // handle messages associated with owner-drawn menu list
+        // handle messages associated with owner-drawn menu items
         [PreserveSig]
         Int32 HandleMenuMsg2(
             uint uMsg, 
