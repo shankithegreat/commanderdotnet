@@ -166,9 +166,9 @@ namespace ShellDll
 
     #region ShellItemUpdate
 
-    internal delegate void ShellItemUpdateEventHandler(object sender, ShellItemUpdateEventArgs e);
+    public delegate void ShellItemUpdateEventHandler(object sender, ShellItemUpdateEventArgs e);
 
-    internal enum ShellItemUpdateType
+    public enum ShellItemUpdateType
     {
         Created,
         IconChange,
@@ -178,7 +178,7 @@ namespace ShellDll
         MediaChange
     }
 
-    internal class ShellItemUpdateEventArgs : EventArgs
+    public class ShellItemUpdateEventArgs : EventArgs
     {
         ShellItem oldItem, newItem;
         ShellItemUpdateType type;

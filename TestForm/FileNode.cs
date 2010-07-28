@@ -40,7 +40,7 @@ namespace TestForm
 
         public override int GetImageIndex()
         {
-            return SafeNativeMethods.GetLargeAssociatedIconIndex(this.Path);
+            return SafeNativeMethods.GetLargeAssociatedIconIndex(this.Path, this.Attributes);
         }
         
     }

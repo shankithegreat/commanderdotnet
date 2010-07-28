@@ -19,8 +19,8 @@ namespace ShellDll
         {
             ShellAPI.SHFILEINFO fileInfo = new ShellAPI.SHFILEINFO();
 
-            SmallImageList = ShellAPI.SHGetFileInfo(".txt", ShellAPI.FILE_ATTRIBUTE.NORMAL, ref fileInfo, ShellAPI.cbFileInfo, ShellAPI.SHGFI.USEFILEATTRIBUTES | ShellAPI.SHGFI.SYSICONINDEX | ShellAPI.SHGFI.SMALLICON);
-            LargeImageList = ShellAPI.SHGetFileInfo(".txt", ShellAPI.FILE_ATTRIBUTE.NORMAL, ref fileInfo, ShellAPI.cbFileInfo, ShellAPI.SHGFI.USEFILEATTRIBUTES | ShellAPI.SHGFI.SYSICONINDEX | ShellAPI.SHGFI.LARGEICON);
+            SmallImageList = ShellAPI.SHGetFileInfo(".txt", ShellAPI.FILE_ATTRIBUTE.NORMAL, ref fileInfo, ShellAPI.cbFileInfo, ShellAPI.SHGFI.USEFILEATTRIBUTES | ShellAPI.SHGFI.SYSICONINDEX | ShellAPI.SHGFI.SMALLICON | ShellAPI.SHGFI.ADDOVERLAYS | ShellAPI.SHGFI.LINKOVERLAY);
+            LargeImageList = ShellAPI.SHGetFileInfo(".txt", ShellAPI.FILE_ATTRIBUTE.NORMAL, ref fileInfo, ShellAPI.cbFileInfo, ShellAPI.SHGFI.USEFILEATTRIBUTES | ShellAPI.SHGFI.SYSICONINDEX | ShellAPI.SHGFI.LARGEICON | ShellAPI.SHGFI.ADDOVERLAYS | ShellAPI.SHGFI.LINKOVERLAY);
         }
 
 

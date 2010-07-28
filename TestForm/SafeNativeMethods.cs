@@ -84,7 +84,7 @@ namespace TestForm
         {
             ShFileInfo fileInfo = new ShFileInfo();
 
-            SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), FileInfoType.SmallIcon | FileInfoType.SysIconIndex);
+            SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), FileInfoType.SmallIcon | FileInfoType.SysIconIndex | FileInfoType.LinkOverlay);
             DestroyIcon(fileInfo.IconHandle);
 
             return fileInfo.IconIndex;
@@ -94,7 +94,7 @@ namespace TestForm
         {
             ShFileInfo fileInfo = new ShFileInfo();
 
-            SHGetFileInfo(path, attributes, ref fileInfo, Marshal.SizeOf(fileInfo), FileInfoType.SmallIcon | FileInfoType.SysIconIndex | FileInfoType.UseFileAttributes);
+            SHGetFileInfo(path, attributes, ref fileInfo, Marshal.SizeOf(fileInfo), FileInfoType.SmallIcon | FileInfoType.SysIconIndex | FileInfoType.UseFileAttributes | FileInfoType.LinkOverlay);
             DestroyIcon(fileInfo.IconHandle);
 
             return fileInfo.IconIndex;
@@ -104,7 +104,7 @@ namespace TestForm
         {
             ShFileInfo fileInfo = new ShFileInfo();
 
-            SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), FileInfoType.LargeIcon | FileInfoType.SysIconIndex);
+            SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), FileInfoType.LargeIcon | FileInfoType.SysIconIndex | FileInfoType.LinkOverlay | FileInfoType.OverlayIndex);
             DestroyIcon(fileInfo.IconHandle);
 
             return fileInfo.IconIndex;
@@ -114,7 +114,7 @@ namespace TestForm
         {
             ShFileInfo fileInfo = new ShFileInfo();
 
-            SHGetFileInfo(path, attributes, ref fileInfo, Marshal.SizeOf(fileInfo), FileInfoType.LargeIcon | FileInfoType.SysIconIndex | FileInfoType.UseFileAttributes);
+            SHGetFileInfo(path, attributes, ref fileInfo, Marshal.SizeOf(fileInfo), FileInfoType.LargeIcon | FileInfoType.SysIconIndex | FileInfoType.LinkOverlay | FileInfoType.UseFileAttributes);
             DestroyIcon(fileInfo.IconHandle);
 
             return fileInfo.IconIndex;
