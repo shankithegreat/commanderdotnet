@@ -10,91 +10,45 @@ namespace ShellDll
 {
     public class ShellBrowser : Component
     {
-        #region Fields
-
-        private ShellItem desktopItem;
-        private string mydocsName, mycompName, sysfolderName, mydocsPath;
-
         private ShellBrowserUpdater updater;
 
-        private ArrayList browsers;
-        private ShellItemUpdateCondition updateCondition;
-
-        internal event ShellItemUpdateEventHandler ShellItemUpdate;
-
-        #endregion
 
         public ShellBrowser()
         {
-            InitVars();
-            browsers = new ArrayList();
-            updateCondition = new ShellItemUpdateCondition();
+            Initialize();
+
+            Browsers = new ArrayList();
+            UpdateCondition = new ShellItemUpdateCondition();
             updater = new ShellBrowserUpdater(this);
         }
 
-        private void InitVars()
-        {
-            IntPtr tempPidl;
-            ShellAPI.SHFILEINFO info;
 
-            //My Computer
-            info = new ShellAPI.SHFILEINFO();
-            tempPidl = IntPtr.Zero;
-            ShellAPI.SHGetSpecialFolderLocation(IntPtr.Zero, ShellAPI.CSIDL.DRIVES, out tempPidl);
+        public ShellItem DesktopItem { get; private set; }
 
-            ShellAPI.SHGetFileInfo(tempPidl, 0, ref info, ShellAPI.cbFileInfo,
-                ShellAPI.SHGFI.PIDL | ShellAPI.SHGFI.DISPLAYNAME | ShellAPI.SHGFI.TYPENAME);
+        public string MyDocumentsName { get; private set; }
 
-            sysfolderName = info.szTypeName;
-            mycompName = info.szDisplayName;
-            Marshal.FreeCoTaskMem(tempPidl);
-            //
+        public string MyComputerName { get; private set; }
 
-            //Dekstop
-            tempPidl = IntPtr.Zero;
-            ShellAPI.SHGetSpecialFolderLocation(IntPtr.Zero, ShellAPI.CSIDL.DESKTOP, out tempPidl);
-            IntPtr desktopFolderPtr;
-            ShellAPI.SHGetDesktopFolder(out desktopFolderPtr);
-            desktopItem = new ShellItem(this, tempPidl, desktopFolderPtr);
-            //
+        public string SystemFolderName { get; private set; }
+
+        public string MyDocumentsPath { get; private set; }
+
+        public ShellItemUpdateCondition UpdateCondition { get; private set; }
+
+        public ArrayList Browsers { get; private set; }
 
 
-            //My Documents
-            uint pchEaten = 0;
-            ShellAPI.SFGAO pdwAttributes = 0;
-            desktopItem.ShellFolder.ParseDisplayName(
-                IntPtr.Zero,
-                IntPtr.Zero,
-                SpecialFolderPath.MyDocuments,
-                ref pchEaten,
-                out tempPidl,
-                ref pdwAttributes);
+        public event ShellItemUpdateEventHandler ShellItemUpdate;
 
-            info = new ShellAPI.SHFILEINFO();
-            ShellAPI.SHGetFileInfo(tempPidl, 0, ref info, ShellAPI.cbFileInfo,
-                ShellAPI.SHGFI.PIDL | ShellAPI.SHGFI.DISPLAYNAME);
-
-            mydocsName = info.szDisplayName;
-            Marshal.FreeCoTaskMem(tempPidl);
-
-            StringBuilder path = new StringBuilder(ShellAPI.MAX_PATH);
-            ShellAPI.SHGetFolderPath(
-                    IntPtr.Zero, ShellAPI.CSIDL.PERSONAL,
-                    IntPtr.Zero, ShellAPI.SHGFP.TYPE_CURRENT, path);
-            mydocsPath = path.ToString();
-            //
-        }
-
-        #region ShellBrowser Update
 
         public static IntPtr GetDesctopPidl()
         {
             IntPtr tempPidl = IntPtr.Zero;
-            ShellAPI.SHGetSpecialFolderLocation(IntPtr.Zero, ShellAPI.CSIDL.DESKTOP, out tempPidl);
+            ShellAPI.SHGetSpecialFolderLocation(IntPtr.Zero, CSIDL.DESKTOP, out tempPidl);
             return tempPidl;
         }
 
-        internal void OnShellItemUpdate(object sender, ShellItemUpdateEventArgs e)
+        public void OnShellItemUpdate(object sender, ShellItemUpdateEventArgs e)
         {
             if (ShellItemUpdate != null)
             {
@@ -102,15 +56,13 @@ namespace ShellDll
             }
         }
 
-        #endregion
-
-        #region Utility Methods
-
-        internal ShellItem GetShellItem(PIDL pidlFull)
+        public ShellItem GetShellItem(PIDL pidlFull)
         {
             ShellItem current = DesktopItem;
             if (pidlFull.Ptr == IntPtr.Zero)
+            {
                 return current;
+            }
 
             foreach (IntPtr pidlRel in pidlFull)
             {
@@ -129,7 +81,7 @@ namespace ShellDll
             return current;
         }
 
-        internal ShellItem[] GetPath(ShellItem item)
+        public ShellItem[] GetPath(ShellItem item)
         {
             ArrayList pathList = new ArrayList();
 
@@ -145,28 +97,70 @@ namespace ShellDll
             return (ShellItem[])pathList.ToArray(typeof(ShellItem));
         }
 
-        #endregion
 
-        #region Properties
+        private void Initialize()
+        {
+            IntPtr tempPidl;
+            SHFILEINFO info;
 
-        internal ShellItem DesktopItem { get { return desktopItem; } }
+            //My Computer
+            info = new SHFILEINFO();
+            tempPidl = IntPtr.Zero;
+            ShellAPI.SHGetSpecialFolderLocation(IntPtr.Zero, CSIDL.DRIVES, out tempPidl);
 
-        internal string MyDocumentsName { get { return mydocsName; } }
-        internal string MyComputerName { get { return mycompName; } }
-        internal string SystemFolderName { get { return sysfolderName; } }
+            ShellAPI.SHGetFileInfo(tempPidl, 0, ref info, ShellAPI.cbFileInfo, SHGFI.PIDL | SHGFI.DISPLAYNAME | SHGFI.TYPENAME);
 
-        internal string MyDocumentsPath { get { return mydocsPath; } }
+            SystemFolderName = info.szTypeName;
+            MyComputerName = info.szDisplayName;
+            Marshal.FreeCoTaskMem(tempPidl);
+            //
 
-        internal ShellItemUpdateCondition UpdateCondition { get { return updateCondition; } }
+            //Dekstop
+            tempPidl = IntPtr.Zero;
+            ShellAPI.SHGetSpecialFolderLocation(IntPtr.Zero, CSIDL.DESKTOP, out tempPidl);
+            IntPtr desktopFolderPtr;
+            ShellAPI.SHGetDesktopFolder(out desktopFolderPtr);
+            DesktopItem = new ShellItem(this, tempPidl, desktopFolderPtr);
+            //
 
-        internal ArrayList Browsers { get { return browsers; } }
 
-        #endregion
+            //My Documents
+            uint pchEaten = 0;
+            SFGAO pdwAttributes = 0;
+            DesktopItem.ShellFolder.ParseDisplayName(IntPtr.Zero, IntPtr.Zero, SpecialFolderPath.MyDocuments, ref pchEaten, out tempPidl, ref pdwAttributes);
+
+            info = new SHFILEINFO();
+            ShellAPI.SHGetFileInfo(tempPidl, 0, ref info, ShellAPI.cbFileInfo, SHGFI.PIDL | SHGFI.DISPLAYNAME);
+
+            MyDocumentsName = info.szDisplayName;
+            Marshal.FreeCoTaskMem(tempPidl);
+
+            StringBuilder path = new StringBuilder(ShellAPI.MAX_PATH);
+            ShellAPI.SHGetFolderPath(IntPtr.Zero, CSIDL.PERSONAL, IntPtr.Zero, SHGFP.TYPE_CURRENT, path);
+            MyDocumentsPath = path.ToString();
+            //
+        }
     }
 
-    #region ShellItemUpdate
 
     public delegate void ShellItemUpdateEventHandler(object sender, ShellItemUpdateEventArgs e);
+
+    public class ShellItemUpdateEventArgs : EventArgs
+    {
+        public ShellItemUpdateEventArgs(ShellItem oldItem, ShellItem newItem, ShellItemUpdateType type)
+        {
+            this.OldItem = oldItem;
+            this.NewItem = newItem;
+            this.UpdateType = type;
+        }
+
+
+        public ShellItem OldItem { get; private set; }
+
+        public ShellItem NewItem { get; private set; }
+
+        public ShellItemUpdateType UpdateType { get; private set; }
+    }
 
     public enum ShellItemUpdateType
     {
@@ -177,26 +171,4 @@ namespace ShellDll
         Deleted,
         MediaChange
     }
-
-    public class ShellItemUpdateEventArgs : EventArgs
-    {
-        ShellItem oldItem, newItem;
-        ShellItemUpdateType type;
-
-        public ShellItemUpdateEventArgs(
-            ShellItem oldItem,
-            ShellItem newItem,
-            ShellItemUpdateType type)
-        {
-            this.oldItem = oldItem;
-            this.newItem = newItem;
-            this.type = type;
-        }
-
-        public ShellItem OldItem { get { return oldItem; } }
-        public ShellItem NewItem { get { return newItem; } }
-        public ShellItemUpdateType UpdateType { get { return type; } }
-    }
-
-    #endregion
 }

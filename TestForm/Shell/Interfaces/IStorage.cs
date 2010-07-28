@@ -11,104 +11,48 @@ namespace ShellDll
     public interface IStorage
     {
         [PreserveSig]
-        Int32 CreateStream(
-            [MarshalAs(UnmanagedType.LPWStr)]
-            string pwcsName,
-            ShellAPI.STGM grfMode,
-            int reserved1,
-            int reserved2,
-            out IntPtr ppstm);
+        Int32 CreateStream([MarshalAs(UnmanagedType.LPWStr)] string pwcsName, STGM grfMode, int reserved1, int reserved2, out IntPtr ppstm);
 
         [PreserveSig]
-        Int32 OpenStream(
-            [MarshalAs(UnmanagedType.LPWStr)]
-            string pwcsName,
-            IntPtr reserved1,
-            ShellAPI.STGM grfMode,
-            int reserved2,
-            out IntPtr ppstm);
+        Int32 OpenStream([MarshalAs(UnmanagedType.LPWStr)] string pwcsName, IntPtr reserved1, STGM grfMode, int reserved2, out IntPtr ppstm);
 
         [PreserveSig]
-        Int32 CreateStorage(
-            [MarshalAs(UnmanagedType.LPWStr)]
-            string pwcsName,
-            ShellAPI.STGM grfMode,
-            int reserved1,
-            int reserved2,
-            out IntPtr ppstg);
+        Int32 CreateStorage([MarshalAs(UnmanagedType.LPWStr)] string pwcsName, STGM grfMode, int reserved1, int reserved2, out IntPtr ppstg);
 
         [PreserveSig]
-        Int32 OpenStorage(
-            [MarshalAs(UnmanagedType.LPWStr)]
-            string pwcsName,
-            IStorage pstgPriority,
-            ShellAPI.STGM grfMode,
-            IntPtr snbExclude,
-            int reserved,
-            out IntPtr ppstg);
+        Int32 OpenStorage([MarshalAs(UnmanagedType.LPWStr)] string pwcsName, IStorage pstgPriority, STGM grfMode, IntPtr snbExclude, int reserved, out IntPtr ppstg);
 
         [PreserveSig]
-        Int32 CopyTo(
-            int ciidExclude,
-            ref Guid rgiidExclude,
-            IntPtr snbExclude,
-            IStorage pstgDest);
+        Int32 CopyTo(int ciidExclude, ref Guid rgiidExclude, IntPtr snbExclude, IStorage pstgDest);
 
         [PreserveSig]
-        Int32 MoveElementTo(
-            [MarshalAs(UnmanagedType.LPWStr)]
-            string pwcsName,
-            IStorage pstgDest,
-            [MarshalAs(UnmanagedType.LPWStr)]
-            string pwcsNewName,
-            ShellAPI.STGMOVE grfFlags);
+        Int32 MoveElementTo([MarshalAs(UnmanagedType.LPWStr)] string pwcsName, IStorage pstgDest, [MarshalAs(UnmanagedType.LPWStr)] string pwcsNewName, STGMOVE grfFlags);
 
         [PreserveSig]
-        Int32 Commit(
-            ShellAPI.STGC grfCommitFlags);
+        Int32 Commit(STGC grfCommitFlags);
 
         [PreserveSig]
         Int32 Revert();
 
         [PreserveSig]
-        Int32 EnumElements(
-            int reserved1,
-            IntPtr reserved2,
-            int reserved3,
-            out IntPtr ppenum);
+        Int32 EnumElements(int reserved1, IntPtr reserved2, int reserved3, out IntPtr ppenum);
 
         [PreserveSig]
-        Int32 DestroyElement(
-            [MarshalAs(UnmanagedType.LPWStr)]
-            string pwcsName);
+        Int32 DestroyElement([MarshalAs(UnmanagedType.LPWStr)] string pwcsName);
 
         [PreserveSig]
-        Int32 RenameElement(
-            [MarshalAs(UnmanagedType.LPWStr)]
-            string pwcsOldName,
-            [MarshalAs(UnmanagedType.LPWStr)]
-            string pwcsNewName);
+        Int32 RenameElement([MarshalAs(UnmanagedType.LPWStr)] string pwcsOldName, [MarshalAs(UnmanagedType.LPWStr)] string pwcsNewName);
 
         [PreserveSig]
-        Int32 SetElementTimes(
-            [MarshalAs(UnmanagedType.LPWStr)]
-            string pwcsName,
-            ShellAPI.FILETIME pctime,
-            ShellAPI.FILETIME patime,
-            ShellAPI.FILETIME pmtime);
+        Int32 SetElementTimes([MarshalAs(UnmanagedType.LPWStr)] string pwcsName, FILETIME pctime, FILETIME patime, FILETIME pmtime);
 
         [PreserveSig]
-        Int32 SetClass(
-            ref Guid clsid);
+        Int32 SetClass(ref Guid clsid);
 
         [PreserveSig]
-        Int32 SetStateBits(
-            int grfStateBits,
-            int grfMask);
+        Int32 SetStateBits(int grfStateBits, int grfMask);
 
         [PreserveSig]
-        Int32 Stat(
-            out ShellAPI.STATSTG pstatstg,
-            ShellAPI.STATFLAG grfStatFlag);
+        Int32 Stat(out STATSTG pstatstg, STATFLAG grfStatFlag);
     }
 }

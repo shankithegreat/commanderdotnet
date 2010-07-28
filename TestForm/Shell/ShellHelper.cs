@@ -17,10 +17,14 @@ namespace ShellDll
         /// <returns>The unsigned integer for the High Word</returns>
         public static uint HiWord(IntPtr ptr)
         {
-            if (((uint)ptr & 0x80000000) == 0x80000000)
-                return ((uint)ptr >> 16);
+            if (((uint) ptr & 0x80000000) == 0x80000000)
+            {
+                return ((uint) ptr >> 16);
+            }
             else
-                return ((uint)ptr >> 16) & 0xffff;
+            {
+                return ((uint) ptr >> 16) & 0xffff;
+            }
         }
 
         /// <summary>
@@ -30,7 +34,7 @@ namespace ShellDll
         /// <returns>The unsigned integer for the Low Word</returns>
         public static uint LoWord(IntPtr ptr)
         {
-            return (uint)ptr & 0xffff;
+            return (uint) ptr & 0xffff;
         }
 
         #endregion
@@ -39,13 +43,9 @@ namespace ShellDll
 
         public static bool GetIStream(ShellItem item, out IntPtr streamPtr, out IStream stream)
         {
-            if (item.ParentItem.ShellFolder.BindToStorage(
-                        item.PIDLRel.Ptr,
-                        IntPtr.Zero,
-                        ref ShellAPI.IID_IStream,
-                        out streamPtr) == ShellAPI.S_OK)
+            if (item.ParentItem.ShellFolder.BindToStorage(item.PIDLRel.Ptr, IntPtr.Zero, ref ShellAPI.IID_IStream, out streamPtr) == ShellAPI.S_OK)
             {
-                stream = (IStream)Marshal.GetTypedObjectForIUnknown(streamPtr, typeof(IStream));
+                stream = (IStream) Marshal.GetTypedObjectForIUnknown(streamPtr, typeof (IStream));
                 return true;
             }
             else
@@ -58,13 +58,9 @@ namespace ShellDll
 
         public static bool GetIStorage(ShellItem item, out IntPtr storagePtr, out IStorage storage)
         {
-            if (item.ParentItem.ShellFolder.BindToStorage(
-                        item.PIDLRel.Ptr,
-                        IntPtr.Zero,
-                        ref ShellAPI.IID_IStorage,
-                        out storagePtr) == ShellAPI.S_OK)
+            if (item.ParentItem.ShellFolder.BindToStorage(item.PIDLRel.Ptr, IntPtr.Zero, ref ShellAPI.IID_IStorage, out storagePtr) == ShellAPI.S_OK)
             {
-                storage = (IStorage)Marshal.GetTypedObjectForIUnknown(storagePtr, typeof(IStorage));
+                storage = (IStorage) Marshal.GetTypedObjectForIUnknown(storagePtr, typeof (IStorage));
                 return true;
             }
             else
@@ -92,16 +88,12 @@ namespace ShellDll
 
             IntPtr[] pidls = new IntPtr[items.Length];
             for (int i = 0; i < items.Length; i++)
+            {
                 pidls[i] = items[i].PIDLRel.Ptr;
+            }
 
             IntPtr dataObjectPtr;
-            if (parent.ShellFolder.GetUIObjectOf(
-                    IntPtr.Zero,
-                    (uint)pidls.Length,
-                    pidls,
-                    ref ShellAPI.IID_IDataObject,
-                    IntPtr.Zero,
-                    out dataObjectPtr) == ShellAPI.S_OK)
+            if (parent.ShellFolder.GetUIObjectOf(IntPtr.Zero, (uint) pidls.Length, pidls, ref ShellAPI.IID_IDataObject, IntPtr.Zero, out dataObjectPtr) == ShellAPI.S_OK)
             {
                 return dataObjectPtr;
             }
@@ -119,13 +111,7 @@ namespace ShellDll
         public static IntPtr GetIDataObject(IntPtr[] pidls, IShellFolder parent)
         {
             IntPtr dataObjectPtr;
-            if (parent.GetUIObjectOf(
-                    IntPtr.Zero,
-                    (uint)pidls.Length,
-                    pidls,
-                    ref ShellAPI.IID_IDataObject,
-                    IntPtr.Zero,
-                    out dataObjectPtr) == ShellAPI.S_OK)
+            if (parent.GetUIObjectOf(IntPtr.Zero, (uint) pidls.Length, pidls, ref ShellAPI.IID_IDataObject, IntPtr.Zero, out dataObjectPtr) == ShellAPI.S_OK)
             {
                 return dataObjectPtr;
             }
@@ -146,16 +132,9 @@ namespace ShellDll
         {
             ShellItem parent = item.ParentItem != null ? item.ParentItem : item;
 
-            if (parent.ShellFolder.GetUIObjectOf(
-                    IntPtr.Zero,
-                    1,
-                    new IntPtr[] { item.PIDLRel.Ptr },
-                    ref ShellAPI.IID_IDropTarget,
-                    IntPtr.Zero,
-                    out dropTargetPtr) == ShellAPI.S_OK)
+            if (parent.ShellFolder.GetUIObjectOf(IntPtr.Zero, 1, new IntPtr[] {item.PIDLRel.Ptr}, ref ShellAPI.IID_IDropTarget, IntPtr.Zero, out dropTargetPtr) == ShellAPI.S_OK)
             {
-                dropTarget =
-                    (ShellDll.IDropTarget)Marshal.GetTypedObjectForIUnknown(dropTargetPtr, typeof(ShellDll.IDropTarget));
+                dropTarget = (ShellDll.IDropTarget) Marshal.GetTypedObjectForIUnknown(dropTargetPtr, typeof (ShellDll.IDropTarget));
 
                 return true;
             }
@@ -176,16 +155,9 @@ namespace ShellDll
         /// <returns>the IDropTarget from the ShellItem</returns>
         public static bool GetIDropTarget(IntPtr[] pidls, IShellFolder parent, out IntPtr dropTargetPtr, out ShellDll.IDropTarget dropTarget)
         {
-            if (parent.GetUIObjectOf(
-                    IntPtr.Zero,
-                    1,
-                    pidls,
-                    ref ShellAPI.IID_IDropTarget,
-                    IntPtr.Zero,
-                    out dropTargetPtr) == ShellAPI.S_OK)
+            if (parent.GetUIObjectOf(IntPtr.Zero, 1, pidls, ref ShellAPI.IID_IDropTarget, IntPtr.Zero, out dropTargetPtr) == ShellAPI.S_OK)
             {
-                dropTarget =
-                    (ShellDll.IDropTarget)Marshal.GetTypedObjectForIUnknown(dropTargetPtr, typeof(ShellDll.IDropTarget));
+                dropTarget = (ShellDll.IDropTarget) Marshal.GetTypedObjectForIUnknown(dropTargetPtr, typeof (ShellDll.IDropTarget));
 
                 return true;
             }
@@ -199,15 +171,9 @@ namespace ShellDll
 
         public static bool GetIDropTargetHelper(out IntPtr helperPtr, out IDropTargetHelper dropHelper)
         {
-            if (ShellAPI.CoCreateInstance(
-                    ref ShellAPI.CLSID_DragDropHelper,
-                    IntPtr.Zero,
-                    ShellAPI.CLSCTX.INPROC_SERVER,
-                    ref ShellAPI.IID_IDropTargetHelper,
-                    out helperPtr) == ShellAPI.S_OK)
+            if (ShellAPI.CoCreateInstance(ref ShellAPI.CLSID_DragDropHelper, IntPtr.Zero, CLSCTX.INPROC_SERVER, ref ShellAPI.IID_IDropTargetHelper, out helperPtr) == ShellAPI.S_OK)
             {
-                dropHelper =
-                    (IDropTargetHelper)Marshal.GetTypedObjectForIUnknown(helperPtr, typeof(IDropTargetHelper));
+                dropHelper = (IDropTargetHelper) Marshal.GetTypedObjectForIUnknown(helperPtr, typeof (IDropTargetHelper));
 
                 return true;
             }
@@ -231,48 +197,48 @@ namespace ShellDll
             if (GetIDropTarget(item, out targetPtr, out target))
             {
                 #region Check Copy
+
                 DragDropEffects effects = DragDropEffects.Copy;
-                if (target.DragEnter(
-                    dataObject,
-                    ShellAPI.MK.CONTROL,
-                    new ShellAPI.POINT(0, 0),
-                    ref effects) == ShellAPI.S_OK)
+                if (target.DragEnter(dataObject, MK.CONTROL, new POINT(0, 0), ref effects) == ShellAPI.S_OK)
                 {
                     if (effects == DragDropEffects.Copy)
+                    {
                         retVal |= DragDropEffects.Copy;
+                    }
 
                     target.DragLeave();
                 }
+
                 #endregion
 
                 #region Check Move
+
                 effects = DragDropEffects.Move;
-                if (target.DragEnter(
-                    dataObject,
-                    ShellAPI.MK.SHIFT,
-                    new ShellAPI.POINT(0, 0),
-                    ref effects) == ShellAPI.S_OK)
+                if (target.DragEnter(dataObject, MK.SHIFT, new POINT(0, 0), ref effects) == ShellAPI.S_OK)
                 {
                     if (effects == DragDropEffects.Move)
+                    {
                         retVal |= DragDropEffects.Move;
+                    }
 
                     target.DragLeave();
                 }
+
                 #endregion
 
                 #region Check Lick
+
                 effects = DragDropEffects.Link;
-                if (target.DragEnter(
-                    dataObject,
-                    ShellAPI.MK.ALT,
-                    new ShellAPI.POINT(0, 0),
-                    ref effects) == ShellAPI.S_OK)
+                if (target.DragEnter(dataObject, MK.ALT, new POINT(0, 0), ref effects) == ShellAPI.S_OK)
                 {
                     if (effects == DragDropEffects.Link)
+                    {
                         retVal |= DragDropEffects.Link;
+                    }
 
                     target.DragLeave();
                 }
+
                 #endregion
 
                 Marshal.ReleaseComObject(target);
@@ -290,16 +256,9 @@ namespace ShellDll
         {
             ShellItem parent = item.ParentItem != null ? item.ParentItem : item;
 
-            if (parent.ShellFolder.GetUIObjectOf(
-                    IntPtr.Zero,
-                    1,
-                    new IntPtr[] { item.PIDLRel.Ptr },
-                    ref ShellAPI.IID_IQueryInfo,
-                    IntPtr.Zero,
-                    out iQueryInfoPtr) == ShellAPI.S_OK)
+            if (parent.ShellFolder.GetUIObjectOf(IntPtr.Zero, 1, new IntPtr[] {item.PIDLRel.Ptr}, ref ShellAPI.IID_IQueryInfo, IntPtr.Zero, out iQueryInfoPtr) == ShellAPI.S_OK)
             {
-                iQueryInfo =
-                    (IQueryInfo)Marshal.GetTypedObjectForIUnknown(iQueryInfoPtr, typeof(IQueryInfo));
+                iQueryInfo = (IQueryInfo) Marshal.GetTypedObjectForIUnknown(iQueryInfoPtr, typeof (IQueryInfo));
 
                 return true;
             }

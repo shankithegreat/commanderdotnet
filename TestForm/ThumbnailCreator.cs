@@ -135,7 +135,7 @@ namespace TestForm
                         IEnumIDList idEnum = null;
                         try
                         {
-                            item.EnumObjects(IntPtr.Zero, (ShellAPI.SHCONTF.FOLDERS | ShellAPI.SHCONTF.NONFOLDERS), ref idEnum);
+                            item.EnumObjects(IntPtr.Zero, (SHCONTF.FOLDERS | SHCONTF.NONFOLDERS), ref idEnum);
                         }
                         catch
                         {
@@ -208,7 +208,7 @@ namespace TestForm
                     if (extractImage != null)
                     {
                         //Got an IExtractImage object!
-                        ShellAPI.SIZE size = new ShellAPI.SIZE { cx = this.DesiredSize.Width, cy = this.DesiredSize.Height };
+                        SIZE size = new SIZE { cx = this.DesiredSize.Width, cy = this.DesiredSize.Height };
                         StringBuilder location = new StringBuilder(260, 260);
                         int priority = 0;
                         const int requestedColourDepth = 32;
@@ -289,7 +289,7 @@ namespace TestForm
         //helpstring("IExtractImage"),
         private interface IExtractImage
         {
-            void GetLocation([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszPathBuffer, int cch, ref int pdwPriority, ref ShellAPI.SIZE prgSize, int dwRecClrDepth, ref int pdwFlags);
+            void GetLocation([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszPathBuffer, int cch, ref int pdwPriority, ref SIZE prgSize, int dwRecClrDepth, ref int pdwFlags);
 
             void Extract(out IntPtr phBmpThumbnail);
         }
@@ -326,7 +326,7 @@ namespace TestForm
         {
             void ParseDisplayName(IntPtr hwndOwner, IntPtr pbcReserved, [MarshalAs(UnmanagedType.LPWStr)] string lpszDisplayName, out int pchEaten, out IntPtr ppidl, out int pdwAttributes);
 
-            void EnumObjects(IntPtr hwndOwner, [MarshalAs(UnmanagedType.U4)] ShellAPI.SHCONTF grfFlags, ref IEnumIDList ppenumIDList);
+            void EnumObjects(IntPtr hwndOwner, [MarshalAs(UnmanagedType.U4)] SHCONTF grfFlags, ref IEnumIDList ppenumIDList);
 
             void BindToObject(IntPtr pidl, IntPtr pbcReserved, ref Guid riid, ref IShellFolder ppvOut);
 
@@ -337,13 +337,13 @@ namespace TestForm
 
             void CreateViewObject(IntPtr hwndOwner, ref Guid riid, IntPtr ppvOut);
 
-            void GetAttributesOf(int cidl, IntPtr apidl, [MarshalAs(UnmanagedType.U4)] ref ShellAPI.SFGAO rgfInOut);
+            void GetAttributesOf(int cidl, IntPtr apidl, [MarshalAs(UnmanagedType.U4)] ref SFGAO rgfInOut);
 
             void GetUIObjectOf(IntPtr hwndOwner, int cidl, ref IntPtr apidl, ref Guid riid, out int prgfInOut, ref IUnknown ppvOut);
 
-            void GetDisplayNameOf(IntPtr pidl, [MarshalAs(UnmanagedType.U4)] ShellAPI.SHGNO uFlags, ref STRRET_CSTR lpName);
+            void GetDisplayNameOf(IntPtr pidl, [MarshalAs(UnmanagedType.U4)] SHGNO uFlags, ref STRRET_CSTR lpName);
 
-            void SetNameOf(IntPtr hwndOwner, IntPtr pidl, [MarshalAs(UnmanagedType.LPWStr)] string lpszName, [MarshalAs(UnmanagedType.U4)] ShellAPI.SHCONTF uFlags, ref IntPtr ppidlOut);
+            void SetNameOf(IntPtr hwndOwner, IntPtr pidl, [MarshalAs(UnmanagedType.LPWStr)] string lpszName, [MarshalAs(UnmanagedType.U4)] SHCONTF uFlags, ref IntPtr ppidlOut);
         } ;
 
         [ComImport]

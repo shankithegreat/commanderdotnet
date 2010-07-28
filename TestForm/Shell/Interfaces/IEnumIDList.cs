@@ -11,15 +11,11 @@ namespace ShellDll
         // Retrieves the specified number of item identifiers in the enumeration 
         // sequence and advances the current position by the number of items retrieved
         [PreserveSig()]
-        Int32 Next(
-            int celt, 
-            out IntPtr rgelt, 
-            out int pceltFetched);
+        Int32 Next(int celt, out IntPtr rgelt, out int pceltFetched);
 
         // Skips over the specified number of elements in the enumeration sequence
         [PreserveSig()]
-        Int32 Skip(
-            int celt);
+        Int32 Skip(int celt);
 
         // Returns to the beginning of the enumeration sequence
         [PreserveSig()]
@@ -27,7 +23,6 @@ namespace ShellDll
 
         // Creates a new item enumeration object with the same contents and state as the current one
         [PreserveSig()]
-        Int32 Clone(
-            out IEnumIDList ppenum);
+        Int32 Clone(out IEnumIDList ppenum);
     }
 }

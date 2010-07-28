@@ -13,13 +13,10 @@ namespace ShellDll
     {
         // Determines whether a drag-and-drop operation should continue
         [PreserveSig]
-        Int32 QueryContinueDrag(
-            bool fEscapePressed,
-            ShellAPI.MK grfKeyState);
+        Int32 QueryContinueDrag(bool fEscapePressed, MK grfKeyState);
 
         // Gives visual feedback to an end user during a drag-and-drop operation
         [PreserveSig]
-        Int32 GiveFeedback(
-            DragDropEffects dwEffect);
+        Int32 GiveFeedback(DragDropEffects dwEffect);
     }
 }

@@ -11,9 +11,6 @@ namespace ShellDll
     public interface IShellExtInit
     {
         [PreserveSig()]
-        int Initialize(
-            IntPtr pidlFolder, 
-            IntPtr lpdobj, 
-            uint hKeyProgID);
+        int Initialize(IntPtr pidlFolder, IntPtr lpdobj, uint hKeyProgID);
     }
 }

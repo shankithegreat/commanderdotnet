@@ -55,9 +55,9 @@ namespace TestForm
                         0,
                         ShellAPI.CMD_FIRST,
                         ShellAPI.CMD_LAST,
-                        ShellAPI.CMF.EXPLORE |
-                        ShellAPI.CMF.CANRENAME |
-                        ((Control.ModifierKeys & Keys.Shift) != 0 ? ShellAPI.CMF.EXTENDEDVERBS : 0));
+                        CMF.EXPLORE |
+                        CMF.CANRENAME |
+                        ((Control.ModifierKeys & Keys.Shift) != 0 ? CMF.EXTENDEDVERBS : 0));
 
                     Marshal.QueryInterface(iContextMenuPtr, ref ShellAPI.IID_IContextMenu2, out iContextMenuPtr2);
                     Marshal.QueryInterface(iContextMenuPtr, ref ShellAPI.IID_IContextMenu3, out iContextMenuPtr3);
@@ -74,7 +74,7 @@ namespace TestForm
 
                     uint selected = ShellAPI.TrackPopupMenuEx(
                                         contextMenu,
-                                        ShellAPI.TPM.RETURNCMD,
+                                        TPM.RETURNCMD,
                                         location.X,
                                         location.Y,
                                         this.Handle,
@@ -231,9 +231,9 @@ namespace TestForm
         protected override void WndProc(ref Message m)
         {
             if (iContextMenu2 != null &&
-                (m.Msg == (int)ShellAPI.WM.INITMENUPOPUP ||
-                 m.Msg == (int)ShellAPI.WM.MEASUREITEM ||
-                 m.Msg == (int)ShellAPI.WM.DRAWITEM))
+                (m.Msg == (int)WM.INITMENUPOPUP ||
+                 m.Msg == (int)WM.MEASUREITEM ||
+                 m.Msg == (int)WM.DRAWITEM))
             {
                 if (iContextMenu2.HandleMenuMsg((uint)m.Msg, m.WParam, m.LParam) == ShellAPI.S_OK)
                 {
@@ -242,9 +242,9 @@ namespace TestForm
             }
 
             if (newContextMenu2 != null &&
-                ((m.Msg == (int)ShellAPI.WM.INITMENUPOPUP && m.WParam == newSubmenuPtr) ||
-                 m.Msg == (int)ShellAPI.WM.MEASUREITEM ||
-                 m.Msg == (int)ShellAPI.WM.DRAWITEM))
+                ((m.Msg == (int)WM.INITMENUPOPUP && m.WParam == newSubmenuPtr) ||
+                 m.Msg == (int)WM.MEASUREITEM ||
+                 m.Msg == (int)WM.DRAWITEM))
             {
                 if (newContextMenu2.HandleMenuMsg((uint)m.Msg, m.WParam, m.LParam) == ShellAPI.S_OK)
                 {
@@ -252,7 +252,7 @@ namespace TestForm
                 }
             }
 
-            if (iContextMenu3 != null && m.Msg == (int)ShellAPI.WM.MENUCHAR)
+            if (iContextMenu3 != null && m.Msg == (int)WM.MENUCHAR)
             {
                 if (iContextMenu3.HandleMenuMsg2((uint)m.Msg, m.WParam, m.LParam, IntPtr.Zero) == ShellAPI.S_OK)
                 {
@@ -260,7 +260,7 @@ namespace TestForm
                 }
             }
 
-            if (newContextMenu3 != null && m.Msg == (int)ShellAPI.WM.MENUCHAR)
+            if (newContextMenu3 != null && m.Msg == (int)WM.MENUCHAR)
             {
                 if (newContextMenu3.HandleMenuMsg2((uint)m.Msg, m.WParam, m.LParam, IntPtr.Zero) == ShellAPI.S_OK)
                 {
@@ -289,7 +289,7 @@ namespace TestForm
                         0,
                         ShellAPI.CMD_FIRST,
                         ShellAPI.CMD_LAST,
-                        ShellAPI.CMF.DEFAULTONLY);
+                        CMF.DEFAULTONLY);
 
                     int defaultCommand = ShellAPI.GetMenuDefaultItem(contextMenu.Handle, false, 0);
                     if (defaultCommand >= ShellAPI.CMD_FIRST)
