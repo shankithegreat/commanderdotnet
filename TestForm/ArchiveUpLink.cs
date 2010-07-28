@@ -15,7 +15,7 @@ namespace TestForm
 
         public override int GetImageIndex()
         {
-            return SafeNativeMethods.GetLargeAssociatedIconIndex("", FileAttributes.Directory);
+            return SafeNativeMethods.GetLargeAssociatedIconIndex("*", FileAttributes.Directory | FileAttributes.Normal);
         }
     }
 }

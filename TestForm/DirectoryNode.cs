@@ -73,7 +73,7 @@ namespace TestForm
                                 result.Add(new Zip7ArchiveNode(this, fi));
                                 break;
                             }
-                        case ".bz":
+                        case ".bz2":
                             {
                                 result.Add(new BZip2ArchiveNode(this, fi));
                                 break;
