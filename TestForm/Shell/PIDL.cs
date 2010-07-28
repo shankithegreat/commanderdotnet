@@ -6,7 +6,7 @@ using System.Collections;
 
 namespace ShellDll
 {
-    internal class PIDL : IEnumerable
+    public class PIDL : IEnumerable
     {
         private IntPtr pidl = IntPtr.Zero;
 
