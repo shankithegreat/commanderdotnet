@@ -70,6 +70,7 @@ namespace ShellDll
         {
             StringBuilder path = new StringBuilder(256);
             ShellApi.SHGetPathFromIDList(pidl, path);
+
             Console.Out.WriteLine("Pidl: {0}", path);
         }
 
@@ -119,6 +120,7 @@ namespace ShellDll
         {
             int size = ItemIDSize(pidl);
             IntPtr nextPidl = new IntPtr((int)pidl + size);
+
             return nextPidl;
         }
 
@@ -277,12 +279,11 @@ namespace ShellDll
 
             public PIDLEnumerator(IntPtr pidl)
             {
-                start = true;
+                this.start = true;
                 this.pidl = pidl;
-                currentPidl = pidl;
-                clonePidl = IntPtr.Zero;
+                this.currentPidl = pidl;
+                this.clonePidl = IntPtr.Zero;
             }
-
 
 
             public object Current
@@ -317,7 +318,7 @@ namespace ShellDll
                 {
                     IntPtr newPidl = ILGetNext(currentPidl);
 
-                    if (!Pidl.IsEmpty(newPidl))
+                    if (!IsEmpty(newPidl))
                     {
                         currentPidl = newPidl;
                         return true;

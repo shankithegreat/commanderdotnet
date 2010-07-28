@@ -8,8 +8,6 @@ namespace ShellDll
 {
     internal static class ShellHelper
     {
-        #region Low/High Word
-
         /// <summary>
         /// Retrieves the High Word of a WParam of a WindowMessage
         /// </summary>
@@ -17,16 +15,15 @@ namespace ShellDll
         /// <returns>The unsigned integer for the High Word</returns>
         public static uint HiWord(IntPtr ptr)
         {
-            if (((uint) ptr & 0x80000000) == 0x80000000)
+            if (((uint)ptr & 0x80000000) == 0x80000000)
             {
-                return ((uint) ptr >> 16);
+                return ((uint)ptr >> 16);
             }
             else
             {
-                return ((uint) ptr >> 16) & 0xffff;
+                return ((uint)ptr >> 16) & 0xffff;
             }
         }
-
         /// <summary>
         /// Retrieves the Low Word of a WParam of a WindowMessage
         /// </summary>
@@ -34,18 +31,14 @@ namespace ShellDll
         /// <returns>The unsigned integer for the Low Word</returns>
         public static uint LoWord(IntPtr ptr)
         {
-            return (uint) ptr & 0xffff;
+            return (uint)ptr & 0xffff;
         }
-
-        #endregion
-
-        #region IStream/IStorage
 
         public static bool GetIStream(ShellItem item, out IntPtr streamPtr, out IStream stream)
         {
             if (item.ParentItem.ShellFolder.BindToStorage(item.PIDLRel.Ptr, IntPtr.Zero, ref ShellGuids.IStream, out streamPtr) == 0)
             {
-                stream = (IStream) Marshal.GetTypedObjectForIUnknown(streamPtr, typeof (IStream));
+                stream = (IStream)Marshal.GetTypedObjectForIUnknown(streamPtr, typeof(IStream));
                 return true;
             }
             else
@@ -60,7 +53,7 @@ namespace ShellDll
         {
             if (item.ParentItem.ShellFolder.BindToStorage(item.PIDLRel.Ptr, IntPtr.Zero, ref ShellGuids.IStorage, out storagePtr) == 0)
             {
-                storage = (IStorage) Marshal.GetTypedObjectForIUnknown(storagePtr, typeof (IStorage));
+                storage = (IStorage)Marshal.GetTypedObjectForIUnknown(storagePtr, typeof(IStorage));
                 return true;
             }
             else
@@ -70,11 +63,6 @@ namespace ShellDll
                 return false;
             }
         }
-
-        #endregion
-
-        #region Drag/Drop
-
         /// <summary>
         /// This method will use the GetUIObjectOf method of IShellFolder to obtain the IDataObject of a
         /// ShellItem. 
@@ -102,7 +90,6 @@ namespace ShellDll
                 return IntPtr.Zero;
             }
         }
-
         /// <summary>
         /// This method will use the GetUIObjectOf method of IShellFolder to obtain the IDataObject of a
         /// ShellItem. 
@@ -120,7 +107,6 @@ namespace ShellDll
                 return IntPtr.Zero;
             }
         }
-
         /// <summary>
         /// This method will use the GetUIObjectOf method of IShellFolder to obtain the IDropTarget of a
         /// ShellItem. 
@@ -134,7 +120,7 @@ namespace ShellDll
 
             if (parent.ShellFolder.GetUIObjectOf(IntPtr.Zero, 1, new IntPtr[] { item.PIDLRel.Ptr }, ref ShellGuids.IDropTarget, IntPtr.Zero, out dropTargetPtr) == 0)
             {
-                dropTarget = (ShellDll.IDropTarget) Marshal.GetTypedObjectForIUnknown(dropTargetPtr, typeof (ShellDll.IDropTarget));
+                dropTarget = (ShellDll.IDropTarget)Marshal.GetTypedObjectForIUnknown(dropTargetPtr, typeof(ShellDll.IDropTarget));
 
                 return true;
             }
@@ -145,7 +131,6 @@ namespace ShellDll
                 return false;
             }
         }
-
         /// <summary>
         /// This method will use the GetUIObjectOf method of IShellFolder to obtain the IDropTarget of a
         /// ShellItem. 
@@ -157,7 +142,7 @@ namespace ShellDll
         {
             if (parent.GetUIObjectOf(IntPtr.Zero, 1, pidls, ref ShellGuids.IDropTarget, IntPtr.Zero, out dropTargetPtr) == 0)
             {
-                dropTarget = (ShellDll.IDropTarget) Marshal.GetTypedObjectForIUnknown(dropTargetPtr, typeof (ShellDll.IDropTarget));
+                dropTarget = (ShellDll.IDropTarget)Marshal.GetTypedObjectForIUnknown(dropTargetPtr, typeof(ShellDll.IDropTarget));
 
                 return true;
             }
@@ -173,7 +158,7 @@ namespace ShellDll
         {
             if (ShellApi.CoCreateInstance(ref ShellGuids.DragDropHelper, IntPtr.Zero, CLSCTX.INPROC_SERVER, ref ShellGuids.IDropTargetHelper, out helperPtr) == 0)
             {
-                dropHelper = (IDropTargetHelper) Marshal.GetTypedObjectForIUnknown(helperPtr, typeof (IDropTargetHelper));
+                dropHelper = (IDropTargetHelper)Marshal.GetTypedObjectForIUnknown(helperPtr, typeof(IDropTargetHelper));
 
                 return true;
             }
@@ -191,13 +176,12 @@ namespace ShellDll
             ShellApi.OleGetClipboard(out dataObject);
 
             IntPtr targetPtr;
-            ShellDll.IDropTarget target;
+            IDropTarget target;
 
             DragDropEffects retVal = DragDropEffects.None;
             if (GetIDropTarget(item, out targetPtr, out target))
             {
-                #region Check Copy
-
+                // Check Copy
                 DragDropEffects effects = DragDropEffects.Copy;
                 if (target.DragEnter(dataObject, MK.CONTROL, new POINT(0, 0), ref effects) == 0)
                 {
@@ -209,10 +193,7 @@ namespace ShellDll
                     target.DragLeave();
                 }
 
-                #endregion
-
-                #region Check Move
-
+                // Check Move
                 effects = DragDropEffects.Move;
                 if (target.DragEnter(dataObject, MK.SHIFT, new POINT(0, 0), ref effects) == 0)
                 {
@@ -224,10 +205,7 @@ namespace ShellDll
                     target.DragLeave();
                 }
 
-                #endregion
-
-                #region Check Lick
-
+                // Check Lick
                 effects = DragDropEffects.Link;
                 if (target.DragEnter(dataObject, MK.ALT, new POINT(0, 0), ref effects) == 0)
                 {
@@ -239,8 +217,6 @@ namespace ShellDll
                     target.DragLeave();
                 }
 
-                #endregion
-
                 Marshal.ReleaseComObject(target);
                 Marshal.Release(targetPtr);
             }
@@ -248,17 +224,13 @@ namespace ShellDll
             return retVal;
         }
 
-        #endregion
-
-        #region QueryInfo
-
         public static bool GetIQueryInfo(ShellItem item, out IntPtr iQueryInfoPtr, out IQueryInfo iQueryInfo)
         {
-            ShellItem parent = item.ParentItem != null ? item.ParentItem : item;
+            ShellItem parent = item.ParentItem ?? item;
 
-            if (parent.ShellFolder.GetUIObjectOf(IntPtr.Zero, 1, new IntPtr[] { item.PIDLRel.Ptr }, ref ShellGuids.IQueryInfo, IntPtr.Zero, out iQueryInfoPtr) == 0)
+            if (parent.ShellFolder.GetUIObjectOf(IntPtr.Zero, 1, new[] { item.PIDLRel.Ptr }, ref ShellGuids.IQueryInfo, IntPtr.Zero, out iQueryInfoPtr) == 0)
             {
-                iQueryInfo = (IQueryInfo) Marshal.GetTypedObjectForIUnknown(iQueryInfoPtr, typeof (IQueryInfo));
+                iQueryInfo = (IQueryInfo)Marshal.GetTypedObjectForIUnknown(iQueryInfoPtr, typeof(IQueryInfo));
 
                 return true;
             }
@@ -269,7 +241,5 @@ namespace ShellDll
                 return false;
             }
         }
-
-        #endregion
     }
 }

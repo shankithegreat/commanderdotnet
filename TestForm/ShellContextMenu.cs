@@ -26,17 +26,17 @@ namespace TestForm
 
         public void Show(Point location, params string[] pathList)
         {
-            IntPtr[] pidls = ShellFolder.GetPIDLs(pathList);
+            IntPtr[] pidls = ShellFolderHelper.GetPIDLs(pathList);
             IShellFolder parentShellFolder;
             string parentDirectory = null;
             if (pathList[0].StartsWith("::{"))
             {
-                parentShellFolder = ShellFolder.GetDesktopFolder();
+                parentShellFolder = ShellFolderHelper.GetDesktopFolder();
             }
             else
             {
-                parentDirectory = ShellFolder.GetParentDirectoryPath(pathList[0]);
-                parentShellFolder = ShellFolder.GetShellFolder(parentDirectory);
+                parentDirectory = ShellFolderHelper.GetParentDirectoryPath(pathList[0]);
+                parentShellFolder = ShellFolderHelper.GetShellFolder(parentDirectory);
             }
 
             IntPtr contextMenu = IntPtr.Zero;
@@ -180,22 +180,22 @@ namespace TestForm
 
         public void Command(string command, params string[] items)
         {
-            IntPtr[] pidls = ShellFolder.GetPIDLs(items);
+            IntPtr[] pidls = ShellFolderHelper.GetPIDLs(items);
             if (pidls.Length > 0)
             {
-                string parentDirectory = ShellFolder.GetParentDirectoryPath(items[0]);
-                IShellFolder parentShellFolder = ShellFolder.GetShellFolder(parentDirectory);
+                string parentDirectory = ShellFolderHelper.GetParentDirectoryPath(items[0]);
+                IShellFolder parentShellFolder = ShellFolderHelper.GetShellFolder(parentDirectory);
                 ContextMenuHelper.InvokeCommand(parentShellFolder, parentDirectory, pidls, command, new Point(0, 0));
             }
         }
 
         public void Command(string command, params FileSystemInfo[] items)
         {
-            IntPtr[] pidls = ShellFolder.GetPIDLs(items);
+            IntPtr[] pidls = ShellFolderHelper.GetPIDLs(items);
             if (pidls.Length > 0)
             {
-                string parentDirectory = ShellFolder.GetParentDirectoryPath(items[0]);
-                IShellFolder parentShellFolder = ShellFolder.GetShellFolder(parentDirectory);
+                string parentDirectory = ShellFolderHelper.GetParentDirectoryPath(items[0]);
+                IShellFolder parentShellFolder = ShellFolderHelper.GetShellFolder(parentDirectory);
                 ContextMenuHelper.InvokeCommand(parentShellFolder, parentDirectory, pidls, command, new Point(0, 0));
             }
         }
@@ -259,11 +259,11 @@ namespace TestForm
 
         private void DefaultCommand(string path, string parentDirectory)
         {
-            IntPtr[] pidls = ShellFolder.GetPIDLs(path);
+            IntPtr[] pidls = ShellFolderHelper.GetPIDLs(path);
 
             IntPtr icontextMenuPtr = IntPtr.Zero;
             ContextMenu contextMenu = new ContextMenu();
-            IShellFolder parentShellFolder = ShellFolder.GetShellFolder(parentDirectory);
+            IShellFolder parentShellFolder = ShellFolderHelper.GetShellFolder(parentDirectory);
 
             try
             {
