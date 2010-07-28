@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace ShellDll
 {
-    public static class ShellFolder
+    public static class ShellFolderHelper
     {
         public static FileSystemInfo GetFileSystemInfo(string path)
         {

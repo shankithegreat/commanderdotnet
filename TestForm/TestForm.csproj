@@ -266,7 +266,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Shell\ShellBrowserUpdater.cs" />
-    <Compile Include="Shell\ShellFolder.cs" />
+    <Compile Include="Shell\ShellFolderHelper.cs" />
     <Compile Include="Shell\ShellHelper.cs" />
     <Compile Include="Shell\ShellImageList.cs" />
     <Compile Include="Shell\ShellItem.cs" />
