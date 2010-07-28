@@ -15,9 +15,9 @@ namespace TestForm
         public ArchivedDirectoryNode(FileSystemNode parent, HeaderData info, HeaderData[] list)
             : base(parent)
         {
-            this.Name = System.IO.Path.GetFileName(info.FileName);
-            this.Path = System.IO.Path.Combine(info.ArcName, info.FileName);
-            this.InternalPath = info.FileName;
+            this.Name = System.IO.Path.GetFileName(info.FileName.TrimEnd('\\', '/'));
+            this.Path = System.IO.Path.Combine(info.ArcName, info.FileName.TrimEnd('\\', '/'));
+            this.InternalPath = info.FileName.TrimEnd('\\', '/');
             this.Size = info.UnpSize;
             this.list = list;
         }
@@ -42,20 +42,22 @@ namespace TestForm
 
             foreach (HeaderData item in list)
             {
-                if (item.FileName.StartsWith(this.InternalPath + System.IO.Path.DirectorySeparatorChar) || item.FileName.StartsWith(this.InternalPath + "/"))
+                if ((item.FileName.StartsWith(this.InternalPath + System.IO.Path.DirectorySeparatorChar) || item.FileName.StartsWith(this.InternalPath + "/")) && item.FileName.Length > this.InternalPath.Length + 1)
                 {
                     string subPath = item.FileName.Substring(this.InternalPath.Length + 1);
 
-                    if ((item.FileAttr & FileAttributes.Directory) == FileAttributes.Directory)
+                    if ((item.FileAttr & FileAttributes.Directory) == FileAttributes.Directory || subPath.EndsWith("\\") || subPath.EndsWith("/"))
                     {
-                        if (!subPath.Contains(System.IO.Path.DirectorySeparatorChar))
+                        subPath = subPath.TrimEnd('\\', '/');
+
+                        if (!subPath.Contains(System.IO.Path.DirectorySeparatorChar) && !subPath.Contains("/"))
                         {
                             result.Add(new ArchivedDirectoryNode(this, item, list));
                         }
                     }
                     else
                     {
-                        if (!subPath.Contains(System.IO.Path.DirectorySeparatorChar))
+                        if (!subPath.Contains(System.IO.Path.DirectorySeparatorChar) && !subPath.Contains("/"))
                         {
                             result.Add(new ArchivedFileNode(this, item));
                         }
@@ -68,7 +70,7 @@ namespace TestForm
 
         public override int GetImageIndex()
         {
-            return SafeNativeMethods.GetLargeAssociatedIconIndex("", FileAttributes.Directory);
+            return SafeNativeMethods.GetLargeAssociatedIconIndex("*", FileAttributes.Directory | FileAttributes.Normal);
         }
     }
 }
