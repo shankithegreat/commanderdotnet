@@ -10,7 +10,7 @@ namespace ShellDll
     [GuidAttribute("000214e8-0000-0000-c000-000000000046")]
     public interface IShellExtInit
     {
-        [PreserveSig()]
+        [PreserveSig]
         int Initialize(IntPtr pidlFolder, IntPtr lpdobj, uint hKeyProgID);
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace ShellDll
@@ -10,8 +11,8 @@ namespace ShellDll
     {
         // Translates a file object's or folder's display name into an item identifier list.
         // Return value: error code, if any
-        [PreserveSig]
-        Int32 ParseDisplayName(IntPtr hwnd, IntPtr pbc, [MarshalAs(UnmanagedType.LPWStr)] string pszDisplayName, ref uint pchEaten, out IntPtr ppidl, ref SFGAO pdwAttributes);
+        [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
+        void ParseDisplayName(IntPtr hwnd, IntPtr pbc, [MarshalAs(UnmanagedType.LPWStr)] string displayName, ref uint pchEaten, out IntPtr pidl, ref SFGAO attributes);
 
         // Allows a client to determine the contents of a folder by creating an item
         // identifier enumeration object and returning its IEnumIDList interface.
@@ -61,7 +62,7 @@ namespace ShellDll
 
         // Retrieves the display name for the specified file object or subfolder. 
         // Return value: error code, if any
-        [PreserveSig()]
+        [PreserveSig]
         Int32 GetDisplayNameOf(IntPtr pidl, SHGNO uFlags, IntPtr lpName);
 
         // Sets the display name of a file object or subfolder, changing the item

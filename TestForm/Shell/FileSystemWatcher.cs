@@ -13,9 +13,10 @@ namespace Commander.Shell
     public class FileSystemWatcher : NativeWindow
     {
         private uint notifyId;
-        private bool enabled = false;
-        private bool includeSubdirectories = false;
-        private string directory = "";
+        private bool enabled;
+        private bool includeSubdirectories;
+        private string directory = string.Empty;
+
 
         public FileSystemWatcher()
         {
@@ -27,8 +28,6 @@ namespace Commander.Shell
             UnRegisterShellNotify();
             GC.SuppressFinalize(this);
         }
-
-        public event FileSystemEventHandler Changed;
 
 
         [DefaultValue(false)]
@@ -72,7 +71,7 @@ namespace Commander.Shell
             get { return this.directory; }
             set
             {
-                value = (value == null) ? string.Empty : value;
+                value = value ?? string.Empty;
                 if (string.Compare(this.directory, value, StringComparison.OrdinalIgnoreCase) != 0)
                 {
                     if (!Directory.Exists(value))
@@ -85,13 +84,17 @@ namespace Commander.Shell
             }
         }
 
+
+        public event FileSystemEventHandler Changed;
+
+
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == (int) WM.SH_NOTIFY)
+            if (m.Msg == (int)WM.SH_NOTIFY)
             {
-                SHNOTIFYSTRUCT shNotify = (SHNOTIFYSTRUCT) Marshal.PtrToStructure(m.WParam, typeof (SHNOTIFYSTRUCT));
+                SHNOTIFYSTRUCT shNotify = (SHNOTIFYSTRUCT)Marshal.PtrToStructure(m.WParam, typeof(SHNOTIFYSTRUCT));
 
-                switch ((SHCNE) m.LParam)
+                switch ((SHCNE)m.LParam)
                 {
                     case SHCNE.MKDIR:
                     case SHCNE.UPDATEDIR:
@@ -121,21 +124,21 @@ namespace Commander.Shell
             }
         }
 
+
         private void RegisterShellNotify()
         {
             SHChangeNotifyEntry entry = new SHChangeNotifyEntry();
             entry.pIdl = ShellFolder.GetPathPIDL(this.Path);
-            ;
             entry.Recursively = this.IncludeSubdirectories;
 
-            this.notifyId = ShellAPI.SHChangeNotifyRegister(this.Handle, SHCNRF.NewDelivery | SHCNRF.InterruptLevel | SHCNRF.ShellLevel, SHCNE.ALLEVENTS, WM.SH_NOTIFY, 1, new SHChangeNotifyEntry[] {entry});
+            this.notifyId = ShellApi.SHChangeNotifyRegister(this.Handle, SHCNRF.NewDelivery | SHCNRF.InterruptLevel | SHCNRF.ShellLevel, SHCNE.ALLEVENTS, WM.SH_NOTIFY, 1, new SHChangeNotifyEntry[] { entry });
         }
 
         private void UnRegisterShellNotify()
         {
             if (this.notifyId > 0)
             {
-                ShellAPI.SHChangeNotifyDeregister(this.notifyId);
+                ShellApi.SHChangeNotifyDeregister(this.notifyId);
             }
         }
     }

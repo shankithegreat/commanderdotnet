@@ -43,7 +43,7 @@ namespace ShellDll
 
         public static bool GetIStream(ShellItem item, out IntPtr streamPtr, out IStream stream)
         {
-            if (item.ParentItem.ShellFolder.BindToStorage(item.PIDLRel.Ptr, IntPtr.Zero, ref ShellAPI.IID_IStream, out streamPtr) == ShellAPI.S_OK)
+            if (item.ParentItem.ShellFolder.BindToStorage(item.PIDLRel.Ptr, IntPtr.Zero, ref ShellGuids.IStream, out streamPtr) == 0)
             {
                 stream = (IStream) Marshal.GetTypedObjectForIUnknown(streamPtr, typeof (IStream));
                 return true;
@@ -58,7 +58,7 @@ namespace ShellDll
 
         public static bool GetIStorage(ShellItem item, out IntPtr storagePtr, out IStorage storage)
         {
-            if (item.ParentItem.ShellFolder.BindToStorage(item.PIDLRel.Ptr, IntPtr.Zero, ref ShellAPI.IID_IStorage, out storagePtr) == ShellAPI.S_OK)
+            if (item.ParentItem.ShellFolder.BindToStorage(item.PIDLRel.Ptr, IntPtr.Zero, ref ShellGuids.IStorage, out storagePtr) == 0)
             {
                 storage = (IStorage) Marshal.GetTypedObjectForIUnknown(storagePtr, typeof (IStorage));
                 return true;
@@ -93,7 +93,7 @@ namespace ShellDll
             }
 
             IntPtr dataObjectPtr;
-            if (parent.ShellFolder.GetUIObjectOf(IntPtr.Zero, (uint) pidls.Length, pidls, ref ShellAPI.IID_IDataObject, IntPtr.Zero, out dataObjectPtr) == ShellAPI.S_OK)
+            if (parent.ShellFolder.GetUIObjectOf(IntPtr.Zero, (uint)pidls.Length, pidls, ref ShellGuids.IDataObject, IntPtr.Zero, out dataObjectPtr) == 0)
             {
                 return dataObjectPtr;
             }
@@ -111,7 +111,7 @@ namespace ShellDll
         public static IntPtr GetIDataObject(IntPtr[] pidls, IShellFolder parent)
         {
             IntPtr dataObjectPtr;
-            if (parent.GetUIObjectOf(IntPtr.Zero, (uint) pidls.Length, pidls, ref ShellAPI.IID_IDataObject, IntPtr.Zero, out dataObjectPtr) == ShellAPI.S_OK)
+            if (parent.GetUIObjectOf(IntPtr.Zero, (uint)pidls.Length, pidls, ref ShellGuids.IDataObject, IntPtr.Zero, out dataObjectPtr) == 0)
             {
                 return dataObjectPtr;
             }
@@ -132,7 +132,7 @@ namespace ShellDll
         {
             ShellItem parent = item.ParentItem != null ? item.ParentItem : item;
 
-            if (parent.ShellFolder.GetUIObjectOf(IntPtr.Zero, 1, new IntPtr[] {item.PIDLRel.Ptr}, ref ShellAPI.IID_IDropTarget, IntPtr.Zero, out dropTargetPtr) == ShellAPI.S_OK)
+            if (parent.ShellFolder.GetUIObjectOf(IntPtr.Zero, 1, new IntPtr[] { item.PIDLRel.Ptr }, ref ShellGuids.IDropTarget, IntPtr.Zero, out dropTargetPtr) == 0)
             {
                 dropTarget = (ShellDll.IDropTarget) Marshal.GetTypedObjectForIUnknown(dropTargetPtr, typeof (ShellDll.IDropTarget));
 
@@ -155,7 +155,7 @@ namespace ShellDll
         /// <returns>the IDropTarget from the ShellItem</returns>
         public static bool GetIDropTarget(IntPtr[] pidls, IShellFolder parent, out IntPtr dropTargetPtr, out ShellDll.IDropTarget dropTarget)
         {
-            if (parent.GetUIObjectOf(IntPtr.Zero, 1, pidls, ref ShellAPI.IID_IDropTarget, IntPtr.Zero, out dropTargetPtr) == ShellAPI.S_OK)
+            if (parent.GetUIObjectOf(IntPtr.Zero, 1, pidls, ref ShellGuids.IDropTarget, IntPtr.Zero, out dropTargetPtr) == 0)
             {
                 dropTarget = (ShellDll.IDropTarget) Marshal.GetTypedObjectForIUnknown(dropTargetPtr, typeof (ShellDll.IDropTarget));
 
@@ -171,7 +171,7 @@ namespace ShellDll
 
         public static bool GetIDropTargetHelper(out IntPtr helperPtr, out IDropTargetHelper dropHelper)
         {
-            if (ShellAPI.CoCreateInstance(ref ShellAPI.CLSID_DragDropHelper, IntPtr.Zero, CLSCTX.INPROC_SERVER, ref ShellAPI.IID_IDropTargetHelper, out helperPtr) == ShellAPI.S_OK)
+            if (ShellApi.CoCreateInstance(ref ShellGuids.DragDropHelper, IntPtr.Zero, CLSCTX.INPROC_SERVER, ref ShellGuids.IDropTargetHelper, out helperPtr) == 0)
             {
                 dropHelper = (IDropTargetHelper) Marshal.GetTypedObjectForIUnknown(helperPtr, typeof (IDropTargetHelper));
 
@@ -188,7 +188,7 @@ namespace ShellDll
         public static DragDropEffects CanDropClipboard(ShellItem item)
         {
             IntPtr dataObject;
-            ShellAPI.OleGetClipboard(out dataObject);
+            ShellApi.OleGetClipboard(out dataObject);
 
             IntPtr targetPtr;
             ShellDll.IDropTarget target;
@@ -199,7 +199,7 @@ namespace ShellDll
                 #region Check Copy
 
                 DragDropEffects effects = DragDropEffects.Copy;
-                if (target.DragEnter(dataObject, MK.CONTROL, new POINT(0, 0), ref effects) == ShellAPI.S_OK)
+                if (target.DragEnter(dataObject, MK.CONTROL, new POINT(0, 0), ref effects) == 0)
                 {
                     if (effects == DragDropEffects.Copy)
                     {
@@ -214,7 +214,7 @@ namespace ShellDll
                 #region Check Move
 
                 effects = DragDropEffects.Move;
-                if (target.DragEnter(dataObject, MK.SHIFT, new POINT(0, 0), ref effects) == ShellAPI.S_OK)
+                if (target.DragEnter(dataObject, MK.SHIFT, new POINT(0, 0), ref effects) == 0)
                 {
                     if (effects == DragDropEffects.Move)
                     {
@@ -229,7 +229,7 @@ namespace ShellDll
                 #region Check Lick
 
                 effects = DragDropEffects.Link;
-                if (target.DragEnter(dataObject, MK.ALT, new POINT(0, 0), ref effects) == ShellAPI.S_OK)
+                if (target.DragEnter(dataObject, MK.ALT, new POINT(0, 0), ref effects) == 0)
                 {
                     if (effects == DragDropEffects.Link)
                     {
@@ -256,7 +256,7 @@ namespace ShellDll
         {
             ShellItem parent = item.ParentItem != null ? item.ParentItem : item;
 
-            if (parent.ShellFolder.GetUIObjectOf(IntPtr.Zero, 1, new IntPtr[] {item.PIDLRel.Ptr}, ref ShellAPI.IID_IQueryInfo, IntPtr.Zero, out iQueryInfoPtr) == ShellAPI.S_OK)
+            if (parent.ShellFolder.GetUIObjectOf(IntPtr.Zero, 1, new IntPtr[] { item.PIDLRel.Ptr }, ref ShellGuids.IQueryInfo, IntPtr.Zero, out iQueryInfoPtr) == 0)
             {
                 iQueryInfo = (IQueryInfo) Marshal.GetTypedObjectForIUnknown(iQueryInfoPtr, typeof (IQueryInfo));
 

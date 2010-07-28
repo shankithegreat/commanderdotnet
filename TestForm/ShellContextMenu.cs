@@ -49,41 +49,28 @@ namespace TestForm
             {
                 if (ContextMenuHelper.GetIContextMenu(parentShellFolder, pidls, out iContextMenuPtr, out iContextMenu))
                 {
-                    contextMenu = ShellAPI.CreatePopupMenu();
-                    iContextMenu.QueryContextMenu(
-                        contextMenu,
-                        0,
-                        ShellAPI.CMD_FIRST,
-                        ShellAPI.CMD_LAST,
-                        CMF.EXPLORE |
-                        CMF.CANRENAME |
-                        ((Control.ModifierKeys & Keys.Shift) != 0 ? CMF.EXTENDEDVERBS : 0));
+                    contextMenu = ShellApi.CreatePopupMenu();
+                    iContextMenu.QueryContextMenu(contextMenu, 0, ShellApi.CMD_FIRST, ShellApi.CMD_LAST, CMF.EXPLORE | CMF.CANRENAME | ((Control.ModifierKeys & Keys.Shift) != 0 ? CMF.EXTENDEDVERBS : 0));
 
-                    Marshal.QueryInterface(iContextMenuPtr, ref ShellAPI.IID_IContextMenu2, out iContextMenuPtr2);
-                    Marshal.QueryInterface(iContextMenuPtr, ref ShellAPI.IID_IContextMenu3, out iContextMenuPtr3);
+                    Marshal.QueryInterface(iContextMenuPtr, ref ShellGuids.IContextMenu2, out iContextMenuPtr2);
+                    Marshal.QueryInterface(iContextMenuPtr, ref ShellGuids.IContextMenu3, out iContextMenuPtr3);
 
                     try
                     {
-                        iContextMenu2 = (IContextMenu2)Marshal.GetTypedObjectForIUnknown(iContextMenuPtr2, typeof(IContextMenu2));
+                        iContextMenu2 = (IContextMenu2) Marshal.GetTypedObjectForIUnknown(iContextMenuPtr2, typeof (IContextMenu2));
 
-                        iContextMenu3 = (IContextMenu3)Marshal.GetTypedObjectForIUnknown(iContextMenuPtr3, typeof(IContextMenu3));
+                        iContextMenu3 = (IContextMenu3) Marshal.GetTypedObjectForIUnknown(iContextMenuPtr3, typeof (IContextMenu3));
                     }
                     catch (Exception)
                     {
                     }
 
-                    uint selected = ShellAPI.TrackPopupMenuEx(
-                                        contextMenu,
-                                        TPM.RETURNCMD,
-                                        location.X,
-                                        location.Y,
-                                        this.Handle,
-                                        IntPtr.Zero);
+                    uint selected = ShellApi.TrackPopupMenuEx(contextMenu, TPM.RETURNCMD, location.X, location.Y, this.Handle, IntPtr.Zero);
 
 
-                    if (selected >= ShellAPI.CMD_FIRST)
+                    if (selected >= ShellApi.CMD_FIRST)
                     {
-                        string command = ContextMenuHelper.GetCommandString(iContextMenu, selected - ShellAPI.CMD_FIRST, true);
+                        string command = ContextMenuHelper.GetCommandString(iContextMenu, selected - ShellApi.CMD_FIRST, true);
 
                         if (command == "Explore")
                         {
@@ -98,11 +85,7 @@ namespace TestForm
                         }
                         else
                         {
-                            ContextMenuHelper.InvokeCommand(
-                                iContextMenu,
-                                selected - ShellAPI.CMD_FIRST,
-                                parentDirectory,
-                                location);
+                            ContextMenuHelper.InvokeCommand(iContextMenu, selected - ShellApi.CMD_FIRST, parentDirectory, location);
                         }
                     }
                 }
@@ -134,16 +117,24 @@ namespace TestForm
                 }
 
                 if (contextMenu != null)
-                    ShellAPI.DestroyMenu(contextMenu);
+                {
+                    ShellApi.DestroyMenu(contextMenu);
+                }
 
                 if (iContextMenuPtr != IntPtr.Zero)
+                {
                     Marshal.Release(iContextMenuPtr);
+                }
 
                 if (iContextMenuPtr2 != IntPtr.Zero)
+                {
                     Marshal.Release(iContextMenuPtr2);
+                }
 
                 if (iContextMenuPtr3 != IntPtr.Zero)
+                {
                     Marshal.Release(iContextMenuPtr3);
+                }
             }
         }
 
@@ -230,39 +221,33 @@ namespace TestForm
         /// <returns>true if the message has been handled, false otherwise</returns>
         protected override void WndProc(ref Message m)
         {
-            if (iContextMenu2 != null &&
-                (m.Msg == (int)WM.INITMENUPOPUP ||
-                 m.Msg == (int)WM.MEASUREITEM ||
-                 m.Msg == (int)WM.DRAWITEM))
+            if (iContextMenu2 != null && (m.Msg == (int) WM.INITMENUPOPUP || m.Msg == (int) WM.MEASUREITEM || m.Msg == (int) WM.DRAWITEM))
             {
-                if (iContextMenu2.HandleMenuMsg((uint)m.Msg, m.WParam, m.LParam) == ShellAPI.S_OK)
+                if (iContextMenu2.HandleMenuMsg((uint) m.Msg, m.WParam, m.LParam) == 0)
                 {
                     return;
                 }
             }
 
-            if (newContextMenu2 != null &&
-                ((m.Msg == (int)WM.INITMENUPOPUP && m.WParam == newSubmenuPtr) ||
-                 m.Msg == (int)WM.MEASUREITEM ||
-                 m.Msg == (int)WM.DRAWITEM))
+            if (newContextMenu2 != null && ((m.Msg == (int) WM.INITMENUPOPUP && m.WParam == newSubmenuPtr) || m.Msg == (int) WM.MEASUREITEM || m.Msg == (int) WM.DRAWITEM))
             {
-                if (newContextMenu2.HandleMenuMsg((uint)m.Msg, m.WParam, m.LParam) == ShellAPI.S_OK)
+                if (newContextMenu2.HandleMenuMsg((uint) m.Msg, m.WParam, m.LParam) == 0)
                 {
                     return;
                 }
             }
 
-            if (iContextMenu3 != null && m.Msg == (int)WM.MENUCHAR)
+            if (iContextMenu3 != null && m.Msg == (int) WM.MENUCHAR)
             {
-                if (iContextMenu3.HandleMenuMsg2((uint)m.Msg, m.WParam, m.LParam, IntPtr.Zero) == ShellAPI.S_OK)
+                if (iContextMenu3.HandleMenuMsg2((uint) m.Msg, m.WParam, m.LParam, IntPtr.Zero) == 0)
                 {
                     return;
                 }
             }
 
-            if (newContextMenu3 != null && m.Msg == (int)WM.MENUCHAR)
+            if (newContextMenu3 != null && m.Msg == (int) WM.MENUCHAR)
             {
-                if (newContextMenu3.HandleMenuMsg2((uint)m.Msg, m.WParam, m.LParam, IntPtr.Zero) == ShellAPI.S_OK)
+                if (newContextMenu3.HandleMenuMsg2((uint) m.Msg, m.WParam, m.LParam, IntPtr.Zero) == 0)
                 {
                     return;
                 }
@@ -284,21 +269,12 @@ namespace TestForm
             {
                 if (ContextMenuHelper.GetIContextMenu(parentShellFolder, pidls, out icontextMenuPtr, out iContextMenu))
                 {
-                    iContextMenu.QueryContextMenu(
-                        contextMenu.Handle,
-                        0,
-                        ShellAPI.CMD_FIRST,
-                        ShellAPI.CMD_LAST,
-                        CMF.DEFAULTONLY);
+                    iContextMenu.QueryContextMenu(contextMenu.Handle, 0, ShellApi.CMD_FIRST, ShellApi.CMD_LAST, CMF.DEFAULTONLY);
 
-                    int defaultCommand = ShellAPI.GetMenuDefaultItem(contextMenu.Handle, false, 0);
-                    if (defaultCommand >= ShellAPI.CMD_FIRST)
+                    int defaultCommand = ShellApi.GetMenuDefaultItem(contextMenu.Handle, false, 0);
+                    if (defaultCommand >= ShellApi.CMD_FIRST)
                     {
-                        ContextMenuHelper.InvokeCommand(
-                            iContextMenu,
-                            (uint)defaultCommand - ShellAPI.CMD_FIRST,
-                            parentDirectory,
-                            Control.MousePosition);
+                        ContextMenuHelper.InvokeCommand(iContextMenu, (uint) defaultCommand - ShellApi.CMD_FIRST, parentDirectory, Control.MousePosition);
                     }
                 }
             }
@@ -319,6 +295,5 @@ namespace TestForm
                 Marshal.Release(icontextMenuPtr);
             }
         }
-
     }
 }

@@ -46,7 +46,7 @@ namespace TestForm
                                           (executeString ? GCS.VERBA : GCS.HELPTEXTA),
                                           0,
                                           bytes,
-                                          ShellAPI.MAX_PATH);
+                                          ShellApi.MAX_PATH);
 
             int index = 0;
             while (index < bytes.Length && bytes[index] != 0)
@@ -80,7 +80,7 @@ namespace TestForm
                                             (executeString ? GCS.VERBW : GCS.HELPTEXTW),
                                             0,
                                             bytes,
-                                            ShellAPI.MAX_PATH);
+                                            ShellApi.MAX_PATH);
 
             int index = 0;
             while (index < bytes.Length - 1 && (bytes[index] != 0 || bytes[index + 1] != 0))
@@ -108,7 +108,7 @@ namespace TestForm
         public static void InvokeCommand(IContextMenu iContextMenu, uint cmd, string parentDir, Point ptInvoke)
         {
             CMINVOKECOMMANDINFOEX invoke = new CMINVOKECOMMANDINFOEX();
-            invoke.cbSize = ShellAPI.cbInvokeCommand;
+            invoke.cbSize = ShellApi.cbInvokeCommand;
             invoke.lpVerb = (IntPtr)cmd;
             invoke.lpDirectory = parentDir;
             invoke.lpVerbW = (IntPtr)cmd;
@@ -132,7 +132,7 @@ namespace TestForm
         public static void InvokeCommand(IContextMenu iContextMenu, string cmd, string parentDir, Point ptInvoke)
         {
             CMINVOKECOMMANDINFOEX invoke = new CMINVOKECOMMANDINFOEX();
-            invoke.cbSize = ShellAPI.cbInvokeCommand;
+            invoke.cbSize = ShellApi.cbInvokeCommand;
             invoke.lpVerb = Marshal.StringToHGlobalAnsi(cmd);
             invoke.lpDirectory = parentDir;
             invoke.lpVerbW = Marshal.StringToHGlobalUni(cmd);
@@ -238,9 +238,9 @@ namespace TestForm
                                      IntPtr.Zero,
                                      (uint)pidls.Length,
                                      pidls,
-                                     ref ShellAPI.IID_IContextMenu,
+                                     ref ShellGuids.IContextMenu,
                                      IntPtr.Zero,
-                                     out iContextMenuPtr) == ShellAPI.S_OK)
+                                     out iContextMenuPtr) == 0)
             {
                 iContextMenu = (IContextMenu)Marshal.GetTypedObjectForIUnknown(iContextMenuPtr, typeof(IContextMenu));
 
@@ -257,24 +257,24 @@ namespace TestForm
 
         public static bool GetNewContextMenu(ShellItem item, out IntPtr iContextMenuPtr, out IContextMenu iContextMenu)
         {
-            if (ShellAPI.CoCreateInstance(
-                    ref ShellAPI.CLSID_NewMenu,
+            if (ShellApi.CoCreateInstance(
+                    ref ShellGuids.NewMenu,
                     IntPtr.Zero,
                     CLSCTX.INPROC_SERVER,
-                    ref ShellAPI.IID_IContextMenu,
-                    out iContextMenuPtr) == ShellAPI.S_OK)
+                    ref ShellGuids.IContextMenu,
+                    out iContextMenuPtr) == 0)
             {
                 iContextMenu = Marshal.GetTypedObjectForIUnknown(iContextMenuPtr, typeof(IContextMenu)) as IContextMenu;
 
                 IntPtr iShellExtInitPtr;
                 if (Marshal.QueryInterface(
                     iContextMenuPtr,
-                    ref ShellAPI.IID_IShellExtInit,
-                    out iShellExtInitPtr) == ShellAPI.S_OK)
+                    ref ShellGuids.IShellExtInit,
+                    out iShellExtInitPtr) == 0)
                 {
                     IShellExtInit iShellExtInit = Marshal.GetTypedObjectForIUnknown(iShellExtInitPtr, typeof(IShellExtInit)) as IShellExtInit;
 
-                    PIDL pidlFull = item.PIDLFull;
+                    Pidl pidlFull = item.PIDLFull;
                     if (iShellExtInit != null)
                     {
                         iShellExtInit.Initialize(pidlFull.Ptr, IntPtr.Zero, 0);
