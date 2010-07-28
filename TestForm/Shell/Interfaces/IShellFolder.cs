@@ -11,13 +11,13 @@ namespace ShellDll
         // Translates a file object's or folder's display name into an item identifier list.
         // Return value: error code, if any
         [PreserveSig]
-        Int32 ParseDisplayName(IntPtr hwnd, IntPtr pbc, [MarshalAs(UnmanagedType.LPWStr)] string pszDisplayName, ref uint pchEaten, out IntPtr ppidl, ref ShellAPI.SFGAO pdwAttributes);
+        Int32 ParseDisplayName(IntPtr hwnd, IntPtr pbc, [MarshalAs(UnmanagedType.LPWStr)] string pszDisplayName, ref uint pchEaten, out IntPtr ppidl, ref SFGAO pdwAttributes);
 
         // Allows a client to determine the contents of a folder by creating an item
         // identifier enumeration object and returning its IEnumIDList interface.
         // Return value: error code, if any
         [PreserveSig]
-        Int32 EnumObjects(IntPtr hwnd, ShellAPI.SHCONTF grfFlags, out IntPtr enumIDList);
+        Int32 EnumObjects(IntPtr hwnd, SHCONTF grfFlags, out IntPtr enumIDList);
 
         // Retrieves an IShellFolder object for a subfolder.
         // Return value: error code, if any
@@ -51,7 +51,7 @@ namespace ShellDll
         // Retrieves the attributes of one or more file objects or subfolders. 
         // Return value: error code, if any
         [PreserveSig]
-        Int32 GetAttributesOf(uint cidl, [MarshalAs(UnmanagedType.LPArray)] IntPtr[] apidl, ref ShellAPI.SFGAO rgfInOut);
+        Int32 GetAttributesOf(uint cidl, [MarshalAs(UnmanagedType.LPArray)] IntPtr[] apidl, ref SFGAO rgfInOut);
 
         // Retrieves an OLE interface that can be used to carry out actions on the
         // specified file objects or folders.
@@ -62,12 +62,12 @@ namespace ShellDll
         // Retrieves the display name for the specified file object or subfolder. 
         // Return value: error code, if any
         [PreserveSig()]
-        Int32 GetDisplayNameOf(IntPtr pidl, ShellAPI.SHGNO uFlags, IntPtr lpName);
+        Int32 GetDisplayNameOf(IntPtr pidl, SHGNO uFlags, IntPtr lpName);
 
         // Sets the display name of a file object or subfolder, changing the item
         // identifier in the process.
         // Return value: error code, if any
         [PreserveSig]
-        Int32 SetNameOf(IntPtr hwnd, IntPtr pidl, [MarshalAs(UnmanagedType.LPWStr)] string pszName, ShellAPI.SHGNO uFlags, out IntPtr ppidlOut);
+        Int32 SetNameOf(IntPtr hwnd, IntPtr pidl, [MarshalAs(UnmanagedType.LPWStr)] string pszName, SHGNO uFlags, out IntPtr ppidlOut);
     }
 }

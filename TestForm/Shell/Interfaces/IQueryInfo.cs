@@ -11,13 +11,9 @@ namespace ShellDll
     public interface IQueryInfo
     {
         [PreserveSig]
-        Int32 GetInfoTip(
-            ShellAPI.QITIPF dwFlags,
-            [MarshalAs(UnmanagedType.LPWStr)]
-            out string ppwszTip);
+        Int32 GetInfoTip(QITIPF dwFlags, [MarshalAs(UnmanagedType.LPWStr)] out string ppwszTip);
 
         [PreserveSig]
-        Int32 GetInfoFlags(
-            out IntPtr pdwFlags);
+        Int32 GetInfoFlags(out IntPtr pdwFlags);
     }
 }

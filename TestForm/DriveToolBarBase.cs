@@ -85,17 +85,17 @@ namespace Commander
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == (int)ShellAPI.WM.SH_NOTIFY)
+            if (m.Msg == (int)WM.SH_NOTIFY)
             {
-                ShellAPI.SHNOTIFYSTRUCT shNotify = (ShellAPI.SHNOTIFYSTRUCT)Marshal.PtrToStructure(m.WParam, typeof(ShellAPI.SHNOTIFYSTRUCT));
+                SHNOTIFYSTRUCT shNotify = (SHNOTIFYSTRUCT)Marshal.PtrToStructure(m.WParam, typeof(SHNOTIFYSTRUCT));
 
-                switch ((ShellAPI.SHCNE)m.LParam)
+                switch ((SHCNE)m.LParam)
                 {
-                    case ShellAPI.SHCNE.DRIVEADD:
-                    case ShellAPI.SHCNE.DRIVEADDGUI:
-                    case ShellAPI.SHCNE.DRIVEREMOVED:
-                    case ShellAPI.SHCNE.MEDIAINSERTED:
-                    case ShellAPI.SHCNE.MEDIAREMOVED:
+                    case SHCNE.DRIVEADD:
+                    case SHCNE.DRIVEADDGUI:
+                    case SHCNE.DRIVEREMOVED:
+                    case SHCNE.MEDIAINSERTED:
+                    case SHCNE.MEDIAREMOVED:
                         {
                             OnRefreshDrives();
                             break;

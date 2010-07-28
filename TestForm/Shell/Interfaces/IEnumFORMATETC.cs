@@ -13,10 +13,7 @@ namespace ShellDll
         // Retrieves the specified number of FORMATETC structures in the enumeration 
         // sequence and advances the current position by the number of items retrieved
         [PreserveSig]
-        int GetNext(
-            int celt, 
-            ref ShellAPI.FORMATETC rgelt, 
-            ref int pceltFetched);
+        int GetNext(int celt, ref FORMATETC rgelt, ref int pceltFetched);
 
         // Skips over the specified number of elements in the enumeration sequence
         [PreserveSig]
@@ -28,7 +25,6 @@ namespace ShellDll
 
         // Creates a new item enumeration object with the same contents and state as the current one
         [PreserveSig]
-        int Clone(
-            ref IEnumFORMATETC ppenum);
+        int Clone(ref IEnumFORMATETC ppenum);
     }
 }

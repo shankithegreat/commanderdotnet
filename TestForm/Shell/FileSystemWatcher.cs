@@ -34,10 +34,7 @@ namespace Commander.Shell
         [DefaultValue(false)]
         public bool EnableRaisingEvents
         {
-            get
-            {
-                return this.enabled;
-            }
+            get { return this.enabled; }
             set
             {
                 if (this.enabled != value)
@@ -58,10 +55,7 @@ namespace Commander.Shell
         [DefaultValue(false)]
         public bool IncludeSubdirectories
         {
-            get
-            {
-                return this.includeSubdirectories;
-            }
+            get { return this.includeSubdirectories; }
             set
             {
                 if (this.includeSubdirectories != value)
@@ -75,10 +69,7 @@ namespace Commander.Shell
         [Editor("System.Diagnostics.Design.FSWPathEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", "System.Drawing.Design.UITypeEditor, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"), DefaultValue(""), RecommendedAsConfigurable(true), IODescription("FSW_Path"), TypeConverter("System.Diagnostics.Design.StringValueConverter, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
         public string Path
         {
-            get
-            {
-                return this.directory;
-            }
+            get { return this.directory; }
             set
             {
                 value = (value == null) ? string.Empty : value;
@@ -96,14 +87,14 @@ namespace Commander.Shell
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == (int)ShellAPI.WM.SH_NOTIFY)
+            if (m.Msg == (int) WM.SH_NOTIFY)
             {
-                ShellAPI.SHNOTIFYSTRUCT shNotify = (ShellAPI.SHNOTIFYSTRUCT)Marshal.PtrToStructure(m.WParam, typeof(ShellAPI.SHNOTIFYSTRUCT));
+                SHNOTIFYSTRUCT shNotify = (SHNOTIFYSTRUCT) Marshal.PtrToStructure(m.WParam, typeof (SHNOTIFYSTRUCT));
 
-                switch ((ShellAPI.SHCNE)m.LParam)
+                switch ((SHCNE) m.LParam)
                 {
-                    case ShellAPI.SHCNE.MKDIR:
-                    case ShellAPI.SHCNE.UPDATEDIR:
+                    case SHCNE.MKDIR:
+                    case SHCNE.UPDATEDIR:
                         {
                             OnChanged();
                             break;
@@ -132,17 +123,12 @@ namespace Commander.Shell
 
         private void RegisterShellNotify()
         {
-            ShellAPI.SHChangeNotifyEntry entry = new ShellAPI.SHChangeNotifyEntry();
-            entry.pIdl = ShellFolder.GetPathPIDL(this.Path); ;
+            SHChangeNotifyEntry entry = new SHChangeNotifyEntry();
+            entry.pIdl = ShellFolder.GetPathPIDL(this.Path);
+            ;
             entry.Recursively = this.IncludeSubdirectories;
 
-            this.notifyId = ShellAPI.SHChangeNotifyRegister(
-                                                            this.Handle,
-                                                            ShellAPI.SHCNRF.NewDelivery | ShellAPI.SHCNRF.InterruptLevel | ShellAPI.SHCNRF.ShellLevel,
-                                                            ShellAPI.SHCNE.ALLEVENTS,
-                                                            ShellAPI.WM.SH_NOTIFY,
-                                                            1,
-                                                            new ShellAPI.SHChangeNotifyEntry[] { entry });
+            this.notifyId = ShellAPI.SHChangeNotifyRegister(this.Handle, SHCNRF.NewDelivery | SHCNRF.InterruptLevel | SHCNRF.ShellLevel, SHCNE.ALLEVENTS, WM.SH_NOTIFY, 1, new SHChangeNotifyEntry[] {entry});
         }
 
         private void UnRegisterShellNotify()

@@ -43,7 +43,7 @@ namespace TestForm
 
             iContextMenu.GetCommandString(
                                           idcmd,
-                                          (executeString ? ShellAPI.GCS.VERBA : ShellAPI.GCS.HELPTEXTA),
+                                          (executeString ? GCS.VERBA : GCS.HELPTEXTA),
                                           0,
                                           bytes,
                                           ShellAPI.MAX_PATH);
@@ -77,7 +77,7 @@ namespace TestForm
 
             iContextMenu.GetCommandString(
                                             idcmd,
-                                            (executeString ? ShellAPI.GCS.VERBW : ShellAPI.GCS.HELPTEXTW),
+                                            (executeString ? GCS.VERBW : GCS.HELPTEXTW),
                                             0,
                                             bytes,
                                             ShellAPI.MAX_PATH);
@@ -107,17 +107,17 @@ namespace TestForm
         /// <param name="ptInvoke">the point (in screen coцrdinates) from which to invoke</param>
         public static void InvokeCommand(IContextMenu iContextMenu, uint cmd, string parentDir, Point ptInvoke)
         {
-            ShellAPI.CMINVOKECOMMANDINFOEX invoke = new ShellAPI.CMINVOKECOMMANDINFOEX();
+            CMINVOKECOMMANDINFOEX invoke = new CMINVOKECOMMANDINFOEX();
             invoke.cbSize = ShellAPI.cbInvokeCommand;
             invoke.lpVerb = (IntPtr)cmd;
             invoke.lpDirectory = parentDir;
             invoke.lpVerbW = (IntPtr)cmd;
             invoke.lpDirectoryW = parentDir;
-            invoke.fMask = ShellAPI.CMIC.UNICODE | ShellAPI.CMIC.PTINVOKE |
-                ((Control.ModifierKeys & Keys.Control) != 0 ? ShellAPI.CMIC.CONTROL_DOWN : 0) |
-                ((Control.ModifierKeys & Keys.Shift) != 0 ? ShellAPI.CMIC.SHIFT_DOWN : 0);
-            invoke.ptInvoke = new ShellAPI.POINT(ptInvoke.X, ptInvoke.Y);
-            invoke.nShow = ShellAPI.SW.SHOWNORMAL;
+            invoke.fMask = CMIC.UNICODE | CMIC.PTINVOKE |
+                ((Control.ModifierKeys & Keys.Control) != 0 ? CMIC.CONTROL_DOWN : 0) |
+                ((Control.ModifierKeys & Keys.Shift) != 0 ? CMIC.SHIFT_DOWN : 0);
+            invoke.ptInvoke = new POINT(ptInvoke.X, ptInvoke.Y);
+            invoke.nShow = SW.SHOWNORMAL;
 
             iContextMenu.InvokeCommand(ref invoke);
         }
@@ -131,17 +131,17 @@ namespace TestForm
         /// <param name="ptInvoke">the point (in screen coцrdinates) from which to invoke</param>
         public static void InvokeCommand(IContextMenu iContextMenu, string cmd, string parentDir, Point ptInvoke)
         {
-            ShellAPI.CMINVOKECOMMANDINFOEX invoke = new ShellAPI.CMINVOKECOMMANDINFOEX();
+            CMINVOKECOMMANDINFOEX invoke = new CMINVOKECOMMANDINFOEX();
             invoke.cbSize = ShellAPI.cbInvokeCommand;
             invoke.lpVerb = Marshal.StringToHGlobalAnsi(cmd);
             invoke.lpDirectory = parentDir;
             invoke.lpVerbW = Marshal.StringToHGlobalUni(cmd);
             invoke.lpDirectoryW = parentDir;
-            invoke.fMask = ShellAPI.CMIC.UNICODE | ShellAPI.CMIC.PTINVOKE |
-                ((Control.ModifierKeys & Keys.Control) != 0 ? ShellAPI.CMIC.CONTROL_DOWN : 0) |
-                ((Control.ModifierKeys & Keys.Shift) != 0 ? ShellAPI.CMIC.SHIFT_DOWN : 0);
-            invoke.ptInvoke = new ShellAPI.POINT(ptInvoke.X, ptInvoke.Y);
-            invoke.nShow = ShellAPI.SW.SHOWNORMAL;
+            invoke.fMask = CMIC.UNICODE | CMIC.PTINVOKE |
+                ((Control.ModifierKeys & Keys.Control) != 0 ? CMIC.CONTROL_DOWN : 0) |
+                ((Control.ModifierKeys & Keys.Shift) != 0 ? CMIC.SHIFT_DOWN : 0);
+            invoke.ptInvoke = new POINT(ptInvoke.X, ptInvoke.Y);
+            invoke.nShow = SW.SHOWNORMAL;
 
             iContextMenu.InvokeCommand(ref invoke);
         }
@@ -260,7 +260,7 @@ namespace TestForm
             if (ShellAPI.CoCreateInstance(
                     ref ShellAPI.CLSID_NewMenu,
                     IntPtr.Zero,
-                    ShellAPI.CLSCTX.INPROC_SERVER,
+                    CLSCTX.INPROC_SERVER,
                     ref ShellAPI.IID_IContextMenu,
                     out iContextMenuPtr) == ShellAPI.S_OK)
             {

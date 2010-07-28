@@ -15,17 +15,25 @@ namespace ShellDll
         public PIDL(IntPtr pidl, bool clone)
         {
             if (clone)
+            {
                 this.pidl = ILClone(pidl);
+            }
             else
+            {
                 this.pidl = pidl;
+            }
         }
 
         public PIDL(PIDL pidl, bool clone)
         {
             if (clone)
+            {
                 this.pidl = ILClone(pidl.Ptr);
+            }
             else
+            {
                 this.pidl = pidl.Ptr;
+            }
         }
 
         #endregion
@@ -45,7 +53,7 @@ namespace ShellDll
         public void Insert(IntPtr insertPidl)
         {
             IntPtr newPidl = ILCombine(insertPidl, pidl);
-            
+
             Marshal.FreeCoTaskMem(pidl);
             pidl = newPidl;
         }
@@ -53,7 +61,9 @@ namespace ShellDll
         public static bool IsEmpty(IntPtr pidl)
         {
             if (pidl == IntPtr.Zero)
+            {
                 return true;
+            }
 
             byte[] bytes = new byte[2];
             Marshal.Copy(pidl, bytes, 0, 2);
@@ -120,13 +130,17 @@ namespace ShellDll
                 return buffer[1] * 256 + buffer[0];
             }
             else
+            {
                 return 0;
+            }
         }
 
         private static int ItemIDListSize(IntPtr pidl)
         {
             if (pidl.Equals(IntPtr.Zero))
+            {
                 return 0;
+            }
             else
             {
                 int size = ItemIDSize(pidl);
@@ -173,7 +187,7 @@ namespace ShellDll
         public static IntPtr ILGetNext(IntPtr pidl)
         {
             int size = ItemIDSize(pidl);
-            IntPtr nextPidl = new IntPtr((int)pidl + size);
+            IntPtr nextPidl = new IntPtr((int) pidl + size);
             return nextPidl;
         }
 
@@ -199,14 +213,16 @@ namespace ShellDll
 
             if (lastPidl != pidl)
             {
-                int newSize = (int)lastPidl - (int)pidl + 2;
+                int newSize = (int) lastPidl - (int) pidl + 2;
                 Marshal.ReAllocCoTaskMem(pidl, newSize);
-                Marshal.Copy(new byte[] { 0, 0 }, 0, new IntPtr((int)pidl + newSize - 2), 2);
+                Marshal.Copy(new byte[] {0, 0}, 0, new IntPtr((int) pidl + newSize - 2), 2);
 
                 return true;
             }
             else
+            {
                 return false;
+            }
         }
 
         // Combines two ITEMIDLIST structures
@@ -244,11 +260,17 @@ namespace ShellDll
             try
             {
                 if (obj is IntPtr)
-                    return ShellAPI.ILIsEqual(this.Ptr, (IntPtr)obj);
+                {
+                    return ShellAPI.ILIsEqual(this.Ptr, (IntPtr) obj);
+                }
                 if (obj is PIDL)
-                    return ShellAPI.ILIsEqual(this.Ptr, ((PIDL)obj).Ptr);
+                {
+                    return ShellAPI.ILIsEqual(this.Ptr, ((PIDL) obj).Ptr);
+                }
                 else
+                {
                     return false;
+                }
             }
             catch (Exception)
             {
@@ -318,7 +340,9 @@ namespace ShellDll
                         return true;
                     }
                     else
+                    {
                         return false;
+                    }
                 }
             }
 

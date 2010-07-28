@@ -42,6 +42,7 @@ namespace ShellDll
             {
                 return SpecialFolderPath.MyComputer;
             }
+
             return parentDirectory.FullName;
         }
 
@@ -80,7 +81,7 @@ namespace ShellDll
         public static IntPtr GetPathPIDL(FileSystemInfo item)
         {
             string parentDirectory = GetParentDirectoryPath(item);
-            
+
             string name = item.Name;
 
             return GetPathPIDL(parentDirectory, name);
@@ -92,7 +93,7 @@ namespace ShellDll
             if (parentFolder != null)
             {
                 uint pchEaten = 0;
-                ShellAPI.SFGAO pdwAttributes = 0;
+                SFGAO pdwAttributes = 0;
                 IntPtr pidl = IntPtr.Zero;
                 int result = parentFolder.ParseDisplayName(IntPtr.Zero, IntPtr.Zero, name, ref pchEaten, out pidl, ref pdwAttributes);
                 if (result == ShellAPI.S_OK)
@@ -128,7 +129,6 @@ namespace ShellDll
             return pidls.ToArray();
         }
 
-
         public static IntPtr GetShellFolderIntPtr(string path)
         {
             IShellFolder desktopShellFolder = GetDesktopFolder();
@@ -140,7 +140,7 @@ namespace ShellDll
             // Get the PIDL for the folder file is in
             IntPtr pidl = IntPtr.Zero;
             uint pchEaten = 0;
-            ShellAPI.SFGAO pdwAttributes = 0;
+            SFGAO pdwAttributes = 0;
             int result = desktopShellFolder.ParseDisplayName(IntPtr.Zero, IntPtr.Zero, path, ref pchEaten, out pidl, ref pdwAttributes);
             if (ShellAPI.S_OK != result)
             {
@@ -169,8 +169,9 @@ namespace ShellDll
 
         public static IShellFolder GetParentShellFolder(FileSystemInfo item)
         {
-            string parentDirectory = ShellFolder.GetParentDirectoryPath(item);
-            IShellFolder parentShellFolder = ShellFolder.GetShellFolder(parentDirectory);
+            string parentDirectory = GetParentDirectoryPath(item);
+            IShellFolder parentShellFolder = GetShellFolder(parentDirectory);
+
             return parentShellFolder;
         }
 
@@ -178,7 +179,6 @@ namespace ShellDll
         {
             return GetParentShellFolder(GetFileSystemInfo(path));
         }
-        
 
         public static IShellFolder GetDesktopFolder()
         {

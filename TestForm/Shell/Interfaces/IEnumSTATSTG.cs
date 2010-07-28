@@ -12,11 +12,7 @@ namespace ShellDll
     {
         // The user needs to allocate an STATSTG array whose size is celt.
         [PreserveSig]
-        uint Next(
-            uint celt,
-            [MarshalAs(UnmanagedType.LPArray)]
-            out ShellAPI.STATSTG[] rgelt,
-            out uint pceltFetched);
+        uint Next(uint celt, [MarshalAs(UnmanagedType.LPArray)] out STATSTG[] rgelt, out uint pceltFetched);
 
         [PreserveSig]
         void Skip(uint celt);

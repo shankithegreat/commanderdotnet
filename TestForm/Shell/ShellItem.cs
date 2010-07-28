@@ -19,7 +19,7 @@ namespace ShellDll
             this.Browser = browser;
 
             this.shellFolderPtr = shellFolderPtr;
-            this.shellFolder = (IShellFolder)Marshal.GetTypedObjectForIUnknown(shellFolderPtr, typeof(IShellFolder));
+            this.shellFolder = (IShellFolder) Marshal.GetTypedObjectForIUnknown(shellFolderPtr, typeof (IShellFolder));
             SubFiles = new ShellItemCollection(this);
             SubFolders = new ShellItemCollection(this);
 
@@ -30,8 +30,8 @@ namespace ShellDll
 
             SetAttributesDesktop(this);
 
-            ShellAPI.SHFILEINFO info = new ShellAPI.SHFILEINFO();
-            ShellAPI.SHGetFileInfo(PIDLRel.Ptr, 0, ref info, ShellAPI.cbFileInfo, ShellAPI.SHGFI.PIDL | ShellAPI.SHGFI.TYPENAME | ShellAPI.SHGFI.SYSICONINDEX);
+            SHFILEINFO info = new SHFILEINFO();
+            ShellAPI.SHGetFileInfo(PIDLRel.Ptr, 0, ref info, ShellAPI.cbFileInfo, SHGFI.PIDL | SHGFI.TYPENAME | SHGFI.SYSICONINDEX);
 
             Type = info.szTypeName;
 
@@ -47,7 +47,7 @@ namespace ShellDll
 
             this.ParentItem = parentItem;
             this.shellFolderPtr = shellFolderPtr;
-            this.shellFolder = (IShellFolder)Marshal.GetTypedObjectForIUnknown(shellFolderPtr, typeof(IShellFolder));
+            this.shellFolder = (IShellFolder) Marshal.GetTypedObjectForIUnknown(shellFolderPtr, typeof (IShellFolder));
             SubFiles = new ShellItemCollection(this);
             SubFolders = new ShellItemCollection(this);
 
@@ -76,7 +76,6 @@ namespace ShellDll
 
             SortFlag = MakeSortFlag(this);
         }
-     
 
 
         public ShellBrowser Browser { get; private set; }
@@ -98,7 +97,7 @@ namespace ShellDll
 
                     if (ParentItem.ShellFolder.BindToObject(PIDLRel.Ptr, IntPtr.Zero, ref ShellAPI.IID_IShellFolder, out shellFolderPtr) == ShellAPI.S_OK)
                     {
-                        shellFolder = (IShellFolder)Marshal.GetTypedObjectForIUnknown(shellFolderPtr, typeof(IShellFolder));
+                        shellFolder = (IShellFolder) Marshal.GetTypedObjectForIUnknown(shellFolderPtr, typeof (IShellFolder));
                     }
 
                     UpdateShellFolder = false;
@@ -193,9 +192,9 @@ namespace ShellDll
                 IntPtr pidlSubItem;
                 int celtFetched;
 
-                ShellAPI.SHCONTF fileFlag = ShellAPI.SHCONTF.NONFOLDERS | ShellAPI.SHCONTF.INCLUDEHIDDEN;
+                SHCONTF fileFlag = SHCONTF.NONFOLDERS | SHCONTF.INCLUDEHIDDEN;
 
-                ShellAPI.SHCONTF folderFlag = ShellAPI.SHCONTF.FOLDERS | ShellAPI.SHCONTF.INCLUDEHIDDEN;
+                SHCONTF folderFlag = SHCONTF.FOLDERS | SHCONTF.INCLUDEHIDDEN;
 
                 #endregion
 
@@ -209,13 +208,13 @@ namespace ShellDll
                         {
                             if (ShellFolder.EnumObjects(winHandle, fileFlag, out fileEnumPtr) == ShellAPI.S_OK)
                             {
-                                fileEnum = (IEnumIDList)Marshal.GetTypedObjectForIUnknown(fileEnumPtr, typeof(IEnumIDList));
-                                ShellAPI.SFGAO attribs = ShellAPI.SFGAO.FOLDER;
+                                fileEnum = (IEnumIDList) Marshal.GetTypedObjectForIUnknown(fileEnumPtr, typeof (IEnumIDList));
+                                SFGAO attribs = SFGAO.FOLDER;
                                 while (fileEnum.Next(1, out pidlSubItem, out celtFetched) == ShellAPI.S_OK && celtFetched == 1)
                                 {
-                                    ShellFolder.GetAttributesOf(1, new IntPtr[] { pidlSubItem }, ref attribs);
+                                    ShellFolder.GetAttributesOf(1, new IntPtr[] {pidlSubItem}, ref attribs);
 
-                                    if ((attribs & ShellAPI.SFGAO.FOLDER) == 0)
+                                    if ((attribs & SFGAO.FOLDER) == 0)
                                     {
                                         ShellItem newItem = new ShellItem(Browser, this, pidlSubItem);
 
@@ -238,7 +237,7 @@ namespace ShellDll
                         {
                             if (ShellFolder.EnumObjects(winHandle, fileFlag, out fileEnumPtr) == ShellAPI.S_OK)
                             {
-                                fileEnum = (IEnumIDList)Marshal.GetTypedObjectForIUnknown(fileEnumPtr, typeof(IEnumIDList));
+                                fileEnum = (IEnumIDList) Marshal.GetTypedObjectForIUnknown(fileEnumPtr, typeof (IEnumIDList));
                                 while (fileEnum.Next(1, out pidlSubItem, out celtFetched) == ShellAPI.S_OK && celtFetched == 1)
                                 {
                                     ShellItem newItem = new ShellItem(Browser, this, pidlSubItem);
@@ -259,7 +258,7 @@ namespace ShellDll
                     {
                         if (ShellFolder.EnumObjects(winHandle, folderFlag, out folderEnumPtr) == ShellAPI.S_OK)
                         {
-                            folderEnum = (IEnumIDList)Marshal.GetTypedObjectForIUnknown(folderEnumPtr, typeof(IEnumIDList));
+                            folderEnum = (IEnumIDList) Marshal.GetTypedObjectForIUnknown(folderEnumPtr, typeof (IEnumIDList));
                             while (folderEnum.Next(1, out pidlSubItem, out celtFetched) == ShellAPI.S_OK && celtFetched == 1)
                             {
                                 IntPtr shellFolderPtr;
@@ -361,9 +360,9 @@ namespace ShellDll
                     IntPtr pidlSubItem;
                     int celtFetched;
 
-                    ShellAPI.SHCONTF fileFlag = ShellAPI.SHCONTF.NONFOLDERS | ShellAPI.SHCONTF.INCLUDEHIDDEN;
+                    SHCONTF fileFlag = SHCONTF.NONFOLDERS | SHCONTF.INCLUDEHIDDEN;
 
-                    ShellAPI.SHCONTF folderFlag = ShellAPI.SHCONTF.FOLDERS | ShellAPI.SHCONTF.INCLUDEHIDDEN;
+                    SHCONTF folderFlag = SHCONTF.FOLDERS | SHCONTF.INCLUDEHIDDEN;
 
                     bool[] fileExists;
                     fileExists = new bool[SubFiles.Count];
@@ -392,13 +391,13 @@ namespace ShellDll
                             {
                                 if (ShellFolder.EnumObjects(IntPtr.Zero, fileFlag, out fileEnumPtr) == ShellAPI.S_OK)
                                 {
-                                    fileEnum = (IEnumIDList)Marshal.GetTypedObjectForIUnknown(fileEnumPtr, typeof(IEnumIDList));
-                                    ShellAPI.SFGAO attribs = ShellAPI.SFGAO.FOLDER;
+                                    fileEnum = (IEnumIDList) Marshal.GetTypedObjectForIUnknown(fileEnumPtr, typeof (IEnumIDList));
+                                    SFGAO attribs = SFGAO.FOLDER;
                                     while (Browser.UpdateCondition.ContinueUpdate && fileEnum.Next(1, out pidlSubItem, out celtFetched) == ShellAPI.S_OK && celtFetched == 1)
                                     {
-                                        ShellFolder.GetAttributesOf(1, new IntPtr[] { pidlSubItem }, ref attribs);
+                                        ShellFolder.GetAttributesOf(1, new IntPtr[] {pidlSubItem}, ref attribs);
 
-                                        if ((attribs & ShellAPI.SFGAO.FOLDER) == 0)
+                                        if ((attribs & SFGAO.FOLDER) == 0)
                                         {
                                             if ((index = SubFiles.IndexOf(pidlSubItem)) == -1)
                                             {
@@ -428,7 +427,7 @@ namespace ShellDll
                             {
                                 if (ShellFolder.EnumObjects(IntPtr.Zero, fileFlag, out fileEnumPtr) == ShellAPI.S_OK)
                                 {
-                                    fileEnum = (IEnumIDList)Marshal.GetTypedObjectForIUnknown(fileEnumPtr, typeof(IEnumIDList));
+                                    fileEnum = (IEnumIDList) Marshal.GetTypedObjectForIUnknown(fileEnumPtr, typeof (IEnumIDList));
                                     while (Browser.UpdateCondition.ContinueUpdate && fileEnum.Next(1, out pidlSubItem, out celtFetched) == ShellAPI.S_OK && celtFetched == 1)
                                     {
                                         if ((index = SubFiles.IndexOf(pidlSubItem)) == -1)
@@ -478,7 +477,7 @@ namespace ShellDll
                                         oldItem.shellFolder = newItem.shellFolder;
                                         oldItem.shellFolderPtr = newItem.shellFolderPtr;
 
-                                        ((IDisposable)newItem).Dispose();
+                                        ((IDisposable) newItem).Dispose();
 
                                         Browser.OnShellItemUpdate(this, new ShellItemUpdateEventArgs(oldItem, oldItem, ShellItemUpdateType.Updated));
                                     }
@@ -486,7 +485,7 @@ namespace ShellDll
                                     {
                                         SubFiles.Remove(oldItem);
                                         Browser.OnShellItemUpdate(this, new ShellItemUpdateEventArgs(oldItem, null, ShellItemUpdateType.Deleted));
-                                        ((IDisposable)oldItem).Dispose();
+                                        ((IDisposable) oldItem).Dispose();
                                     }
                                 }
 
@@ -520,7 +519,7 @@ namespace ShellDll
 
                             if (ShellFolder.EnumObjects(IntPtr.Zero, folderFlag, out folderEnumPtr) == ShellAPI.S_OK)
                             {
-                                folderEnum = (IEnumIDList)Marshal.GetTypedObjectForIUnknown(folderEnumPtr, typeof(IEnumIDList));
+                                folderEnum = (IEnumIDList) Marshal.GetTypedObjectForIUnknown(folderEnumPtr, typeof (IEnumIDList));
                                 while (Browser.UpdateCondition.ContinueUpdate && folderEnum.Next(1, out pidlSubItem, out celtFetched) == ShellAPI.S_OK && celtFetched == 1)
                                 {
                                     if ((index = SubFolders.IndexOf(pidlSubItem)) == -1)
@@ -578,7 +577,7 @@ namespace ShellDll
 
                                         newItem.shellFolder = null;
                                         newItem.shellFolderPtr = IntPtr.Zero;
-                                        ((IDisposable)newItem).Dispose();
+                                        ((IDisposable) newItem).Dispose();
 
                                         Browser.OnShellItemUpdate(this, new ShellItemUpdateEventArgs(oldItem, oldItem, ShellItemUpdateType.Updated));
                                     }
@@ -586,7 +585,7 @@ namespace ShellDll
                                     {
                                         SubFolders.Remove(oldItem);
                                         Browser.OnShellItemUpdate(this, new ShellItemUpdateEventArgs(oldItem, null, ShellItemUpdateType.Deleted));
-                                        ((IDisposable)oldItem).Dispose();
+                                        ((IDisposable) oldItem).Dispose();
                                     }
                                 }
 
@@ -680,7 +679,7 @@ namespace ShellDll
                         PIDLRel.Free();
 
                         shellFolderPtr = newShellFolderPtr;
-                        shellFolder = (IShellFolder)Marshal.GetTypedObjectForIUnknown(shellFolderPtr, typeof(IShellFolder));
+                        shellFolder = (IShellFolder) Marshal.GetTypedObjectForIUnknown(shellFolderPtr, typeof (IShellFolder));
                         PIDLRel = new PIDL(newPidlRel, false);
 
                         foreach (ShellItem child in SubFolders)
@@ -754,7 +753,7 @@ namespace ShellDll
                     }
 
                     Browser.OnShellItemUpdate(this, new ShellItemUpdateEventArgs(item, null, ShellItemUpdateType.Deleted));
-                    ((IDisposable)item).Dispose();
+                    ((IDisposable) item).Dispose();
                 }
                 catch (Exception)
                 {
@@ -774,7 +773,7 @@ namespace ShellDll
                 Marshal.WriteInt32(strr, 0, 0);
                 StringBuilder buf = new StringBuilder(ShellAPI.MAX_PATH);
 
-                if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, ShellAPI.SHGNO.FORPARSING, strr) == ShellAPI.S_OK)
+                if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, SHGNO.FORPARSING, strr) == ShellAPI.S_OK)
                 {
                     ShellAPI.StrRetToBuf(strr, item.PIDLRel.Ptr, buf, ShellAPI.MAX_PATH);
                 }
@@ -806,7 +805,7 @@ namespace ShellDll
 
         public int CompareTo(object obj)
         {
-            ShellItem other = (ShellItem)obj;
+            ShellItem other = (ShellItem) obj;
 
             if (SortFlag != other.SortFlag)
             {
@@ -1040,7 +1039,7 @@ namespace ShellDll
             Marshal.WriteInt32(strr, 0, 0);
             StringBuilder buf = new StringBuilder(ShellAPI.MAX_PATH);
 
-            if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, ShellAPI.SHGNO.INFOLDER, strr) == ShellAPI.S_OK)
+            if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, SHGNO.INFOLDER, strr) == ShellAPI.S_OK)
             {
                 ShellAPI.StrRetToBuf(strr, item.PIDLRel.Ptr, buf, ShellAPI.MAX_PATH);
                 item.Text = buf.ToString();
@@ -1055,7 +1054,7 @@ namespace ShellDll
             Marshal.WriteInt32(strr, 0, 0);
             StringBuilder buf = new StringBuilder(ShellAPI.MAX_PATH);
 
-            if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, ShellAPI.SHGNO.FORADDRESSBAR | ShellAPI.SHGNO.FORPARSING, strr) == ShellAPI.S_OK)
+            if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, SHGNO.FORADDRESSBAR | SHGNO.FORPARSING, strr) == ShellAPI.S_OK)
             {
                 ShellAPI.StrRetToBuf(strr, item.PIDLRel.Ptr, buf, ShellAPI.MAX_PATH);
                 item.Path = buf.ToString();
@@ -1068,8 +1067,8 @@ namespace ShellDll
         {
             PIDL pidlFull = item.PIDLFull;
 
-            ShellAPI.SHFILEINFO info = new ShellAPI.SHFILEINFO();
-            ShellAPI.SHGetFileInfo(pidlFull.Ptr, 0, ref info, ShellAPI.cbFileInfo, ShellAPI.SHGFI.PIDL | ShellAPI.SHGFI.TYPENAME | ShellAPI.SHGFI.SYSICONINDEX);
+            SHFILEINFO info = new SHFILEINFO();
+            ShellAPI.SHGetFileInfo(pidlFull.Ptr, 0, ref info, ShellAPI.cbFileInfo, SHGFI.PIDL | SHGFI.TYPENAME | SHGFI.SYSICONINDEX);
 
             pidlFull.Free();
 
@@ -1095,18 +1094,18 @@ namespace ShellDll
         private static void SetAttributesFolder(ShellItem item)
         {
             // file/folder attributes
-            ShellAPI.SFGAO attribs = ShellAPI.SFGAO.SHARE | ShellAPI.SFGAO.FILESYSTEM | ShellAPI.SFGAO.HIDDEN | ShellAPI.SFGAO.HASSUBFOLDER | ShellAPI.SFGAO.BROWSABLE | ShellAPI.SFGAO.CANRENAME | ShellAPI.SFGAO.STORAGE;
-            item.ParentItem.ShellFolder.GetAttributesOf(1, new IntPtr[] { item.PIDLRel.Ptr }, ref attribs);
+            SFGAO attribs = SFGAO.SHARE | SFGAO.FILESYSTEM | SFGAO.HIDDEN | SFGAO.HASSUBFOLDER | SFGAO.BROWSABLE | SFGAO.CANRENAME | SFGAO.STORAGE;
+            item.ParentItem.ShellFolder.GetAttributesOf(1, new IntPtr[] {item.PIDLRel.Ptr}, ref attribs);
 
             item.IsFolder = true;
             item.IsLink = false;
-            item.IsShared = (attribs & ShellAPI.SFGAO.SHARE) != 0;
-            item.IsFileSystem = (attribs & ShellAPI.SFGAO.FILESYSTEM) != 0;
-            item.IsHidden = (attribs & ShellAPI.SFGAO.HIDDEN) != 0;
-            item.HasSubfolder = (attribs & ShellAPI.SFGAO.HASSUBFOLDER) != 0;
-            item.IsBrowsable = (attribs & ShellAPI.SFGAO.BROWSABLE) != 0;
-            item.CanRename = (attribs & ShellAPI.SFGAO.CANRENAME) != 0;
-            item.CanRead = (attribs & ShellAPI.SFGAO.STORAGE) != 0;
+            item.IsShared = (attribs & SFGAO.SHARE) != 0;
+            item.IsFileSystem = (attribs & SFGAO.FILESYSTEM) != 0;
+            item.IsHidden = (attribs & SFGAO.HIDDEN) != 0;
+            item.HasSubfolder = (attribs & SFGAO.HASSUBFOLDER) != 0;
+            item.IsBrowsable = (attribs & SFGAO.BROWSABLE) != 0;
+            item.CanRename = (attribs & SFGAO.CANRENAME) != 0;
+            item.CanRead = (attribs & SFGAO.STORAGE) != 0;
 
             item.IsDisk = (item.Path.Length == 3 && item.Path.EndsWith(":\\"));
         }
@@ -1114,18 +1113,18 @@ namespace ShellDll
         private static void SetAttributesFile(ShellItem item)
         {
             // file/folder attributes
-            ShellAPI.SFGAO attribs = ShellAPI.SFGAO.LINK | ShellAPI.SFGAO.SHARE | ShellAPI.SFGAO.FILESYSTEM | ShellAPI.SFGAO.HIDDEN | ShellAPI.SFGAO.CANRENAME | ShellAPI.SFGAO.STREAM;
-            item.ParentItem.ShellFolder.GetAttributesOf(1, new IntPtr[] { item.PIDLRel.Ptr }, ref attribs);
+            SFGAO attribs = SFGAO.LINK | SFGAO.SHARE | SFGAO.FILESYSTEM | SFGAO.HIDDEN | SFGAO.CANRENAME | SFGAO.STREAM;
+            item.ParentItem.ShellFolder.GetAttributesOf(1, new IntPtr[] {item.PIDLRel.Ptr}, ref attribs);
 
             item.IsFolder = false;
-            item.IsLink = (attribs & ShellAPI.SFGAO.LINK) != 0;
-            item.IsShared = (attribs & ShellAPI.SFGAO.SHARE) != 0;
-            item.IsFileSystem = (attribs & ShellAPI.SFGAO.FILESYSTEM) != 0;
-            item.IsHidden = (attribs & ShellAPI.SFGAO.HIDDEN) != 0;
+            item.IsLink = (attribs & SFGAO.LINK) != 0;
+            item.IsShared = (attribs & SFGAO.SHARE) != 0;
+            item.IsFileSystem = (attribs & SFGAO.FILESYSTEM) != 0;
+            item.IsHidden = (attribs & SFGAO.HIDDEN) != 0;
             item.HasSubfolder = false;
             item.IsBrowsable = false;
-            item.CanRename = (attribs & ShellAPI.SFGAO.CANRENAME) != 0;
-            item.CanRead = (attribs & ShellAPI.SFGAO.STREAM) != 0;
+            item.CanRename = (attribs & SFGAO.CANRENAME) != 0;
+            item.CanRead = (attribs & SFGAO.STREAM) != 0;
 
             item.IsDisk = false;
         }
@@ -1333,7 +1332,7 @@ namespace ShellDll
             {
                 try
                 {
-                    return (ShellItem)items[index];
+                    return (ShellItem) items[index];
                 }
                 catch (ArgumentOutOfRangeException)
                 {
@@ -1350,7 +1349,7 @@ namespace ShellDll
                 int index;
                 if ((index = IndexOf(name)) > -1)
                 {
-                    return (ShellItem)items[index];
+                    return (ShellItem) items[index];
                 }
                 else
                 {
@@ -1374,7 +1373,7 @@ namespace ShellDll
                 int index;
                 if ((index = IndexOf(pidl)) > -1)
                 {
-                    return (ShellItem)items[index];
+                    return (ShellItem) items[index];
                 }
                 else
                 {

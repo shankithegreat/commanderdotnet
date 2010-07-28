@@ -13,18 +13,11 @@ namespace ShellDll
     {
         // Determines whether a drop can be accepted and its effect if it is accepted
         [PreserveSig]
-        Int32 DragEnter(
-            IntPtr pDataObj, 
-            ShellAPI.MK grfKeyState,
-            ShellAPI.POINT pt, 
-            ref DragDropEffects pdwEffect);
+        Int32 DragEnter(IntPtr pDataObj, MK grfKeyState, POINT pt, ref DragDropEffects pdwEffect);
 
         // Provides target feedback to the user through the DoDragDrop function
         [PreserveSig]
-        Int32 DragOver(
-            ShellAPI.MK grfKeyState, 
-            ShellAPI.POINT pt, 
-            ref DragDropEffects pdwEffect);
+        Int32 DragOver(MK grfKeyState, POINT pt, ref DragDropEffects pdwEffect);
 
         // Causes the drop target to suspend its feedback actions
         [PreserveSig]
@@ -32,10 +25,6 @@ namespace ShellDll
 
         // Drops the data into the target window
         [PreserveSig]
-        Int32 DragDrop(
-            IntPtr pDataObj, 
-            ShellAPI.MK grfKeyState,
-            ShellAPI.POINT pt,
-            ref DragDropEffects pdwEffect);
+        Int32 DragDrop(IntPtr pDataObj, MK grfKeyState, POINT pt, ref DragDropEffects pdwEffect);
     }
 }

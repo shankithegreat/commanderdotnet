@@ -12,15 +12,10 @@ namespace ShellDll
     {
         // Initializes the drag-image manager for a windowless control
         [PreserveSig]
-        Int32 InitializeFromBitmap(
-            ref ShellAPI.SHDRAGIMAGE pshdi,
-            IntPtr pDataObject);
+        Int32 InitializeFromBitmap(ref SHDRAGIMAGE pshdi, IntPtr pDataObject);
 
         // Initializes the drag-image manager for a control with a window
         [PreserveSig]
-        Int32 InitializeFromWindow(
-            IntPtr hwnd,
-            ref ShellAPI.POINT ppt,
-            IntPtr pDataObject);
+        Int32 InitializeFromWindow(IntPtr hwnd, ref POINT ppt, IntPtr pDataObject);
     }
 }

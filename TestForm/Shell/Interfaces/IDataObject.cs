@@ -13,61 +13,43 @@ namespace ShellDll
         // Renders the data described in a FORMATETC structure 
         // and transfers it through the STGMEDIUM structure
         [PreserveSig]
-        Int32 GetData(
-            ref ShellAPI.FORMATETC pformatetcIn,
-            ref ShellAPI.STGMEDIUM pmedium);
+        Int32 GetData(ref FORMATETC pformatetcIn, ref STGMEDIUM pmedium);
 
         // Renders the data described in a FORMATETC structure 
         // and transfers it through the STGMEDIUM structure allocated by the caller
         [PreserveSig]
-        Int32 GetDataHere(
-            ref ShellAPI.FORMATETC pformatetcIn,
-            ref ShellAPI.STGMEDIUM pmedium);
+        Int32 GetDataHere(ref FORMATETC pformatetcIn, ref STGMEDIUM pmedium);
 
         // Determines whether the data object is capable of 
         // rendering the data described in the FORMATETC structure
         [PreserveSig]
-        Int32 QueryGetData(
-            ref ShellAPI.FORMATETC pformatetc);
+        Int32 QueryGetData(ref FORMATETC pformatetc);
 
         // Provides a potentially different but logically equivalent FORMATETC structure
         [PreserveSig]
-        Int32 GetCanonicalFormatEtc(
-            ref ShellAPI.FORMATETC pformatetc,
-            ref ShellAPI.FORMATETC pformatetcout);
+        Int32 GetCanonicalFormatEtc(ref FORMATETC pformatetc, ref FORMATETC pformatetcout);
 
         // Provides the source data object with data described by a 
         // FORMATETC structure and an STGMEDIUM structure
         [PreserveSig]
-        Int32 SetData(
-            ref ShellAPI.FORMATETC pformatetcIn,
-            ref ShellAPI.STGMEDIUM pmedium, 
-            bool frelease);
+        Int32 SetData(ref FORMATETC pformatetcIn, ref STGMEDIUM pmedium, bool frelease);
 
         // Creates and returns a pointer to an object to enumerate the 
         // FORMATETC supported by the data object
         [PreserveSig]
-        Int32 EnumFormatEtc(
-            int dwDirection,
-            ref IEnumFORMATETC ppenumFormatEtc);
+        Int32 EnumFormatEtc(int dwDirection, ref IEnumFORMATETC ppenumFormatEtc);
 
         // Creates a connection between a data object and an advise sink so 
         // the advise sink can receive notifications of changes in the data object
         [PreserveSig]
-        Int32 DAdvise(
-            ref ShellAPI.FORMATETC pformatetc,
-            ref ShellAPI.ADVF advf,
-            ref IAdviseSink pAdvSink, 
-            ref int pdwConnection);
+        Int32 DAdvise(ref FORMATETC pformatetc, ref ADVF advf, ref IAdviseSink pAdvSink, ref int pdwConnection);
 
         // Destroys a notification previously set up with the DAdvise method
         [PreserveSig]
-        Int32 DUnadvise(
-            int dwConnection);
-        
+        Int32 DUnadvise(int dwConnection);
+
         // Creates and returns a pointer to an object to enumerate the current advisory connections
         [PreserveSig]
-        Int32 EnumDAdvise(
-            ref object ppenumAdvise);
+        Int32 EnumDAdvise(ref object ppenumAdvise);
     }
 }
