@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -56,43 +57,45 @@ namespace TestForm
                 }
                 else
                 {
-                    result.Add(new ShellFileNode(this, (Shell.ShellFile)item));
+                    Shell.ShellFile sf = (Shell.ShellFile) item;
 
-                    //FileInfo fi = (FileInfo)item;
-                    //switch (fi.Extension)
-                    //{
-                    //    case ".zip":
-                    //        {
-                    //            result.Add(new ZipArchiveNode(this, fi));
-                    //            break;
-                    //        }
-                    //    case ".7z":
-                    //        {
-                    //            result.Add(new Zip7ArchiveNode(this, fi));
-                    //            break;
-                    //        }
-                    //    case ".bz2":
-                    //        {
-                    //            result.Add(new BZip2ArchiveNode(this, fi));
-                    //            break;
-                    //        }
+                    if (!string.IsNullOrEmpty(sf.Path))
+                    {
+                        switch (System.IO.Path.GetExtension(sf.Path))
+                        {
+                            case ".zip":
+                                {
+                                    result.Add(new ZipArchiveNode(this, new FileInfo(sf.Path)));
+                                    break;
+                                }
+                            case ".7z":
+                                {
+                                    result.Add(new Zip7ArchiveNode(this, new FileInfo(sf.Path)));
+                                    break;
+                                }
+                            case ".bz2":
+                                {
+                                    result.Add(new BZip2ArchiveNode(this, new FileInfo(sf.Path)));
+                                    break;
+                                }
 
-                    //    case ".iso":
-                    //        {
-                    //            result.Add(new IsoArchiveNode(this, fi));
-                    //            break;
-                    //        }
-                    //    case ".rar":
-                    //        {
-                    //            result.Add(new RarArchiveNode(this, fi));
-                    //            break;
-                    //        }
-                    //    default:
-                    //        {
-                    //            result.Add(new FileNode(this, fi));
-                    //            break;
-                    //        }
-                    //}
+                            case ".iso":
+                                {
+                                    result.Add(new IsoArchiveNode(this, new FileInfo(sf.Path)));
+                                    break;
+                                }
+                            case ".rar":
+                                {
+                                    result.Add(new RarArchiveNode(this, new FileInfo(sf.Path)));
+                                    break;
+                                }
+                            default:
+                                {
+                                    result.Add(new ShellFileNode(this, (Shell.ShellFile)item));
+                                    break;
+                                }
+                        }
+                    }
                 }
             }
 
