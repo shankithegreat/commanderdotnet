@@ -122,9 +122,12 @@ namespace TestForm.Shell
         private ShellItem[] GetChilds()
         {
             List<ShellItem> result = new List<ShellItem>(40);
+            Dictionary<IntPtr, int> list2 = new Dictionary<IntPtr, int>(40);
+
+
 
             IEnumIDList list;
-            folder.EnumObjects(IntPtr.Zero, SHCONT.FOLDERS | SHCONT.INCLUDEHIDDEN, out list);
+            folder.EnumObjects(IntPtr.Zero, SHCONT.INIT_ON_FIRST_NEXT | SHCONT.NONFOLDERS | SHCONT.STORAGE | SHCONT.SHAREABLE | SHCONT.FOLDERS | SHCONT.INCLUDEHIDDEN, out list);
 
             IntPtr pidl;
             int numItemsReturned;
@@ -134,21 +137,53 @@ namespace TestForm.Shell
                 IShellItem item;
                 Shell32.SHCreateShellItem(IntPtr.Zero, folder, pidl, out item);
 
-                result.Add(new ShellFolder(item, pidl));
+                SFGAO attr;
+                item.GetAttributes(SFGAO.STREAM | SFGAO.BROWSABLE | SFGAO.STORAGE | SFGAO.FILESYSTEM | SFGAO.FOLDER, out attr);
+
+                if ((attr & SFGAO.FOLDER) == 0 || ((attr & SFGAO.FILESYSTEM) != 0 && (attr & SFGAO.CANMONIKER) != 0))
+                {
+                    result.Add(new ShellFile(item, pidl));
+                }
+                else
+                {
+                    result.Add(new ShellFolder(item, pidl));
+                }
+                
+                list2.Add(pidl, 0);
             }
 
-            folder.EnumObjects(IntPtr.Zero, SHCONT.NONFOLDERS | SHCONT.INCLUDEHIDDEN, out list);
+            List<ShellItem> result2 = new List<ShellItem>(result.Count);
+            foreach (var shellItem in result)
+            {
+                if (shellItem.IsFolder)
+                {
+                    result2.Add(shellItem);
+                }
+            }
+
+            foreach (var shellItem in result)
+            {
+                if (!shellItem.IsFolder)
+                {
+                    result2.Add(shellItem);
+                }
+            }
+
+            /*folder.EnumObjects(IntPtr.Zero, SHCONT.INIT_ON_FIRST_NEXT | SHCONT.NONFOLDERS | SHCONT.INCLUDEHIDDEN, out list);
 
             itemsRequested = 1;
             while (list.Next(itemsRequested, out pidl, out numItemsReturned) == 0 && numItemsReturned == itemsRequested)
             {
-                IShellItem item;
-                Shell32.SHCreateShellItem(IntPtr.Zero, folder, pidl, out item);
+                if (!list2.ContainsKey(pidl))
+                {
+                    IShellItem item;
+                    Shell32.SHCreateShellItem(IntPtr.Zero, folder, pidl, out item);
 
-                result.Add(new ShellFile(item, pidl));
-            }
+                    result.Add(new ShellFile(item, pidl));
+                }
+            }*/
 
-            return result.ToArray();
+            return result2.ToArray();
         }
     }
 }
