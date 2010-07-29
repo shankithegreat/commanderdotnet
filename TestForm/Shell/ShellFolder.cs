@@ -31,7 +31,7 @@ namespace TestForm.Shell
 
         public virtual string Name { get { return name ?? (name = (item == null ? GetName() : base.Name)); } }
 
-        public virtual string Path { get { return path ?? (path = (item == null ? GetPath() : base.Path)); } }
+        //public virtual string Path { get { return path ?? (path = GetPath()); } }
 
         public override bool IsFolder { get { return true; } }
 
@@ -124,7 +124,7 @@ namespace TestForm.Shell
             List<ShellItem> result = new List<ShellItem>(40);
 
             IEnumIDList list;
-            folder.EnumObjects(IntPtr.Zero, SHCONT.FOLDERS | SHCONT.NONFOLDERS | SHCONT.INCLUDEHIDDEN, out list);
+            folder.EnumObjects(IntPtr.Zero, SHCONT.FOLDERS | SHCONT.INCLUDEHIDDEN, out list);
 
             IntPtr pidl;
             int numItemsReturned;
@@ -134,17 +134,18 @@ namespace TestForm.Shell
                 IShellItem item;
                 Shell32.SHCreateShellItem(IntPtr.Zero, folder, pidl, out item);
 
-                SFGAO attributes;
-                item.GetAttributes(SFGAO.FILESYSTEM | SFGAO.FOLDER, out attributes);
+                result.Add(new ShellFolder(item, pidl));
+            }
 
-                if ((attributes & SFGAO.FOLDER) != 0)
-                {
-                    result.Add(new ShellFolder(item, pidl));
-                }
-                else
-                {
-                    result.Add(new ShellFile(item, pidl));
-                }
+            folder.EnumObjects(IntPtr.Zero, SHCONT.NONFOLDERS | SHCONT.INCLUDEHIDDEN, out list);
+
+            itemsRequested = 1;
+            while (list.Next(itemsRequested, out pidl, out numItemsReturned) == 0 && numItemsReturned == itemsRequested)
+            {
+                IShellItem item;
+                Shell32.SHCreateShellItem(IntPtr.Zero, folder, pidl, out item);
+
+                result.Add(new ShellFile(item, pidl));
             }
 
             return result.ToArray();

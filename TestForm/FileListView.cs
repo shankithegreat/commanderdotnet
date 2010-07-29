@@ -37,5 +37,14 @@ namespace TestForm
                 this.SelectedNode = new DirectoryNode(null, new DirectoryInfo(e.SelectedDirectory));
             }
         }
+
+        [ShellDirectorySelected]
+        private void dispatcher_ShellDirectorySelected(ShellDirectorySelectedArgs e)
+        {
+            if (this.SelectedNode == null || (this.SelectedNode.Path != e.SelectedDirectory.Path))
+            {
+                this.SelectedNode = new ShellDirectoryNode(null, e.SelectedDirectory);
+            }
+        }
     }
 }
