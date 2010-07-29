@@ -20,8 +20,8 @@ namespace ShellDll
 
             this.shellFolderPtr = shellFolderPtr;
             this.shellFolder = (IShellFolder) Marshal.GetTypedObjectForIUnknown(shellFolderPtr, typeof (IShellFolder));
-            SubFiles = new ShellItemCollection(this);
-            SubFolders = new ShellItemCollection(this);
+            this.SubFiles = new ShellItemCollection(this);
+            this.SubFolders = new ShellItemCollection(this);
 
             PIDLRel = new Pidl(pidl, false);
 
