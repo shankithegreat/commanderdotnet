@@ -100,40 +100,39 @@ namespace ShellDll
 
         private void Initialize()
         {
-            IntPtr tempPidl;
+            
             SHFILEINFO info;
 
             //My Computer
             info = new SHFILEINFO();
-            tempPidl = IntPtr.Zero;
-            ShellApi.SHGetSpecialFolderLocation(IntPtr.Zero, CSIDL.DRIVES, out tempPidl);
+            IntPtr pidl = IntPtr.Zero;
+            ShellApi.SHGetSpecialFolderLocation(IntPtr.Zero, CSIDL.DRIVES, out pidl);
 
-            ShellApi.SHGetFileInfo(tempPidl, 0, ref info, ShellApi.cbFileInfo, SHGFI.PIDL | SHGFI.DISPLAYNAME | SHGFI.TYPENAME);
+            ShellApi.SHGetFileInfo(pidl, 0, ref info, ShellApi.cbFileInfo, SHGFI.PIDL | SHGFI.DISPLAYNAME | SHGFI.TYPENAME);
 
             SystemFolderName = info.szTypeName;
             MyComputerName = info.szDisplayName;
-            Marshal.FreeCoTaskMem(tempPidl);
+            Marshal.FreeCoTaskMem(pidl);
             //
 
             //Dekstop
-            tempPidl = IntPtr.Zero;
-            ShellApi.SHGetSpecialFolderLocation(IntPtr.Zero, CSIDL.DESKTOP, out tempPidl);
+            ShellApi.SHGetSpecialFolderLocation(IntPtr.Zero, CSIDL.DESKTOP, out pidl);
             IntPtr desktopFolderPtr;
             ShellApi.SHGetDesktopFolder(out desktopFolderPtr);
-            DesktopItem = new ShellItem(this, tempPidl, desktopFolderPtr);
+            DesktopItem = new ShellItem(this, pidl, desktopFolderPtr);
             //
 
 
             //My Documents
             uint pchEaten = 0;
             SFGAO pdwAttributes = 0;
-            DesktopItem.ShellFolder.ParseDisplayName(IntPtr.Zero, IntPtr.Zero, SpecialFolderPath.MyDocuments, ref pchEaten, out tempPidl, ref pdwAttributes);
+            DesktopItem.ShellFolder.ParseDisplayName(IntPtr.Zero, IntPtr.Zero, SpecialFolderPath.MyDocuments, ref pchEaten, out pidl, ref pdwAttributes);
 
             info = new SHFILEINFO();
-            ShellApi.SHGetFileInfo(tempPidl, 0, ref info, ShellApi.cbFileInfo, SHGFI.PIDL | SHGFI.DISPLAYNAME);
+            ShellApi.SHGetFileInfo(pidl, 0, ref info, ShellApi.cbFileInfo, SHGFI.PIDL | SHGFI.DISPLAYNAME);
 
             MyDocumentsName = info.szDisplayName;
-            Marshal.FreeCoTaskMem(tempPidl);
+            Marshal.FreeCoTaskMem(pidl);
 
             StringBuilder path = new StringBuilder(ShellApi.MAX_PATH);
             ShellApi.SHGetFolderPath(IntPtr.Zero, CSIDL.PERSONAL, IntPtr.Zero, SHGFP.TYPE_CURRENT, path);
