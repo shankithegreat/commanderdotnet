@@ -7,9 +7,11 @@ namespace TestForm.Shell
 {
     public class ShellFile : ShellItem
     {
-        public ShellFile(IntPtr pidl)
-            : base(pidl, null)
+        public ShellFile(IShellItem item, IntPtr pidl)
+            : base(item, pidl)
         {
         }
+
+        public override bool IsFolder { get { return false; } }
     }
 }

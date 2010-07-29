@@ -7,23 +7,18 @@ using System.Text;
 
 namespace TestForm.Shell
 {
-    /// <summary>
-    /// This class contains every method, enumeration, struct and constants from the Windows API, which are
-    /// required by the FileBrowser
-    /// </summary>
-    public static class ShellApi
+    public static class Shell32
     {
-        public const int MAX_PATH = 260;
-        public const uint CMD_FIRST = 1;
-        public const uint CMD_LAST = 30000;
-        public const int DRAGDROP_S_DROP = 0x00040100;
-        public const int DRAGDROP_S_CANCEL = 0x00040101;
-        public const int DRAGDROP_S_USEDEFAULTCURSORS = 0x00040102;
-        public static int cbFileInfo = Marshal.SizeOf(typeof(SHFILEINFO));
-        public static int cbMenuItemInfo = Marshal.SizeOf(typeof(MENUITEMINFO));
-        public static int cbTpmParams = Marshal.SizeOf(typeof(TPMPARAMS));
-        public static int cbInvokeCommand = Marshal.SizeOf(typeof(CMINVOKECOMMANDINFOEX));
+        [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern int SHCreateShellItem(IntPtr pidlParent, [In, MarshalAs(UnmanagedType.Interface)] IShellFolder psfParent, IntPtr pidl, [MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi);
 
+        /// <summary>
+        /// Returns the size, in bytes, of an ITEMIDLIST structure.
+        /// </summary>
+        /// <param name="pidl">A pointer to an ITEMIDLIST structure.</param>
+        /// <returns>The size of the ITEMIDLIST structure specified by pidl, in bytes.</returns>
+        [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        internal static extern uint ILGetSize(IntPtr pidl);
 
         // Retrieves information about an object in the file system,
         // such as a file, a folder, a directory, or a drive root.
@@ -35,6 +30,9 @@ namespace TestForm.Shell
         [DllImport("shell32", EntryPoint = "SHGetFileInfo", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
         public static extern IntPtr SHGetFileInfo(IntPtr ppidl, FILE_ATTRIBUTE dwFileAttributes, ref SHFILEINFO sfi, int cbFileInfo, SHGFI uFlags);
 
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        internal extern static bool DestroyIcon(IntPtr handle);
+
         // Takes the CSIDL of a folder and returns the pathname.
         [DllImport("shell32.dll")]
         public static extern Int32 SHGetFolderPath(IntPtr hwndOwner, CSIDL nFolder, IntPtr hToken, SHGFP dwFlags, StringBuilder pszPath);
@@ -42,7 +40,7 @@ namespace TestForm.Shell
         // Retrieves the IShellFolder interface for the desktop folder,
         // which is the root of the Shell's namespace. 
         [DllImport("shell32.dll")]
-        public static extern Int32 SHGetDesktopFolder(out IntPtr ppshf);
+        public static extern Int32 SHGetDesktopFolder([MarshalAs(UnmanagedType.Interface)] out IShellFolder ppshf);
 
         // Retrieves ppidl of special folder
         [DllImport("Shell32", EntryPoint = "SHGetSpecialFolderLocation", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
@@ -73,18 +71,12 @@ namespace TestForm.Shell
         // Tests whether two ITEMIDLIST structures are equal in a binary comparison
         [DllImport("shell32.dll", EntryPoint = "ILIsEqual", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
         public static extern bool ILIsEqual(IntPtr pidl1, IntPtr pidl2);
+    }
 
-
-
-        // Takes a STRRET structure returned by IShellFolder::GetDisplayNameOf,
-        // converts it to a string, and places the result in a buffer. 
-        [DllImport("shlwapi.dll", EntryPoint = "StrRetToBuf", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern Int32 StrRetToBuf(IntPtr pstr, IntPtr pidl, StringBuilder pszBuf, int cchBuf);
-
-
-
+    public static class User32
+    {
         // Sends the specified message to a window or windows
-        [DllImport("user32", EntryPoint = "SendMessage", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
+        [DllImport("user32.dll", EntryPoint = "SendMessage", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
         public static extern IntPtr SendMessage(IntPtr hWnd, WM wMsg, int wParam, IntPtr lParam);
 
         // Destroys an icon and frees any memory the icon occupied
@@ -146,9 +138,10 @@ namespace TestForm.Shell
         // Retrieves information about the specified combo box
         [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
         public static extern bool GetComboBoxInfo(IntPtr hwndCombo, ref COMBOBOXINFO info);
+    }
 
-
-
+    public static class ComCtl32
+    {
         // Replaces an image with an icon or cursor
         [DllImport("comctl32", EntryPoint = "ImageList_ReplaceIcon", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int ImageList_ReplaceIcon(IntPtr himl, int index, IntPtr hicon);
@@ -160,8 +153,10 @@ namespace TestForm.Shell
         // Creates an icon from an image and mask in an image list
         [DllImport("comctl32", EntryPoint = "ImageList_GetIcon", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
         public static extern IntPtr ImageList_GetIcon(IntPtr himl, int index, ILD flags);
+    }
 
-
+    public static class Ole32
+    {
         // Registers the specified window as one that can be the target of an OLE drag-and-drop 
         // operation and specifies the IDropTarget instance to use for drop operations
         //[DllImport("ole32.dll", CharSet = CharSet.Auto, SetLastError = true)]
@@ -187,13 +182,154 @@ namespace TestForm.Shell
         // Retrieves a data object that you can use to access the contents of the clipboard
         [DllImport("ole32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern int OleGetClipboard(out IntPtr ppDataObj);
+    }
 
+    public static class ShellApi
+    {
+        public const uint CMD_FIRST = 1;
+        public const uint CMD_LAST = 30000;
+        public const int DRAGDROP_S_DROP = 0x00040100;
+        public const int DRAGDROP_S_CANCEL = 0x00040101;
+        public const int DRAGDROP_S_USEDEFAULTCURSORS = 0x00040102;
+        public static int cbFileInfo = Marshal.SizeOf(typeof(SHFILEINFO));
+        public static int cbMenuItemInfo = Marshal.SizeOf(typeof(MENUITEMINFO));
+        public static int cbTpmParams = Marshal.SizeOf(typeof(TPMPARAMS));
+        public static int cbInvokeCommand = Marshal.SizeOf(typeof(CMINVOKECOMMANDINFOEX));
+
+
+        // Takes a STRRET structure returned by IShellFolder::GetDisplayNameOf,
+        // converts it to a string, and places the result in a buffer. 
+        [DllImport("shlwapi.dll", EntryPoint = "StrRetToBuf", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern Int32 StrRetToBuf(IntPtr pstr, IntPtr pidl, StringBuilder pszBuf, int cchBuf);
 
         public static DateTime FileTimeToDateTime(FILETIME fileTime)
         {
             long ticks = (((long)fileTime.dwHighDateTime) << 32) + (long)fileTime.dwLowDateTime;
             return DateTime.FromFileTimeUtc(ticks);
         }
+    }
+
+    /// <summary>
+    /// Indicate flags that modify the property store object retrieved by methods 
+    /// that create a property store, such as IShellItem2::GetPropertyStore or 
+    /// IPropertyStoreFactory::GetPropertyStore.
+    /// </summary>
+    [Flags]
+    internal enum GETPROPERTYSTOREFLAGS : uint
+    {
+        /// <summary>
+        /// Meaning to a calling process: Return a read-only property store that contains all 
+        /// properties. Slow items (offline files) are not opened. 
+        /// Combination with other flags: Can be overridden by other flags.
+        /// </summary>
+        DEFAULT = 0,
+
+        /// <summary>
+        /// Meaning to a calling process: Include only properties directly from the property
+        /// handler, which opens the file on the disk, network, or device. Meaning to a file 
+        /// folder: Only include properties directly from the handler.
+        /// 
+        /// Meaning to other folders: When delegating to a file folder, pass this flag on 
+        /// to the file folder; do not do any multiplexing (MUX). When not delegating to a 
+        /// file folder, ignore this flag instead of returning a failure code.
+        /// 
+        /// Combination with other flags: Cannot be combined with GPS_TEMPORARY, 
+        /// GPS_FASTPROPERTIESONLY, or GPS_BESTEFFORT.
+        /// </summary>
+        HANDLERPROPERTIESONLY = 0x1,
+
+        /// <summary>
+        /// Meaning to a calling process: Can write properties to the item. 
+        /// Note: The store may contain fewer properties than a read-only store. 
+        /// 
+        /// Meaning to a file folder: ReadWrite.
+        /// 
+        /// Meaning to other folders: ReadWrite. Note: When using default MUX, 
+        /// return a single unmultiplexed store because the default MUX does not support ReadWrite.
+        /// 
+        /// Combination with other flags: Cannot be combined with GPS_TEMPORARY, GPS_FASTPROPERTIESONLY, 
+        /// GPS_BESTEFFORT, or GPS_DELAYCREATION. Implies GPS_HANDLERPROPERTIESONLY.
+        /// </summary>
+        READWRITE = 0x2,
+
+        /// <summary>
+        /// Meaning to a calling process: Provides a writable store, with no initial properties, 
+        /// that exists for the lifetime of the Shell item instance; basically, a property bag 
+        /// attached to the item instance. 
+        /// 
+        /// Meaning to a file folder: Not applicable. Handled by the Shell item.
+        /// 
+        /// Meaning to other folders: Not applicable. Handled by the Shell item.
+        /// 
+        /// Combination with other flags: Cannot be combined with any other flag. Implies GPS_READWRITE
+        /// </summary>
+        TEMPORARY = 0x4,
+
+        /// <summary>
+        /// Meaning to a calling process: Provides a store that does not involve reading from the 
+        /// disk or network. Note: Some values may be different, or missing, compared to a store 
+        /// without this flag. 
+        /// 
+        /// Meaning to a file folder: Include the "innate" and "fallback" stores only. Do not load the handler.
+        /// 
+        /// Meaning to other folders: Include only properties that are available in memory or can 
+        /// be computed very quickly (no properties from disk, network, or peripheral IO devices). 
+        /// This is normally only data sources from the IDLIST. When delegating to other folders, pass this flag on to them.
+        /// 
+        /// Combination with other flags: Cannot be combined with GPS_TEMPORARY, GPS_READWRITE, 
+        /// GPS_HANDLERPROPERTIESONLY, or GPS_DELAYCREATION.
+        /// </summary>
+        FASTPROPERTIESONLY = 0x8,
+
+        /// <summary>
+        /// Meaning to a calling process: Open a slow item (offline file) if necessary. 
+        /// Meaning to a file folder: Retrieve a file from offline storage, if necessary. 
+        /// Note: Without this flag, the handler is not created for offline files.
+        /// 
+        /// Meaning to other folders: Do not return any properties that are very slow.
+        /// 
+        /// Combination with other flags: Cannot be combined with GPS_TEMPORARY or GPS_FASTPROPERTIESONLY.
+        /// </summary>
+        OPENSLOWITEM = 0x10,
+
+        /// <summary>
+        /// Meaning to a calling process: Delay memory-intensive operations, such as file access, until 
+        /// a property is requested that requires such access. 
+        /// 
+        /// Meaning to a file folder: Do not create the handler until needed; for example, either 
+        /// GetCount/GetAt or GetValue, where the innate store does not satisfy the request. 
+        /// Note: GetValue might fail due to file access problems.
+        /// 
+        /// Meaning to other folders: If the folder has memory-intensive properties, such as 
+        /// delegating to a file folder or network access, it can optimize performance by 
+        /// supporting IDelayedPropertyStoreFactory and splitting up its properties into a 
+        /// fast and a slow store. It can then use delayed MUX to recombine them.
+        /// 
+        /// Combination with other flags: Cannot be combined with GPS_TEMPORARY or 
+        /// GPS_READWRITE
+        /// </summary>
+        DELAYCREATION = 0x20,
+
+        /// <summary>
+        /// Meaning to a calling process: Succeed at getting the store, even if some 
+        /// properties are not returned. Note: Some values may be different, or missing,
+        /// compared to a store without this flag. 
+        /// 
+        /// Meaning to a file folder: Succeed and return a store, even if the handler or 
+        /// innate store has an error during creation. Only fail if substores fail.
+        /// 
+        /// Meaning to other folders: Succeed on getting the store, even if some properties 
+        /// are not returned.
+        /// 
+        /// Combination with other flags: Cannot be combined with GPS_TEMPORARY, 
+        /// GPS_READWRITE, or GPS_HANDLERPROPERTIESONLY.
+        /// </summary>
+        BESTEFFORT = 0x40,
+
+        /// <summary>
+        /// Mask for valid GETPROPERTYSTOREFLAGS values.
+        /// </summary>
+        MASK_VALID = 0xff,
     }
 
     // Contains strings returned from the IShellFolder interface methods
@@ -224,7 +360,7 @@ namespace TestForm.Shell
         public int iIcon;
         public SFGAO dwAttributes;
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = ShellApi.MAX_PATH)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
         public string szDisplayName;
 
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
@@ -512,7 +648,7 @@ namespace TestForm.Shell
         FORADDRESSBAR = 0x4000,
         FORPARSING = 0x8000
     }
-   
+
     [Flags]
     public enum SIGDN : uint
     {
@@ -576,7 +712,7 @@ namespace TestForm.Shell
     // Determines the type of items included in an enumeration. 
     // These values are used with the IShellFolder::EnumObjects method
     [Flags]
-    public enum SHCONTF
+    public enum SHCONT
     {
         FOLDERS = 0x0020,
         NONFOLDERS = 0x0040,
