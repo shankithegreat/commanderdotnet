@@ -53,7 +53,6 @@ namespace TestForm
 
         public override void Dispose()
         {
-            Zip7ArchiveHelper.CloseArchive(this.Handle);
         }
 
 
@@ -82,7 +81,7 @@ namespace TestForm
             List<HeaderData> items = new List<HeaderData>(40);
 
             Dictionary<string, int> directories = new Dictionary<string, int>(10);
-
+            
             using (ZipInputStream stream = new ZipInputStream(this.Path))
             {
                 while (true)

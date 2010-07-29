@@ -26,7 +26,7 @@ namespace TestForm.Shell
 
         public virtual string Path { get { return path ?? (path = GetPath()); } }
 
-        public int ImageIndex { get { return (imageIndex ?? (imageIndex = GetImageIndex())).Value; } }
+        //public int ImageIndex { get { return (imageIndex ?? (imageIndex = GetImageIndex())).Value; } }
 
         public abstract bool IsFolder { get; }
 
@@ -39,10 +39,21 @@ namespace TestForm.Shell
         }
 
         private string GetPath()
-        {
-            string result;
-            this.item.GetDisplayName(SIGDN.FILESYSPATH, out result);
-            return result;
+        {            
+            if (item != null)
+            {
+                try
+                {
+                    string result;
+                    this.item.GetDisplayName(SIGDN.FILESYSPATH, out result);
+                    return result;
+                }
+                catch (Exception)
+                { 
+                }
+            }
+
+            return string.Empty;
         }
 
         private IShellItem GetParent()
@@ -67,10 +78,10 @@ namespace TestForm.Shell
             return result;
         }
 
-        private int GetImageIndex()
+        public int GetImageIndex()
         {
             SHFILEINFO info = new SHFILEINFO();
-            Shell32.SHGetFileInfo(pidl, 0, ref info, Marshal.SizeOf(info), SHGFI.PIDL | SHGFI.TYPENAME | SHGFI.SYSICONINDEX | SHGFI.ADDOVERLAYS | SHGFI.LINKOVERLAY);
+            Shell32.SHGetFileInfo(pidl, 0, ref info, Marshal.SizeOf(info), SHGFI.PIDL | SHGFI.SYSICONINDEX | SHGFI.OVERLAYINDEX | SHGFI.LARGEICON | SHGFI.ADDOVERLAYS | SHGFI.LINKOVERLAY);
             Shell32.DestroyIcon(info.hIcon);
 
             return info.iIcon;

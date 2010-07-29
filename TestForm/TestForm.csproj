@@ -98,7 +98,6 @@
     <Compile Include="Shell\IShellFolder.cs" />
     <Compile Include="Shell\IShellItem.cs" />
     <Compile Include="Shell\NativeMethods.cs" />
-    <Compile Include="Shell\Pidl.cs" />
     <Compile Include="Shell\ShellFile.cs" />
     <Compile Include="Shell\ShellFolder.cs" />
     <Compile Include="Shell\ShellGuids.cs" />
