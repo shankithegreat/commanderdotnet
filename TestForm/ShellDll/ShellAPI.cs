@@ -23,6 +23,7 @@ namespace ShellDll
         public static int cbTpmParams = Marshal.SizeOf(typeof(TPMPARAMS));
         public static int cbInvokeCommand = Marshal.SizeOf(typeof(CMINVOKECOMMANDINFOEX));
 
+
         // Retrieves information about an object in the file system,
         // such as a file, a folder, a directory, or a drive root.
         [DllImport("shell32", EntryPoint = "SHGetFileInfo", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
