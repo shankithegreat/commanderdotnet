@@ -40,7 +40,7 @@ namespace TestForm
 
         public override int GetImageIndex()
         {
-            return info.ImageIndex;
+            return info.GetImageIndex();
         }
     }
 }

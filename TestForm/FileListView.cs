@@ -25,7 +25,7 @@ namespace TestForm
         {
             base.OnNodeSelected(node);
 
-            MessageDispatcher.Dispatcher.Invoke(new DirectorySelectedAttribute(), new DirectorySelectedArgs(node.Path));
+            //MessageDispatcher.Dispatcher.Invoke(new DirectorySelectedAttribute(), new DirectorySelectedArgs(node.Path));
         }
 
 

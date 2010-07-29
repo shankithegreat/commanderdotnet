@@ -26,8 +26,8 @@ namespace TestForm
 
             var l = d.Childs[6];
 
-            MessageDispatcher.Dispatcher.Invoke(new ShellDirectorySelectedAttribute(), new ShellDirectorySelectedArgs(d));
-            //MessageDispatcher.Dispatcher.Invoke(new DirectorySelectedAttribute(), new DirectorySelectedArgs(@"C:\"));
+            //MessageDispatcher.Dispatcher.Invoke(new ShellDirectorySelectedAttribute(), new ShellDirectorySelectedArgs(ds));
+            MessageDispatcher.Dispatcher.Invoke(new DirectorySelectedAttribute(), new DirectorySelectedArgs(@"C:\"));
         }
     }
 }
