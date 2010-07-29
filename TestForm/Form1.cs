@@ -8,8 +8,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Microsoft.WindowsAPICodePack.Shell;
 using TestForm.Messages;
+using TestForm.Shell;
 
 namespace TestForm
 {
@@ -18,6 +18,14 @@ namespace TestForm
         public Form1()
         {
             InitializeComponent();
+
+            var ds = ShellFolder.GetDesktopFolder();
+
+            var c = (ShellFolder)((ShellFolder)ds.Childs[0]).Childs[1];
+            var d = (ShellFolder)((ShellFolder)ds.Childs[0]).Childs[2];
+
+            var l = d.Childs[6];
+            
 
             MessageDispatcher.Dispatcher.Invoke(new DirectorySelectedAttribute(), new DirectorySelectedArgs(@"C:\"));
         }

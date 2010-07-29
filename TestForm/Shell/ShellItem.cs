@@ -6,25 +6,29 @@ using System.Text;
 
 namespace TestForm.Shell
 {
-    public class ShellItem
+    public abstract class ShellItem
     {
-        private IShellItem item;
+        protected IShellItem item;
+        protected IntPtr pidl;
         private string name;
         private string path;
+        private int? imageIndex;
 
 
-        public ShellItem(IntPtr pidl, IShellItem item)
+        protected ShellItem(IShellItem item, IntPtr pidl)
         {
-            this.Pidl = pidl;
             this.item = item;
+            this.pidl = pidl;
         }
 
 
-        public IntPtr Pidl { get; private set; }
+        public virtual string Name { get { return name ?? (name = GetName()); } }
 
-        public string Name { get { return name ?? (name = GetName()); } }
+        public virtual string Path { get { return path ?? (path = GetPath()); } }
 
-        public string Path { get { return path ?? (path = GetPath()); } }
+        public int ImageIndex { get { return (imageIndex ?? (imageIndex = GetImageIndex())).Value; } }
+
+        public abstract bool IsFolder { get; }
 
 
         private string GetName()
@@ -59,8 +63,17 @@ namespace TestForm.Shell
         private SFGAO GetAttributes()
         {
             SFGAO result;
-            this.item.GetAttributes(SFGAO.FILESYSTEM, out result);
+            this.item.GetAttributes(SFGAO.FILESYSTEM | SFGAO.FOLDER, out result);
             return result;
+        }
+
+        private int GetImageIndex()
+        {
+            SHFILEINFO info = new SHFILEINFO();
+            Shell32.SHGetFileInfo(pidl, 0, ref info, Marshal.SizeOf(info), SHGFI.PIDL | SHGFI.TYPENAME | SHGFI.SYSICONINDEX | SHGFI.ADDOVERLAYS | SHGFI.LINKOVERLAY);
+            Shell32.DestroyIcon(info.hIcon);
+
+            return info.iIcon;
         }
     }
 }

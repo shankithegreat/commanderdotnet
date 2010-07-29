@@ -92,6 +92,7 @@
     <Compile Include="ArchiveUpLink.cs" />
     <Compile Include="RarArchiveNode.cs" />
     <Compile Include="ShellDll\ShellGuids.cs" />
+    <Compile Include="Shell\IEnumIDList.cs" />
     <Compile Include="Shell\IShellFolder.cs" />
     <Compile Include="Shell\IShellItem.cs" />
     <Compile Include="Shell\NativeMethods.cs" />
