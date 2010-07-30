@@ -4,7 +4,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
-namespace ShellDll
+namespace Shell
 {
     public class ShellBrowserUpdater : NativeWindow
     {

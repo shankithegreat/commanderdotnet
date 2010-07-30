@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
-namespace ShellDll
+namespace Shell
 {
     internal static class ShellHelper
     {
@@ -289,13 +289,13 @@ namespace ShellDll
         /// <param name="item">The item for which to obtain the IDropTarget</param>
         /// <param name="dropTargetPtr">A pointer to the returned IDropTarget</param>
         /// <returns>the IDropTarget from the ShellItem</returns>
-        public static bool GetIDropTarget(ShellNode item, out IntPtr dropTargetPtr, out ShellDll.IDropTarget dropTarget)
+        public static bool GetIDropTarget(ShellNode item, out IntPtr dropTargetPtr, out Shell.IDropTarget dropTarget)
         {
             ShellNode parent = item.ParentItem != null ? item.ParentItem : item;
 
             if (parent.ShellFolder.GetUIObjectOf(IntPtr.Zero, 1, new IntPtr[] { item.PIDLRel.Ptr }, ref ShellGuids.IDropTarget, IntPtr.Zero, out dropTargetPtr) == 0)
             {
-                dropTarget = (ShellDll.IDropTarget)Marshal.GetTypedObjectForIUnknown(dropTargetPtr, typeof(ShellDll.IDropTarget));
+                dropTarget = (Shell.IDropTarget)Marshal.GetTypedObjectForIUnknown(dropTargetPtr, typeof(Shell.IDropTarget));
 
                 return true;
             }
@@ -313,11 +313,11 @@ namespace ShellDll
         /// <param name="item">The item for which to obtain the IDropTarget</param>
         /// <param name="dropTargetPtr">A pointer to the returned IDropTarget</param>
         /// <returns>the IDropTarget from the ShellItem</returns>
-        public static bool GetIDropTarget(IntPtr[] pidls, IShellFolder parent, out IntPtr dropTargetPtr, out ShellDll.IDropTarget dropTarget)
+        public static bool GetIDropTarget(IntPtr[] pidls, IShellFolder parent, out IntPtr dropTargetPtr, out Shell.IDropTarget dropTarget)
         {
             if (parent.GetUIObjectOf(IntPtr.Zero, 1, pidls, ref ShellGuids.IDropTarget, IntPtr.Zero, out dropTargetPtr) == 0)
             {
-                dropTarget = (ShellDll.IDropTarget)Marshal.GetTypedObjectForIUnknown(dropTargetPtr, typeof(ShellDll.IDropTarget));
+                dropTarget = (Shell.IDropTarget)Marshal.GetTypedObjectForIUnknown(dropTargetPtr, typeof(Shell.IDropTarget));
 
                 return true;
             }

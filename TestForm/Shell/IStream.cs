@@ -4,7 +4,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.IO;
 
-namespace ShellDll
+namespace Shell
 {
     [ComImport]
     [Guid("0000000c-0000-0000-C000-000000000046")]

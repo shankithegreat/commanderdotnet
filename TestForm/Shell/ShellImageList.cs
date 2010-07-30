@@ -6,7 +6,7 @@ using System.Threading;
 using System.Drawing;
 using System.Runtime.InteropServices;
 
-namespace ShellDll
+namespace Shell
 {
     public static class ShellImageList
     {

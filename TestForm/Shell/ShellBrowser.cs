@@ -6,7 +6,7 @@ using System.Collections;
 using System.Threading;
 using System.ComponentModel;
 
-namespace ShellDll
+namespace Shell
 {
     public class ShellBrowser : Component
     {

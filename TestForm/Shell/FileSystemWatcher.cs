@@ -6,9 +6,9 @@ using System.ComponentModel.Design;
 using System.Text;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
-using ShellDll;
+using Shell;
 
-namespace Commander.Shell
+namespace Shell
 {
     public class FileSystemWatcher : NativeWindow
     {

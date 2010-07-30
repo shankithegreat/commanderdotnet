@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
-using ShellDll;
+using Shell;
 using TestForm;
 
 namespace Commander

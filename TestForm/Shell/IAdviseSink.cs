@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace ShellDll
+namespace Shell
 {
     [ComImport]
     [Guid("0000010f-0000-0000-C000-000000000046")]

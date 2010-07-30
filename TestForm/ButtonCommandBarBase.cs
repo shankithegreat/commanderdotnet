@@ -139,7 +139,7 @@ namespace Commander
             if (e.Button == MouseButtons.Right)
             {
                 Point location = deleteButton.PointToScreen(e.Location);
-                contextMenu.Show(location, ShellDll.SpecialFolderPath.RecycleBin);
+                contextMenu.Show(location, Shell.SpecialFolderPath.RecycleBin);
             }
         }
 

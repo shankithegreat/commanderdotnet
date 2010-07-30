@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace ShellDll
+namespace Shell
 {
     public abstract class ShellItem
     {
