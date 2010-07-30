@@ -55,7 +55,7 @@ namespace Commander
             }
             set
             {
-                if (!Utility.IoHelper.Equals(value, this.selectedDrive))
+                if (!Utility.IoExtensions.Equals(value, this.selectedDrive))
                 {
                     this.selectedDrive = value;
 
@@ -172,7 +172,7 @@ namespace Commander
             {
                 ToolBarButton button = CreateButton(drive);
 
-                if (!selected && Utility.IoHelper.Equals(drive, this.selectedDrive))
+                if (!selected && Utility.IoExtensions.Equals(drive, this.selectedDrive))
                 {
                     button.Pushed = true;
                     selected = true;

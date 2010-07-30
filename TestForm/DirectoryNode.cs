@@ -20,7 +20,7 @@ namespace TestForm
         }
 
 
-        public override long Size { get { return IoHelper.GetDirectorySize(info); } set { } }
+        public override long Size { get { return info.GetDirectorySize(); } set { } }
 
         public override string Name { get { return info.Name; } set { base.Name = value; } }
 
