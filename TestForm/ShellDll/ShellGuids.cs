@@ -7,6 +7,7 @@ namespace ShellDll
         public static Guid Desktop = new Guid("{00021400-0000-0000-C000-000000000046}");
 
         public static Guid IShellFolder = new Guid("{000214E6-0000-0000-C000-000000000046}");
+        public static Guid IShellItem = new Guid("{43826d1e-e718-42ee-bc55-a1e261c37bfe}");
         public static Guid IContextMenu = new Guid("{000214e4-0000-0000-c000-000000000046}");
         public static Guid IContextMenu2 = new Guid("{000214f4-0000-0000-c000-000000000046}");
         public static Guid IContextMenu3 = new Guid("{bcfce0a0-ec17-11d0-8d10-00a0c90f2719}");
@@ -25,5 +26,7 @@ namespace ShellDll
         public static Guid IShellExtInit = new Guid("{000214e8-0000-0000-c000-000000000046}");
         public static Guid IStream = new Guid("{0000000c-0000-0000-c000-000000000046}");
         public static Guid IStorage = new Guid("{0000000B-0000-0000-C000-000000000046}");
+
+        public static Guid ShellFolderObject = new Guid("{3981e224-f559-11d3-8e3a-00c04f6837d5}");
     }
 }

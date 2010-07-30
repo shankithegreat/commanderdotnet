@@ -92,6 +92,7 @@
     <Compile Include="ArchiveUpLink.cs" />
     <Compile Include="RarArchiveNode.cs" />
     <Compile Include="ShellDirectoryNode.cs" />
+    <Compile Include="ShellDll\IShellItem.cs" />
     <Compile Include="ShellDll\ShellGuids.cs" />
     <Compile Include="ShellFileNode.cs" />
     <Compile Include="Shell\IEnumIDList.cs" />
@@ -270,13 +271,12 @@
     <Compile Include="ShellDll\IShellFolder.cs" />
     <Compile Include="ShellDll\IStorage.cs" />
     <Compile Include="ShellDll\IStream.cs" />
-    <Compile Include="ShellDll\Pidl2.cs" />
+    <Compile Include="ShellDll\Pidl.cs" />
     <Compile Include="ShellDll\NativeMethods.cs" />
     <Compile Include="ShellDll\ShellBrowser.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ShellDll\ShellBrowserUpdater.cs" />
-    <Compile Include="ShellDll\ShellFolderHelper.cs" />
     <Compile Include="ShellDll\ShellHelper.cs" />
     <Compile Include="ShellDll\ShellImageList.cs" />
     <Compile Include="ShellDll\ShellNode.cs" />

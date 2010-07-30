@@ -199,7 +199,7 @@ namespace ShellDll
                     {
                         if (this.Equals(Browser.DesktopItem) || ParentItem.Equals(Browser.DesktopItem))
                         {
-                            if (ShellFolder.EnumObjects(winHandle, SHCONTF.NONFOLDERS | SHCONTF.INCLUDEHIDDEN, out fileListPtr) == 0)
+                            if (ShellFolder.EnumObjects(winHandle, SHCONT.NONFOLDERS | SHCONT.INCLUDEHIDDEN, out fileListPtr) == 0)
                             {
                                 fileList = (IEnumIDList)Marshal.GetTypedObjectForIUnknown(fileListPtr, typeof(IEnumIDList));
                                                                 
@@ -229,7 +229,7 @@ namespace ShellDll
                         }
                         else
                         {
-                            if (ShellFolder.EnumObjects(winHandle, SHCONTF.NONFOLDERS | SHCONTF.INCLUDEHIDDEN, out fileListPtr) == 0)
+                            if (ShellFolder.EnumObjects(winHandle, SHCONT.NONFOLDERS | SHCONT.INCLUDEHIDDEN, out fileListPtr) == 0)
                             {
                                 fileList = (IEnumIDList)Marshal.GetTypedObjectForIUnknown(fileListPtr, typeof(IEnumIDList));
                                 while (fileList.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
@@ -246,7 +246,7 @@ namespace ShellDll
 
                     if (expandFolders)
                     {
-                        if (ShellFolder.EnumObjects(winHandle, SHCONTF.FOLDERS | SHCONTF.INCLUDEHIDDEN, out folderListPtr) == 0)
+                        if (ShellFolder.EnumObjects(winHandle, SHCONT.FOLDERS | SHCONT.INCLUDEHIDDEN, out folderListPtr) == 0)
                         {
                             folderList = (IEnumIDList)Marshal.GetTypedObjectForIUnknown(folderListPtr, typeof(IEnumIDList));
                             while (folderList.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
@@ -344,9 +344,9 @@ namespace ShellDll
                     IntPtr pidlSubItem;
                     int celtFetched;
 
-                    SHCONTF fileFlag = SHCONTF.NONFOLDERS | SHCONTF.INCLUDEHIDDEN;
+                    SHCONT fileFlag = SHCONT.NONFOLDERS | SHCONT.INCLUDEHIDDEN;
 
-                    SHCONTF folderFlag = SHCONTF.FOLDERS | SHCONTF.INCLUDEHIDDEN;
+                    SHCONT folderFlag = SHCONT.FOLDERS | SHCONT.INCLUDEHIDDEN;
 
                     bool[] fileExists;
                     fileExists = new bool[SubFiles.Count];
