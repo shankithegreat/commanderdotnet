@@ -95,14 +95,10 @@
     <Compile Include="ShellDll\IShellItem.cs" />
     <Compile Include="ShellDll\ShellGuids.cs" />
     <Compile Include="ShellFileNode.cs" />
-    <Compile Include="Shell\IEnumIDList.cs" />
-    <Compile Include="Shell\IShellFolder.cs" />
-    <Compile Include="Shell\IShellItem.cs" />
     <Compile Include="Shell\NativeMethods.cs" />
-    <Compile Include="Shell\ShellFile.cs" />
-    <Compile Include="Shell\ShellFolder.cs" />
-    <Compile Include="Shell\ShellGuids.cs" />
-    <Compile Include="Shell\ShellItem.cs" />
+    <Compile Include="ShellDll\ShellFile.cs" />
+    <Compile Include="ShellDll\ShellFolder.cs" />
+    <Compile Include="ShellDll\ShellItem.cs" />
     <Compile Include="Zip7ArchiveNode.cs" />
     <Compile Include="ButtonCommandBar.cs">
       <SubType>UserControl</SubType>
