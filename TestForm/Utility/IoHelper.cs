@@ -6,10 +6,9 @@ using System.IO;
 
 namespace Commander.Utility
 {
-    public static class IoHelper
+    public static class IoExtensions
     {
-
-        public static DriveInfo GetDrive(DirectoryInfo directory)
+        public static DriveInfo GetDrive(this DirectoryInfo directory)
         {
             return new DriveInfo(directory.Root.FullName);
         }
@@ -24,7 +23,7 @@ namespace Commander.Utility
             return a == b || (a != null && b != null && a.FullName == b.FullName);
         }
 
-        public static long GetDirectorySize(DirectoryInfo d)
+        public static long GetDirectorySize(this DirectoryInfo d)
         {
             long size = 0;
             // Add file sizes.
