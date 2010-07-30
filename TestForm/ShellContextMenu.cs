@@ -49,8 +49,8 @@ namespace TestForm
             {
                 if (ContextMenuHelper.GetIContextMenu(parentShellFolder, pidls, out iContextMenuPtr, out iContextMenu))
                 {
-                    contextMenu = ShellApi.CreatePopupMenu();
-                    iContextMenu.QueryContextMenu(contextMenu, 0, ShellApi.CMD_FIRST, ShellApi.CMD_LAST, CMF.EXPLORE | CMF.CANRENAME | ((Control.ModifierKeys & Keys.Shift) != 0 ? CMF.EXTENDEDVERBS : 0));
+                    contextMenu = User32.CreatePopupMenu();
+                    iContextMenu.QueryContextMenu(contextMenu, 0, ShellApi.CmdFirst, ShellApi.CmdLast, CMF.EXPLORE | CMF.CANRENAME | ((Control.ModifierKeys & Keys.Shift) != 0 ? CMF.EXTENDEDVERBS : 0));
 
                     Marshal.QueryInterface(iContextMenuPtr, ref ShellGuids.IContextMenu2, out iContextMenuPtr2);
                     Marshal.QueryInterface(iContextMenuPtr, ref ShellGuids.IContextMenu3, out iContextMenuPtr3);
@@ -65,12 +65,12 @@ namespace TestForm
                     {
                     }
 
-                    uint selected = ShellApi.TrackPopupMenuEx(contextMenu, TPM.RETURNCMD, location.X, location.Y, this.Handle, IntPtr.Zero);
+                    uint selected = User32.TrackPopupMenuEx(contextMenu, TPM.RETURNCMD, location.X, location.Y, this.Handle, IntPtr.Zero);
 
 
-                    if (selected >= ShellApi.CMD_FIRST)
+                    if (selected >= ShellApi.CmdFirst)
                     {
-                        string command = ContextMenuHelper.GetCommandString(iContextMenu, selected - ShellApi.CMD_FIRST, true);
+                        string command = ContextMenuHelper.GetCommandString(iContextMenu, selected - ShellApi.CmdFirst, true);
 
                         if (command == "Explore")
                         {
@@ -85,7 +85,7 @@ namespace TestForm
                         }
                         else
                         {
-                            ContextMenuHelper.InvokeCommand(iContextMenu, selected - ShellApi.CMD_FIRST, parentDirectory, location);
+                            ContextMenuHelper.InvokeCommand(iContextMenu, selected - ShellApi.CmdFirst, parentDirectory, location);
                         }
                     }
                 }
@@ -118,7 +118,7 @@ namespace TestForm
 
                 if (contextMenu != null)
                 {
-                    ShellApi.DestroyMenu(contextMenu);
+                    User32.DestroyMenu(contextMenu);
                 }
 
                 if (iContextMenuPtr != IntPtr.Zero)
@@ -269,12 +269,12 @@ namespace TestForm
             {
                 if (ContextMenuHelper.GetIContextMenu(parentShellFolder, pidls, out icontextMenuPtr, out iContextMenu))
                 {
-                    iContextMenu.QueryContextMenu(contextMenu.Handle, 0, ShellApi.CMD_FIRST, ShellApi.CMD_LAST, CMF.DEFAULTONLY);
+                    iContextMenu.QueryContextMenu(contextMenu.Handle, 0, ShellApi.CmdFirst, ShellApi.CmdLast, CMF.DEFAULTONLY);
 
-                    int defaultCommand = ShellApi.GetMenuDefaultItem(contextMenu.Handle, false, 0);
-                    if (defaultCommand >= ShellApi.CMD_FIRST)
+                    int defaultCommand = User32.GetMenuDefaultItem(contextMenu.Handle, false, 0);
+                    if (defaultCommand >= ShellApi.CmdFirst)
                     {
-                        ContextMenuHelper.InvokeCommand(iContextMenu, (uint) defaultCommand - ShellApi.CMD_FIRST, parentDirectory, Control.MousePosition);
+                        ContextMenuHelper.InvokeCommand(iContextMenu, (uint) defaultCommand - ShellApi.CmdFirst, parentDirectory, Control.MousePosition);
                     }
                 }
             }

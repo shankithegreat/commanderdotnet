@@ -19,8 +19,8 @@ namespace Shell
         {
             SHFILEINFO fileInfo = new SHFILEINFO();
 
-            SmallImageList = Shell32.SHGetFileInfo(".txt", FILE_ATTRIBUTE.NORMAL, ref fileInfo, ShellApi.cbFileInfo, SHGFI.USEFILEATTRIBUTES | SHGFI.SYSICONINDEX | SHGFI.SMALLICON);
-            LargeImageList = Shell32.SHGetFileInfo(".txt", FILE_ATTRIBUTE.NORMAL, ref fileInfo, ShellApi.cbFileInfo, SHGFI.USEFILEATTRIBUTES | SHGFI.SYSICONINDEX | SHGFI.LARGEICON);
+            SmallImageList = Shell32.SHGetFileInfo(".txt", FILE_ATTRIBUTE.NORMAL, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.USEFILEATTRIBUTES | SHGFI.SYSICONINDEX | SHGFI.SMALLICON);
+            LargeImageList = Shell32.SHGetFileInfo(".txt", FILE_ATTRIBUTE.NORMAL, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.USEFILEATTRIBUTES | SHGFI.SYSICONINDEX | SHGFI.LARGEICON);
         }
 
 
@@ -31,13 +31,13 @@ namespace Shell
 
         public static Icon GetIcon(int index, bool small)
         {
-            IntPtr iconPtr = ShellApi.ImageList_GetIcon(small ? SmallImageList : LargeImageList, index,ILD.NORMAL);
+            IntPtr iconPtr = ComCtl32.ImageList_GetIcon(small ? SmallImageList : LargeImageList, index, ILD.NORMAL);
 
             if (iconPtr != IntPtr.Zero)
             {
                 Icon icon = Icon.FromHandle(iconPtr);
                 Icon result = (Icon)icon.Clone();
-                ShellApi.DestroyIcon(iconPtr);
+                User32.DestroyIcon(iconPtr);
 
                 return result;
             }
@@ -95,21 +95,21 @@ namespace Shell
                 Pidl pidl = item.PIDLFull;
 
                 SHFILEINFO smallFileInfo = new SHFILEINFO();
-                Shell32.SHGetFileInfo(pidl.Ptr, attribute, ref smallFileInfo, ShellApi.cbFileInfo, flag | SHGFI.SMALLICON);
+                Shell32.SHGetFileInfo(pidl.Ptr, attribute, ref smallFileInfo, Marshal.SizeOf(smallFileInfo), flag | SHGFI.SMALLICON);
 
                 SHFILEINFO largeFileInfo = new SHFILEINFO();
-                Shell32.SHGetFileInfo(pidl.Ptr, attribute, ref largeFileInfo, ShellApi.cbFileInfo, flag | SHGFI.LARGEICON);
+                Shell32.SHGetFileInfo(pidl.Ptr, attribute, ref largeFileInfo, Marshal.SizeOf(largeFileInfo), flag | SHGFI.LARGEICON);
 
                 Marshal.FreeCoTaskMem(pidl.Ptr);
 
                 lock (imageTable)
                 {
-                    result = ShellApi.ImageList_ReplaceIcon(SmallImageList, -1, smallFileInfo.hIcon);
-                    ShellApi.ImageList_ReplaceIcon(LargeImageList, -1, largeFileInfo.hIcon);
+                    result = ComCtl32.ImageList_ReplaceIcon(SmallImageList, -1, smallFileInfo.hIcon);
+                    ComCtl32.ImageList_ReplaceIcon(LargeImageList, -1, largeFileInfo.hIcon);
                 }
 
-                ShellApi.DestroyIcon(smallFileInfo.hIcon);
-                ShellApi.DestroyIcon(largeFileInfo.hIcon);
+                User32.DestroyIcon(smallFileInfo.hIcon);
+                User32.DestroyIcon(largeFileInfo.hIcon);
 
                 imageTable[Key] = result;
             }
@@ -126,27 +126,27 @@ namespace Shell
 
         public static void SetSmallImageList(TreeView treeView)
         {
-            ShellApi.SendMessage(treeView.Handle, WM.TVM_SETIMAGELIST, TVSIL_NORMAL, SmallImageList);
+            User32.SendMessage(treeView.Handle, WM.TVM_SETIMAGELIST, TVSIL_NORMAL, SmallImageList);
         }
 
         public static void SetSmallImageList(ListView listView)
         {
-            ShellApi.SendMessage(listView.Handle, WM.LVM_SETIMAGELIST, TVSIL_SMALL, SmallImageList);
+            User32.SendMessage(listView.Handle, WM.LVM_SETIMAGELIST, TVSIL_SMALL, SmallImageList);
         }
 
         public static void Set32SmallImageList(ListView listView)
         {
-            ShellApi.SendMessage(listView.Handle, WM.LVM_SETIMAGELIST, TVSIL_SMALL, LargeImageList);
+            User32.SendMessage(listView.Handle, WM.LVM_SETIMAGELIST, TVSIL_SMALL, LargeImageList);
         }
 
         public static void SetLargeImageList(ListView listView)
         {
-            ShellApi.SendMessage(listView.Handle, WM.LVM_SETIMAGELIST, TVSIL_NORMAL, LargeImageList);
+            User32.SendMessage(listView.Handle, WM.LVM_SETIMAGELIST, TVSIL_NORMAL, LargeImageList);
         }
 
         public static void SetLargeImageList(ListView listView, IntPtr handle)
         {
-            ShellApi.SendMessage(listView.Handle, WM.LVM_SETIMAGELIST, TVSIL_NORMAL, handle);
+            User32.SendMessage(listView.Handle, WM.LVM_SETIMAGELIST, TVSIL_NORMAL, handle);
         }
     }
 }

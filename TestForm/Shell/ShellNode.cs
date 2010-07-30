@@ -31,7 +31,7 @@ namespace Shell
             SetAttributesDesktop(this);
 
             SHFILEINFO info = new SHFILEINFO();
-            Shell32.SHGetFileInfo(PIDLRel.Ptr, 0, ref info, ShellApi.cbFileInfo, SHGFI.PIDL | SHGFI.TYPENAME | SHGFI.SYSICONINDEX);
+            Shell32.SHGetFileInfo(PIDLRel.Ptr, 0, ref info, Marshal.SizeOf(info), SHGFI.PIDL | SHGFI.TYPENAME | SHGFI.SYSICONINDEX);
 
             Type = info.szTypeName;
 
@@ -732,13 +732,13 @@ namespace Shell
             }
             else if (item.Type == item.Browser.SystemFolderName)
             {
-                IntPtr strr = Marshal.AllocCoTaskMem(ShellApi.MAX_PATH * 2 + 4);
+                IntPtr strr = Marshal.AllocCoTaskMem(ShellApi.MaxPath * 2 + 4);
                 Marshal.WriteInt32(strr, 0, 0);
-                StringBuilder buf = new StringBuilder(ShellApi.MAX_PATH);
+                StringBuilder buf = new StringBuilder(ShellApi.MaxPath);
 
                 if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, SHGNO.FORPARSING, strr) == 0)
                 {
-                    ShellApi.StrRetToBuf(strr, item.PIDLRel.Ptr, buf, ShellApi.MAX_PATH);
+                    ShellApi.StrRetToBuf(strr, item.PIDLRel.Ptr, buf, ShellApi.MaxPath);
                 }
 
                 Marshal.FreeCoTaskMem(strr);
@@ -998,13 +998,13 @@ namespace Shell
 
         private static void SetText(ShellNode item)
         {
-            IntPtr strr = Marshal.AllocCoTaskMem(ShellApi.MAX_PATH * 2 + 4);
+            IntPtr strr = Marshal.AllocCoTaskMem(ShellApi.MaxPath * 2 + 4);
             Marshal.WriteInt32(strr, 0, 0);
-            StringBuilder buf = new StringBuilder(ShellApi.MAX_PATH);
+            StringBuilder buf = new StringBuilder(ShellApi.MaxPath);
 
             if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, SHGNO.INFOLDER, strr) == 0)
             {
-                ShellApi.StrRetToBuf(strr, item.PIDLRel.Ptr, buf, ShellApi.MAX_PATH);
+                ShellApi.StrRetToBuf(strr, item.PIDLRel.Ptr, buf, ShellApi.MaxPath);
                 item.Text = buf.ToString();
             }
 
@@ -1013,13 +1013,13 @@ namespace Shell
 
         private static void SetPath(ShellNode item)
         {
-            IntPtr strr = Marshal.AllocCoTaskMem(ShellApi.MAX_PATH * 2 + 4);
+            IntPtr strr = Marshal.AllocCoTaskMem(ShellApi.MaxPath * 2 + 4);
             Marshal.WriteInt32(strr, 0, 0);
-            StringBuilder buf = new StringBuilder(ShellApi.MAX_PATH);
+            StringBuilder buf = new StringBuilder(ShellApi.MaxPath);
 
             if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, SHGNO.FORADDRESSBAR | SHGNO.FORPARSING, strr) == 0)
             {
-                ShellApi.StrRetToBuf(strr, item.PIDLRel.Ptr, buf, ShellApi.MAX_PATH);
+                ShellApi.StrRetToBuf(strr, item.PIDLRel.Ptr, buf, ShellApi.MaxPath);
                 item.Path = buf.ToString();
             }
 
@@ -1031,7 +1031,7 @@ namespace Shell
             Pidl pidlFull = item.PIDLFull;
 
             SHFILEINFO info = new SHFILEINFO();
-            Shell32.SHGetFileInfo(pidlFull.Ptr, 0, ref info, ShellApi.cbFileInfo, SHGFI.PIDL | SHGFI.TYPENAME | SHGFI.SYSICONINDEX);
+            Shell32.SHGetFileInfo(pidlFull.Ptr, 0, ref info, Marshal.SizeOf(info), SHGFI.PIDL | SHGFI.TYPENAME | SHGFI.SYSICONINDEX);
 
             pidlFull.Free();
 

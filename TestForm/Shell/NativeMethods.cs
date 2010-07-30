@@ -186,73 +186,11 @@ namespace Shell
         public static extern int OleGetClipboard(out IntPtr ppDataObj);
     }
 
-    /// <summary>
-    /// This class contains every method, enumeration, struct and constants from the Windows API, which are
-    /// required by the FileBrowser
-    /// </summary>
     public static class ShellApi
     {
-        public const int MAX_PATH = 260;
-        public const uint CMD_FIRST = 1;
-        public const uint CMD_LAST = 30000;
-        public const int DRAGDROP_S_DROP = 0x00040100;
-        public const int DRAGDROP_S_CANCEL = 0x00040101;
-        public const int DRAGDROP_S_USEDEFAULTCURSORS = 0x00040102;
-        public static int cbFileInfo = Marshal.SizeOf(typeof(SHFILEINFO));
-        public static int cbMenuItemInfo = Marshal.SizeOf(typeof(MENUITEMINFO));
-        public static int cbTpmParams = Marshal.SizeOf(typeof(TPMPARAMS));
-        public static int cbInvokeCommand = Marshal.SizeOf(typeof(CMINVOKECOMMANDINFOEX));
-
-
-        //// Retrieves information about an object in the file system,
-        //// such as a file, a folder, a directory, or a drive root.
-        //[DllImport("shell32", EntryPoint = "SHGetFileInfo", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
-        //public static extern IntPtr SHGetFileInfo(string pszPath, FILE_ATTRIBUTE dwFileAttributes, ref SHFILEINFO sfi, int cbFileInfo, SHGFI uFlags);
-
-        //// Retrieves information about an object in the file system,
-        //// such as a file, a folder, a directory, or a drive root.
-        //[DllImport("shell32", EntryPoint = "SHGetFileInfo", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
-        //public static extern IntPtr SHGetFileInfo(IntPtr ppidl, FILE_ATTRIBUTE dwFileAttributes, ref SHFILEINFO sfi, int cbFileInfo, SHGFI uFlags);
-
-        //// Takes the CSIDL of a folder and returns the pathname.
-        //[DllImport("shell32.dll")]
-        //public static extern Int32 SHGetFolderPath(IntPtr hwndOwner, CSIDL nFolder, IntPtr hToken, SHGFP dwFlags, StringBuilder pszPath);
-
-        //// Retrieves the IShellFolder interface for the desktop folder,
-        //// which is the root of the Shell's namespace. 
-        //[DllImport("shell32.dll")]
-        //public static extern Int32 SHGetDesktopFolder(out IntPtr ppshf);
-
-        //// Retrieves ppidl of special folder
-        //[DllImport("Shell32", EntryPoint = "SHGetSpecialFolderLocation", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
-        //public static extern Int32 SHGetSpecialFolderLocation(IntPtr hwndOwner, CSIDL nFolder, out IntPtr ppidl);
-
-        //// This function takes the fully-qualified pointer to an item
-        //// identifier list (PIDL) of a namespace object, and returns a specified
-        //// interface pointer on the parent object.
-        //[DllImport("shell32.dll")]
-        //public static extern Int32 SHBindToParent(IntPtr pidl, ref Guid riid, out IntPtr ppv, out IntPtr ppidlLast);
-
-        //// Registers a window that receives notifications from the file system or shell
-        //[DllImport("shell32.dll", EntryPoint = "#2", CharSet = CharSet.Auto)]
-        //public static extern uint SHChangeNotifyRegister(IntPtr hwnd, SHCNRF fSources, SHCNE fEvents, WM wMsg, int cEntries, [MarshalAs(UnmanagedType.LPArray)] SHChangeNotifyEntry[] pfsne);
-
-        //// Unregisters the client's window process from receiving SHChangeNotify
-        //[DllImport("shell32.dll", EntryPoint = "#4", CharSet = CharSet.Auto)]
-        //public static extern bool SHChangeNotifyDeregister(uint hNotify);
-
-        //// Converts an item identifier list to a file system path
-        //[DllImport("shell32.dll")]
-        //public static extern bool SHGetPathFromIDList(IntPtr pidl, StringBuilder pszPath);
-
-        //// SHGetRealIDL converts a simple PIDL to a full PIDL
-        //[DllImport("shell32.dll")]
-        //public static extern Int32 SHGetRealIDL(IShellFolder psf, IntPtr pidlSimple, out IntPtr ppidlReal);
-
-        //// Tests whether two ITEMIDLIST structures are equal in a binary comparison
-        //[DllImport("shell32.dll", EntryPoint = "ILIsEqual", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
-        //public static extern bool ILIsEqual(IntPtr pidl1, IntPtr pidl2);
-
+        public const int MaxPath = 260;
+        public const uint CmdFirst = 1;
+        public const uint CmdLast = 30000;
 
 
         // Takes a STRRET structure returned by IShellFolder::GetDisplayNameOf,
@@ -260,120 +198,14 @@ namespace Shell
         [DllImport("shlwapi.dll", EntryPoint = "StrRetToBuf", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
         public static extern Int32 StrRetToBuf(IntPtr pstr, IntPtr pidl, StringBuilder pszBuf, int cchBuf);
 
-
-
-        // Sends the specified message to a window or windows
-        [DllImport("user32", EntryPoint = "SendMessage", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr SendMessage(IntPtr hWnd, WM wMsg, int wParam, IntPtr lParam);
-
-        // Destroys an icon and frees any memory the icon occupied
-        [DllImport("user32.dll", EntryPoint = "DestroyIcon", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
-        public static extern bool DestroyIcon(IntPtr hIcon);
-
-        // Displays a shortcut menu at the specified location and 
-        // tracks the selection of items on the shortcut menu
-        [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
-        public static extern uint TrackPopupMenuEx(IntPtr hmenu, TPM flags, int x, int y, IntPtr hwnd, IntPtr lptpm);
-
-        // Creates a popup-menu. The menu is initially empty, but it can be filled with 
-        // menu items by using the InsertMenuItem, AppendMenu, and InsertMenu functions
-        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern IntPtr CreatePopupMenu();
-
-        // Destroys the specified menu and frees any memory that the menu occupies
-        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern bool DestroyMenu(IntPtr hMenu);
-
-        // appends a new item to the end of the specified menu bar, drop-down menu, submenu, 
-        // or shortcut menu. You can use this function to specify the content, appearance, and 
-        // behavior of the menu item
-        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern bool AppendMenu(IntPtr hMenu, MFT uFlags, uint uIDNewItem, [MarshalAs(UnmanagedType.LPTStr)] string lpNewItem);
-
-        // Inserts a new menu item into a menu, moving other items down the menu
-        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern bool InsertMenu(IntPtr hmenu, uint uPosition, MFT uflags, uint uIDNewItem, [MarshalAs(UnmanagedType.LPTStr)] string lpNewItem);
-
-        // Inserts a new menu item at the specified position in a menu
-        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern bool InsertMenuItem(IntPtr hMenu, uint uItem, bool fByPosition, ref MENUITEMINFO lpmii);
-
-        // Deletes a menu item or detaches a submenu from the specified menu
-        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern bool RemoveMenu(IntPtr hMenu, uint uPosition, MFT uFlags);
-
-        // Retrieves information about a menu item
-        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern bool GetMenuItemInfo(IntPtr hMenu, uint uItem, bool fByPos, ref MENUITEMINFO lpmii);
-
-        // Changes information about a menu item.
-        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern bool SetMenuItemInfo(IntPtr hMenu, uint uItem, bool fByPos, ref MENUITEMINFO lpmii);
-
-        // Determines the default menu item on the specified menu
-        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern int GetMenuDefaultItem(IntPtr hMenu, bool fByPos, uint gmdiFlags);
-
-        // Sets the default menu item for the specified menu
-        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern bool SetMenuDefaultItem(IntPtr hMenu, uint uItem, bool fByPos);
-
-        // Retrieves a handle to the drop-down menu or submenu activated by the specified menu item
-        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern IntPtr GetSubMenu(IntPtr hMenu, int nPos);
-
-        // Retrieves information about the specified combo box
-        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
-        public static extern bool GetComboBoxInfo(IntPtr hwndCombo, ref COMBOBOXINFO info);
-
-
-
-        // Replaces an image with an icon or cursor
-        [DllImport("comctl32", EntryPoint = "ImageList_ReplaceIcon", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern int ImageList_ReplaceIcon(IntPtr himl, int index, IntPtr hicon);
-
-        // Adds an image or images to an image list
-        [DllImport("comctl32", EntryPoint = "ImageList_Add", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern int ImageList_Add(IntPtr himl, IntPtr hbmImage, IntPtr hbmMask);
-
-        // Creates an icon from an image and mask in an image list
-        [DllImport("comctl32", EntryPoint = "ImageList_GetIcon", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
-        public static extern IntPtr ImageList_GetIcon(IntPtr himl, int index, ILD flags);
-
-
-        // Registers the specified window as one that can be the target of an OLE drag-and-drop 
-        // operation and specifies the IDropTarget instance to use for drop operations
-        [DllImport("ole32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern int RegisterDragDrop(IntPtr hWnd, IDropTarget IdropTgt);
-
-        // Revokes the registration of the specified application window as a potential target for 
-        // OLE drag-and-drop operations
-        [DllImport("ole32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern int RevokeDragDrop(IntPtr hWnd);
-
-        // This function frees the specified storage medium
-        [DllImport("ole32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern void ReleaseStgMedium(ref STGMEDIUM pmedium);
-
-        // Carries out an OLE drag and drop operation
-        [DllImport("ole32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern int DoDragDrop(IntPtr pDataObject, [MarshalAs(UnmanagedType.Interface)] IDropSource pDropSource, DragDropEffects dwOKEffect, out DragDropEffects pdwEffect);
-
-        // Retrieves a drag/drop helper interface for drawing the drag/drop images
-        [DllImport("ole32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern int CoCreateInstance(ref Guid rclsid, IntPtr pUnkOuter, CLSCTX dwClsContext, ref Guid riid, out IntPtr ppv);
-
-        // Retrieves a data object that you can use to access the contents of the clipboard
-        [DllImport("ole32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern int OleGetClipboard(out IntPtr ppDataObj);
-
-
         public static DateTime FileTimeToDateTime(FILETIME fileTime)
         {
-            long ticks = (((long)fileTime.dwHighDateTime) << 32) + (long)fileTime.dwLowDateTime;
+            long ticks = (((long)fileTime.dwHighDateTime) << 32) + fileTime.dwLowDateTime;
             return DateTime.FromFileTimeUtc(ticks);
         }
     }
+
+
     /// <summary>
     /// Indicate flags that modify the property store object retrieved by methods 
     /// that create a property store, such as IShellItem2::GetPropertyStore or 
@@ -574,7 +406,7 @@ namespace Shell
     {
         public MENUITEMINFO(string text)
         {
-            cbSize = ShellApi.cbMenuItemInfo;
+            cbSize = Marshal.SizeOf(typeof(MENUITEMINFO));
             dwTypeData = text;
             cch = text.Length;
             fMask = 0;

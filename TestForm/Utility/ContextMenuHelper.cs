@@ -46,7 +46,7 @@ namespace TestForm
                                           (executeString ? GCS.VERBA : GCS.HELPTEXTA),
                                           0,
                                           bytes,
-                                          ShellApi.MAX_PATH);
+                                          ShellApi.MaxPath);
 
             int index = 0;
             while (index < bytes.Length && bytes[index] != 0)
@@ -80,7 +80,7 @@ namespace TestForm
                                             (executeString ? GCS.VERBW : GCS.HELPTEXTW),
                                             0,
                                             bytes,
-                                            ShellApi.MAX_PATH);
+                                            ShellApi.MaxPath);
 
             int index = 0;
             while (index < bytes.Length - 1 && (bytes[index] != 0 || bytes[index + 1] != 0))
@@ -108,7 +108,7 @@ namespace TestForm
         public static void InvokeCommand(IContextMenu iContextMenu, uint cmd, string parentDir, Point ptInvoke)
         {
             CMINVOKECOMMANDINFOEX invoke = new CMINVOKECOMMANDINFOEX();
-            invoke.cbSize = ShellApi.cbInvokeCommand;
+            invoke.cbSize = Marshal.SizeOf(typeof(CMINVOKECOMMANDINFOEX));
             invoke.lpVerb = (IntPtr)cmd;
             invoke.lpDirectory = parentDir;
             invoke.lpVerbW = (IntPtr)cmd;
@@ -132,7 +132,7 @@ namespace TestForm
         public static void InvokeCommand(IContextMenu iContextMenu, string cmd, string parentDir, Point ptInvoke)
         {
             CMINVOKECOMMANDINFOEX invoke = new CMINVOKECOMMANDINFOEX();
-            invoke.cbSize = ShellApi.cbInvokeCommand;
+            invoke.cbSize = Marshal.SizeOf(typeof(CMINVOKECOMMANDINFOEX));
             invoke.lpVerb = Marshal.StringToHGlobalAnsi(cmd);
             invoke.lpDirectory = parentDir;
             invoke.lpVerbW = Marshal.StringToHGlobalUni(cmd);
@@ -257,7 +257,7 @@ namespace TestForm
 
         public static bool GetNewContextMenu(ShellNode item, out IntPtr iContextMenuPtr, out IContextMenu iContextMenu)
         {
-            if (ShellApi.CoCreateInstance(
+            if (Ole32.CoCreateInstance(
                     ref ShellGuids.NewMenu,
                     IntPtr.Zero,
                     CLSCTX.INPROC_SERVER,
