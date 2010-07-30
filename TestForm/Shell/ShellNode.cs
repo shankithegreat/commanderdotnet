@@ -31,7 +31,7 @@ namespace Shell
             SetAttributesDesktop(this);
 
             SHFILEINFO info = new SHFILEINFO();
-            ShellApi.SHGetFileInfo(PIDLRel.Ptr, 0, ref info, ShellApi.cbFileInfo, SHGFI.PIDL | SHGFI.TYPENAME | SHGFI.SYSICONINDEX);
+            Shell32.SHGetFileInfo(PIDLRel.Ptr, 0, ref info, ShellApi.cbFileInfo, SHGFI.PIDL | SHGFI.TYPENAME | SHGFI.SYSICONINDEX);
 
             Type = info.szTypeName;
 
@@ -633,7 +633,7 @@ namespace Shell
                 if (newPidlFull != IntPtr.Zero)
                 {
                     IntPtr tempPidl = Pidl.ILClone(Pidl.ILFindLastID(newPidlFull)), newPidlRel, newShellFolderPtr;
-                    ShellApi.SHGetRealIDL(ParentItem.ShellFolder, tempPidl, out newPidlRel);
+                    Shell32.SHGetRealIDL(ParentItem.ShellFolder, tempPidl, out newPidlRel);
 
                     if (IsFolder && ParentItem.ShellFolder.BindToObject(newPidlRel, IntPtr.Zero, ref ShellGuids.IShellFolder, out newShellFolderPtr) == 0)
                     {
@@ -1031,7 +1031,7 @@ namespace Shell
             Pidl pidlFull = item.PIDLFull;
 
             SHFILEINFO info = new SHFILEINFO();
-            ShellApi.SHGetFileInfo(pidlFull.Ptr, 0, ref info, ShellApi.cbFileInfo, SHGFI.PIDL | SHGFI.TYPENAME | SHGFI.SYSICONINDEX);
+            Shell32.SHGetFileInfo(pidlFull.Ptr, 0, ref info, ShellApi.cbFileInfo, SHGFI.PIDL | SHGFI.TYPENAME | SHGFI.SYSICONINDEX);
 
             pidlFull.Free();
 

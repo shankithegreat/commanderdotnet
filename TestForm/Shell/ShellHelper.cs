@@ -172,7 +172,7 @@ namespace Shell
         public static IShellFolder GetDesktopFolder()
         {
             IntPtr p = IntPtr.Zero;
-            ShellApi.SHGetDesktopFolder(out p);
+            Shell32.SHGetDesktopFolder(out p);
 
             IShellFolder result = (IShellFolder)Marshal.GetTypedObjectForIUnknown(p, typeof(IShellFolder));
             if (result == null)

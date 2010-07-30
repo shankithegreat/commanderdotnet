@@ -69,7 +69,7 @@ namespace Shell
         public static void Write(IntPtr pidl)
         {
             StringBuilder path = new StringBuilder(256);
-            ShellApi.SHGetPathFromIDList(pidl, path);
+            Shell32.SHGetPathFromIDList(pidl, path);
 
             Console.Out.WriteLine("Pidl: {0}", path);
         }
@@ -186,11 +186,11 @@ namespace Shell
             {
                 if (obj is IntPtr)
                 {
-                    return ShellApi.ILIsEqual(this.Ptr, (IntPtr)obj);
+                    return Shell32.ILIsEqual(this.Ptr, (IntPtr)obj);
                 }
                 if (obj is Pidl)
                 {
-                    return ShellApi.ILIsEqual(this.Ptr, ((Pidl)obj).Ptr);
+                    return Shell32.ILIsEqual(this.Ptr, ((Pidl)obj).Ptr);
                 }
                 else
                 {

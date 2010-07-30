@@ -253,7 +253,7 @@ namespace TestForm
         private string PathFromPidl(IntPtr pidl)
         {
             StringBuilder path = new StringBuilder(260, 260);
-            bool result = ShellApi.SHGetPathFromIDList(pidl, path);
+            bool result = Shell32.SHGetPathFromIDList(pidl, path);
 
             return (result ? path.ToString() : string.Empty);
         }

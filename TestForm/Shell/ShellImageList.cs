@@ -19,8 +19,8 @@ namespace Shell
         {
             SHFILEINFO fileInfo = new SHFILEINFO();
 
-            SmallImageList = ShellApi.SHGetFileInfo(".txt", FILE_ATTRIBUTE.NORMAL, ref fileInfo, ShellApi.cbFileInfo, SHGFI.USEFILEATTRIBUTES | SHGFI.SYSICONINDEX | SHGFI.SMALLICON);
-            LargeImageList = ShellApi.SHGetFileInfo(".txt", FILE_ATTRIBUTE.NORMAL, ref fileInfo, ShellApi.cbFileInfo, SHGFI.USEFILEATTRIBUTES | SHGFI.SYSICONINDEX | SHGFI.LARGEICON);
+            SmallImageList = Shell32.SHGetFileInfo(".txt", FILE_ATTRIBUTE.NORMAL, ref fileInfo, ShellApi.cbFileInfo, SHGFI.USEFILEATTRIBUTES | SHGFI.SYSICONINDEX | SHGFI.SMALLICON);
+            LargeImageList = Shell32.SHGetFileInfo(".txt", FILE_ATTRIBUTE.NORMAL, ref fileInfo, ShellApi.cbFileInfo, SHGFI.USEFILEATTRIBUTES | SHGFI.SYSICONINDEX | SHGFI.LARGEICON);
         }
 
 
@@ -95,10 +95,10 @@ namespace Shell
                 Pidl pidl = item.PIDLFull;
 
                 SHFILEINFO smallFileInfo = new SHFILEINFO();
-                ShellApi.SHGetFileInfo(pidl.Ptr, attribute, ref smallFileInfo, ShellApi.cbFileInfo, flag | SHGFI.SMALLICON);
+                Shell32.SHGetFileInfo(pidl.Ptr, attribute, ref smallFileInfo, ShellApi.cbFileInfo, flag | SHGFI.SMALLICON);
 
                 SHFILEINFO largeFileInfo = new SHFILEINFO();
-                ShellApi.SHGetFileInfo(pidl.Ptr, attribute, ref largeFileInfo, ShellApi.cbFileInfo, flag | SHGFI.LARGEICON);
+                Shell32.SHGetFileInfo(pidl.Ptr, attribute, ref largeFileInfo, ShellApi.cbFileInfo, flag | SHGFI.LARGEICON);
 
                 Marshal.FreeCoTaskMem(pidl.Ptr);
 

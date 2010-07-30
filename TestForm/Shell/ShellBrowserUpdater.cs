@@ -28,7 +28,7 @@ namespace Shell
         {
             if (notifyId > 0)
             {
-                ShellApi.SHChangeNotifyDeregister(notifyId);
+                Shell32.SHChangeNotifyDeregister(notifyId);
                 GC.SuppressFinalize(this);
             }
         }
@@ -36,7 +36,7 @@ namespace Shell
 
         public static uint RegisterShellNotify(IntPtr handle, SHChangeNotifyEntry entry)
         {
-            return ShellApi.SHChangeNotifyRegister(handle, SHCNRF.InterruptLevel | SHCNRF.ShellLevel, SHCNE.ALLEVENTS | SHCNE.INTERRUPT, WM.SH_NOTIFY, 1, new SHChangeNotifyEntry[] { entry });
+            return Shell32.SHChangeNotifyRegister(handle, SHCNRF.InterruptLevel | SHCNRF.ShellLevel, SHCNE.ALLEVENTS | SHCNE.INTERRUPT, WM.SH_NOTIFY, 1, new SHChangeNotifyEntry[] { entry });
         }
 
         public static uint RegisterShellNotify(IntPtr handle)
@@ -79,7 +79,7 @@ namespace Shell
                                 ShellNode parentItem = browser.GetShellItem(parentPIDL);
                                 if (parentItem != null && parentItem.FilesExpanded && !parentItem.SubFiles.Contains(child))
                                 {
-                                    ShellApi.SHGetRealIDL(parentItem.ShellFolder, child, out relative);
+                                    Shell32.SHGetRealIDL(parentItem.ShellFolder, child, out relative);
                                     parentItem.AddItem(new ShellNode(browser, parentItem, relative));
                                 }
 
@@ -178,7 +178,7 @@ namespace Shell
                                 ShellNode parentItem = browser.GetShellItem(parentPIDL);
                                 if (parentItem != null && parentItem.FoldersExpanded && !parentItem.SubFolders.Contains(child))
                                 {
-                                    ShellApi.SHGetRealIDL(parentItem.ShellFolder, child, out relative);
+                                    Shell32.SHGetRealIDL(parentItem.ShellFolder, child, out relative);
 
                                     IntPtr shellFolderPtr;
                                     if (parentItem.ShellFolder.BindToObject(relative, IntPtr.Zero, ref ShellGuids.IShellFolder, out shellFolderPtr) == 0)
