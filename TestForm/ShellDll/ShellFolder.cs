@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace TestForm.Shell
+namespace ShellDll
 {
     public class ShellFolder : ShellItem
     {
@@ -113,8 +113,14 @@ namespace TestForm.Shell
 
         private static IShellItem ToIShellItem(IShellFolder folder, IntPtr pidl)
         {
-            IShellItem result;
-            folder.BindToObject(pidl, IntPtr.Zero, ref ShellGuids.IShellItem, out result);
+            IntPtr p;
+            IShellItem result = null;
+            folder.BindToObject(pidl, IntPtr.Zero, ref ShellGuids.IShellItem, out p);
+            if (p != IntPtr.Zero)
+            {
+                result = (IShellItem) Marshal.GetTypedObjectForIUnknown(p, typeof (IShellItem));
+                Marshal.Release(p);
+            }
 
             return result;
         }

@@ -34,13 +34,13 @@ namespace TestForm.Messages
 
     public class ShellDirectorySelectedArgs : MessageArgs
     {
-        public ShellDirectorySelectedArgs(Shell.ShellFolder selectedDirectory)
+        public ShellDirectorySelectedArgs(ShellDll.ShellFolder selectedDirectory)
         {
             this.SelectedDirectory = selectedDirectory;
         }
 
 
-        public Shell.ShellFolder SelectedDirectory { get; set; }
+        public ShellDll.ShellFolder SelectedDirectory { get; set; }
     }
 
 

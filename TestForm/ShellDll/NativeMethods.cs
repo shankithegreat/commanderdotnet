@@ -8,8 +8,8 @@ namespace ShellDll
 {
     public static class Shell32
     {
-        //[DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        //public static extern int SHCreateShellItem(IntPtr pidlParent, [In, MarshalAs(UnmanagedType.Interface)] IShellFolder psfParent, IntPtr pidl, [MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi);
+        [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern int SHCreateShellItem(IntPtr pidlParent, [In, MarshalAs(UnmanagedType.Interface)] IShellFolder psfParent, IntPtr pidl, [MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi);
 
         /// <summary>
         /// Returns the size, in bytes, of an ITEMIDLIST structure.

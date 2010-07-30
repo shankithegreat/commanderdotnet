@@ -8,10 +8,10 @@ namespace TestForm
 {
     public class ShellDirectoryNode : FileSystemNode
     {
-        private Shell.ShellFolder info;
+        private ShellDll.ShellFolder info;
 
 
-        public ShellDirectoryNode(FileSystemNode parent, Shell.ShellFolder info)
+        public ShellDirectoryNode(FileSystemNode parent, ShellDll.ShellFolder info)
             : base(parent)
         {
             this.info = info;
@@ -49,15 +49,15 @@ namespace TestForm
                 result.Add(new UpLink(this));
             }
 
-            foreach (Shell.ShellItem item in info.Childs)
+            foreach (ShellDll.ShellItem item in info.Childs)
             {
                 if (item.IsFolder)
                 {
-                    result.Add(new ShellDirectoryNode(this, (Shell.ShellFolder)item));
+                    result.Add(new ShellDirectoryNode(this, (ShellDll.ShellFolder)item));
                 }
                 else
                 {
-                    Shell.ShellFile sf = (Shell.ShellFile) item;
+                    ShellDll.ShellFile sf = (ShellDll.ShellFile)item;
 
                     if (!string.IsNullOrEmpty(sf.Path))
                     {
@@ -91,7 +91,7 @@ namespace TestForm
                                 }
                             default:
                                 {
-                                    result.Add(new ShellFileNode(this, (Shell.ShellFile)item));
+                                    result.Add(new ShellFileNode(this, (ShellDll.ShellFile)item));
                                     break;
                                 }
                         }
