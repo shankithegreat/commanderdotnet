@@ -95,7 +95,6 @@
     <Compile Include="ShellDll\IShellItem.cs" />
     <Compile Include="ShellDll\ShellGuids.cs" />
     <Compile Include="ShellFileNode.cs" />
-    <Compile Include="Shell\NativeMethods.cs" />
     <Compile Include="ShellDll\ShellFile.cs" />
     <Compile Include="ShellDll\ShellFolder.cs" />
     <Compile Include="ShellDll\ShellItem.cs" />
