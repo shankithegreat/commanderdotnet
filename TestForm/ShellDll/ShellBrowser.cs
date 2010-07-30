@@ -23,7 +23,7 @@ namespace ShellDll
         }
 
 
-        public ShellItem DesktopItem { get; private set; }
+        public ShellNode DesktopItem { get; private set; }
 
         public string MyDocumentsName { get; private set; }
 
@@ -56,9 +56,9 @@ namespace ShellDll
             }
         }
 
-        public ShellItem GetShellItem(Pidl pidlFull)
+        public ShellNode GetShellItem(Pidl pidlFull)
         {
-            ShellItem current = DesktopItem;
+            ShellNode current = DesktopItem;
             if (pidlFull.Ptr == IntPtr.Zero)
             {
                 return current;
@@ -81,11 +81,11 @@ namespace ShellDll
             return current;
         }
 
-        public ShellItem[] GetPath(ShellItem item)
+        public ShellNode[] GetPath(ShellNode item)
         {
             ArrayList pathList = new ArrayList();
 
-            ShellItem currentItem = item;
+            ShellNode currentItem = item;
             while (currentItem.ParentItem != null)
             {
                 pathList.Add(currentItem);
@@ -94,7 +94,7 @@ namespace ShellDll
             pathList.Add(currentItem);
             pathList.Reverse();
 
-            return (ShellItem[])pathList.ToArray(typeof(ShellItem));
+            return (ShellNode[])pathList.ToArray(typeof(ShellNode));
         }
 
 
@@ -120,7 +120,7 @@ namespace ShellDll
             ShellApi.SHGetSpecialFolderLocation(IntPtr.Zero, CSIDL.DESKTOP, out tempPidl);
             IntPtr desktopFolderPtr;
             ShellApi.SHGetDesktopFolder(out desktopFolderPtr);
-            DesktopItem = new ShellItem(this, tempPidl, desktopFolderPtr);
+            DesktopItem = new ShellNode(this, tempPidl, desktopFolderPtr);
             //
 
 
@@ -147,7 +147,7 @@ namespace ShellDll
 
     public class ShellItemUpdateEventArgs : EventArgs
     {
-        public ShellItemUpdateEventArgs(ShellItem oldItem, ShellItem newItem, ShellItemUpdateType type)
+        public ShellItemUpdateEventArgs(ShellNode oldItem, ShellNode newItem, ShellItemUpdateType type)
         {
             this.OldItem = oldItem;
             this.NewItem = newItem;
@@ -155,9 +155,9 @@ namespace ShellDll
         }
 
 
-        public ShellItem OldItem { get; private set; }
+        public ShellNode OldItem { get; private set; }
 
-        public ShellItem NewItem { get; private set; }
+        public ShellNode NewItem { get; private set; }
 
         public ShellItemUpdateType UpdateType { get; private set; }
     }

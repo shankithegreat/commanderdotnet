@@ -271,7 +271,7 @@
     <Compile Include="ShellDll\IStorage.cs" />
     <Compile Include="ShellDll\IStream.cs" />
     <Compile Include="ShellDll\Pidl2.cs" />
-    <Compile Include="ShellDll\ShellAPI.cs" />
+    <Compile Include="ShellDll\NativeMethods.cs" />
     <Compile Include="ShellDll\ShellBrowser.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -279,7 +279,7 @@
     <Compile Include="ShellDll\ShellFolderHelper.cs" />
     <Compile Include="ShellDll\ShellHelper.cs" />
     <Compile Include="ShellDll\ShellImageList.cs" />
-    <Compile Include="ShellDll\ShellItem.cs" />
+    <Compile Include="ShellDll\ShellNode.cs" />
     <Compile Include="ShellDll\SpecialFolders.cs" />
     <Compile Include="ThumbnailCreator.cs" />
     <Compile Include="UpLink.cs" />

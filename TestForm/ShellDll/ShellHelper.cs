@@ -34,7 +34,7 @@ namespace ShellDll
             return (uint)ptr & 0xffff;
         }
 
-        public static bool GetIStream(ShellItem item, out IntPtr streamPtr, out IStream stream)
+        public static bool GetIStream(ShellNode item, out IntPtr streamPtr, out IStream stream)
         {
             if (item.ParentItem.ShellFolder.BindToStorage(item.PIDLRel.Ptr, IntPtr.Zero, ref ShellGuids.IStream, out streamPtr) == 0)
             {
@@ -49,7 +49,7 @@ namespace ShellDll
             }
         }
 
-        public static bool GetIStorage(ShellItem item, out IntPtr storagePtr, out IStorage storage)
+        public static bool GetIStorage(ShellNode item, out IntPtr storagePtr, out IStorage storage)
         {
             if (item.ParentItem.ShellFolder.BindToStorage(item.PIDLRel.Ptr, IntPtr.Zero, ref ShellGuids.IStorage, out storagePtr) == 0)
             {
@@ -70,9 +70,9 @@ namespace ShellDll
         /// <param name="item">The item for which to obtain the IDataObject</param>
         /// <param name="dataObjectPtr">A pointer to the returned IDataObject</param>
         /// <returns>the IDataObject the ShellItem</returns>
-        public static IntPtr GetIDataObject(ShellItem[] items)
+        public static IntPtr GetIDataObject(ShellNode[] items)
         {
-            ShellItem parent = items[0].ParentItem != null ? items[0].ParentItem : items[0];
+            ShellNode parent = items[0].ParentItem != null ? items[0].ParentItem : items[0];
 
             IntPtr[] pidls = new IntPtr[items.Length];
             for (int i = 0; i < items.Length; i++)
@@ -114,9 +114,9 @@ namespace ShellDll
         /// <param name="item">The item for which to obtain the IDropTarget</param>
         /// <param name="dropTargetPtr">A pointer to the returned IDropTarget</param>
         /// <returns>the IDropTarget from the ShellItem</returns>
-        public static bool GetIDropTarget(ShellItem item, out IntPtr dropTargetPtr, out ShellDll.IDropTarget dropTarget)
+        public static bool GetIDropTarget(ShellNode item, out IntPtr dropTargetPtr, out ShellDll.IDropTarget dropTarget)
         {
-            ShellItem parent = item.ParentItem != null ? item.ParentItem : item;
+            ShellNode parent = item.ParentItem != null ? item.ParentItem : item;
 
             if (parent.ShellFolder.GetUIObjectOf(IntPtr.Zero, 1, new IntPtr[] { item.PIDLRel.Ptr }, ref ShellGuids.IDropTarget, IntPtr.Zero, out dropTargetPtr) == 0)
             {
@@ -170,7 +170,7 @@ namespace ShellDll
             }
         }
 
-        public static DragDropEffects CanDropClipboard(ShellItem item)
+        public static DragDropEffects CanDropClipboard(ShellNode item)
         {
             IntPtr dataObject;
             ShellApi.OleGetClipboard(out dataObject);
@@ -224,9 +224,9 @@ namespace ShellDll
             return retVal;
         }
 
-        public static bool GetIQueryInfo(ShellItem item, out IntPtr iQueryInfoPtr, out IQueryInfo iQueryInfo)
+        public static bool GetIQueryInfo(ShellNode item, out IntPtr iQueryInfoPtr, out IQueryInfo iQueryInfo)
         {
-            ShellItem parent = item.ParentItem ?? item;
+            ShellNode parent = item.ParentItem ?? item;
 
             if (parent.ShellFolder.GetUIObjectOf(IntPtr.Zero, 1, new[] { item.PIDLRel.Ptr }, ref ShellGuids.IQueryInfo, IntPtr.Zero, out iQueryInfoPtr) == 0)
             {

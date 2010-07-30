@@ -45,7 +45,7 @@ namespace ShellDll
             return null;
         }
 
-        public static void SetIconIndex(ShellItem item, int index, bool selectedIcon)
+        public static void SetIconIndex(ShellNode item, int index, bool selectedIcon)
         {
             bool hasOverlay = false;
             int result; // The returned Index

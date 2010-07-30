@@ -76,11 +76,11 @@ namespace ShellDll
                                 Pidl.SplitPidl(shNotify.dwItem1, out parent, out child);
 
                                 Pidl parentPIDL = new Pidl(parent, false);
-                                ShellItem parentItem = browser.GetShellItem(parentPIDL);
+                                ShellNode parentItem = browser.GetShellItem(parentPIDL);
                                 if (parentItem != null && parentItem.FilesExpanded && !parentItem.SubFiles.Contains(child))
                                 {
                                     ShellApi.SHGetRealIDL(parentItem.ShellFolder, child, out relative);
-                                    parentItem.AddItem(new ShellItem(browser, parentItem, relative));
+                                    parentItem.AddItem(new ShellNode(browser, parentItem, relative));
                                 }
 
                                 Marshal.FreeCoTaskMem(child);
@@ -99,7 +99,7 @@ namespace ShellDll
                         {
                             if (!Pidl.IsEmpty(shNotify.dwItem1) && !Pidl.IsEmpty(shNotify.dwItem2))
                             {
-                                ShellItem item = browser.GetShellItem(new Pidl(shNotify.dwItem1, true));
+                                ShellNode item = browser.GetShellItem(new Pidl(shNotify.dwItem1, true));
                                 if (item != null)
                                 {
                                     item.Update(shNotify.dwItem2, ShellItemUpdateType.Renamed);
@@ -122,7 +122,7 @@ namespace ShellDll
                                 Pidl.SplitPidl(shNotify.dwItem1, out parent, out child);
 
                                 Pidl parentPIDL = new Pidl(parent, false);
-                                ShellItem parentItem = browser.GetShellItem(parentPIDL);
+                                ShellNode parentItem = browser.GetShellItem(parentPIDL);
                                 if (parentItem != null && parentItem.SubFiles.Contains(child))
                                 {
                                     parentItem.RemoveItem(parentItem.SubFiles[child]);
@@ -144,7 +144,7 @@ namespace ShellDll
                         {
                             if (!Pidl.IsEmpty(shNotify.dwItem1))
                             {
-                                ShellItem item = browser.GetShellItem(new Pidl(shNotify.dwItem1, true));
+                                ShellNode item = browser.GetShellItem(new Pidl(shNotify.dwItem1, true));
                                 if (item != null)
                                 {
                                     Console.Out.WriteLine("Item: {0}", item);
@@ -175,7 +175,7 @@ namespace ShellDll
                                 Pidl.SplitPidl(shNotify.dwItem1, out parent, out child);
 
                                 Pidl parentPIDL = new Pidl(parent, false);
-                                ShellItem parentItem = browser.GetShellItem(parentPIDL);
+                                ShellNode parentItem = browser.GetShellItem(parentPIDL);
                                 if (parentItem != null && parentItem.FoldersExpanded && !parentItem.SubFolders.Contains(child))
                                 {
                                     ShellApi.SHGetRealIDL(parentItem.ShellFolder, child, out relative);
@@ -183,7 +183,7 @@ namespace ShellDll
                                     IntPtr shellFolderPtr;
                                     if (parentItem.ShellFolder.BindToObject(relative, IntPtr.Zero, ref ShellGuids.IShellFolder, out shellFolderPtr) == 0)
                                     {
-                                        parentItem.AddItem(new ShellItem(browser, parentItem, relative, shellFolderPtr));
+                                        parentItem.AddItem(new ShellNode(browser, parentItem, relative, shellFolderPtr));
                                     }
                                     else
                                     {
@@ -207,7 +207,7 @@ namespace ShellDll
                         {
                             if (!Pidl.IsEmpty(shNotify.dwItem1) && !Pidl.IsEmpty(shNotify.dwItem2))
                             {
-                                ShellItem item = browser.GetShellItem(new Pidl(shNotify.dwItem1, false));
+                                ShellNode item = browser.GetShellItem(new Pidl(shNotify.dwItem1, false));
                                 if (item != null)
                                 {
                                     //Console.Out.WriteLine("Update: {0}", item);
@@ -232,7 +232,7 @@ namespace ShellDll
                                 Pidl.SplitPidl(shNotify.dwItem1, out parent, out child);
 
                                 Pidl parentPIDL = new Pidl(parent, false);
-                                ShellItem parentItem = browser.GetShellItem(parentPIDL);
+                                ShellNode parentItem = browser.GetShellItem(parentPIDL);
                                 if (parentItem != null && parentItem.SubFolders.Contains(child))
                                 {
                                     parentItem.RemoveItem(parentItem.SubFolders[child]);
@@ -255,7 +255,7 @@ namespace ShellDll
                         {
                             if (!Pidl.IsEmpty(shNotify.dwItem1))
                             {
-                                ShellItem item = browser.GetShellItem(new Pidl(shNotify.dwItem1, true));
+                                ShellNode item = browser.GetShellItem(new Pidl(shNotify.dwItem1, true));
                                 if (item != null)
                                 {
                                     item.Update(IntPtr.Zero, ShellItemUpdateType.Updated);
@@ -276,7 +276,7 @@ namespace ShellDll
                         {
                             if (!Pidl.IsEmpty(shNotify.dwItem1))
                             {
-                                ShellItem item = browser.GetShellItem(new Pidl(shNotify.dwItem1, true));
+                                ShellNode item = browser.GetShellItem(new Pidl(shNotify.dwItem1, true));
                                 if (item != null)
                                 {
                                     item.Update(IntPtr.Zero, ShellItemUpdateType.MediaChange);
@@ -321,7 +321,7 @@ namespace ShellDll
 
         private void UpdateRecycleBin()
         {
-            ShellItem recycleBin = browser.DesktopItem["Recycle Bin"];
+            ShellNode recycleBin = browser.DesktopItem["Recycle Bin"];
             if (recycleBin != null)
             {
                 recycleBin.Update(IntPtr.Zero, ShellItemUpdateType.IconChange);
