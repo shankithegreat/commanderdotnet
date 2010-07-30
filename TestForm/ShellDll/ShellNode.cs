@@ -7,14 +7,14 @@ using System.Threading;
 
 namespace ShellDll
 {
-    public sealed class ShellItem : IEnumerable, IDisposable, IComparable
+    public sealed class ShellNode : IEnumerable, IDisposable, IComparable
     {
         private IShellFolder shellFolder;
         private IntPtr shellFolderPtr;
         private bool disposed;
 
 
-        public ShellItem(ShellBrowser browser, IntPtr pidl, IntPtr shellFolderPtr)
+        public ShellNode(ShellBrowser browser, IntPtr pidl, IntPtr shellFolderPtr)
         {
             this.Browser = browser;
 
@@ -41,7 +41,7 @@ namespace ShellDll
             SortFlag = 1;
         }
 
-        public ShellItem(ShellBrowser browser, ShellItem parentItem, IntPtr pidl, IntPtr shellFolderPtr)
+        public ShellNode(ShellBrowser browser, ShellNode parentItem, IntPtr pidl, IntPtr shellFolderPtr)
         {
             this.Browser = browser;
 
@@ -61,7 +61,7 @@ namespace ShellDll
             SortFlag = MakeSortFlag(this);
         }
 
-        public ShellItem(ShellBrowser browser, ShellItem parentItem, IntPtr pidl)
+        public ShellNode(ShellBrowser browser, ShellNode parentItem, IntPtr pidl)
         {
             this.Browser = browser;
 
@@ -80,7 +80,7 @@ namespace ShellDll
 
         public ShellBrowser Browser { get; private set; }
 
-        public ShellItem ParentItem { get; private set; }
+        public ShellNode ParentItem { get; private set; }
 
         public ShellItemCollection SubFiles { get; private set; }
 
@@ -118,7 +118,7 @@ namespace ShellDll
             get
             {
                 Pidl pidlFull = new Pidl(PIDLRel.Ptr, true);
-                ShellItem current = ParentItem;
+                ShellNode current = ParentItem;
                 while (current != null)
                 {
                     pidlFull.Insert(current.PIDLRel.Ptr);
@@ -210,7 +210,7 @@ namespace ShellDll
 
                                     if ((attribs & SFGAO.FOLDER) == 0)
                                     {
-                                        ShellItem newItem = new ShellItem(Browser, this, pidlSubItem);
+                                        ShellNode newItem = new ShellNode(Browser, this, pidlSubItem);
 
                                         if (!SubFolders.Contains(newItem.Text))
                                         {
@@ -234,7 +234,7 @@ namespace ShellDll
                                 fileList = (IEnumIDList)Marshal.GetTypedObjectForIUnknown(fileListPtr, typeof(IEnumIDList));
                                 while (fileList.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
                                 {
-                                    ShellItem newItem = new ShellItem(Browser, this, pidlSubItem);
+                                    ShellNode newItem = new ShellNode(Browser, this, pidlSubItem);
                                     SubFiles.Add(newItem);
                                 }
 
@@ -254,7 +254,7 @@ namespace ShellDll
                                 IntPtr shellFolderPtr;
                                 if (ShellFolder.BindToObject(pidlSubItem, IntPtr.Zero, ref ShellGuids.IShellFolder, out shellFolderPtr) == 0)
                                 {
-                                    ShellItem newItem = new ShellItem(Browser, this, pidlSubItem, shellFolderPtr);
+                                    ShellNode newItem = new ShellNode(Browser, this, pidlSubItem, shellFolderPtr);
                                     SubFolders.Add(newItem);
                                 }
                             }
@@ -385,7 +385,7 @@ namespace ShellDll
                                         {
                                             if ((index = SubFiles.IndexOf(pidlSubItem)) == -1)
                                             {
-                                                ShellItem newItem = new ShellItem(Browser, this, pidlSubItem);
+                                                ShellNode newItem = new ShellNode(Browser, this, pidlSubItem);
 
                                                 if (!SubFolders.Contains(newItem.Text))
                                                 {
@@ -416,7 +416,7 @@ namespace ShellDll
                                     {
                                         if ((index = SubFiles.IndexOf(pidlSubItem)) == -1)
                                         {
-                                            add.Add(new ShellItem(Browser, this, pidlSubItem));
+                                            add.Add(new ShellNode(Browser, this, pidlSubItem));
                                         }
                                         else if (index < fileExists.Length)
                                         {
@@ -448,11 +448,11 @@ namespace ShellDll
                             if (fileEnumCompleted && Browser.UpdateCondition.ContinueUpdate)
                             {
                                 int newIndex;
-                                foreach (ShellItem oldItem in remove)
+                                foreach (ShellNode oldItem in remove)
                                 {
                                     if ((newIndex = add.IndexOf(oldItem.Text)) > -1)
                                     {
-                                        ShellItem newItem = add[newIndex];
+                                        ShellNode newItem = add[newIndex];
                                         add.Remove(newItem);
 
                                         oldItem.PIDLRel.Free();
@@ -473,7 +473,7 @@ namespace ShellDll
                                     }
                                 }
 
-                                foreach (ShellItem newItem in add)
+                                foreach (ShellNode newItem in add)
                                 {
                                     SubFiles.Add(newItem);
                                     Browser.OnShellItemUpdate(this, new ShellItemUpdateEventArgs(null, newItem, ShellItemUpdateType.Created));
@@ -511,7 +511,7 @@ namespace ShellDll
                                         IntPtr shellFolderPtr;
                                         if (ShellFolder.BindToObject(pidlSubItem, IntPtr.Zero, ref ShellGuids.IShellFolder, out shellFolderPtr) == 0)
                                         {
-                                            add.Add(new ShellItem(Browser, this, pidlSubItem, shellFolderPtr));
+                                            add.Add(new ShellNode(Browser, this, pidlSubItem, shellFolderPtr));
                                         }
                                     }
                                     else if (index < folderExists.Length)
@@ -543,11 +543,11 @@ namespace ShellDll
                             if (folderEnumCompleted && Browser.UpdateCondition.ContinueUpdate)
                             {
                                 int newIndex;
-                                foreach (ShellItem oldItem in remove)
+                                foreach (ShellNode oldItem in remove)
                                 {
                                     if ((newIndex = add.IndexOf(oldItem.Text)) > -1)
                                     {
-                                        ShellItem newItem = add[newIndex];
+                                        ShellNode newItem = add[newIndex];
                                         add.Remove(newItem);
 
                                         oldItem.PIDLRel.Free();
@@ -573,7 +573,7 @@ namespace ShellDll
                                     }
                                 }
 
-                                foreach (ShellItem newItem in add)
+                                foreach (ShellNode newItem in add)
                                 {
                                     SubFolders.Add(newItem);
 
@@ -619,7 +619,7 @@ namespace ShellDll
             }
         }
 
-        public void AddItem(ShellItem item)
+        public void AddItem(ShellNode item)
         {
             Browser.UpdateCondition.ContinueUpdate = false;
             lock (Browser)
@@ -666,7 +666,7 @@ namespace ShellDll
                         shellFolder = (IShellFolder)Marshal.GetTypedObjectForIUnknown(shellFolderPtr, typeof(IShellFolder));
                         PIDLRel = new Pidl(newPidlRel, false);
 
-                        foreach (ShellItem child in SubFolders)
+                        foreach (ShellNode child in SubFolders)
                         {
                             UpdateShellFolders(child);
                         }
@@ -719,7 +719,7 @@ namespace ShellDll
             Browser.OnShellItemUpdate(ParentItem, new ShellItemUpdateEventArgs(this, this, changeType));
         }
 
-        public void RemoveItem(ShellItem item)
+        public void RemoveItem(ShellNode item)
         {
             Browser.UpdateCondition.ContinueUpdate = false;
 
@@ -745,7 +745,7 @@ namespace ShellDll
             }
         }
 
-        public static string GetRealPath(ShellItem item)
+        public static string GetRealPath(ShellNode item)
         {
             if (item.Equals(item.Browser.DesktopItem))
             {
@@ -772,11 +772,11 @@ namespace ShellDll
             }
         }
 
-        public static void UpdateShellFolders(ShellItem item)
+        public static void UpdateShellFolders(ShellNode item)
         {
             item.UpdateShellFolder = true;
 
-            foreach (ShellItem child in item.SubFolders)
+            foreach (ShellNode child in item.SubFolders)
             {
                 UpdateShellFolders(child);
             }
@@ -789,7 +789,7 @@ namespace ShellDll
 
         public int CompareTo(object obj)
         {
-            ShellItem other = (ShellItem)obj;
+            ShellNode other = (ShellNode)obj;
 
             if (SortFlag != other.SortFlag)
             {
@@ -805,7 +805,7 @@ namespace ShellDll
             }
         }
 
-        public bool Contains(ShellItem value)
+        public bool Contains(ShellNode value)
         {
             return (SubFolders.Contains(value) || SubFiles.Contains(value));
         }
@@ -820,7 +820,7 @@ namespace ShellDll
             return (SubFolders.Contains(pidl) || SubFiles.Contains(pidl));
         }
 
-        public int IndexOf(ShellItem value)
+        public int IndexOf(ShellNode value)
         {
             int index;
             index = SubFolders.IndexOf(value);
@@ -880,7 +880,7 @@ namespace ShellDll
             return -1;
         }
 
-        public ShellItem this[int index]
+        public ShellNode this[int index]
         {
             get
             {
@@ -914,11 +914,11 @@ namespace ShellDll
             }
         }
 
-        public ShellItem this[string name]
+        public ShellNode this[string name]
         {
             get
             {
-                ShellItem temp = SubFolders[name];
+                ShellNode temp = SubFolders[name];
 
                 if (temp != null)
                 {
@@ -931,7 +931,7 @@ namespace ShellDll
             }
             set
             {
-                ShellItem temp = SubFolders[name];
+                ShellNode temp = SubFolders[name];
 
                 if (temp != null)
                 {
@@ -944,11 +944,11 @@ namespace ShellDll
             }
         }
 
-        public ShellItem this[IntPtr pidl]
+        public ShellNode this[IntPtr pidl]
         {
             get
             {
-                ShellItem temp = SubFolders[pidl];
+                ShellNode temp = SubFolders[pidl];
 
                 if (temp != null)
                 {
@@ -961,7 +961,7 @@ namespace ShellDll
             }
             set
             {
-                ShellItem temp = SubFolders[pidl];
+                ShellNode temp = SubFolders[pidl];
 
                 if (temp != null)
                 {
@@ -975,7 +975,7 @@ namespace ShellDll
         }
 
 
-        private static short MakeSortFlag(ShellItem item)
+        private static short MakeSortFlag(ShellNode item)
         {
             if (item.IsFolder)
             {
@@ -1017,7 +1017,7 @@ namespace ShellDll
             }
         }
 
-        private static void SetText(ShellItem item)
+        private static void SetText(ShellNode item)
         {
             IntPtr strr = Marshal.AllocCoTaskMem(ShellApi.MAX_PATH * 2 + 4);
             Marshal.WriteInt32(strr, 0, 0);
@@ -1032,7 +1032,7 @@ namespace ShellDll
             Marshal.FreeCoTaskMem(strr);
         }
 
-        private static void SetPath(ShellItem item)
+        private static void SetPath(ShellNode item)
         {
             IntPtr strr = Marshal.AllocCoTaskMem(ShellApi.MAX_PATH * 2 + 4);
             Marshal.WriteInt32(strr, 0, 0);
@@ -1047,7 +1047,7 @@ namespace ShellDll
             Marshal.FreeCoTaskMem(strr);
         }
 
-        private static void SetInfo(ShellItem item)
+        private static void SetInfo(ShellNode item)
         {
             Pidl pidlFull = item.PIDLFull;
 
@@ -1062,7 +1062,7 @@ namespace ShellDll
             item.Type = info.szTypeName;
         }
 
-        private static void SetAttributesDesktop(ShellItem item)
+        private static void SetAttributesDesktop(ShellNode item)
         {
             item.IsFolder = true;
             item.IsLink = false;
@@ -1075,7 +1075,7 @@ namespace ShellDll
             item.CanRead = true;
         }
 
-        private static void SetAttributesFolder(ShellItem item)
+        private static void SetAttributesFolder(ShellNode item)
         {
             // file/folder attributes
             SFGAO attribs = SFGAO.SHARE | SFGAO.FILESYSTEM | SFGAO.HIDDEN | SFGAO.HASSUBFOLDER | SFGAO.BROWSABLE | SFGAO.CANRENAME | SFGAO.STORAGE;
@@ -1094,7 +1094,7 @@ namespace ShellDll
             item.IsDisk = (item.Path.Length == 3 && item.Path.EndsWith(":\\"));
         }
 
-        private static void SetAttributesFile(ShellItem item)
+        private static void SetAttributesFile(ShellNode item)
         {
             // file/folder attributes
             SFGAO attribs = SFGAO.LINK | SFGAO.SHARE | SFGAO.FILESYSTEM | SFGAO.HIDDEN | SFGAO.CANRENAME | SFGAO.STREAM;
@@ -1156,11 +1156,11 @@ namespace ShellDll
 
     public class ShellItemEnumerator : IEnumerator
     {
-        private ShellItem parent;
+        private ShellNode parent;
         private int index = -1;
 
 
-        public ShellItemEnumerator(ShellItem parent)
+        public ShellItemEnumerator(ShellNode parent)
         {
             this.parent = parent;
         }
@@ -1186,13 +1186,13 @@ namespace ShellDll
         private ArrayList items = new ArrayList();
 
 
-        public ShellItemCollection(ShellItem shellItem)
+        public ShellItemCollection(ShellNode shellItem)
         {
             this.ShellItem = shellItem;
         }
 
 
-        public ShellItem ShellItem { get; private set; }
+        public ShellNode ShellItem { get; private set; }
 
         public int Count { get { return items.Count; } }
 
@@ -1202,13 +1202,13 @@ namespace ShellDll
 
         public bool IsReadOnly { get { return items.IsReadOnly; } }
 
-        public ShellItem this[int index]
+        public ShellNode this[int index]
         {
             get
             {
                 try
                 {
-                    return (ShellItem)items[index];
+                    return (ShellNode)items[index];
                 }
                 catch (ArgumentOutOfRangeException)
                 {
@@ -1218,14 +1218,14 @@ namespace ShellDll
             set { items[index] = value; }
         }
 
-        public ShellItem this[string name]
+        public ShellNode this[string name]
         {
             get
             {
                 int index;
                 if ((index = IndexOf(name)) > -1)
                 {
-                    return (ShellItem)items[index];
+                    return (ShellNode)items[index];
                 }
                 else
                 {
@@ -1242,14 +1242,14 @@ namespace ShellDll
             }
         }
 
-        public ShellItem this[IntPtr pidl]
+        public ShellNode this[IntPtr pidl]
         {
             get
             {
                 int index;
                 if ((index = IndexOf(pidl)) > -1)
                 {
-                    return (ShellItem)items[index];
+                    return (ShellNode)items[index];
                 }
                 else
                 {
@@ -1272,7 +1272,7 @@ namespace ShellDll
             items.Sort();
         }
 
-        public int Add(ShellItem value)
+        public int Add(ShellNode value)
         {
             return items.Add(value);
         }
@@ -1282,14 +1282,14 @@ namespace ShellDll
             items.Clear();
         }
 
-        public bool Contains(ShellItem value)
+        public bool Contains(ShellNode value)
         {
             return items.Contains(value);
         }
 
         public bool Contains(string name)
         {
-            foreach (ShellItem item in this)
+            foreach (ShellNode item in this)
             {
                 if (string.Compare(item.Text, name, true) == 0)
                 {
@@ -1302,7 +1302,7 @@ namespace ShellDll
 
         public bool Contains(IntPtr pidl)
         {
-            foreach (ShellItem item in this)
+            foreach (ShellNode item in this)
             {
                 if (item.PIDLRel.Equals(pidl))
                 {
@@ -1313,7 +1313,7 @@ namespace ShellDll
             return false;
         }
 
-        public int IndexOf(ShellItem value)
+        public int IndexOf(ShellNode value)
         {
             return items.IndexOf(value);
         }
@@ -1344,12 +1344,12 @@ namespace ShellDll
             return -1;
         }
 
-        public void Insert(int index, ShellItem value)
+        public void Insert(int index, ShellNode value)
         {
             items.Insert(index, value);
         }
 
-        public void Remove(ShellItem value)
+        public void Remove(ShellNode value)
         {
             items.Remove(value);
         }

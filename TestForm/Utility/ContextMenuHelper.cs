@@ -190,7 +190,7 @@ namespace TestForm
         /// <param name="pidls">the pidls from the list for which to invoke</param>
         /// <param name="cmd">the execute string from the command to invoke</param>
         /// <param name="ptInvoke">the point (in screen coцrdinates) from which to invoke</param>
-        public static void InvokeCommand(ShellItem parent, IntPtr[] pidls, string cmd, Point ptInvoke)
+        public static void InvokeCommand(ShellNode parent, IntPtr[] pidls, string cmd, Point ptInvoke)
         {
             IntPtr icontextMenuPtr;
             IContextMenu iContextMenu;
@@ -202,7 +202,7 @@ namespace TestForm
                     InvokeCommand(
                                     iContextMenu,
                                     cmd,
-                                    ShellItem.GetRealPath(parent),
+                                    ShellNode.GetRealPath(parent),
                                     ptInvoke);
                 }
                 catch
@@ -255,7 +255,7 @@ namespace TestForm
             }
         }
 
-        public static bool GetNewContextMenu(ShellItem item, out IntPtr iContextMenuPtr, out IContextMenu iContextMenu)
+        public static bool GetNewContextMenu(ShellNode item, out IntPtr iContextMenuPtr, out IContextMenu iContextMenu)
         {
             if (ShellApi.CoCreateInstance(
                     ref ShellGuids.NewMenu,
