@@ -185,8 +185,6 @@ namespace ShellDll
         {
             if (((expandFiles && !FilesExpanded) || !expandFiles) && ((expandFolders && !FoldersExpanded) || !expandFolders) && (expandFiles || expandFolders) && ShellFolder != null && !disposed)
             {
-                IntPtr fileListPtr = IntPtr.Zero;
-                IntPtr folderListPtr = IntPtr.Zero;
                 IEnumIDList fileList = null;
                 IEnumIDList folderList = null;
 
@@ -199,10 +197,8 @@ namespace ShellDll
                     {
                         if (this.Equals(Browser.DesktopItem) || ParentItem.Equals(Browser.DesktopItem))
                         {
-                            if (ShellFolder.EnumObjects(winHandle, SHCONT.NONFOLDERS | SHCONT.INCLUDEHIDDEN, out fileListPtr) == 0)
-                            {
-                                fileList = (IEnumIDList)Marshal.GetTypedObjectForIUnknown(fileListPtr, typeof(IEnumIDList));
-                                                                
+                            if (ShellFolder.EnumObjects(winHandle, SHCONT.NONFOLDERS | SHCONT.INCLUDEHIDDEN, out fileList) == 0)
+                            {                                   
                                 while (fileList.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
                                 {
                                     SFGAO attribs = SFGAO.FOLDER;
@@ -229,9 +225,8 @@ namespace ShellDll
                         }
                         else
                         {
-                            if (ShellFolder.EnumObjects(winHandle, SHCONT.NONFOLDERS | SHCONT.INCLUDEHIDDEN, out fileListPtr) == 0)
+                            if (ShellFolder.EnumObjects(winHandle, SHCONT.NONFOLDERS | SHCONT.INCLUDEHIDDEN, out fileList) == 0)
                             {
-                                fileList = (IEnumIDList)Marshal.GetTypedObjectForIUnknown(fileListPtr, typeof(IEnumIDList));
                                 while (fileList.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
                                 {
                                     ShellNode newItem = new ShellNode(Browser, this, pidlSubItem);
@@ -246,9 +241,8 @@ namespace ShellDll
 
                     if (expandFolders)
                     {
-                        if (ShellFolder.EnumObjects(winHandle, SHCONT.FOLDERS | SHCONT.INCLUDEHIDDEN, out folderListPtr) == 0)
+                        if (ShellFolder.EnumObjects(winHandle, SHCONT.FOLDERS | SHCONT.INCLUDEHIDDEN, out folderList) == 0)
                         {
-                            folderList = (IEnumIDList)Marshal.GetTypedObjectForIUnknown(folderListPtr, typeof(IEnumIDList));
                             while (folderList.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
                             {
                                 IntPtr shellFolderPtr;
@@ -272,13 +266,11 @@ namespace ShellDll
                     if (folderList != null)
                     {
                         Marshal.ReleaseComObject(folderList);
-                        Marshal.Release(folderListPtr);
                     }
 
                     if (fileList != null)
                     {
                         Marshal.ReleaseComObject(fileList);
-                        Marshal.Release(fileListPtr);
                     }
                 }
             }
@@ -337,10 +329,8 @@ namespace ShellDll
             {
                 lock (Browser)
                 {
-                    #region Fields
-
-                    IntPtr fileEnumPtr = IntPtr.Zero, folderEnumPtr = IntPtr.Zero;
-                    IEnumIDList fileEnum = null, folderEnum = null;
+                    IEnumIDList fileList = null;
+                    IEnumIDList folderList = null;
                     IntPtr pidlSubItem;
                     int celtFetched;
 
@@ -355,8 +345,6 @@ namespace ShellDll
                     folderExists = new bool[SubFolders.Count];
 
                     int index;
-
-                    #endregion
 
                     try
                     {
@@ -373,11 +361,10 @@ namespace ShellDll
 
                             if (this.Equals(Browser.DesktopItem) || ParentItem.Equals(Browser.DesktopItem))
                             {
-                                if (ShellFolder.EnumObjects(IntPtr.Zero, fileFlag, out fileEnumPtr) == 0)
+                                if (ShellFolder.EnumObjects(IntPtr.Zero, fileFlag, out fileList) == 0)
                                 {
-                                    fileEnum = (IEnumIDList)Marshal.GetTypedObjectForIUnknown(fileEnumPtr, typeof(IEnumIDList));
                                     SFGAO attribs = SFGAO.FOLDER;
-                                    while (Browser.UpdateCondition.ContinueUpdate && fileEnum.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
+                                    while (Browser.UpdateCondition.ContinueUpdate && fileList.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
                                     {
                                         ShellFolder.GetAttributesOf(1, new IntPtr[] { pidlSubItem }, ref attribs);
 
@@ -409,10 +396,9 @@ namespace ShellDll
                             }
                             else
                             {
-                                if (ShellFolder.EnumObjects(IntPtr.Zero, fileFlag, out fileEnumPtr) == 0)
+                                if (ShellFolder.EnumObjects(IntPtr.Zero, fileFlag, out fileList) == 0)
                                 {
-                                    fileEnum = (IEnumIDList)Marshal.GetTypedObjectForIUnknown(fileEnumPtr, typeof(IEnumIDList));
-                                    while (Browser.UpdateCondition.ContinueUpdate && fileEnum.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
+                                    while (Browser.UpdateCondition.ContinueUpdate && fileList.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
                                     {
                                         if ((index = SubFiles.IndexOf(pidlSubItem)) == -1)
                                         {
@@ -501,10 +487,9 @@ namespace ShellDll
 
                             #region Add Folders
 
-                            if (ShellFolder.EnumObjects(IntPtr.Zero, folderFlag, out folderEnumPtr) == 0)
+                            if (ShellFolder.EnumObjects(IntPtr.Zero, folderFlag, out folderList) == 0)
                             {
-                                folderEnum = (IEnumIDList)Marshal.GetTypedObjectForIUnknown(folderEnumPtr, typeof(IEnumIDList));
-                                while (Browser.UpdateCondition.ContinueUpdate && folderEnum.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
+                                while (Browser.UpdateCondition.ContinueUpdate && folderList.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
                                 {
                                     if ((index = SubFolders.IndexOf(pidlSubItem)) == -1)
                                     {
@@ -597,20 +582,14 @@ namespace ShellDll
                     {
                         #region Free
 
-                        if (folderEnum != null)
+                        if (folderList != null)
                         {
-                            Marshal.ReleaseComObject(folderEnum);
-                            Marshal.Release(folderEnumPtr);
+                            Marshal.ReleaseComObject(folderList);
                         }
 
-                        if (fileEnum != null)
+                        if (fileList != null)
                         {
-                            Marshal.ReleaseComObject(fileEnum);
-
-                            if (!(Type == Browser.SystemFolderName && string.Compare(Text, "Control Panel", true) == 0))
-                            {
-                                Marshal.Release(fileEnumPtr);
-                            }
+                            Marshal.ReleaseComObject(fileList);
                         }
 
                         #endregion
