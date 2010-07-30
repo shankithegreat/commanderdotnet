@@ -6,6 +6,183 @@ using System.Windows.Forms;
 
 namespace ShellDll
 {
+    public static class Shell32
+    {
+        //[DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        //public static extern int SHCreateShellItem(IntPtr pidlParent, [In, MarshalAs(UnmanagedType.Interface)] IShellFolder psfParent, IntPtr pidl, [MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi);
+
+        /// <summary>
+        /// Returns the size, in bytes, of an ITEMIDLIST structure.
+        /// </summary>
+        /// <param name="pidl">A pointer to an ITEMIDLIST structure.</param>
+        /// <returns>The size of the ITEMIDLIST structure specified by pidl, in bytes.</returns>
+        [DllImport("shell32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        internal static extern uint ILGetSize(IntPtr pidl);
+
+        // Retrieves information about an object in the file system,
+        // such as a file, a folder, a directory, or a drive root.
+        [DllImport("shell32", EntryPoint = "SHGetFileInfo", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern IntPtr SHGetFileInfo(string pszPath, FILE_ATTRIBUTE dwFileAttributes, ref SHFILEINFO sfi, int cbFileInfo, SHGFI uFlags);
+
+        // Retrieves information about an object in the file system,
+        // such as a file, a folder, a directory, or a drive root.
+        [DllImport("shell32", EntryPoint = "SHGetFileInfo", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern IntPtr SHGetFileInfo(IntPtr ppidl, FILE_ATTRIBUTE dwFileAttributes, ref SHFILEINFO sfi, int cbFileInfo, SHGFI uFlags);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        internal extern static bool DestroyIcon(IntPtr handle);
+
+        // Takes the CSIDL of a folder and returns the pathname.
+        [DllImport("shell32.dll")]
+        public static extern Int32 SHGetFolderPath(IntPtr hwndOwner, CSIDL nFolder, IntPtr hToken, SHGFP dwFlags, StringBuilder pszPath);
+
+        // Retrieves the IShellFolder interface for the desktop folder,
+        // which is the root of the Shell's namespace. 
+        [DllImport("shell32.dll")]
+        public static extern Int32 SHGetDesktopFolder([MarshalAs(UnmanagedType.Interface)] out IShellFolder ppshf);
+
+        // Retrieves ppidl of special folder
+        [DllImport("Shell32", EntryPoint = "SHGetSpecialFolderLocation", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
+        public static extern Int32 SHGetSpecialFolderLocation(IntPtr hwndOwner, CSIDL nFolder, out IntPtr ppidl);
+
+        // This function takes the fully-qualified pointer to an item
+        // identifier list (PIDL) of a namespace object, and returns a specified
+        // interface pointer on the parent object.
+        [DllImport("shell32.dll")]
+        public static extern Int32 SHBindToParent(IntPtr pidl, ref Guid riid, out IntPtr ppv, out IntPtr ppidlLast);
+
+        // Registers a window that receives notifications from the file system or shell
+        [DllImport("shell32.dll", EntryPoint = "#2", CharSet = CharSet.Auto)]
+        public static extern uint SHChangeNotifyRegister(IntPtr hwnd, SHCNRF fSources, SHCNE fEvents, WM wMsg, int cEntries, [MarshalAs(UnmanagedType.LPArray)] SHChangeNotifyEntry[] pfsne);
+
+        // Unregisters the client's window process from receiving SHChangeNotify
+        [DllImport("shell32.dll", EntryPoint = "#4", CharSet = CharSet.Auto)]
+        public static extern bool SHChangeNotifyDeregister(uint hNotify);
+
+        // Converts an item identifier list to a file system path
+        [DllImport("shell32.dll")]
+        public static extern bool SHGetPathFromIDList(IntPtr pidl, StringBuilder pszPath);
+
+        // SHGetRealIDL converts a simple PIDL to a full PIDL
+        //[DllImport("shell32.dll")]
+        //public static extern Int32 SHGetRealIDL(IShellFolder psf, IntPtr pidlSimple, out IntPtr ppidlReal);
+
+        // Tests whether two ITEMIDLIST structures are equal in a binary comparison
+        [DllImport("shell32.dll", EntryPoint = "ILIsEqual", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
+        public static extern bool ILIsEqual(IntPtr pidl1, IntPtr pidl2);
+    }
+
+    public static class User32
+    {
+        // Sends the specified message to a window or windows
+        [DllImport("user32.dll", EntryPoint = "SendMessage", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, WM wMsg, int wParam, IntPtr lParam);
+
+        // Destroys an icon and frees any memory the icon occupied
+        [DllImport("user32.dll", EntryPoint = "DestroyIcon", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
+        public static extern bool DestroyIcon(IntPtr hIcon);
+
+        // Displays a shortcut menu at the specified location and 
+        // tracks the selection of items on the shortcut menu
+        [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
+        public static extern uint TrackPopupMenuEx(IntPtr hmenu, TPM flags, int x, int y, IntPtr hwnd, IntPtr lptpm);
+
+        // Creates a popup-menu. The menu is initially empty, but it can be filled with 
+        // menu items by using the InsertMenuItem, AppendMenu, and InsertMenu functions
+        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern IntPtr CreatePopupMenu();
+
+        // Destroys the specified menu and frees any memory that the menu occupies
+        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern bool DestroyMenu(IntPtr hMenu);
+
+        // appends a new item to the end of the specified menu bar, drop-down menu, submenu, 
+        // or shortcut menu. You can use this function to specify the content, appearance, and 
+        // behavior of the menu item
+        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern bool AppendMenu(IntPtr hMenu, MFT uFlags, uint uIDNewItem, [MarshalAs(UnmanagedType.LPTStr)] string lpNewItem);
+
+        // Inserts a new menu item into a menu, moving other items down the menu
+        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern bool InsertMenu(IntPtr hmenu, uint uPosition, MFT uflags, uint uIDNewItem, [MarshalAs(UnmanagedType.LPTStr)] string lpNewItem);
+
+        // Inserts a new menu item at the specified position in a menu
+        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern bool InsertMenuItem(IntPtr hMenu, uint uItem, bool fByPosition, ref MENUITEMINFO lpmii);
+
+        // Deletes a menu item or detaches a submenu from the specified menu
+        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern bool RemoveMenu(IntPtr hMenu, uint uPosition, MFT uFlags);
+
+        // Retrieves information about a menu item
+        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern bool GetMenuItemInfo(IntPtr hMenu, uint uItem, bool fByPos, ref MENUITEMINFO lpmii);
+
+        // Changes information about a menu item.
+        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern bool SetMenuItemInfo(IntPtr hMenu, uint uItem, bool fByPos, ref MENUITEMINFO lpmii);
+
+        // Determines the default menu item on the specified menu
+        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern int GetMenuDefaultItem(IntPtr hMenu, bool fByPos, uint gmdiFlags);
+
+        // Sets the default menu item for the specified menu
+        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern bool SetMenuDefaultItem(IntPtr hMenu, uint uItem, bool fByPos);
+
+        // Retrieves a handle to the drop-down menu or submenu activated by the specified menu item
+        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern IntPtr GetSubMenu(IntPtr hMenu, int nPos);
+
+        // Retrieves information about the specified combo box
+        [DllImport("user32", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern bool GetComboBoxInfo(IntPtr hwndCombo, ref COMBOBOXINFO info);
+    }
+
+    public static class ComCtl32
+    {
+        // Replaces an image with an icon or cursor
+        [DllImport("comctl32", EntryPoint = "ImageList_ReplaceIcon", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern int ImageList_ReplaceIcon(IntPtr himl, int index, IntPtr hicon);
+
+        // Adds an image or images to an image list
+        [DllImport("comctl32", EntryPoint = "ImageList_Add", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern int ImageList_Add(IntPtr himl, IntPtr hbmImage, IntPtr hbmMask);
+
+        // Creates an icon from an image and mask in an image list
+        [DllImport("comctl32", EntryPoint = "ImageList_GetIcon", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
+        public static extern IntPtr ImageList_GetIcon(IntPtr himl, int index, ILD flags);
+    }
+
+    public static class Ole32
+    {
+        // Registers the specified window as one that can be the target of an OLE drag-and-drop 
+        // operation and specifies the IDropTarget instance to use for drop operations
+        //[DllImport("ole32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        //public static extern int RegisterDragDrop(IntPtr hWnd, IDropTarget IdropTgt);
+
+        // Revokes the registration of the specified application window as a potential target for 
+        // OLE drag-and-drop operations
+        [DllImport("ole32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern int RevokeDragDrop(IntPtr hWnd);
+
+        // This function frees the specified storage medium
+        [DllImport("ole32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern void ReleaseStgMedium(ref STGMEDIUM pmedium);
+
+        /*// Carries out an OLE drag and drop operation
+        [DllImport("ole32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern int DoDragDrop(IntPtr pDataObject, [MarshalAs(UnmanagedType.Interface)] IDropSource pDropSource, DragDropEffects dwOKEffect, out DragDropEffects pdwEffect);
+        */
+        // Retrieves a drag/drop helper interface for drawing the drag/drop images
+        [DllImport("ole32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern int CoCreateInstance(ref Guid rclsid, IntPtr pUnkOuter, CLSCTX dwClsContext, ref Guid riid, out IntPtr ppv);
+
+        // Retrieves a data object that you can use to access the contents of the clipboard
+        [DllImport("ole32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern int OleGetClipboard(out IntPtr ppDataObj);
+    }
+
     /// <summary>
     /// This class contains every method, enumeration, struct and constants from the Windows API, which are
     /// required by the FileBrowser
@@ -194,6 +371,128 @@ namespace ShellDll
             return DateTime.FromFileTimeUtc(ticks);
         }
     }
+    /// <summary>
+    /// Indicate flags that modify the property store object retrieved by methods 
+    /// that create a property store, such as IShellItem2::GetPropertyStore or 
+    /// IPropertyStoreFactory::GetPropertyStore.
+    /// </summary>
+    [Flags]
+    internal enum GETPROPERTYSTOREFLAGS : uint
+    {
+        /// <summary>
+        /// Meaning to a calling process: Return a read-only property store that contains all 
+        /// properties. Slow items (offline files) are not opened. 
+        /// Combination with other flags: Can be overridden by other flags.
+        /// </summary>
+        DEFAULT = 0,
+
+        /// <summary>
+        /// Meaning to a calling process: Include only properties directly from the property
+        /// handler, which opens the file on the disk, network, or device. Meaning to a file 
+        /// folder: Only include properties directly from the handler.
+        /// 
+        /// Meaning to other folders: When delegating to a file folder, pass this flag on 
+        /// to the file folder; do not do any multiplexing (MUX). When not delegating to a 
+        /// file folder, ignore this flag instead of returning a failure code.
+        /// 
+        /// Combination with other flags: Cannot be combined with GPS_TEMPORARY, 
+        /// GPS_FASTPROPERTIESONLY, or GPS_BESTEFFORT.
+        /// </summary>
+        HANDLERPROPERTIESONLY = 0x1,
+
+        /// <summary>
+        /// Meaning to a calling process: Can write properties to the item. 
+        /// Note: The store may contain fewer properties than a read-only store. 
+        /// 
+        /// Meaning to a file folder: ReadWrite.
+        /// 
+        /// Meaning to other folders: ReadWrite. Note: When using default MUX, 
+        /// return a single unmultiplexed store because the default MUX does not support ReadWrite.
+        /// 
+        /// Combination with other flags: Cannot be combined with GPS_TEMPORARY, GPS_FASTPROPERTIESONLY, 
+        /// GPS_BESTEFFORT, or GPS_DELAYCREATION. Implies GPS_HANDLERPROPERTIESONLY.
+        /// </summary>
+        READWRITE = 0x2,
+
+        /// <summary>
+        /// Meaning to a calling process: Provides a writable store, with no initial properties, 
+        /// that exists for the lifetime of the Shell item instance; basically, a property bag 
+        /// attached to the item instance. 
+        /// 
+        /// Meaning to a file folder: Not applicable. Handled by the Shell item.
+        /// 
+        /// Meaning to other folders: Not applicable. Handled by the Shell item.
+        /// 
+        /// Combination with other flags: Cannot be combined with any other flag. Implies GPS_READWRITE
+        /// </summary>
+        TEMPORARY = 0x4,
+
+        /// <summary>
+        /// Meaning to a calling process: Provides a store that does not involve reading from the 
+        /// disk or network. Note: Some values may be different, or missing, compared to a store 
+        /// without this flag. 
+        /// 
+        /// Meaning to a file folder: Include the "innate" and "fallback" stores only. Do not load the handler.
+        /// 
+        /// Meaning to other folders: Include only properties that are available in memory or can 
+        /// be computed very quickly (no properties from disk, network, or peripheral IO devices). 
+        /// This is normally only data sources from the IDLIST. When delegating to other folders, pass this flag on to them.
+        /// 
+        /// Combination with other flags: Cannot be combined with GPS_TEMPORARY, GPS_READWRITE, 
+        /// GPS_HANDLERPROPERTIESONLY, or GPS_DELAYCREATION.
+        /// </summary>
+        FASTPROPERTIESONLY = 0x8,
+
+        /// <summary>
+        /// Meaning to a calling process: Open a slow item (offline file) if necessary. 
+        /// Meaning to a file folder: Retrieve a file from offline storage, if necessary. 
+        /// Note: Without this flag, the handler is not created for offline files.
+        /// 
+        /// Meaning to other folders: Do not return any properties that are very slow.
+        /// 
+        /// Combination with other flags: Cannot be combined with GPS_TEMPORARY or GPS_FASTPROPERTIESONLY.
+        /// </summary>
+        OPENSLOWITEM = 0x10,
+
+        /// <summary>
+        /// Meaning to a calling process: Delay memory-intensive operations, such as file access, until 
+        /// a property is requested that requires such access. 
+        /// 
+        /// Meaning to a file folder: Do not create the handler until needed; for example, either 
+        /// GetCount/GetAt or GetValue, where the innate store does not satisfy the request. 
+        /// Note: GetValue might fail due to file access problems.
+        /// 
+        /// Meaning to other folders: If the folder has memory-intensive properties, such as 
+        /// delegating to a file folder or network access, it can optimize performance by 
+        /// supporting IDelayedPropertyStoreFactory and splitting up its properties into a 
+        /// fast and a slow store. It can then use delayed MUX to recombine them.
+        /// 
+        /// Combination with other flags: Cannot be combined with GPS_TEMPORARY or 
+        /// GPS_READWRITE
+        /// </summary>
+        DELAYCREATION = 0x20,
+
+        /// <summary>
+        /// Meaning to a calling process: Succeed at getting the store, even if some 
+        /// properties are not returned. Note: Some values may be different, or missing,
+        /// compared to a store without this flag. 
+        /// 
+        /// Meaning to a file folder: Succeed and return a store, even if the handler or 
+        /// innate store has an error during creation. Only fail if substores fail.
+        /// 
+        /// Meaning to other folders: Succeed on getting the store, even if some properties 
+        /// are not returned.
+        /// 
+        /// Combination with other flags: Cannot be combined with GPS_TEMPORARY, 
+        /// GPS_READWRITE, or GPS_HANDLERPROPERTIESONLY.
+        /// </summary>
+        BESTEFFORT = 0x40,
+
+        /// <summary>
+        /// Mask for valid GETPROPERTYSTOREFLAGS values.
+        /// </summary>
+        MASK_VALID = 0xff,
+    }
 
     // Contains strings returned from the IShellFolder interface methods
     [StructLayout(LayoutKind.Explicit)]
@@ -223,7 +522,7 @@ namespace ShellDll
         public int iIcon;
         public SFGAO dwAttributes;
 
-        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = ShellApi.MAX_PATH)]
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
         public string szDisplayName;
 
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
@@ -512,6 +811,19 @@ namespace ShellDll
         FORPARSING = 0x8000
     }
 
+    [Flags]
+    public enum SIGDN : uint
+    {
+        NORMALDISPLAY = 0,
+        PARENTRELATIVEPARSING = 0x80018001,
+        PARENTRELATIVEFORADDRESSBAR = 0x8001c001,
+        DESKTOPABSOLUTEPARSING = 0x80028000,
+        PARENTRELATIVEEDITING = 0x80031001,
+        DESKTOPABSOLUTEEDITING = 0x8004c000,
+        FILESYSPATH = 0x80058000,
+        URL = 0x80068000
+    }
+
     // Flags to specify which path is to be returned with SHGetFolderPath
     [Flags]
     public enum SHGFP
@@ -562,7 +874,7 @@ namespace ShellDll
     // Determines the type of items included in an enumeration. 
     // These values are used with the IShellFolder::EnumObjects method
     [Flags]
-    public enum SHCONTF
+    public enum SHCONT
     {
         FOLDERS = 0x0020,
         NONFOLDERS = 0x0040,

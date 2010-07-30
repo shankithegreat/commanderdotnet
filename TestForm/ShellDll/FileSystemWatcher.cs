@@ -128,7 +128,7 @@ namespace Commander.Shell
         private void RegisterShellNotify()
         {
             SHChangeNotifyEntry entry = new SHChangeNotifyEntry();
-            entry.pIdl = ShellFolderHelper.GetPathPIDL(this.Path);
+            entry.pIdl = ShellHelper.GetPathPIDL(this.Path);
             entry.Recursively = this.IncludeSubdirectories;
 
             this.notifyId = ShellApi.SHChangeNotifyRegister(this.Handle, SHCNRF.NewDelivery | SHCNRF.InterruptLevel | SHCNRF.ShellLevel, SHCNE.ALLEVENTS, WM.SH_NOTIFY, 1, new SHChangeNotifyEntry[] { entry });

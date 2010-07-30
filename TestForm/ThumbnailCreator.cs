@@ -135,7 +135,7 @@ namespace TestForm
                         IEnumIDList idEnum = null;
                         try
                         {
-                            item.EnumObjects(IntPtr.Zero, (SHCONTF.FOLDERS | SHCONTF.NONFOLDERS), ref idEnum);
+                            item.EnumObjects(IntPtr.Zero, (SHCONT.FOLDERS | SHCONT.NONFOLDERS), ref idEnum);
                         }
                         catch
                         {
@@ -326,7 +326,7 @@ namespace TestForm
         {
             void ParseDisplayName(IntPtr hwndOwner, IntPtr pbcReserved, [MarshalAs(UnmanagedType.LPWStr)] string lpszDisplayName, out int pchEaten, out IntPtr ppidl, out int pdwAttributes);
 
-            void EnumObjects(IntPtr hwndOwner, [MarshalAs(UnmanagedType.U4)] SHCONTF grfFlags, ref IEnumIDList ppenumIDList);
+            void EnumObjects(IntPtr hwndOwner, [MarshalAs(UnmanagedType.U4)] SHCONT grfFlags, ref IEnumIDList ppenumIDList);
 
             void BindToObject(IntPtr pidl, IntPtr pbcReserved, ref Guid riid, ref IShellFolder ppvOut);
 
@@ -343,7 +343,7 @@ namespace TestForm
 
             void GetDisplayNameOf(IntPtr pidl, [MarshalAs(UnmanagedType.U4)] SHGNO uFlags, ref STRRET_CSTR lpName);
 
-            void SetNameOf(IntPtr hwndOwner, IntPtr pidl, [MarshalAs(UnmanagedType.LPWStr)] string lpszName, [MarshalAs(UnmanagedType.U4)] SHCONTF uFlags, ref IntPtr ppidlOut);
+            void SetNameOf(IntPtr hwndOwner, IntPtr pidl, [MarshalAs(UnmanagedType.LPWStr)] string lpszName, [MarshalAs(UnmanagedType.U4)] SHCONT uFlags, ref IntPtr ppidlOut);
         } ;
 
         [ComImport]
