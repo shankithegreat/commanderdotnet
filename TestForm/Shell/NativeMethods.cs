@@ -41,6 +41,9 @@ namespace Shell
         [DllImport("shell32.dll")]
         public static extern Int32 SHGetDesktopFolder([MarshalAs(UnmanagedType.Interface)] out IShellFolder ppshf);
 
+        [DllImport("shell32.dll")]
+        public static extern Int32 SHGetDesktopFolder(out IntPtr ppshf);
+
         // Retrieves ppidl of special folder
         [DllImport("Shell32", EntryPoint = "SHGetSpecialFolderLocation", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
         public static extern Int32 SHGetSpecialFolderLocation(IntPtr hwndOwner, CSIDL nFolder, out IntPtr ppidl);
@@ -64,8 +67,8 @@ namespace Shell
         public static extern bool SHGetPathFromIDList(IntPtr pidl, StringBuilder pszPath);
 
         // SHGetRealIDL converts a simple PIDL to a full PIDL
-        //[DllImport("shell32.dll")]
-        //public static extern Int32 SHGetRealIDL(IShellFolder psf, IntPtr pidlSimple, out IntPtr ppidlReal);
+        [DllImport("shell32.dll")]
+        public static extern Int32 SHGetRealIDL(IShellFolder psf, IntPtr pidlSimple, out IntPtr ppidlReal);
 
         // Tests whether two ITEMIDLIST structures are equal in a binary comparison
         [DllImport("shell32.dll", EntryPoint = "ILIsEqual", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
@@ -201,54 +204,54 @@ namespace Shell
         public static int cbInvokeCommand = Marshal.SizeOf(typeof(CMINVOKECOMMANDINFOEX));
 
 
-        // Retrieves information about an object in the file system,
-        // such as a file, a folder, a directory, or a drive root.
-        [DllImport("shell32", EntryPoint = "SHGetFileInfo", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr SHGetFileInfo(string pszPath, FILE_ATTRIBUTE dwFileAttributes, ref SHFILEINFO sfi, int cbFileInfo, SHGFI uFlags);
+        //// Retrieves information about an object in the file system,
+        //// such as a file, a folder, a directory, or a drive root.
+        //[DllImport("shell32", EntryPoint = "SHGetFileInfo", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
+        //public static extern IntPtr SHGetFileInfo(string pszPath, FILE_ATTRIBUTE dwFileAttributes, ref SHFILEINFO sfi, int cbFileInfo, SHGFI uFlags);
 
-        // Retrieves information about an object in the file system,
-        // such as a file, a folder, a directory, or a drive root.
-        [DllImport("shell32", EntryPoint = "SHGetFileInfo", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr SHGetFileInfo(IntPtr ppidl, FILE_ATTRIBUTE dwFileAttributes, ref SHFILEINFO sfi, int cbFileInfo, SHGFI uFlags);
+        //// Retrieves information about an object in the file system,
+        //// such as a file, a folder, a directory, or a drive root.
+        //[DllImport("shell32", EntryPoint = "SHGetFileInfo", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
+        //public static extern IntPtr SHGetFileInfo(IntPtr ppidl, FILE_ATTRIBUTE dwFileAttributes, ref SHFILEINFO sfi, int cbFileInfo, SHGFI uFlags);
 
-        // Takes the CSIDL of a folder and returns the pathname.
-        [DllImport("shell32.dll")]
-        public static extern Int32 SHGetFolderPath(IntPtr hwndOwner, CSIDL nFolder, IntPtr hToken, SHGFP dwFlags, StringBuilder pszPath);
+        //// Takes the CSIDL of a folder and returns the pathname.
+        //[DllImport("shell32.dll")]
+        //public static extern Int32 SHGetFolderPath(IntPtr hwndOwner, CSIDL nFolder, IntPtr hToken, SHGFP dwFlags, StringBuilder pszPath);
 
-        // Retrieves the IShellFolder interface for the desktop folder,
-        // which is the root of the Shell's namespace. 
-        [DllImport("shell32.dll")]
-        public static extern Int32 SHGetDesktopFolder(out IntPtr ppshf);
+        //// Retrieves the IShellFolder interface for the desktop folder,
+        //// which is the root of the Shell's namespace. 
+        //[DllImport("shell32.dll")]
+        //public static extern Int32 SHGetDesktopFolder(out IntPtr ppshf);
 
-        // Retrieves ppidl of special folder
-        [DllImport("Shell32", EntryPoint = "SHGetSpecialFolderLocation", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
-        public static extern Int32 SHGetSpecialFolderLocation(IntPtr hwndOwner, CSIDL nFolder, out IntPtr ppidl);
+        //// Retrieves ppidl of special folder
+        //[DllImport("Shell32", EntryPoint = "SHGetSpecialFolderLocation", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
+        //public static extern Int32 SHGetSpecialFolderLocation(IntPtr hwndOwner, CSIDL nFolder, out IntPtr ppidl);
 
-        // This function takes the fully-qualified pointer to an item
-        // identifier list (PIDL) of a namespace object, and returns a specified
-        // interface pointer on the parent object.
-        [DllImport("shell32.dll")]
-        public static extern Int32 SHBindToParent(IntPtr pidl, ref Guid riid, out IntPtr ppv, out IntPtr ppidlLast);
+        //// This function takes the fully-qualified pointer to an item
+        //// identifier list (PIDL) of a namespace object, and returns a specified
+        //// interface pointer on the parent object.
+        //[DllImport("shell32.dll")]
+        //public static extern Int32 SHBindToParent(IntPtr pidl, ref Guid riid, out IntPtr ppv, out IntPtr ppidlLast);
 
-        // Registers a window that receives notifications from the file system or shell
-        [DllImport("shell32.dll", EntryPoint = "#2", CharSet = CharSet.Auto)]
-        public static extern uint SHChangeNotifyRegister(IntPtr hwnd, SHCNRF fSources, SHCNE fEvents, WM wMsg, int cEntries, [MarshalAs(UnmanagedType.LPArray)] SHChangeNotifyEntry[] pfsne);
+        //// Registers a window that receives notifications from the file system or shell
+        //[DllImport("shell32.dll", EntryPoint = "#2", CharSet = CharSet.Auto)]
+        //public static extern uint SHChangeNotifyRegister(IntPtr hwnd, SHCNRF fSources, SHCNE fEvents, WM wMsg, int cEntries, [MarshalAs(UnmanagedType.LPArray)] SHChangeNotifyEntry[] pfsne);
 
-        // Unregisters the client's window process from receiving SHChangeNotify
-        [DllImport("shell32.dll", EntryPoint = "#4", CharSet = CharSet.Auto)]
-        public static extern bool SHChangeNotifyDeregister(uint hNotify);
+        //// Unregisters the client's window process from receiving SHChangeNotify
+        //[DllImport("shell32.dll", EntryPoint = "#4", CharSet = CharSet.Auto)]
+        //public static extern bool SHChangeNotifyDeregister(uint hNotify);
 
-        // Converts an item identifier list to a file system path
-        [DllImport("shell32.dll")]
-        public static extern bool SHGetPathFromIDList(IntPtr pidl, StringBuilder pszPath);
+        //// Converts an item identifier list to a file system path
+        //[DllImport("shell32.dll")]
+        //public static extern bool SHGetPathFromIDList(IntPtr pidl, StringBuilder pszPath);
 
-        // SHGetRealIDL converts a simple PIDL to a full PIDL
-        [DllImport("shell32.dll")]
-        public static extern Int32 SHGetRealIDL(IShellFolder psf, IntPtr pidlSimple, out IntPtr ppidlReal);
+        //// SHGetRealIDL converts a simple PIDL to a full PIDL
+        //[DllImport("shell32.dll")]
+        //public static extern Int32 SHGetRealIDL(IShellFolder psf, IntPtr pidlSimple, out IntPtr ppidlReal);
 
-        // Tests whether two ITEMIDLIST structures are equal in a binary comparison
-        [DllImport("shell32.dll", EntryPoint = "ILIsEqual", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
-        public static extern bool ILIsEqual(IntPtr pidl1, IntPtr pidl2);
+        //// Tests whether two ITEMIDLIST structures are equal in a binary comparison
+        //[DllImport("shell32.dll", EntryPoint = "ILIsEqual", ExactSpelling = true, CharSet = CharSet.Ansi, SetLastError = true)]
+        //public static extern bool ILIsEqual(IntPtr pidl1, IntPtr pidl2);
 
 
 

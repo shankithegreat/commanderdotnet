@@ -131,14 +131,14 @@ namespace Shell
             entry.pIdl = ShellHelper.GetPathPIDL(this.Path);
             entry.Recursively = this.IncludeSubdirectories;
 
-            this.notifyId = ShellApi.SHChangeNotifyRegister(this.Handle, SHCNRF.NewDelivery | SHCNRF.InterruptLevel | SHCNRF.ShellLevel, SHCNE.ALLEVENTS, WM.SH_NOTIFY, 1, new SHChangeNotifyEntry[] { entry });
+            this.notifyId = Shell32.SHChangeNotifyRegister(this.Handle, SHCNRF.NewDelivery | SHCNRF.InterruptLevel | SHCNRF.ShellLevel, SHCNE.ALLEVENTS, WM.SH_NOTIFY, 1, new SHChangeNotifyEntry[] { entry });
         }
 
         private void UnRegisterShellNotify()
         {
             if (this.notifyId > 0)
             {
-                ShellApi.SHChangeNotifyDeregister(this.notifyId);
+                Shell32.SHChangeNotifyDeregister(this.notifyId);
             }
         }
     }
