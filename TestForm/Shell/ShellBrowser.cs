@@ -108,7 +108,7 @@ namespace Shell
             tempPidl = IntPtr.Zero;
             Shell32.SHGetSpecialFolderLocation(IntPtr.Zero, CSIDL.DRIVES, out tempPidl);
 
-            Shell32.SHGetFileInfo(tempPidl, 0, ref info, ShellApi.cbFileInfo, SHGFI.PIDL | SHGFI.DISPLAYNAME | SHGFI.TYPENAME);
+            Shell32.SHGetFileInfo(tempPidl, 0, ref info, Marshal.SizeOf(info), SHGFI.PIDL | SHGFI.DISPLAYNAME | SHGFI.TYPENAME);
 
             SystemFolderName = info.szTypeName;
             MyComputerName = info.szDisplayName;
@@ -130,12 +130,12 @@ namespace Shell
             DesktopItem.ShellFolder.ParseDisplayName(IntPtr.Zero, IntPtr.Zero, SpecialFolderPath.MyDocuments, ref pchEaten, out tempPidl, ref pdwAttributes);
 
             info = new SHFILEINFO();
-            Shell32.SHGetFileInfo(tempPidl, 0, ref info, ShellApi.cbFileInfo, SHGFI.PIDL | SHGFI.DISPLAYNAME);
+            Shell32.SHGetFileInfo(tempPidl, 0, ref info, Marshal.SizeOf(info), SHGFI.PIDL | SHGFI.DISPLAYNAME);
 
             MyDocumentsName = info.szDisplayName;
             Marshal.FreeCoTaskMem(tempPidl);
 
-            StringBuilder path = new StringBuilder(ShellApi.MAX_PATH);
+            StringBuilder path = new StringBuilder(ShellApi.MaxPath);
             Shell32.SHGetFolderPath(IntPtr.Zero, CSIDL.PERSONAL, IntPtr.Zero, SHGFP.TYPE_CURRENT, path);
             MyDocumentsPath = path.ToString();
             //

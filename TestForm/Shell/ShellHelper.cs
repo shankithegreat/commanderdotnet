@@ -331,7 +331,7 @@ namespace Shell
 
         public static bool GetIDropTargetHelper(out IntPtr helperPtr, out IDropTargetHelper dropHelper)
         {
-            if (ShellApi.CoCreateInstance(ref ShellGuids.DragDropHelper, IntPtr.Zero, CLSCTX.INPROC_SERVER, ref ShellGuids.IDropTargetHelper, out helperPtr) == 0)
+            if (Ole32.CoCreateInstance(ref ShellGuids.DragDropHelper, IntPtr.Zero, CLSCTX.INPROC_SERVER, ref ShellGuids.IDropTargetHelper, out helperPtr) == 0)
             {
                 dropHelper = (IDropTargetHelper)Marshal.GetTypedObjectForIUnknown(helperPtr, typeof(IDropTargetHelper));
 
@@ -348,7 +348,7 @@ namespace Shell
         public static DragDropEffects CanDropClipboard(ShellNode item)
         {
             IntPtr dataObject;
-            ShellApi.OleGetClipboard(out dataObject);
+            Ole32.OleGetClipboard(out dataObject);
 
             IntPtr targetPtr;
             IDropTarget target;
