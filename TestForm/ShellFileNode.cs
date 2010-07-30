@@ -8,10 +8,10 @@ namespace TestForm
 {
     public class ShellFileNode : FileSystemNode, IExecutive
     {
-        private ShellDll.ShellFile info;
+        private Shell.ShellFile info;
 
 
-        public ShellFileNode(FileSystemNode parent, ShellDll.ShellFile info)
+        public ShellFileNode(FileSystemNode parent, Shell.ShellFile info)
             : base(parent)
         {
             this.ParentNode = parent;

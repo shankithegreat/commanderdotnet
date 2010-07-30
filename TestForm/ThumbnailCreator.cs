@@ -4,7 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
-using ShellDll;
+using Shell;
 
 namespace TestForm
 {

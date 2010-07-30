@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
-namespace ShellDll
+namespace Shell
 {
     public sealed class ShellNode : IEnumerable, IDisposable, IComparable
     {

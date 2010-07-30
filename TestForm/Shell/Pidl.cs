@@ -4,7 +4,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Collections;
 
-namespace ShellDll
+namespace Shell
 {
     public class Pidl : IEnumerable
     {

@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace ShellDll
+namespace Shell
 {
     public static class Shell32
     {

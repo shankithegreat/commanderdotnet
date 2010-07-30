@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using ShellDll;
+using Shell;
 
 namespace TestForm
 {

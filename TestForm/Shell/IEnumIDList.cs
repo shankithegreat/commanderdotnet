@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace ShellDll
+namespace Shell
 {
     [ComImportAttribute()]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

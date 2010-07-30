@@ -4,7 +4,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace ShellDll
+namespace Shell
 {
     [ComImport]
     [GuidAttribute("4657278B-411B-11d2-839A-00C04FD918D0")]

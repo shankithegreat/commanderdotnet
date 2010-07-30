@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ShellDll
+namespace Shell
 {
     public static class ShellGuids
     {
