@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commander", "Commander.csproj", "{5CDC86F4-93E1-4974-93E8-04B0E8997EE3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Commander", "Commander\Commander.csproj", "{5CDC86F4-93E1-4974-93E8-04B0E8997EE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestForm", "..\TestForm\TestForm.csproj", "{BF846B8B-F4EF-4DB4-BC22-9E98CC781DBD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestForm", "TestForm\TestForm.csproj", "{BF846B8B-F4EF-4DB4-BC22-9E98CC781DBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
