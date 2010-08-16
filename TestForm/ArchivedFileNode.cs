@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Shell;
 
 namespace TestForm
 {
@@ -29,7 +30,7 @@ namespace TestForm
         public override int GetImageIndex()
         {
             string ext = System.IO.Path.GetExtension(this.Name);
-            return SafeNativeMethods.GetLargeAssociatedIconIndex(ext, FileAttributes.Normal);
+            return ShellHelper.GetLargeAssociatedIconIndex(ext, FileAttributes.Normal);
         }
     }
 }

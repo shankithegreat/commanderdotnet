@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -7,8 +8,118 @@ using System.Runtime.InteropServices;
 
 namespace Shell
 {
-    internal static class ShellHelper
+    public static class ShellHelper
     {
+        private static HandleRef nullHandleRef;
+
+
+        public static Icon ExtractAssociatedIcon(string path)
+        {
+            int i;
+            return ExtractAssociatedIcon(path, 0, out i);
+        }
+
+        public static Icon ExtractAssociatedIcon(string path, int index, out int i)
+        {
+            StringBuilder iconPath = new StringBuilder(260);
+            iconPath.Append(path);
+            IntPtr handle = Shell32.ExtractAssociatedIcon(nullHandleRef, iconPath, ref index);
+            i = index;
+            try
+            {
+                if (handle != IntPtr.Zero)
+                {
+                    return Icon.FromHandle(handle);
+                }
+            }
+            finally
+            {
+                Shell32.DestroyIcon(handle);
+            }
+
+            return null;
+        }
+
+        public static Icon GetSmallAssociatedIcon(string path)
+        {
+            ShFileInfo fileInfo = new ShFileInfo();
+            Shell32.SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.SmallIcon | SHGFI.Icon);
+
+            try
+            {
+                if (fileInfo.IconHandle != IntPtr.Zero)
+                {
+                    return Icon.FromHandle(fileInfo.IconHandle);
+                }
+            }
+            finally
+            {
+                Shell32.DestroyIcon(fileInfo.IconHandle);
+            }
+
+            return null;
+        }
+
+        public static Icon GetLargeAssociatedIcon(string path)
+        {
+            ShFileInfo fileInfo = new ShFileInfo();
+            Shell32.SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.LargeIcon | SHGFI.Icon);
+
+            try
+            {
+                if (fileInfo.IconHandle != IntPtr.Zero)
+                {
+                    return Icon.FromHandle(fileInfo.IconHandle);
+                }
+            }
+            finally
+            {
+                Shell32.DestroyIcon(fileInfo.IconHandle);
+            }
+
+            return null;
+        }
+
+        public static int GetSmallAssociatedIconIndex(string path)
+        {
+            ShFileInfo fileInfo = new ShFileInfo();
+
+            Shell32.SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.SmallIcon | SHGFI.SysIconIndex | SHGFI.LinkOverlay);
+            Shell32.DestroyIcon(fileInfo.IconHandle);
+
+            return fileInfo.IconIndex;
+        }
+
+        public static int GetSmallAssociatedIconIndex(string path, FileAttributes attributes)
+        {
+            ShFileInfo fileInfo = new ShFileInfo();
+
+            Shell32.SHGetFileInfo(path, attributes, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.SmallIcon | SHGFI.SysIconIndex | SHGFI.UseFileAttributes | SHGFI.LinkOverlay);
+            Shell32.DestroyIcon(fileInfo.IconHandle);
+
+            return fileInfo.IconIndex;
+        }
+
+        public static int GetLargeAssociatedIconIndex(string path)
+        {
+            ShFileInfo fileInfo = new ShFileInfo();
+
+            Shell32.SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.LargeIcon | SHGFI.SysIconIndex | SHGFI.LinkOverlay | SHGFI.OverlayIndex);
+            Shell32.DestroyIcon(fileInfo.IconHandle);
+
+            return fileInfo.IconIndex;
+        }
+
+        public static int GetLargeAssociatedIconIndex(string path, FileAttributes attributes)
+        {
+            ShFileInfo fileInfo = new ShFileInfo();
+
+            Shell32.SHGetFileInfo(path, attributes, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.LargeIcon | SHGFI.SysIconIndex | SHGFI.LinkOverlay | SHGFI.UseFileAttributes);
+            Shell32.DestroyIcon(fileInfo.IconHandle);
+
+            return fileInfo.IconIndex;
+        }
+
         public static FileSystemInfo GetFileSystemInfo(string path)
         {
             if (File.Exists(path))

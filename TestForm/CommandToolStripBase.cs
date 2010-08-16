@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Configuration;
+using Shell;
 
 namespace Commander
 {
@@ -130,7 +131,7 @@ namespace Commander
         {
             try
             {
-                return TestForm.SafeNativeMethods.GetSmallAssociatedIcon(path).ToBitmap();
+                return ShellHelper.GetSmallAssociatedIcon(path).ToBitmap();
             }
             catch
             {

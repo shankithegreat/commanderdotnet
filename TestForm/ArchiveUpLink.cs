@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Shell;
 
 namespace TestForm
 {
@@ -15,7 +16,7 @@ namespace TestForm
 
         public override int GetImageIndex()
         {
-            return SafeNativeMethods.GetLargeAssociatedIconIndex("*", FileAttributes.Directory | FileAttributes.Normal);
+            return ShellHelper.GetLargeAssociatedIconIndex("*", FileAttributes.Directory | FileAttributes.Normal);
         }
     }
 }

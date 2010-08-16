@@ -30,13 +30,13 @@ namespace Shell
 
             SetAttributesDesktop(this);
 
-            SHFILEINFO info = new SHFILEINFO();
-            Shell32.SHGetFileInfo(PIDLRel.Ptr, 0, ref info, Marshal.SizeOf(info), SHGFI.PIDL | SHGFI.TYPENAME | SHGFI.SYSICONINDEX);
+            ShFileInfo info = new ShFileInfo();
+            Shell32.SHGetFileInfo(PIDLRel.Ptr, 0, ref info, Marshal.SizeOf(info), SHGFI.Pidl | SHGFI.TypeName | SHGFI.SysIconIndex);
 
-            Type = info.szTypeName;
+            Type = info.TypeName;
 
-            ShellImageList.SetIconIndex(this, info.iIcon, false);
-            ShellImageList.SetIconIndex(this, info.iIcon, true);
+            ShellImageList.SetIconIndex(this, info.IconIndex, false);
+            ShellImageList.SetIconIndex(this, info.IconIndex, true);
 
             SortFlag = 1;
         }
@@ -1030,15 +1030,15 @@ namespace Shell
         {
             Pidl pidlFull = item.PIDLFull;
 
-            SHFILEINFO info = new SHFILEINFO();
-            Shell32.SHGetFileInfo(pidlFull.Ptr, 0, ref info, Marshal.SizeOf(info), SHGFI.PIDL | SHGFI.TYPENAME | SHGFI.SYSICONINDEX);
+            ShFileInfo info = new ShFileInfo();
+            Shell32.SHGetFileInfo(pidlFull.Ptr, 0, ref info, Marshal.SizeOf(info), SHGFI.Pidl | SHGFI.TypeName | SHGFI.SysIconIndex);
 
             pidlFull.Free();
 
-            ShellImageList.SetIconIndex(item, info.iIcon, false);
-            ShellImageList.SetIconIndex(item, info.iIcon, true);
+            ShellImageList.SetIconIndex(item, info.IconIndex, false);
+            ShellImageList.SetIconIndex(item, info.IconIndex, true);
 
-            item.Type = info.szTypeName;
+            item.Type = info.TypeName;
         }
 
         private static void SetAttributesDesktop(ShellNode item)
