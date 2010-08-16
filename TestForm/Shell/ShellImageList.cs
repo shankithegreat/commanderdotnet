@@ -17,10 +17,10 @@ namespace Shell
 
         static ShellImageList()
         {
-            SHFILEINFO fileInfo = new SHFILEINFO();
+            ShFileInfo fileInfo = new ShFileInfo();
 
-            SmallImageList = Shell32.SHGetFileInfo(".txt", FILE_ATTRIBUTE.NORMAL, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.USEFILEATTRIBUTES | SHGFI.SYSICONINDEX | SHGFI.SMALLICON);
-            LargeImageList = Shell32.SHGetFileInfo(".txt", FILE_ATTRIBUTE.NORMAL, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.USEFILEATTRIBUTES | SHGFI.SYSICONINDEX | SHGFI.LARGEICON);
+            SmallImageList = Shell32.SHGetFileInfo(".txt", FILE_ATTRIBUTE.NORMAL, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.UseFileAttributes | SHGFI.SysIconIndex | SHGFI.SmallIcon);
+            LargeImageList = Shell32.SHGetFileInfo(".txt", FILE_ATTRIBUTE.NORMAL, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.UseFileAttributes | SHGFI.SysIconIndex | SHGFI.LargeIcon);
         }
 
 
@@ -50,7 +50,7 @@ namespace Shell
             bool hasOverlay = false;
             int result; // The returned Index
 
-            SHGFI flag = SHGFI.SYSICONINDEX | SHGFI.PIDL | SHGFI.ICON;
+            SHGFI flag = SHGFI.SysIconIndex | SHGFI.Pidl | SHGFI.Icon;
             FILE_ATTRIBUTE attribute = 0;
 
             // build Key into HashTable for this Item
@@ -59,19 +59,19 @@ namespace Shell
             if (item.IsLink)
             {
                 Key = Key | 1;
-                flag = flag | SHGFI.LINKOVERLAY;
+                flag = flag | SHGFI.LinkOverlay;
                 hasOverlay = true;
             }
             if (item.IsShared)
             {
                 Key = Key | 2;
-                flag = flag | SHGFI.ADDOVERLAYS;
+                flag = flag | SHGFI.AddOverlays;
                 hasOverlay = true;
             }
             if (selectedIcon)
             {
                 Key = Key | 4;
-                flag = flag | SHGFI.OPENICON;
+                flag = flag | SHGFI.OpenIcon;
                 hasOverlay = true; // not really an overlay, but handled the same
             }
 
@@ -88,28 +88,28 @@ namespace Shell
             {
                 if (item.IsFileSystem & !item.IsDisk & !item.IsFolder)
                 {
-                    flag = flag | SHGFI.USEFILEATTRIBUTES;
+                    flag = flag | SHGFI.UseFileAttributes;
                     attribute = attribute | FILE_ATTRIBUTE.NORMAL;
                 }
 
                 Pidl pidl = item.PIDLFull;
 
-                SHFILEINFO smallFileInfo = new SHFILEINFO();
-                Shell32.SHGetFileInfo(pidl.Ptr, attribute, ref smallFileInfo, Marshal.SizeOf(smallFileInfo), flag | SHGFI.SMALLICON);
+                ShFileInfo smallFileInfo = new ShFileInfo();
+                Shell32.SHGetFileInfo(pidl.Ptr, attribute, ref smallFileInfo, Marshal.SizeOf(smallFileInfo), flag | SHGFI.SmallIcon);
 
-                SHFILEINFO largeFileInfo = new SHFILEINFO();
-                Shell32.SHGetFileInfo(pidl.Ptr, attribute, ref largeFileInfo, Marshal.SizeOf(largeFileInfo), flag | SHGFI.LARGEICON);
+                ShFileInfo largeFileInfo = new ShFileInfo();
+                Shell32.SHGetFileInfo(pidl.Ptr, attribute, ref largeFileInfo, Marshal.SizeOf(largeFileInfo), flag | SHGFI.LargeIcon);
 
                 Marshal.FreeCoTaskMem(pidl.Ptr);
 
                 lock (imageTable)
                 {
-                    result = ComCtl32.ImageList_ReplaceIcon(SmallImageList, -1, smallFileInfo.hIcon);
-                    ComCtl32.ImageList_ReplaceIcon(LargeImageList, -1, largeFileInfo.hIcon);
+                    result = ComCtl32.ImageList_ReplaceIcon(SmallImageList, -1, smallFileInfo.IconHandle);
+                    ComCtl32.ImageList_ReplaceIcon(LargeImageList, -1, largeFileInfo.IconHandle);
                 }
 
-                User32.DestroyIcon(smallFileInfo.hIcon);
-                User32.DestroyIcon(largeFileInfo.hIcon);
+                User32.DestroyIcon(smallFileInfo.IconHandle);
+                User32.DestroyIcon(largeFileInfo.IconHandle);
 
                 imageTable[Key] = result;
             }

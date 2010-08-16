@@ -80,11 +80,11 @@ namespace Shell
 
         public int GetImageIndex()
         {
-            SHFILEINFO info = new SHFILEINFO();
-            Shell32.SHGetFileInfo(pidl, 0, ref info, Marshal.SizeOf(info), SHGFI.PIDL | SHGFI.SYSICONINDEX | SHGFI.OVERLAYINDEX | SHGFI.LARGEICON | SHGFI.ADDOVERLAYS | SHGFI.LINKOVERLAY);
-            Shell32.DestroyIcon(info.hIcon);
+            ShFileInfo info = new ShFileInfo();
+            Shell32.SHGetFileInfo(pidl, 0, ref info, Marshal.SizeOf(info), SHGFI.Pidl | SHGFI.SysIconIndex | SHGFI.OverlayIndex | SHGFI.LargeIcon | SHGFI.AddOverlays | SHGFI.LinkOverlay);
+            Shell32.DestroyIcon(info.IconHandle);
 
-            return info.iIcon;
+            return info.IconIndex;
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.Drawing;
@@ -22,12 +23,21 @@ namespace Shell
         // Retrieves information about an object in the file system,
         // such as a file, a folder, a directory, or a drive root.
         [DllImport("shell32", EntryPoint = "SHGetFileInfo", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr SHGetFileInfo(string pszPath, FILE_ATTRIBUTE dwFileAttributes, ref SHFILEINFO sfi, int cbFileInfo, SHGFI uFlags);
+        public static extern IntPtr SHGetFileInfo(string pszPath, FILE_ATTRIBUTE dwFileAttributes, ref ShFileInfo sfi, int cbFileInfo, SHGFI uFlags);
 
         // Retrieves information about an object in the file system,
         // such as a file, a folder, a directory, or a drive root.
         [DllImport("shell32", EntryPoint = "SHGetFileInfo", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr SHGetFileInfo(IntPtr ppidl, FILE_ATTRIBUTE dwFileAttributes, ref SHFILEINFO sfi, int cbFileInfo, SHGFI uFlags);
+        public static extern IntPtr SHGetFileInfo(IntPtr ppidl, FILE_ATTRIBUTE dwFileAttributes, ref ShFileInfo sfi, int cbFileInfo, SHGFI uFlags);
+
+        [DllImport("shell32.dll")]
+        public static extern IntPtr SHGetFileInfo(string path, int fileAttributes, ref ShFileInfo psfi, int fileInfo, SHGFI flags);
+
+        [DllImport("shell32.dll")]
+        public static extern IntPtr SHGetFileInfo(string path, FileAttributes fileAttributes, ref ShFileInfo psfi, int fileInfo, SHGFI flags);
+
+        [DllImport("shell32.dll")]
+        public static extern IntPtr ExtractAssociatedIcon(HandleRef handle, StringBuilder iconPath, ref int index);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         internal extern static bool DestroyIcon(IntPtr handle);
@@ -351,17 +361,19 @@ namespace Shell
 
     // Contains information about a file object
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-    public struct SHFILEINFO
+    public struct ShFileInfo
     {
-        public IntPtr hIcon;
-        public int iIcon;
-        public SFGAO dwAttributes;
+        public IntPtr IconHandle;
+
+        public int IconIndex;
+
+        public SFGAO Attributes;
 
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
-        public string szDisplayName;
+        public string DisplayName;
 
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
-        public string szTypeName;
+        public string TypeName;
     }
 
     // Contains extended information about a shortcut menu command
@@ -752,24 +764,78 @@ namespace Shell
     [Flags]
     public enum SHGFI : uint
     {
-        ADDOVERLAYS = 0x20,
-        ATTR_SPECIFIED = 0x20000,
-        ATTRIBUTES = 0x800,
-        DISPLAYNAME = 0x200,
-        EXETYPE = 0x2000,
-        ICON = 0x100,
-        ICONLOCATION = 0x1000,
-        LARGEICON = 0,
-        LINKOVERLAY = 0x8000,
-        OPENICON = 2,
-        OVERLAYINDEX = 0x40,
-        PIDL = 8,
-        SELECTED = 0x10000,
-        SHELLICONSIZE = 4,
-        SMALLICON = 1,
-        SYSICONINDEX = 0x4000,
-        TYPENAME = 0x400,
-        USEFILEATTRIBUTES = 0x10
+        /// <summary>
+        /// Get icon
+        /// </summary>
+        Icon = 0x000000100,
+        /// <summary>
+        /// Get display name
+        /// </summary>
+        DisplayName = 0x000000200,
+        /// <summary>
+        /// Get type name
+        /// </summary>
+        TypeName = 0x000000400,
+        /// <summary>
+        /// Get attributes
+        /// </summary>
+        Attributes = 0x000000800,
+        /// <summary>
+        /// Get icon location
+        /// </summary>
+        IconLocation = 0x000001000,
+        /// <summary>
+        /// Return exe type
+        /// </summary>
+        ExeType = 0x000002000,
+        /// <summary>
+        /// Get system icon index
+        /// </summary>
+        SysIconIndex = 0x000004000,
+        /// <summary>
+        /// Put a link overlay on icon
+        /// </summary>
+        LinkOverlay = 0x000008000,
+        /// <summary>
+        /// Show icon in selected state
+        /// </summary>
+        Selected = 0x000010000,
+        /// <summary>
+        /// Get only specified attributes
+        /// </summary>
+        AttrSpecified = 0x000020000,
+        /// <summary>
+        /// Get large icon
+        /// </summary>
+        LargeIcon = 0x000000000,
+        /// <summary>
+        /// Get small icon
+        /// </summary>
+        SmallIcon = 0x000000001,
+        /// <summary>
+        /// Get open icon
+        /// </summary>
+        OpenIcon = 0x000000002,
+        /// <summary>
+        /// Get shell size icon
+        /// </summary>
+        ShellIconSize = 0x000000004,
+        /// <summary>
+        /// Path is a pidl
+        /// </summary>
+        Pidl = 0x000000008,
+        /// <summary>
+        /// Use passed dwFileAttribute
+        /// </summary>
+        UseFileAttributes = 0x000000010,
+        /// <summary>
+        /// Apply the appropriate overlays
+        /// </summary>
+        AddOverlays = 0x000000020,
+        /// <summary>
+        /// Get the index of the overlay in the upper 8 bits of the iIcon
+        /// </summary>
+        OverlayIndex = 0x000000040,
     }
 
     // Flags that specify the file information to retrieve with SHGetFileInfo
