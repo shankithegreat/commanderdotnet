@@ -60,7 +60,7 @@ namespace TestForm
                 }
                 else if (item is FileInfo)
                 {
-                    FileInfo fi = (FileInfo) item;
+                    FileInfo fi = (FileInfo)item;
                     switch (fi.Extension)
                     {
                         case ".gz":
@@ -68,12 +68,12 @@ namespace TestForm
                             {
                                 result.Add(new ZipArchiveNode(this, fi));
                                 break;
-                            }                        
+                            }
                         case ".7z":
                             {
                                 result.Add(new Zip7ArchiveNode(this, fi));
                                 break;
-                            }                        
+                            }
                         case ".bz2":
                             {
                                 result.Add(new BZip2ArchiveNode(this, fi));
@@ -84,7 +84,7 @@ namespace TestForm
                             {
                                 result.Add(new IsoArchiveNode(this, fi));
                                 break;
-                            }                        
+                            }
                         case ".rar":
                             {
                                 result.Add(new RarArchiveNode(this, fi));
@@ -95,7 +95,7 @@ namespace TestForm
                                 result.Add(new FileNode(this, fi));
                                 break;
                             }
-                    }                    
+                    }
                 }
             }
 
