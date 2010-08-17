@@ -36,7 +36,7 @@ namespace Shell
 
         public static uint RegisterShellNotify(IntPtr handle, SHChangeNotifyEntry entry)
         {
-            return Shell32.SHChangeNotifyRegister(handle, SHCNRF.InterruptLevel | SHCNRF.ShellLevel, SHCNE.ALLEVENTS | SHCNE.INTERRUPT, WM.SH_NOTIFY, 1, new SHChangeNotifyEntry[] { entry });
+            return Shell32.SHChangeNotifyRegister(handle, SHCNRF.InterruptLevel | SHCNRF.ShellLevel, SHCNE.ALLEVENTS | SHCNE.INTERRUPT, WM.ShNotify, 1, new SHChangeNotifyEntry[] { entry });
         }
 
         public static uint RegisterShellNotify(IntPtr handle)
@@ -51,7 +51,7 @@ namespace Shell
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == (int)WM.SH_NOTIFY)
+            if (m.Msg == (int)WM.ShNotify)
             {
                 SHNOTIFYSTRUCT shNotify = (SHNOTIFYSTRUCT)Marshal.PtrToStructure(m.WParam, typeof(SHNOTIFYSTRUCT));
 

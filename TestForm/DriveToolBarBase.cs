@@ -85,7 +85,7 @@ namespace Commander
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == (int)WM.SH_NOTIFY)
+            if (m.Msg == (int)WM.ShNotify)
             {
                 SHNOTIFYSTRUCT shNotify = (SHNOTIFYSTRUCT)Marshal.PtrToStructure(m.WParam, typeof(SHNOTIFYSTRUCT));
 

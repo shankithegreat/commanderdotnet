@@ -65,7 +65,7 @@ namespace TestForm
                     {
                     }
 
-                    uint selected = User32.TrackPopupMenuEx(contextMenu, TPM.RETURNCMD, location.X, location.Y, this.Handle, IntPtr.Zero);
+                    uint selected = User32.TrackPopupMenuEx(contextMenu, TPM.ReturnCmd, location.X, location.Y, this.Handle, IntPtr.Zero);
 
 
                     if (selected >= ShellApi.CmdFirst)
@@ -221,7 +221,7 @@ namespace TestForm
         /// <returns>true if the message has been handled, false otherwise</returns>
         protected override void WndProc(ref Message m)
         {
-            if (iContextMenu2 != null && (m.Msg == (int) WM.INITMENUPOPUP || m.Msg == (int) WM.MEASUREITEM || m.Msg == (int) WM.DRAWITEM))
+            if (iContextMenu2 != null && (m.Msg == (int) WM.InitMenuPopup || m.Msg == (int) WM.MeasureItem || m.Msg == (int) WM.DrawItem))
             {
                 if (iContextMenu2.HandleMenuMsg((uint) m.Msg, m.WParam, m.LParam) == 0)
                 {
@@ -229,7 +229,7 @@ namespace TestForm
                 }
             }
 
-            if (newContextMenu2 != null && ((m.Msg == (int) WM.INITMENUPOPUP && m.WParam == newSubmenuPtr) || m.Msg == (int) WM.MEASUREITEM || m.Msg == (int) WM.DRAWITEM))
+            if (newContextMenu2 != null && ((m.Msg == (int) WM.InitMenuPopup && m.WParam == newSubmenuPtr) || m.Msg == (int) WM.MeasureItem || m.Msg == (int) WM.DrawItem))
             {
                 if (newContextMenu2.HandleMenuMsg((uint) m.Msg, m.WParam, m.LParam) == 0)
                 {
@@ -237,7 +237,7 @@ namespace TestForm
                 }
             }
 
-            if (iContextMenu3 != null && m.Msg == (int) WM.MENUCHAR)
+            if (iContextMenu3 != null && m.Msg == (int) WM.MenuChar)
             {
                 if (iContextMenu3.HandleMenuMsg2((uint) m.Msg, m.WParam, m.LParam, IntPtr.Zero) == 0)
                 {
@@ -245,7 +245,7 @@ namespace TestForm
                 }
             }
 
-            if (newContextMenu3 != null && m.Msg == (int) WM.MENUCHAR)
+            if (newContextMenu3 != null && m.Msg == (int) WM.MenuChar)
             {
                 if (newContextMenu3.HandleMenuMsg2((uint) m.Msg, m.WParam, m.LParam, IntPtr.Zero) == 0)
                 {
