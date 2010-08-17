@@ -201,10 +201,10 @@ namespace Shell
                             {                                   
                                 while (fileList.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
                                 {
-                                    SFGAO attribs = SFGAO.FOLDER;
+                                    SFGAO attribs = SFGAO.Folder;
                                     ShellFolder.GetAttributesOf(1, new[] { pidlSubItem }, ref attribs);
 
-                                    if ((attribs & SFGAO.FOLDER) == 0)
+                                    if ((attribs & SFGAO.Folder) == 0)
                                     {
                                         ShellNode newItem = new ShellNode(Browser, this, pidlSubItem);
 
@@ -363,12 +363,12 @@ namespace Shell
                             {
                                 if (ShellFolder.EnumObjects(IntPtr.Zero, fileFlag, out fileList) == 0)
                                 {
-                                    SFGAO attribs = SFGAO.FOLDER;
+                                    SFGAO attribs = SFGAO.Folder;
                                     while (Browser.UpdateCondition.ContinueUpdate && fileList.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
                                     {
                                         ShellFolder.GetAttributesOf(1, new IntPtr[] { pidlSubItem }, ref attribs);
 
-                                        if ((attribs & SFGAO.FOLDER) == 0)
+                                        if ((attribs & SFGAO.Folder) == 0)
                                         {
                                             if ((index = SubFiles.IndexOf(pidlSubItem)) == -1)
                                             {
@@ -736,7 +736,7 @@ namespace Shell
                 Marshal.WriteInt32(strr, 0, 0);
                 StringBuilder buf = new StringBuilder(ShellApi.MaxPath);
 
-                if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, SHGNO.FORPARSING, strr) == 0)
+                if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, SHGNO.ForParsing, strr) == 0)
                 {
                     ShellApi.StrRetToBuf(strr, item.PIDLRel.Ptr, buf, ShellApi.MaxPath);
                 }
@@ -1002,7 +1002,7 @@ namespace Shell
             Marshal.WriteInt32(strr, 0, 0);
             StringBuilder buf = new StringBuilder(ShellApi.MaxPath);
 
-            if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, SHGNO.INFOLDER, strr) == 0)
+            if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, SHGNO.InFolder, strr) == 0)
             {
                 ShellApi.StrRetToBuf(strr, item.PIDLRel.Ptr, buf, ShellApi.MaxPath);
                 item.Text = buf.ToString();
@@ -1017,7 +1017,7 @@ namespace Shell
             Marshal.WriteInt32(strr, 0, 0);
             StringBuilder buf = new StringBuilder(ShellApi.MaxPath);
 
-            if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, SHGNO.FORADDRESSBAR | SHGNO.FORPARSING, strr) == 0)
+            if (item.ParentItem.ShellFolder.GetDisplayNameOf(item.PIDLRel.Ptr, SHGNO.ForAddressBar | SHGNO.ForParsing, strr) == 0)
             {
                 ShellApi.StrRetToBuf(strr, item.PIDLRel.Ptr, buf, ShellApi.MaxPath);
                 item.Path = buf.ToString();
@@ -1057,18 +1057,18 @@ namespace Shell
         private static void SetAttributesFolder(ShellNode item)
         {
             // file/folder attributes
-            SFGAO attribs = SFGAO.SHARE | SFGAO.FILESYSTEM | SFGAO.HIDDEN | SFGAO.HASSUBFOLDER | SFGAO.BROWSABLE | SFGAO.CANRENAME | SFGAO.STORAGE;
+            SFGAO attribs = SFGAO.Share | SFGAO.FileSystem | SFGAO.Hidden | SFGAO.HasSubFolder | SFGAO.Browsable | SFGAO.CanRename | SFGAO.Storage;
             item.ParentItem.ShellFolder.GetAttributesOf(1, new IntPtr[] { item.PIDLRel.Ptr }, ref attribs);
 
             item.IsFolder = true;
             item.IsLink = false;
-            item.IsShared = (attribs & SFGAO.SHARE) != 0;
-            item.IsFileSystem = (attribs & SFGAO.FILESYSTEM) != 0;
-            item.IsHidden = (attribs & SFGAO.HIDDEN) != 0;
-            item.HasSubfolder = (attribs & SFGAO.HASSUBFOLDER) != 0;
-            item.IsBrowsable = (attribs & SFGAO.BROWSABLE) != 0;
-            item.CanRename = (attribs & SFGAO.CANRENAME) != 0;
-            item.CanRead = (attribs & SFGAO.STORAGE) != 0;
+            item.IsShared = (attribs & SFGAO.Share) != 0;
+            item.IsFileSystem = (attribs & SFGAO.FileSystem) != 0;
+            item.IsHidden = (attribs & SFGAO.Hidden) != 0;
+            item.HasSubfolder = (attribs & SFGAO.HasSubFolder) != 0;
+            item.IsBrowsable = (attribs & SFGAO.Browsable) != 0;
+            item.CanRename = (attribs & SFGAO.CanRename) != 0;
+            item.CanRead = (attribs & SFGAO.Storage) != 0;
 
             item.IsDisk = (item.Path.Length == 3 && item.Path.EndsWith(":\\"));
         }
@@ -1076,18 +1076,18 @@ namespace Shell
         private static void SetAttributesFile(ShellNode item)
         {
             // file/folder attributes
-            SFGAO attribs = SFGAO.LINK | SFGAO.SHARE | SFGAO.FILESYSTEM | SFGAO.HIDDEN | SFGAO.CANRENAME | SFGAO.STREAM;
+            SFGAO attribs = SFGAO.Link | SFGAO.Share | SFGAO.FileSystem | SFGAO.Hidden | SFGAO.CanRename | SFGAO.Stream;
             item.ParentItem.ShellFolder.GetAttributesOf(1, new IntPtr[] { item.PIDLRel.Ptr }, ref attribs);
 
             item.IsFolder = false;
-            item.IsLink = (attribs & SFGAO.LINK) != 0;
-            item.IsShared = (attribs & SFGAO.SHARE) != 0;
-            item.IsFileSystem = (attribs & SFGAO.FILESYSTEM) != 0;
-            item.IsHidden = (attribs & SFGAO.HIDDEN) != 0;
+            item.IsLink = (attribs & SFGAO.Link) != 0;
+            item.IsShared = (attribs & SFGAO.Share) != 0;
+            item.IsFileSystem = (attribs & SFGAO.FileSystem) != 0;
+            item.IsHidden = (attribs & SFGAO.Hidden) != 0;
             item.HasSubfolder = false;
             item.IsBrowsable = false;
-            item.CanRename = (attribs & SFGAO.CANRENAME) != 0;
-            item.CanRead = (attribs & SFGAO.STREAM) != 0;
+            item.CanRename = (attribs & SFGAO.CanRename) != 0;
+            item.CanRead = (attribs & SFGAO.Stream) != 0;
 
             item.IsDisk = false;
         }

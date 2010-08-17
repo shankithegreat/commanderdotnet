@@ -54,7 +54,7 @@ namespace Shell
             {
                 StringBuilder result = new StringBuilder(260);
 
-                if (folder.GetDisplayNameOf(pidl, SHGNO.INFOLDER, p) == 0)
+                if (folder.GetDisplayNameOf(pidl, SHGNO.InFolder, p) == 0)
                 {
                     ShellApi.StrRetToBuf(p, pidl, result, 260);
                     return result.ToString();
@@ -75,7 +75,7 @@ namespace Shell
             {
                 StringBuilder result = new StringBuilder(260);
 
-                if (folder.GetDisplayNameOf(pidl, SHGNO.FORADDRESSBAR | SHGNO.FORPARSING, p) == 0)
+                if (folder.GetDisplayNameOf(pidl, SHGNO.ForAddressBar | SHGNO.ForParsing, p) == 0)
                 {
                     ShellApi.StrRetToBuf(p, pidl, result, 260);
                     return result.ToString();
@@ -144,9 +144,9 @@ namespace Shell
                 Shell32.SHCreateShellItem(IntPtr.Zero, folder, pidl, out item);
 
                 SFGAO attr;
-                item.GetAttributes(SFGAO.STREAM | SFGAO.BROWSABLE | SFGAO.STORAGE | SFGAO.FILESYSTEM | SFGAO.FOLDER, out attr);
+                item.GetAttributes(SFGAO.Stream | SFGAO.Browsable | SFGAO.Storage | SFGAO.FileSystem | SFGAO.Folder, out attr);
 
-                if ((attr & SFGAO.FOLDER) == 0 || ((attr & SFGAO.FILESYSTEM) != 0 && (attr & SFGAO.CANMONIKER) != 0))
+                if ((attr & SFGAO.Folder) == 0 || ((attr & SFGAO.FileSystem) != 0 && (attr & SFGAO.CanMoniker) != 0))
                 {
                     result.Add(new ShellFile(item, pidl));
                 }

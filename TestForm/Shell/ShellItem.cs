@@ -34,7 +34,7 @@ namespace Shell
         private string GetName()
         {
             string result;
-            this.item.GetDisplayName(SIGDN.NORMALDISPLAY, out result);
+            this.item.GetDisplayName(SIGDN.NormalDisplay, out result);
             return result;
         }
 
@@ -45,7 +45,7 @@ namespace Shell
                 try
                 {
                     string result;
-                    this.item.GetDisplayName(SIGDN.FILESYSPATH, out result);
+                    this.item.GetDisplayName(SIGDN.FileSysPath, out result);
                     return result;
                 }
                 catch (Exception)
@@ -74,7 +74,7 @@ namespace Shell
         private SFGAO GetAttributes()
         {
             SFGAO result;
-            this.item.GetAttributes(SFGAO.FILESYSTEM | SFGAO.FOLDER, out result);
+            this.item.GetAttributes(SFGAO.FileSystem | SFGAO.Folder, out result);
             return result;
         }
 

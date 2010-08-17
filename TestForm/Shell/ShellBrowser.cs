@@ -44,7 +44,7 @@ namespace Shell
         public static IntPtr GetDesctopPidl()
         {
             IntPtr tempPidl = IntPtr.Zero;
-            Shell32.SHGetSpecialFolderLocation(IntPtr.Zero, CSIDL.DESKTOP, out tempPidl);
+            Shell32.SHGetSpecialFolderLocation(IntPtr.Zero, CSIDL.Desktop, out tempPidl);
             return tempPidl;
         }
 
@@ -106,7 +106,7 @@ namespace Shell
             //My Computer
             info = new ShFileInfo();
             tempPidl = IntPtr.Zero;
-            Shell32.SHGetSpecialFolderLocation(IntPtr.Zero, CSIDL.DRIVES, out tempPidl);
+            Shell32.SHGetSpecialFolderLocation(IntPtr.Zero, CSIDL.Drives, out tempPidl);
 
             Shell32.SHGetFileInfo(tempPidl, 0, ref info, Marshal.SizeOf(info), SHGFI.Pidl | SHGFI.DisplayName | SHGFI.TypeName);
 
@@ -117,7 +117,7 @@ namespace Shell
 
             //Dekstop
             tempPidl = IntPtr.Zero;
-            Shell32.SHGetSpecialFolderLocation(IntPtr.Zero, CSIDL.DESKTOP, out tempPidl);
+            Shell32.SHGetSpecialFolderLocation(IntPtr.Zero, CSIDL.Desktop, out tempPidl);
             IntPtr desktopFolderPtr;
             Shell32.SHGetDesktopFolder(out desktopFolderPtr);
             DesktopItem = new ShellNode(this, tempPidl, desktopFolderPtr);
@@ -136,7 +136,7 @@ namespace Shell
             Marshal.FreeCoTaskMem(tempPidl);
 
             StringBuilder path = new StringBuilder(ShellApi.MaxPath);
-            Shell32.SHGetFolderPath(IntPtr.Zero, CSIDL.PERSONAL, IntPtr.Zero, SHGFP.TYPE_CURRENT, path);
+            Shell32.SHGetFolderPath(IntPtr.Zero, CSIDL.Personal, IntPtr.Zero, SHGFP.TYPE_CURRENT, path);
             MyDocumentsPath = path.ToString();
             //
         }
