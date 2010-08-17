@@ -372,36 +372,41 @@ namespace Shell
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
     public struct CMINVOKECOMMANDINFOEX
     {
-        public int cbSize;
-        public CMIC fMask;
-        public IntPtr hwnd;
-        public IntPtr lpVerb;
+        public int Size;
+
+        public CMIC Mask;
+        
+        public IntPtr Hwnd;
+        
+        public IntPtr Verb;
 
         [MarshalAs(UnmanagedType.LPStr)]
-        public string lpParameters;
+        public string Parameters;
 
         [MarshalAs(UnmanagedType.LPStr)]
-        public string lpDirectory;
+        public string Directory;
 
-        public SW nShow;
-        public int dwHotKey;
+        public SW ShowType;
+        
+        public int HotKey;
+        
         public IntPtr hIcon;
 
         [MarshalAs(UnmanagedType.LPStr)]
-        public string lpTitle;
+        public string Title;
 
-        public IntPtr lpVerbW;
-
-        [MarshalAs(UnmanagedType.LPWStr)]
-        public string lpParametersW;
+        public IntPtr VerbW;
 
         [MarshalAs(UnmanagedType.LPWStr)]
-        public string lpDirectoryW;
+        public string ParametersW;
 
         [MarshalAs(UnmanagedType.LPWStr)]
-        public string lpTitleW;
+        public string DirectoryW;
 
-        public POINT ptInvoke;
+        [MarshalAs(UnmanagedType.LPWStr)]
+        public string TitleW;
+
+        public POINT InvokePoint;
     }
 
     // Contains information about a menu item
@@ -410,13 +415,13 @@ namespace Shell
     {
         public MENUITEMINFO(string text)
         {
-            cbSize = Marshal.SizeOf(typeof(MENUITEMINFO));
-            dwTypeData = text;
+            Size = Marshal.SizeOf(typeof(MENUITEMINFO));
+            TypeData = text;
             cch = text.Length;
-            fMask = 0;
-            fType = 0;
-            fState = 0;
-            wID = 0;
+            MaskFlag = 0;
+            TypeFlag = 0;
+            StateFlag = 0;
+            wId = 0;
             hSubMenu = IntPtr.Zero;
             hbmpChecked = IntPtr.Zero;
             hbmpUnchecked = IntPtr.Zero;
@@ -424,18 +429,18 @@ namespace Shell
             hbmpItem = IntPtr.Zero;
         }
 
-        public int cbSize;
-        public MIIM fMask;
-        public MFT fType;
-        public MFS fState;
-        public uint wID;
+        public int Size;
+        public MIIM MaskFlag;
+        public MFT TypeFlag;
+        public MFS StateFlag;
+        public uint wId;
         public IntPtr hSubMenu;
         public IntPtr hbmpChecked;
         public IntPtr hbmpUnchecked;
         public IntPtr dwItemData;
 
         [MarshalAs(UnmanagedType.LPTStr)]
-        public string dwTypeData;
+        public string TypeData;
 
         public int cch;
         public IntPtr hbmpItem;
@@ -484,7 +489,7 @@ namespace Shell
         public IntPtr hMetaFilePict;
         public IntPtr hEnhMetaFile;
         public IntPtr hGlobal;
-        public IntPtr lpszFileName;
+        public IntPtr FileName;
         public IntPtr pstm;
         public IntPtr pstg;
         public IntPtr pUnkForRelease;

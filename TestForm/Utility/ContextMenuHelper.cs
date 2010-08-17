@@ -108,16 +108,16 @@ namespace TestForm
         public static void InvokeCommand(IContextMenu iContextMenu, uint cmd, string parentDir, Point ptInvoke)
         {
             CMINVOKECOMMANDINFOEX invoke = new CMINVOKECOMMANDINFOEX();
-            invoke.cbSize = Marshal.SizeOf(typeof(CMINVOKECOMMANDINFOEX));
-            invoke.lpVerb = (IntPtr)cmd;
-            invoke.lpDirectory = parentDir;
-            invoke.lpVerbW = (IntPtr)cmd;
-            invoke.lpDirectoryW = parentDir;
-            invoke.fMask = CMIC.Unicode | CMIC.PtInvoke |
+            invoke.Size = Marshal.SizeOf(typeof(CMINVOKECOMMANDINFOEX));
+            invoke.Verb = (IntPtr)cmd;
+            invoke.Directory = parentDir;
+            invoke.VerbW = (IntPtr)cmd;
+            invoke.DirectoryW = parentDir;
+            invoke.Mask = CMIC.Unicode | CMIC.PtInvoke |
                 ((Control.ModifierKeys & Keys.Control) != 0 ? CMIC.ControlDown : 0) |
                 ((Control.ModifierKeys & Keys.Shift) != 0 ? CMIC.ShiftDown : 0);
-            invoke.ptInvoke = new POINT(ptInvoke);
-            invoke.nShow = SW.ShowNormal;
+            invoke.InvokePoint = new POINT(ptInvoke);
+            invoke.ShowType = SW.ShowNormal;
 
             iContextMenu.InvokeCommand(ref invoke);
         }
@@ -132,16 +132,16 @@ namespace TestForm
         public static void InvokeCommand(IContextMenu iContextMenu, string cmd, string parentDir, Point ptInvoke)
         {
             CMINVOKECOMMANDINFOEX invoke = new CMINVOKECOMMANDINFOEX();
-            invoke.cbSize = Marshal.SizeOf(typeof(CMINVOKECOMMANDINFOEX));
-            invoke.lpVerb = Marshal.StringToHGlobalAnsi(cmd);
-            invoke.lpDirectory = parentDir;
-            invoke.lpVerbW = Marshal.StringToHGlobalUni(cmd);
-            invoke.lpDirectoryW = parentDir;
-            invoke.fMask = CMIC.Unicode | CMIC.PtInvoke |
+            invoke.Size = Marshal.SizeOf(typeof(CMINVOKECOMMANDINFOEX));
+            invoke.Verb = Marshal.StringToHGlobalAnsi(cmd);
+            invoke.Directory = parentDir;
+            invoke.VerbW = Marshal.StringToHGlobalUni(cmd);
+            invoke.DirectoryW = parentDir;
+            invoke.Mask = CMIC.Unicode | CMIC.PtInvoke |
                 ((Control.ModifierKeys & Keys.Control) != 0 ? CMIC.ControlDown : 0) |
                 ((Control.ModifierKeys & Keys.Shift) != 0 ? CMIC.ShiftDown : 0);
-            invoke.ptInvoke = new POINT(ptInvoke);
-            invoke.nShow = SW.ShowNormal;
+            invoke.InvokePoint = new POINT(ptInvoke);
+            invoke.ShowType = SW.ShowNormal;
 
             iContextMenu.InvokeCommand(ref invoke);
         }
