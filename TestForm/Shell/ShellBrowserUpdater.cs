@@ -36,7 +36,7 @@ namespace Shell
 
         public static uint RegisterShellNotify(IntPtr handle, SHChangeNotifyEntry entry)
         {
-            return Shell32.SHChangeNotifyRegister(handle, SHCNRF.InterruptLevel | SHCNRF.ShellLevel, SHCNE.ALLEVENTS | SHCNE.INTERRUPT, WM.ShNotify, 1, new SHChangeNotifyEntry[] { entry });
+            return Shell32.SHChangeNotifyRegister(handle, SHCNRF.InterruptLevel | SHCNRF.ShellLevel, SHCNE.AllEvents | SHCNE.Interrupt, WM.ShNotify, 1, new[] { entry });
         }
 
         public static uint RegisterShellNotify(IntPtr handle)
@@ -65,7 +65,7 @@ namespace Shell
                 {
                     #region File Changes
 
-                    case SHCNE.CREATE:
+                    case SHCNE.Create:
 
                         #region Create Item
 
@@ -92,7 +92,7 @@ namespace Shell
 
                         break;
 
-                    case SHCNE.RENAMEITEM:
+                    case SHCNE.RenameItem:
 
                         #region Rename Item
 
@@ -111,7 +111,7 @@ namespace Shell
 
                         break;
 
-                    case SHCNE.DELETE:
+                    case SHCNE.Delete:
 
                         #region Delete Item
 
@@ -137,7 +137,7 @@ namespace Shell
 
                         break;
 
-                    case SHCNE.UPDATEITEM:
+                    case SHCNE.UpdateItem:
 
                         #region Update Item
 
@@ -162,9 +162,9 @@ namespace Shell
 
                     #region Folder Changes
 
-                    case SHCNE.MKDIR:
-                    case SHCNE.DRIVEADD:
-                    case SHCNE.DRIVEADDGUI:
+                    case SHCNE.MkDir:
+                    case SHCNE.DriveAdd:
+                    case SHCNE.DriveAddGui:
 
                         #region Make Directory
 
@@ -200,7 +200,7 @@ namespace Shell
 
                         break;
 
-                    case SHCNE.RENAMEFOLDER:
+                    case SHCNE.RenameFolder:
 
                         #region Rename Directory
 
@@ -220,8 +220,8 @@ namespace Shell
 
                         break;
 
-                    case SHCNE.RMDIR:
-                    case SHCNE.DRIVEREMOVED:
+                    case SHCNE.RmDir:
+                    case SHCNE.DriveRemoved:
 
                         #region Remove Directory
 
@@ -247,8 +247,8 @@ namespace Shell
 
                         break;
 
-                    case SHCNE.UPDATEDIR:
-                    case SHCNE.ATTRIBUTES:
+                    case SHCNE.UpdateDir:
+                    case SHCNE.Attributes:
 
                         #region Update Directory
 
@@ -268,8 +268,8 @@ namespace Shell
 
                         break;
 
-                    case SHCNE.MEDIAINSERTED:
-                    case SHCNE.MEDIAREMOVED:
+                    case SHCNE.MediaInserted:
+                    case SHCNE.MediaRemoved:
 
                         #region Media Change
 
@@ -292,7 +292,7 @@ namespace Shell
 
                     #region Other Changes
 
-                    case SHCNE.ASSOCCHANGED:
+                    case SHCNE.AssocChanged:
 
                         #region Update Images
 
@@ -303,11 +303,11 @@ namespace Shell
 
                         break;
 
-                    case SHCNE.NETSHARE:
-                    case SHCNE.NETUNSHARE:
+                    case SHCNE.NetShare:
+                    case SHCNE.NetUnshare:
                         break;
 
-                    case SHCNE.UPDATEIMAGE:
+                    case SHCNE.UpdateImage:
                         UpdateRecycleBin();
                         break;
 

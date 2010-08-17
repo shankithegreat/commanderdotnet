@@ -260,7 +260,7 @@ namespace TestForm
             if (Ole32.CoCreateInstance(
                     ref ShellGuids.NewMenu,
                     IntPtr.Zero,
-                    CLSCTX.INPROC_SERVER,
+                    CLSCTX.InProcServer,
                     ref ShellGuids.IContextMenu,
                     out iContextMenuPtr) == 0)
             {

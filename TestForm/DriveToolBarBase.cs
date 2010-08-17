@@ -91,11 +91,11 @@ namespace Commander
 
                 switch ((SHCNE)m.LParam)
                 {
-                    case SHCNE.DRIVEADD:
-                    case SHCNE.DRIVEADDGUI:
-                    case SHCNE.DRIVEREMOVED:
-                    case SHCNE.MEDIAINSERTED:
-                    case SHCNE.MEDIAREMOVED:
+                    case SHCNE.DriveAdd:
+                    case SHCNE.DriveAddGui:
+                    case SHCNE.DriveRemoved:
+                    case SHCNE.MediaInserted:
+                    case SHCNE.MediaRemoved:
                         {
                             OnRefreshDrives();
                             break;

@@ -442,7 +442,7 @@ namespace Shell
 
         public static bool GetIDropTargetHelper(out IntPtr helperPtr, out IDropTargetHelper dropHelper)
         {
-            if (Ole32.CoCreateInstance(ref ShellGuids.DragDropHelper, IntPtr.Zero, CLSCTX.INPROC_SERVER, ref ShellGuids.IDropTargetHelper, out helperPtr) == 0)
+            if (Ole32.CoCreateInstance(ref ShellGuids.DragDropHelper, IntPtr.Zero, CLSCTX.InProcServer, ref ShellGuids.IDropTargetHelper, out helperPtr) == 0)
             {
                 dropHelper = (IDropTargetHelper)Marshal.GetTypedObjectForIUnknown(helperPtr, typeof(IDropTargetHelper));
 
@@ -469,7 +469,7 @@ namespace Shell
             {
                 // Check Copy
                 DragDropEffects effects = DragDropEffects.Copy;
-                if (target.DragEnter(dataObject, MK.CONTROL, new POINT(), ref effects) == 0)
+                if (target.DragEnter(dataObject, MK.Control, new POINT(), ref effects) == 0)
                 {
                     if (effects == DragDropEffects.Copy)
                     {
@@ -481,7 +481,7 @@ namespace Shell
 
                 // Check Move
                 effects = DragDropEffects.Move;
-                if (target.DragEnter(dataObject, MK.SHIFT, new POINT(), ref effects) == 0)
+                if (target.DragEnter(dataObject, MK.Shift, new POINT(), ref effects) == 0)
                 {
                     if (effects == DragDropEffects.Move)
                     {
@@ -493,7 +493,7 @@ namespace Shell
 
                 // Check Lick
                 effects = DragDropEffects.Link;
-                if (target.DragEnter(dataObject, MK.ALT, new POINT(), ref effects) == 0)
+                if (target.DragEnter(dataObject, MK.Alt, new POINT(), ref effects) == 0)
                 {
                     if (effects == DragDropEffects.Link)
                     {

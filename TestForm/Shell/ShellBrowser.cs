@@ -136,7 +136,7 @@ namespace Shell
             Marshal.FreeCoTaskMem(tempPidl);
 
             StringBuilder path = new StringBuilder(ShellApi.MaxPath);
-            Shell32.SHGetFolderPath(IntPtr.Zero, CSIDL.Personal, IntPtr.Zero, SHGFP.TYPE_CURRENT, path);
+            Shell32.SHGetFolderPath(IntPtr.Zero, CSIDL.Personal, IntPtr.Zero, SHGFP.TypeCurrent, path);
             MyDocumentsPath = path.ToString();
             //
         }
