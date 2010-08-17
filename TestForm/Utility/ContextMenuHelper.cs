@@ -113,11 +113,11 @@ namespace TestForm
             invoke.lpDirectory = parentDir;
             invoke.lpVerbW = (IntPtr)cmd;
             invoke.lpDirectoryW = parentDir;
-            invoke.fMask = CMIC.UNICODE | CMIC.PTINVOKE |
-                ((Control.ModifierKeys & Keys.Control) != 0 ? CMIC.CONTROL_DOWN : 0) |
-                ((Control.ModifierKeys & Keys.Shift) != 0 ? CMIC.SHIFT_DOWN : 0);
+            invoke.fMask = CMIC.Unicode | CMIC.PtInvoke |
+                ((Control.ModifierKeys & Keys.Control) != 0 ? CMIC.ControlDown : 0) |
+                ((Control.ModifierKeys & Keys.Shift) != 0 ? CMIC.ShiftDown : 0);
             invoke.ptInvoke = new POINT(ptInvoke);
-            invoke.nShow = SW.SHOWNORMAL;
+            invoke.nShow = SW.ShowNormal;
 
             iContextMenu.InvokeCommand(ref invoke);
         }
@@ -137,11 +137,11 @@ namespace TestForm
             invoke.lpDirectory = parentDir;
             invoke.lpVerbW = Marshal.StringToHGlobalUni(cmd);
             invoke.lpDirectoryW = parentDir;
-            invoke.fMask = CMIC.UNICODE | CMIC.PTINVOKE |
-                ((Control.ModifierKeys & Keys.Control) != 0 ? CMIC.CONTROL_DOWN : 0) |
-                ((Control.ModifierKeys & Keys.Shift) != 0 ? CMIC.SHIFT_DOWN : 0);
+            invoke.fMask = CMIC.Unicode | CMIC.PtInvoke |
+                ((Control.ModifierKeys & Keys.Control) != 0 ? CMIC.ControlDown : 0) |
+                ((Control.ModifierKeys & Keys.Shift) != 0 ? CMIC.ShiftDown : 0);
             invoke.ptInvoke = new POINT(ptInvoke);
-            invoke.nShow = SW.SHOWNORMAL;
+            invoke.nShow = SW.ShowNormal;
 
             iContextMenu.InvokeCommand(ref invoke);
         }

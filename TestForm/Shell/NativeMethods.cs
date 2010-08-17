@@ -229,8 +229,7 @@ namespace Shell
         /// properties. Slow items (offline files) are not opened. 
         /// Combination with other flags: Can be overridden by other flags.
         /// </summary>
-        DEFAULT = 0,
-
+        Default = 0,
         /// <summary>
         /// Meaning to a calling process: Include only properties directly from the property
         /// handler, which opens the file on the disk, network, or device. Meaning to a file 
@@ -243,8 +242,7 @@ namespace Shell
         /// Combination with other flags: Cannot be combined with GPS_TEMPORARY, 
         /// GPS_FASTPROPERTIESONLY, or GPS_BESTEFFORT.
         /// </summary>
-        HANDLERPROPERTIESONLY = 0x1,
-
+        HandlerPropertiesOnly = 0x1,
         /// <summary>
         /// Meaning to a calling process: Can write properties to the item. 
         /// Note: The store may contain fewer properties than a read-only store. 
@@ -257,8 +255,7 @@ namespace Shell
         /// Combination with other flags: Cannot be combined with GPS_TEMPORARY, GPS_FASTPROPERTIESONLY, 
         /// GPS_BESTEFFORT, or GPS_DELAYCREATION. Implies GPS_HANDLERPROPERTIESONLY.
         /// </summary>
-        READWRITE = 0x2,
-
+        ReadWrite = 0x2,
         /// <summary>
         /// Meaning to a calling process: Provides a writable store, with no initial properties, 
         /// that exists for the lifetime of the Shell item instance; basically, a property bag 
@@ -270,8 +267,7 @@ namespace Shell
         /// 
         /// Combination with other flags: Cannot be combined with any other flag. Implies GPS_READWRITE
         /// </summary>
-        TEMPORARY = 0x4,
-
+        Temporary = 0x4,
         /// <summary>
         /// Meaning to a calling process: Provides a store that does not involve reading from the 
         /// disk or network. Note: Some values may be different, or missing, compared to a store 
@@ -286,8 +282,7 @@ namespace Shell
         /// Combination with other flags: Cannot be combined with GPS_TEMPORARY, GPS_READWRITE, 
         /// GPS_HANDLERPROPERTIESONLY, or GPS_DELAYCREATION.
         /// </summary>
-        FASTPROPERTIESONLY = 0x8,
-
+        FastPropertiesOnly = 0x8,
         /// <summary>
         /// Meaning to a calling process: Open a slow item (offline file) if necessary. 
         /// Meaning to a file folder: Retrieve a file from offline storage, if necessary. 
@@ -297,8 +292,7 @@ namespace Shell
         /// 
         /// Combination with other flags: Cannot be combined with GPS_TEMPORARY or GPS_FASTPROPERTIESONLY.
         /// </summary>
-        OPENSLOWITEM = 0x10,
-
+        OpensLowItem = 0x10,
         /// <summary>
         /// Meaning to a calling process: Delay memory-intensive operations, such as file access, until 
         /// a property is requested that requires such access. 
@@ -315,8 +309,7 @@ namespace Shell
         /// Combination with other flags: Cannot be combined with GPS_TEMPORARY or 
         /// GPS_READWRITE
         /// </summary>
-        DELAYCREATION = 0x20,
-
+        DelayCreation = 0x20,
         /// <summary>
         /// Meaning to a calling process: Succeed at getting the store, even if some 
         /// properties are not returned. Note: Some values may be different, or missing,
@@ -331,12 +324,11 @@ namespace Shell
         /// Combination with other flags: Cannot be combined with GPS_TEMPORARY, 
         /// GPS_READWRITE, or GPS_HANDLERPROPERTIESONLY.
         /// </summary>
-        BESTEFFORT = 0x40,
-
+        BestEffort = 0x40,
         /// <summary>
         /// Mask for valid GETPROPERTYSTOREFLAGS values.
         /// </summary>
-        MASK_VALID = 0xff,
+        MaskValid = 0xff,
     }
 
     // Contains strings returned from the IShellFolder interface methods
@@ -453,21 +445,21 @@ namespace Shell
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
     public struct TPMPARAMS
     {
-        private int cbSize;
-        private RECT rcExclude;
+        private int Size;
+        private RECT ExcludeRectangle;
     }
 
     // Contains combo box status information
     [StructLayout(LayoutKind.Sequential)]
     public struct COMBOBOXINFO
     {
-        public int cbSize;
-        public RECT rcItem;
-        public RECT rcButton;
-        public IntPtr stateButton;
-        public IntPtr hwndCombo;
-        public IntPtr hwndEdit;
-        public IntPtr hwndList;
+        public int Size;
+        public RECT ItemRectangle;
+        public RECT ButtonRectangle;
+        public IntPtr StateButton;
+        public IntPtr ComboHwnd;
+        public IntPtr EditHwnd;
+        public IntPtr ListHwnd;
     }
 
     // A generalized Clipboard format, it is enhanced to encompass a 
@@ -502,10 +494,10 @@ namespace Shell
     [StructLayout(LayoutKind.Sequential)]
     public struct SHDRAGIMAGE
     {
-        public SIZE sizeDragImage;
-        public POINT ptOffset;
-        public IntPtr hbmpDragImage;
-        public Color crColorKey;
+        public SIZE DragImageSize;
+        public POINT Offset;
+        public IntPtr DragImagePtr;
+        public Color Color;
     }
 
     // Contains and receives information for change notifications
@@ -548,7 +540,7 @@ namespace Shell
     public struct FILETIME
     {
         public int LowDateTime;
-        
+
         public int HighDateTime;
     }
 
@@ -889,287 +881,287 @@ namespace Shell
     [Flags]
     public enum TPM : uint
     {
-        LEFTBUTTON = 0x0000,
-        RIGHTBUTTON = 0x0002,
-        LEFTALIGN = 0x0000,
-        CENTERALIGN = 0x0004,
-        RIGHTALIGN = 0x0008,
-        TOPALIGN = 0x0000,
-        VCENTERALIGN = 0x0010,
-        BOTTOMALIGN = 0x0020,
-        HORIZONTAL = 0x0000,
-        VERTICAL = 0x0040,
-        NONOTIFY = 0x0080,
-        RETURNCMD = 0x0100,
-        RECURSE = 0x0001,
-        HORPOSANIMATION = 0x0400,
-        HORNEGANIMATION = 0x0800,
-        VERPOSANIMATION = 0x1000,
-        VERNEGANIMATION = 0x2000,
-        NOANIMATION = 0x4000,
-        LAYOUTRTL = 0x8000
+        LeftButton = 0x0000,
+        RightButton = 0x0002,
+        LeftAlign = 0x0000,
+        CenterAlign = 0x0004,
+        RightAlign = 0x0008,
+        TopAlign = 0x0000,
+        VCenterAlign = 0x0010,
+        BottomAlign = 0x0020,
+        Horizontal = 0x0000,
+        Vertical = 0x0040,
+        NoNotify = 0x0080,
+        ReturnCmd = 0x0100,
+        Recurse = 0x0001,
+        HorPosAnimation = 0x0400,
+        HorNegAnimation = 0x0800,
+        VerPosAnimation = 0x1000,
+        VerNegAnimation = 0x2000,
+        NoAnimation = 0x4000,
+        LayoutRtl = 0x8000
     }
 
     // Flags used with the CMINVOKECOMMANDINFOEX structure
     [Flags]
     public enum CMIC : uint
     {
-        HOTKEY = 0x00000020,
-        ICON = 0x00000010,
-        FLAG_NO_UI = 0x00000400,
-        UNICODE = 0x00004000,
-        NO_CONSOLE = 0x00008000,
-        ASYNCOK = 0x00100000,
-        NOZONECHECKS = 0x00800000,
-        SHIFT_DOWN = 0x10000000,
-        CONTROL_DOWN = 0x40000000,
-        FLAG_LOG_USAGE = 0x04000000,
-        PTINVOKE = 0x20000000
+        Hotkey = 0x00000020,
+        Icon = 0x00000010,
+        FlagNoUi = 0x00000400,
+        Unicode = 0x00004000,
+        NoConsole = 0x00008000,
+        Asyncok = 0x00100000,
+        NoZoneChecks = 0x00800000,
+        ShiftDown = 0x10000000,
+        ControlDown = 0x40000000,
+        FlagLogUsage = 0x04000000,
+        PtInvoke = 0x20000000
     }
 
     // Flags that specify the drawing style when calling ImageList_GetIcon
     [Flags]
     public enum ILD : uint
     {
-        NORMAL = 0x0000,
-        TRANSPARENT = 0x0001,
-        MASK = 0x0010,
-        BLEND25 = 0x0002,
-        BLEND50 = 0x0004
+        Normal = 0x0000,
+        Transparent = 0x0001,
+        Mask = 0x0010,
+        Blend25 = 0x0002,
+        Blend50 = 0x0004
     }
 
     // Specifies how the window is to be shown
     [Flags]
     public enum SW
     {
-        HIDE = 0,
-        SHOWNORMAL = 1,
-        NORMAL = 1,
-        SHOWMINIMIZED = 2,
-        SHOWMAXIMIZED = 3,
-        MAXIMIZE = 3,
-        SHOWNOACTIVATE = 4,
-        SHOW = 5,
-        MINIMIZE = 6,
-        SHOWMINNOACTIVE = 7,
-        SHOWNA = 8,
-        RESTORE = 9,
-        SHOWDEFAULT = 10,
+        Hide = 0,
+        ShowNormal = 1,
+        Normal = 1,
+        ShowMinimized = 2,
+        ShowMaximized = 3,
+        Maximize = 3,
+        ShowNoActivate = 4,
+        Show = 5,
+        Minimize = 6,
+        ShowMinNoActive = 7,
+        ShowNa = 8,
+        Restore = 9,
+        ShowDefault = 10,
     }
 
     // Window message flags
     [Flags]
     public enum WM : uint
     {
-        ACTIVATE = 0x6,
-        ACTIVATEAPP = 0x1C,
-        AFXFIRST = 0x360,
-        AFXLAST = 0x37F,
-        APP = 0x8000,
-        ASKCBFORMATNAME = 0x30C,
-        CANCELJOURNAL = 0x4B,
-        CANCELMODE = 0x1F,
-        CAPTURECHANGED = 0x215,
-        CHANGECBCHAIN = 0x30D,
-        CHAR = 0x102,
-        CHARTOITEM = 0x2F,
-        CHILDACTIVATE = 0x22,
-        CLEAR = 0x303,
-        CLOSE = 0x10,
-        COMMAND = 0x111,
-        COMPACTING = 0x41,
-        COMPAREITEM = 0x39,
-        CONTEXTMENU = 0x7B,
-        COPY = 0x301,
-        COPYDATA = 0x4A,
-        CREATE = 0x1,
-        CTLCOLORBTN = 0x135,
-        CTLCOLORDLG = 0x136,
-        CTLCOLOREDIT = 0x133,
-        CTLCOLORLISTBOX = 0x134,
-        CTLCOLORMSGBOX = 0x132,
-        CTLCOLORSCROLLBAR = 0x137,
-        CTLCOLORSTATIC = 0x138,
-        CUT = 0x300,
-        DEADCHAR = 0x103,
-        DELETEITEM = 0x2D,
-        DESTROY = 0x2,
-        DESTROYCLIPBOARD = 0x307,
-        DEVICECHANGE = 0x219,
-        DEVMODECHANGE = 0x1B,
-        DISPLAYCHANGE = 0x7E,
-        DRAWCLIPBOARD = 0x308,
-        DRAWITEM = 0x2B,
-        DROPFILES = 0x233,
-        ENABLE = 0xA,
-        ENDSESSION = 0x16,
-        ENTERIDLE = 0x121,
-        ENTERMENULOOP = 0x211,
-        ENTERSIZEMOVE = 0x231,
-        ERASEBKGND = 0x14,
-        EXITMENULOOP = 0x212,
-        EXITSIZEMOVE = 0x232,
-        FONTCHANGE = 0x1D,
-        GETDLGCODE = 0x87,
-        GETFONT = 0x31,
-        GETHOTKEY = 0x33,
-        GETICON = 0x7F,
-        GETMINMAXINFO = 0x24,
-        GETOBJECT = 0x3D,
-        GETSYSMENU = 0x313,
-        GETTEXT = 0xD,
-        GETTEXTLENGTH = 0xE,
-        HANDHELDFIRST = 0x358,
-        HANDHELDLAST = 0x35F,
-        HELP = 0x53,
-        HOTKEY = 0x312,
-        HSCROLL = 0x114,
-        HSCROLLCLIPBOARD = 0x30E,
-        ICONERASEBKGND = 0x27,
-        IME_CHAR = 0x286,
-        IME_COMPOSITION = 0x10F,
-        IME_COMPOSITIONFULL = 0x284,
-        IME_CONTROL = 0x283,
-        IME_ENDCOMPOSITION = 0x10E,
-        IME_KEYDOWN = 0x290,
-        IME_KEYLAST = 0x10F,
-        IME_KEYUP = 0x291,
-        IME_NOTIFY = 0x282,
-        IME_REQUEST = 0x288,
-        IME_SELECT = 0x285,
-        IME_SETCONTEXT = 0x281,
-        IME_STARTCOMPOSITION = 0x10D,
-        INITDIALOG = 0x110,
-        INITMENU = 0x116,
-        INITMENUPOPUP = 0x117,
-        INPUTLANGCHANGE = 0x51,
-        INPUTLANGCHANGEREQUEST = 0x50,
-        KEYDOWN = 0x100,
-        KEYFIRST = 0x100,
-        KEYLAST = 0x108,
-        KEYUP = 0x101,
-        KILLFOCUS = 0x8,
-        LBUTTONDBLCLK = 0x203,
-        LBUTTONDOWN = 0x201,
-        LBUTTONUP = 0x202,
-        LVM_GETEDITCONTROL = 0x1018,
-        LVM_SETIMAGELIST = 0x1003,
-        MBUTTONDBLCLK = 0x209,
-        MBUTTONDOWN = 0x207,
-        MBUTTONUP = 0x208,
-        MDIACTIVATE = 0x222,
-        MDICASCADE = 0x227,
-        MDICREATE = 0x220,
-        MDIDESTROY = 0x221,
-        MDIGETACTIVE = 0x229,
-        MDIICONARRANGE = 0x228,
-        MDIMAXIMIZE = 0x225,
-        MDINEXT = 0x224,
-        MDIREFRESHMENU = 0x234,
-        MDIRESTORE = 0x223,
-        MDISETMENU = 0x230,
-        MDITILE = 0x226,
-        MEASUREITEM = 0x2C,
-        MENUCHAR = 0x120,
-        MENUCOMMAND = 0x126,
-        MENUDRAG = 0x123,
-        MENUGETOBJECT = 0x124,
-        MENURBUTTONUP = 0x122,
-        MENUSELECT = 0x11F,
-        MOUSEACTIVATE = 0x21,
-        MOUSEFIRST = 0x200,
-        MOUSEHOVER = 0x2A1,
-        MOUSELAST = 0x20A,
-        MOUSELEAVE = 0x2A3,
-        MOUSEMOVE = 0x200,
-        MOUSEWHEEL = 0x20A,
-        MOVE = 0x3,
-        MOVING = 0x216,
-        NCACTIVATE = 0x86,
-        NCCALCSIZE = 0x83,
-        NCCREATE = 0x81,
-        NCDESTROY = 0x82,
-        NCHITTEST = 0x84,
-        NCLBUTTONDBLCLK = 0xA3,
-        NCLBUTTONDOWN = 0xA1,
-        NCLBUTTONUP = 0xA2,
-        NCMBUTTONDBLCLK = 0xA9,
-        NCMBUTTONDOWN = 0xA7,
-        NCMBUTTONUP = 0xA8,
-        NCMOUSEHOVER = 0x2A0,
-        NCMOUSELEAVE = 0x2A2,
-        NCMOUSEMOVE = 0xA0,
-        NCPAINT = 0x85,
-        NCRBUTTONDBLCLK = 0xA6,
-        NCRBUTTONDOWN = 0xA4,
-        NCRBUTTONUP = 0xA5,
-        NEXTDLGCTL = 0x28,
-        NEXTMENU = 0x213,
-        NOTIFY = 0x4E,
-        NOTIFYFORMAT = 0x55,
-        NULL = 0x0,
-        PAINT = 0xF,
-        PAINTCLIPBOARD = 0x309,
-        PAINTICON = 0x26,
-        PALETTECHANGED = 0x311,
-        PALETTEISCHANGING = 0x310,
-        PARENTNOTIFY = 0x210,
-        PASTE = 0x302,
-        PENWINFIRST = 0x380,
-        PENWINLAST = 0x38F,
-        POWER = 0x48,
-        PRINT = 0x317,
-        PRINTCLIENT = 0x318,
-        QUERYDRAGICON = 0x37,
-        QUERYENDSESSION = 0x11,
-        QUERYNEWPALETTE = 0x30F,
-        QUERYOPEN = 0x13,
-        QUEUESYNC = 0x23,
-        QUIT = 0x12,
-        RBUTTONDBLCLK = 0x206,
-        RBUTTONDOWN = 0x204,
-        RBUTTONUP = 0x205,
-        RENDERALLFORMATS = 0x306,
-        RENDERFORMAT = 0x305,
-        SETCURSOR = 0x20,
-        SETFOCUS = 0x7,
-        SETFONT = 0x30,
-        SETHOTKEY = 0x32,
-        SETICON = 0x80,
-        SETMARGINS = 0xD3,
-        SETREDRAW = 0xB,
-        SETTEXT = 0xC,
-        SETTINGCHANGE = 0x1A,
-        SHOWWINDOW = 0x18,
-        SIZE = 0x5,
-        SIZECLIPBOARD = 0x30B,
-        SIZING = 0x214,
-        SPOOLERSTATUS = 0x2A,
-        STYLECHANGED = 0x7D,
-        STYLECHANGING = 0x7C,
-        SYNCPAINT = 0x88,
-        SYSCHAR = 0x106,
-        SYSCOLORCHANGE = 0x15,
-        SYSCOMMAND = 0x112,
-        SYSDEADCHAR = 0x107,
-        SYSKEYDOWN = 0x104,
-        SYSKEYUP = 0x105,
-        TCARD = 0x52,
-        TIMECHANGE = 0x1E,
-        TIMER = 0x113,
-        TVM_GETEDITCONTROL = 0x110F,
-        TVM_SETIMAGELIST = 0x1109,
-        UNDO = 0x304,
-        UNINITMENUPOPUP = 0x125,
-        USER = 0x400,
-        USERCHANGED = 0x54,
-        VKEYTOITEM = 0x2E,
-        VSCROLL = 0x115,
-        VSCROLLCLIPBOARD = 0x30A,
-        WINDOWPOSCHANGED = 0x47,
-        WINDOWPOSCHANGING = 0x46,
-        WININICHANGE = 0x1A,
-        SH_NOTIFY = 0x0401
+        Activate = 0x6,
+        ActivateApp = 0x1C,
+        AfxFirst = 0x360,
+        AfxLast = 0x37F,
+        App = 0x8000,
+        AskCbFormatName = 0x30C,
+        CancelJournal = 0x4B,
+        CancelMode = 0x1F,
+        CaptureChanged = 0x215,
+        ChangeCbChain = 0x30D,
+        Char = 0x102,
+        CharToItem = 0x2F,
+        ChildActivate = 0x22,
+        Clear = 0x303,
+        Close = 0x10,
+        Command = 0x111,
+        Compacting = 0x41,
+        CompareItem = 0x39,
+        ContextMenu = 0x7B,
+        Copy = 0x301,
+        CopyData = 0x4A,
+        Create = 0x1,
+        CtlColorBtn = 0x135,
+        CtlColorDlg = 0x136,
+        CtlColorEdit = 0x133,
+        CtlColorListBox = 0x134,
+        CtlColorMsgBox = 0x132,
+        CtlColorScrollBar = 0x137,
+        CtlColorStatic = 0x138,
+        Cut = 0x300,
+        DeadChar = 0x103,
+        DeleteItem = 0x2D,
+        Destroy = 0x2,
+        DestroyClipboard = 0x307,
+        DeviceChange = 0x219,
+        DevModeChange = 0x1B,
+        DisplayChange = 0x7E,
+        DrawClipboard = 0x308,
+        DrawItem = 0x2B,
+        DropFiles = 0x233,
+        Enable = 0xA,
+        EndSession = 0x16,
+        EnterIdle = 0x121,
+        EnterMenuLoop = 0x211,
+        EnterSizeMove = 0x231,
+        EraseBkgnd = 0x14,
+        ExitMenuLoop = 0x212,
+        ExitSizeMove = 0x232,
+        FontChange = 0x1D,
+        GetDlgCode = 0x87,
+        GetFont = 0x31,
+        GetHotKey = 0x33,
+        GetIcon = 0x7F,
+        GetMinMaxInfo = 0x24,
+        GetObject = 0x3D,
+        GetSysMenu = 0x313,
+        GetText = 0xD,
+        GetTextLength = 0xE,
+        HandHeldFirst = 0x358,
+        HandHeldLast = 0x35F,
+        Help = 0x53,
+        Hotkey = 0x312,
+        HScroll = 0x114,
+        HScrollClipboard = 0x30E,
+        IconEraseBkgnd = 0x27,
+        ImeChar = 0x286,
+        ImeComposition = 0x10F,
+        ImeCompositionFull = 0x284,
+        ImeControl = 0x283,
+        ImeEndComposition = 0x10E,
+        ImeKeyDown = 0x290,
+        ImeKeyLast = 0x10F,
+        ImeKeyUp = 0x291,
+        ImeNotify = 0x282,
+        ImeRequest = 0x288,
+        ImeSelect = 0x285,
+        ImeSetContext = 0x281,
+        ImeStartComposition = 0x10D,
+        InitDialog = 0x110,
+        InitMenu = 0x116,
+        InitMenuPopup = 0x117,
+        InputLangChange = 0x51,
+        InputLangChangeRequest = 0x50,
+        KeyDown = 0x100,
+        KeyFirst = 0x100,
+        KeyLast = 0x108,
+        KeyUp = 0x101,
+        KillFocus = 0x8,
+        LButtonDblclk = 0x203,
+        LButtonDown = 0x201,
+        LButtonUp = 0x202,
+        LvmGetEditControl = 0x1018,
+        LvmSetImageList = 0x1003,
+        MButtonDblclk = 0x209,
+        MButtonDown = 0x207,
+        MButtonUp = 0x208,
+        MdiActivate = 0x222,
+        MdiCascade = 0x227,
+        MdiCreate = 0x220,
+        MdiDestroy = 0x221,
+        MdiGetActive = 0x229,
+        MdiIconArrange = 0x228,
+        MdiMaximize = 0x225,
+        MdiNext = 0x224,
+        MdiRefreshMenu = 0x234,
+        MdiRestore = 0x223,
+        MdiSetMenu = 0x230,
+        MdiTile = 0x226,
+        MeasureItem = 0x2C,
+        MenuChar = 0x120,
+        MenuCommand = 0x126,
+        MenuDrag = 0x123,
+        MenuGetObject = 0x124,
+        MenuRButtonUp = 0x122,
+        MenuSelect = 0x11F,
+        MouseActivate = 0x21,
+        MouseFirst = 0x200,
+        MouseHover = 0x2A1,
+        MouseLast = 0x20A,
+        MouseLeave = 0x2A3,
+        MouseMove = 0x200,
+        MouseWheel = 0x20A,
+        Move = 0x3,
+        Moving = 0x216,
+        NcActivate = 0x86,
+        NcCalcSize = 0x83,
+        NcCreate = 0x81,
+        NcDestroy = 0x82,
+        NcHittest = 0x84,
+        NcLButtonDblclk = 0xA3,
+        NcLButtonDown = 0xA1,
+        NcLButtonUp = 0xA2,
+        NcMButtonDblclk = 0xA9,
+        NcMButtonDown = 0xA7,
+        NcMButtonUp = 0xA8,
+        NcMouseHover = 0x2A0,
+        NcMouseLeave = 0x2A2,
+        NcMouseMove = 0xA0,
+        NcPaint = 0x85,
+        NcRButtonDblclk = 0xA6,
+        NcRButtonDown = 0xA4,
+        NcRButtonUp = 0xA5,
+        NextDlgctl = 0x28,
+        NextMenu = 0x213,
+        Notify = 0x4E,
+        NotifyFormat = 0x55,
+        Null = 0x0,
+        Paint = 0xF,
+        PaintClipboard = 0x309,
+        PaintIcon = 0x26,
+        PaletteChanged = 0x311,
+        PaletteIsChanging = 0x310,
+        ParentNotify = 0x210,
+        Paste = 0x302,
+        PenWinFirst = 0x380,
+        PenWinLast = 0x38F,
+        Power = 0x48,
+        Print = 0x317,
+        PrintClient = 0x318,
+        QueryDragIcon = 0x37,
+        QueryEndSession = 0x11,
+        QueryNewPalette = 0x30F,
+        QueryOpen = 0x13,
+        QueueSync = 0x23,
+        Quit = 0x12,
+        RButtonDblclk = 0x206,
+        RButtonDown = 0x204,
+        RButtonUp = 0x205,
+        RenderAllFormats = 0x306,
+        RenderFormat = 0x305,
+        SetCursor = 0x20,
+        SetFocus = 0x7,
+        SetFont = 0x30,
+        SetHotKey = 0x32,
+        SetIcon = 0x80,
+        SetMargins = 0xD3,
+        SetRedraw = 0xB,
+        SetText = 0xC,
+        SetTingChange = 0x1A,
+        ShowWindow = 0x18,
+        Size = 0x5,
+        SizeClipboard = 0x30B,
+        Sizing = 0x214,
+        SpoolerStatus = 0x2A,
+        StyleChanged = 0x7D,
+        StyleChanging = 0x7C,
+        SyncPaint = 0x88,
+        SysChar = 0x106,
+        SysColorChange = 0x15,
+        SysCommand = 0x112,
+        SysDeadChar = 0x107,
+        SysKeyDown = 0x104,
+        SysKeyUp = 0x105,
+        TCard = 0x52,
+        TimeChange = 0x1E,
+        Timer = 0x113,
+        TvmGetEditControl = 0x110F,
+        TvmSetImageList = 0x1109,
+        Undo = 0x304,
+        UnInitMenuPopup = 0x125,
+        User = 0x400,
+        UserChanged = 0x54,
+        VKeyToItem = 0x2E,
+        VScroll = 0x115,
+        VScrollClipboard = 0x30A,
+        WindowPosChanged = 0x47,
+        WindowPosChanging = 0x46,
+        WinIniChange = 0x1A,
+        ShNotify = 0x0401
     }
 
     // Specifies the content of the new menu item

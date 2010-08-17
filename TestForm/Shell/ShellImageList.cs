@@ -31,7 +31,7 @@ namespace Shell
 
         public static Icon GetIcon(int index, bool small)
         {
-            IntPtr iconPtr = ComCtl32.ImageList_GetIcon(small ? SmallImageList : LargeImageList, index, ILD.NORMAL);
+            IntPtr iconPtr = ComCtl32.ImageList_GetIcon(small ? SmallImageList : LargeImageList, index, ILD.Normal);
 
             if (iconPtr != IntPtr.Zero)
             {
@@ -126,27 +126,27 @@ namespace Shell
 
         public static void SetSmallImageList(TreeView treeView)
         {
-            User32.SendMessage(treeView.Handle, WM.TVM_SETIMAGELIST, TVSIL_NORMAL, SmallImageList);
+            User32.SendMessage(treeView.Handle, WM.TvmSetImageList, TVSIL_NORMAL, SmallImageList);
         }
 
         public static void SetSmallImageList(ListView listView)
         {
-            User32.SendMessage(listView.Handle, WM.LVM_SETIMAGELIST, TVSIL_SMALL, SmallImageList);
+            User32.SendMessage(listView.Handle, WM.LvmSetImageList, TVSIL_SMALL, SmallImageList);
         }
 
         public static void Set32SmallImageList(ListView listView)
         {
-            User32.SendMessage(listView.Handle, WM.LVM_SETIMAGELIST, TVSIL_SMALL, LargeImageList);
+            User32.SendMessage(listView.Handle, WM.LvmSetImageList, TVSIL_SMALL, LargeImageList);
         }
 
         public static void SetLargeImageList(ListView listView)
         {
-            User32.SendMessage(listView.Handle, WM.LVM_SETIMAGELIST, TVSIL_NORMAL, LargeImageList);
+            User32.SendMessage(listView.Handle, WM.LvmSetImageList, TVSIL_NORMAL, LargeImageList);
         }
 
         public static void SetLargeImageList(ListView listView, IntPtr handle)
         {
-            User32.SendMessage(listView.Handle, WM.LVM_SETIMAGELIST, TVSIL_NORMAL, handle);
+            User32.SendMessage(listView.Handle, WM.LvmSetImageList, TVSIL_NORMAL, handle);
         }
     }
 }

@@ -90,7 +90,7 @@ namespace Shell
 
         protected override void WndProc(ref Message m)
         {
-            if (m.Msg == (int)WM.SH_NOTIFY)
+            if (m.Msg == (int)WM.ShNotify)
             {
                 SHNOTIFYSTRUCT shNotify = (SHNOTIFYSTRUCT)Marshal.PtrToStructure(m.WParam, typeof(SHNOTIFYSTRUCT));
 
@@ -131,7 +131,7 @@ namespace Shell
             entry.pIdl = ShellHelper.GetPathPIDL(this.Path);
             entry.Recursively = this.IncludeSubdirectories;
 
-            this.notifyId = Shell32.SHChangeNotifyRegister(this.Handle, SHCNRF.NewDelivery | SHCNRF.InterruptLevel | SHCNRF.ShellLevel, SHCNE.ALLEVENTS, WM.SH_NOTIFY, 1, new SHChangeNotifyEntry[] { entry });
+            this.notifyId = Shell32.SHChangeNotifyRegister(this.Handle, SHCNRF.NewDelivery | SHCNRF.InterruptLevel | SHCNRF.ShellLevel, SHCNE.ALLEVENTS, WM.ShNotify, 1, new SHChangeNotifyEntry[] { entry });
         }
 
         private void UnRegisterShellNotify()
