@@ -197,7 +197,7 @@ namespace Shell
                     {
                         if (this.Equals(Browser.DesktopItem) || ParentItem.Equals(Browser.DesktopItem))
                         {
-                            if (ShellFolder.EnumObjects(winHandle, SHCONT.NONFOLDERS | SHCONT.INCLUDEHIDDEN, out fileList) == 0)
+                            if (ShellFolder.EnumObjects(winHandle, SHCONT.NonFolders | SHCONT.IncludeHidden, out fileList) == 0)
                             {                                   
                                 while (fileList.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
                                 {
@@ -225,7 +225,7 @@ namespace Shell
                         }
                         else
                         {
-                            if (ShellFolder.EnumObjects(winHandle, SHCONT.NONFOLDERS | SHCONT.INCLUDEHIDDEN, out fileList) == 0)
+                            if (ShellFolder.EnumObjects(winHandle, SHCONT.NonFolders | SHCONT.IncludeHidden, out fileList) == 0)
                             {
                                 while (fileList.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
                                 {
@@ -241,7 +241,7 @@ namespace Shell
 
                     if (expandFolders)
                     {
-                        if (ShellFolder.EnumObjects(winHandle, SHCONT.FOLDERS | SHCONT.INCLUDEHIDDEN, out folderList) == 0)
+                        if (ShellFolder.EnumObjects(winHandle, SHCONT.Folders | SHCONT.IncludeHidden, out folderList) == 0)
                         {
                             while (folderList.Next(1, out pidlSubItem, out celtFetched) == 0 && celtFetched == 1)
                             {
@@ -334,9 +334,9 @@ namespace Shell
                     IntPtr pidlSubItem;
                     int celtFetched;
 
-                    SHCONT fileFlag = SHCONT.NONFOLDERS | SHCONT.INCLUDEHIDDEN;
+                    SHCONT fileFlag = SHCONT.NonFolders | SHCONT.IncludeHidden;
 
-                    SHCONT folderFlag = SHCONT.FOLDERS | SHCONT.INCLUDEHIDDEN;
+                    SHCONT folderFlag = SHCONT.Folders | SHCONT.IncludeHidden;
 
                     bool[] fileExists;
                     fileExists = new bool[SubFiles.Count];

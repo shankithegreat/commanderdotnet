@@ -23,12 +23,12 @@ namespace Shell
         // Retrieves information about an object in the file system,
         // such as a file, a folder, a directory, or a drive root.
         [DllImport("shell32", EntryPoint = "SHGetFileInfo", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr SHGetFileInfo(string pszPath, FILE_ATTRIBUTE dwFileAttributes, ref ShFileInfo sfi, int cbFileInfo, SHGFI uFlags);
+        public static extern IntPtr SHGetFileInfo(string pszPath, FileAttribute dwFileAttributes, ref ShFileInfo sfi, int cbFileInfo, SHGFI uFlags);
 
         // Retrieves information about an object in the file system,
         // such as a file, a folder, a directory, or a drive root.
         [DllImport("shell32", EntryPoint = "SHGetFileInfo", ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern IntPtr SHGetFileInfo(IntPtr ppidl, FILE_ATTRIBUTE dwFileAttributes, ref ShFileInfo sfi, int cbFileInfo, SHGFI uFlags);
+        public static extern IntPtr SHGetFileInfo(IntPtr ppidl, FileAttribute dwFileAttributes, ref ShFileInfo sfi, int cbFileInfo, SHGFI uFlags);
 
         [DllImport("shell32.dll")]
         public static extern IntPtr SHGetFileInfo(string path, int fileAttributes, ref ShFileInfo psfi, int fileInfo, SHGFI flags);
@@ -210,7 +210,7 @@ namespace Shell
 
         public static DateTime FileTimeToDateTime(FILETIME fileTime)
         {
-            long ticks = (((long)fileTime.dwHighDateTime) << 32) + fileTime.dwLowDateTime;
+            long ticks = (((long)fileTime.HighDateTime) << 32) + fileTime.LowDateTime;
             return DateTime.FromFileTimeUtc(ticks);
         }
     }
@@ -531,8 +531,8 @@ namespace Shell
         [MarshalAs(UnmanagedType.LPWStr)]
         public string pwcsName;
 
-        public STGTY type;
-        public long cbSize;
+        public STGTY Type;
+        public long Size;
         public FILETIME mtime;
         public FILETIME ctime;
         public FILETIME atime;
@@ -547,22 +547,31 @@ namespace Shell
     [StructLayout(LayoutKind.Sequential)]
     public struct FILETIME
     {
-        public int dwLowDateTime;
-        public int dwHighDateTime;
+        public int LowDateTime;
+        
+        public int HighDateTime;
     }
 
     // Defines the x- and y-coordinates of a point
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
     public struct POINT
     {
-        public POINT(int x, int y)
+        public POINT(Point point)
         {
-            this.x = x;
-            this.y = y;
+            this.X = point.X;
+            this.Y = point.Y;
         }
 
-        public int x;
-        public int y;
+        public POINT(int x, int y)
+        {
+            this.X = x;
+            this.Y = y;
+        }
+
+
+        public int X;
+
+        public int Y;
     }
 
     // Defines the coordinates of the upper-left and lower-right corners of a rectangle
@@ -571,24 +580,42 @@ namespace Shell
     {
         public RECT(Rectangle rect)
         {
-            left = rect.Left;
-            top = rect.Top;
-            right = rect.Right;
-            bottom = rect.Bottom;
+            Left = rect.Left;
+            Top = rect.Top;
+            Right = rect.Right;
+            Bottom = rect.Bottom;
         }
 
-        private int left;
-        private int top;
-        private int right;
-        private int bottom;
+
+        public int Left;
+
+        public int Top;
+
+        public int Right;
+
+        public int Bottom;
     }
 
     // The SIZE structure specifies the width and height of a rectangle
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
     public struct SIZE
     {
-        public int cx;
-        public int cy;
+        public SIZE(Size size)
+        {
+            this.Width = size.Width;
+            this.Height = size.Height;
+        }
+
+        public SIZE(int width, int height)
+        {
+            this.Width = width;
+            this.Height = height;
+        }
+
+
+        public int Width;
+
+        public int Height;
     }
 
     public enum CSIDL
@@ -723,41 +750,41 @@ namespace Shell
     [Flags]
     public enum SHCONT
     {
-        FOLDERS = 0x0020,
-        NONFOLDERS = 0x0040,
-        INCLUDEHIDDEN = 0x0080,
-        INIT_ON_FIRST_NEXT = 0x0100,
-        NETPRINTERSRCH = 0x0200,
-        SHAREABLE = 0x0400,
-        STORAGE = 0x0800,
+        Folders = 0x0020,
+        NonFolders = 0x0040,
+        IncludeHidden = 0x0080,
+        InitOnFirstNext = 0x0100,
+        NetPrintersrch = 0x0200,
+        Shareable = 0x0400,
+        Storage = 0x0800,
     }
 
     // Specifies how the shortcut menu can be changed when calling IContextMenu::QueryContextMenu
     [Flags]
     public enum CMF : uint
     {
-        NORMAL = 0x00000000,
-        DEFAULTONLY = 0x00000001,
-        VERBSONLY = 0x00000002,
-        EXPLORE = 0x00000004,
-        NOVERBS = 0x00000008,
-        CANRENAME = 0x00000010,
-        NODEFAULT = 0x00000020,
-        INCLUDESTATIC = 0x00000040,
-        EXTENDEDVERBS = 0x00000100,
-        RESERVED = 0xffff0000
+        Normal = 0x00000000,
+        DefaultOnly = 0x00000001,
+        VerbsOnly = 0x00000002,
+        Explore = 0x00000004,
+        NoVerbs = 0x00000008,
+        CanRename = 0x00000010,
+        NodeFault = 0x00000020,
+        IncludeStatic = 0x00000040,
+        ExtendedVerbs = 0x00000100,
+        Reserved = 0xffff0000
     }
 
     // Flags specifying the information to return when calling IContextMenu::GetCommandString
     [Flags]
     public enum GCS : uint
     {
-        VERBA = 0,
-        HELPTEXTA = 1,
-        VALIDATEA = 2,
-        VERBW = 4,
-        HELPTEXTW = 5,
-        VALIDATEW = 6
+        VerbA = 0,
+        HelpTextA = 1,
+        ValidateA = 2,
+        VerbW = 4,
+        HelpTextW = 5,
+        ValidateW = 6
     }
 
     // Flags that specify the file information to retrieve with SHGetFileInfo
@@ -840,22 +867,22 @@ namespace Shell
 
     // Flags that specify the file information to retrieve with SHGetFileInfo
     [Flags]
-    public enum FILE_ATTRIBUTE
+    public enum FileAttribute
     {
-        READONLY = 0x00000001,
-        HIDDEN = 0x00000002,
-        SYSTEM = 0x00000004,
-        DIRECTORY = 0x00000010,
-        ARCHIVE = 0x00000020,
-        DEVICE = 0x00000040,
-        NORMAL = 0x00000080,
-        TEMPORARY = 0x00000100,
-        SPARSE_FILE = 0x00000200,
-        REPARSE_POINT = 0x00000400,
-        COMPRESSED = 0x00000800,
-        OFFLINE = 0x00001000,
-        NOT_CONTENT_INDEXED = 0x00002000,
-        ENCRYPTED = 0x00004000
+        ReadOnly = 0x00000001,
+        Hidden = 0x00000002,
+        System = 0x00000004,
+        Directory = 0x00000010,
+        Archive = 0x00000020,
+        Device = 0x00000040,
+        Normal = 0x00000080,
+        Temporary = 0x00000100,
+        SParseFile = 0x00000200,
+        ReparsePoint = 0x00000400,
+        Compressed = 0x00000800,
+        Offline = 0x00001000,
+        NotContentIndexed = 0x00002000,
+        Encrypted = 0x00004000
     }
 
     // Specifies how TrackPopupMenuEx positions the shortcut menu horizontally
@@ -1361,80 +1388,97 @@ namespace Shell
     [Flags]
     public enum STATFLAG
     {
-        DEFAULT = 0,
-        NONAME = 1,
-        NOOPEN = 2
+        Default = 0,
+        NoName = 1,
+        NoOpen = 2
     }
 
     // Indicate the type of locking requested for the specified range of bytes
     [Flags]
     public enum LOCKTYPE
     {
-        WRITE = 1,
-        EXCLUSIVE = 2,
-        ONLYONCE = 4
+        Write = 1,
+        Exclusive = 2,
+        OnlyOnce = 4
     }
 
     // Used in the type member of the STATSTG structure to indicate the type of the storage element
     public enum STGTY
     {
-        STORAGE = 1,
-        STREAM = 2,
-        LOCKBYTES = 3,
-        PROPERTY = 4
+        Storage = 1,
+        Stream = 2,
+        LockBytes = 3,
+        Property = 4
     }
 
     // Indicate conditions for creating and deleting the object and access modes for the object
     [Flags]
     public enum STGM
     {
-        DIRECT = 0x00000000,
-        TRANSACTED = 0x00010000,
-        SIMPLE = 0x08000000,
-        READ = 0x00000000,
-        WRITE = 0x00000001,
-        READWRITE = 0x00000002,
-        SHARE_DENY_NONE = 0x00000040,
-        SHARE_DENY_READ = 0x00000030,
-        SHARE_DENY_WRITE = 0x00000020,
-        SHARE_EXCLUSIVE = 0x00000010,
-        PRIORITY = 0x00040000,
-        DELETEONRELEASE = 0x04000000,
-        NOSCRATCH = 0x00100000,
-        CREATE = 0x00001000,
-        CONVERT = 0x00020000,
-        FAILIFTHERE = 0x00000000,
-        NOSNAPSHOT = 0x00200000,
-        DIRECT_SWMR = 0x00400000,
+        Direct = 0x00000000,
+        Transacted = 0x00010000,
+        Simple = 0x08000000,
+        Read = 0x00000000,
+        Write = 0x00000001,
+        ReadWrite = 0x00000002,
+        ShareDenyNone = 0x00000040,
+        ShareDenyRead = 0x00000030,
+        ShareDenyWrite = 0x00000020,
+        ShareExclusive = 0x00000010,
+        Priority = 0x00040000,
+        DeleteOnRelease = 0x04000000,
+        Noscratch = 0x00100000,
+        Create = 0x00001000,
+        Convert = 0x00020000,
+        FailIfThere = 0x00000000,
+        NoSnapsHot = 0x00200000,
+        DirectSwmr = 0x00400000,
     }
 
     // Indicate whether a storage element is to be moved or copied
     public enum STGMOVE
     {
-        MOVE = 0,
-        COPY = 1,
-        SHALLOWCOPY = 2
+        Move = 0,
+        Copy = 1,
+        ShallowCopy = 2
     }
 
     // Specify the conditions for performing the commit operation in the IStorage::Commit and IStream::Commit methods
     [Flags]
     public enum STGC
     {
-        DEFAULT = 0,
-        OVERWRITE = 1,
-        ONLYIFCURRENT = 2,
-        DANGEROUSLYCOMMITMERELYTODISKCACHE = 4,
-        CONSOLIDATE = 8
+        Default = 0,
+        /// <summary>
+        /// The commit operation can overwrite existing data to reduce overall space requirements. This value is not recommended for typical usage because it is not as robust as the default value. In this case, it is possible for the commit operation to fail after the old data is overwritten, but before the new data is completely committed. Then, neither the old version nor the new version of the storage object will be intact.
+        /// You can use this value in the following cases:
+        ///    - The user is willing to risk losing the data.
+        ///    - The low-memory save sequence will be used to safely save the storage object to a smaller file.
+        ///    - A previous commit returned STG_E_MEDIUMFULL, but overwriting the existing data would provide enough space to commit changes to the storage object.
+        /// Be aware that the commit operation verifies that adequate space exists before any overwriting occurs. Thus, even with this value specified, if the commit operation fails due to space requirements, the old data is safe. It is possible, however, for data loss to occur with the STGC_OVERWRITE value specified if the commit operation fails for any reason other than lack of disk space.
+        /// </summary>
+        Overwrite = 1,
+        /// <summary>
+        /// Prevents multiple users of a storage object from overwriting each other's changes. The commit operation occurs only if there have been no changes to the saved storage object because the user most recently opened it. Thus, the saved version of the storage object is the same version that the user has been editing. If other users have changed the storage object, the commit operation fails and returns the STG_E_NOTCURRENT value. To override this behavior, call the IStorage::Commit or IStream::Commit method again using the STGC_DEFAULT value.
+        /// </summary>
+        OnlyIfCurrent = 2,
+        /// <summary>
+        /// Commits the changes to a write-behind disk cache, but does not save the cache to the disk. In a write-behind disk cache, the operation that writes to disk actually writes to a disk cache, thus increasing performance. The cache is eventually written to the disk, but usually not until after the write operation has already returned. The performance increase comes at the expense of an increased risk of losing data if a problem occurs before the cache is saved and the data in the cache is lost. 
+        /// </summary>
+        DangerouslyCommitMerelyToDiskCache = 4,
+        /// <summary>
+        /// Indicates that a storage should be consolidated after it is committed, resulting in a smaller file on disk. This flag is valid only on the outermost storage object that has been opened in transacted mode. It is not valid for streams. The STGC_CONSOLIDATE flag can be combined with any other STGC flags.
+        /// </summary>
+        Consolidate = 8
     }
 
     // Directing the handling of the item from which you're retrieving the info tip text
     [Flags]
     public enum QITIPF
     {
-        DEFAULT = 0x00000,
-        USENAME = 0x00001,
-        LINKNOTARGET = 0x00002,
-        LINKUSETARGET = 0x00004,
-        USESLOWTIP = 0x00008
+        Default = 0x00000,
+        UseName = 0x00001,
+        LinkNoTarget = 0x00002,
+        LinkUseTarget = 0x00004,
+        UsesLowTip = 0x00008
     }
 }

@@ -19,8 +19,8 @@ namespace Shell
         {
             ShFileInfo fileInfo = new ShFileInfo();
 
-            SmallImageList = Shell32.SHGetFileInfo(".txt", FILE_ATTRIBUTE.NORMAL, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.UseFileAttributes | SHGFI.SysIconIndex | SHGFI.SmallIcon);
-            LargeImageList = Shell32.SHGetFileInfo(".txt", FILE_ATTRIBUTE.NORMAL, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.UseFileAttributes | SHGFI.SysIconIndex | SHGFI.LargeIcon);
+            SmallImageList = Shell32.SHGetFileInfo(".txt", FileAttribute.Normal, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.UseFileAttributes | SHGFI.SysIconIndex | SHGFI.SmallIcon);
+            LargeImageList = Shell32.SHGetFileInfo(".txt", FileAttribute.Normal, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.UseFileAttributes | SHGFI.SysIconIndex | SHGFI.LargeIcon);
         }
 
 
@@ -51,7 +51,7 @@ namespace Shell
             int result; // The returned Index
 
             SHGFI flag = SHGFI.SysIconIndex | SHGFI.Pidl | SHGFI.Icon;
-            FILE_ATTRIBUTE attribute = 0;
+            FileAttribute attribute = 0;
 
             // build Key into HashTable for this Item
             int Key = index * 256;
@@ -89,7 +89,7 @@ namespace Shell
                 if (item.IsFileSystem & !item.IsDisk & !item.IsFolder)
                 {
                     flag = flag | SHGFI.UseFileAttributes;
-                    attribute = attribute | FILE_ATTRIBUTE.NORMAL;
+                    attribute = attribute | FileAttribute.Normal;
                 }
 
                 Pidl pidl = item.PIDLFull;

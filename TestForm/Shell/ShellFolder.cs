@@ -133,7 +133,7 @@ namespace Shell
 
 
             IEnumIDList list;
-            folder.EnumObjects(IntPtr.Zero, SHCONT.INIT_ON_FIRST_NEXT | SHCONT.NONFOLDERS | SHCONT.STORAGE | SHCONT.SHAREABLE | SHCONT.FOLDERS | SHCONT.INCLUDEHIDDEN, out list);
+            folder.EnumObjects(IntPtr.Zero, SHCONT.InitOnFirstNext | SHCONT.NonFolders | SHCONT.Storage | SHCONT.Shareable | SHCONT.Folders | SHCONT.IncludeHidden, out list);
 
             IntPtr pidl;
             int numItemsReturned;

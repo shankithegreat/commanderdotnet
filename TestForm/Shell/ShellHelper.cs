@@ -469,7 +469,7 @@ namespace Shell
             {
                 // Check Copy
                 DragDropEffects effects = DragDropEffects.Copy;
-                if (target.DragEnter(dataObject, MK.CONTROL, new POINT(0, 0), ref effects) == 0)
+                if (target.DragEnter(dataObject, MK.CONTROL, new POINT(), ref effects) == 0)
                 {
                     if (effects == DragDropEffects.Copy)
                     {
@@ -481,7 +481,7 @@ namespace Shell
 
                 // Check Move
                 effects = DragDropEffects.Move;
-                if (target.DragEnter(dataObject, MK.SHIFT, new POINT(0, 0), ref effects) == 0)
+                if (target.DragEnter(dataObject, MK.SHIFT, new POINT(), ref effects) == 0)
                 {
                     if (effects == DragDropEffects.Move)
                     {
@@ -493,7 +493,7 @@ namespace Shell
 
                 // Check Lick
                 effects = DragDropEffects.Link;
-                if (target.DragEnter(dataObject, MK.ALT, new POINT(0, 0), ref effects) == 0)
+                if (target.DragEnter(dataObject, MK.ALT, new POINT(), ref effects) == 0)
                 {
                     if (effects == DragDropEffects.Link)
                     {
