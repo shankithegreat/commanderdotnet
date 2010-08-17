@@ -43,7 +43,7 @@ namespace TestForm
 
             iContextMenu.GetCommandString(
                                           idcmd,
-                                          (executeString ? GCS.VERBA : GCS.HELPTEXTA),
+                                          (executeString ? GCS.VerbA : GCS.HelpTextA),
                                           0,
                                           bytes,
                                           ShellApi.MaxPath);
@@ -77,7 +77,7 @@ namespace TestForm
 
             iContextMenu.GetCommandString(
                                             idcmd,
-                                            (executeString ? GCS.VERBW : GCS.HELPTEXTW),
+                                            (executeString ? GCS.VerbW : GCS.HelpTextW),
                                             0,
                                             bytes,
                                             ShellApi.MaxPath);
@@ -116,7 +116,7 @@ namespace TestForm
             invoke.fMask = CMIC.UNICODE | CMIC.PTINVOKE |
                 ((Control.ModifierKeys & Keys.Control) != 0 ? CMIC.CONTROL_DOWN : 0) |
                 ((Control.ModifierKeys & Keys.Shift) != 0 ? CMIC.SHIFT_DOWN : 0);
-            invoke.ptInvoke = new POINT(ptInvoke.X, ptInvoke.Y);
+            invoke.ptInvoke = new POINT(ptInvoke);
             invoke.nShow = SW.SHOWNORMAL;
 
             iContextMenu.InvokeCommand(ref invoke);
@@ -140,7 +140,7 @@ namespace TestForm
             invoke.fMask = CMIC.UNICODE | CMIC.PTINVOKE |
                 ((Control.ModifierKeys & Keys.Control) != 0 ? CMIC.CONTROL_DOWN : 0) |
                 ((Control.ModifierKeys & Keys.Shift) != 0 ? CMIC.SHIFT_DOWN : 0);
-            invoke.ptInvoke = new POINT(ptInvoke.X, ptInvoke.Y);
+            invoke.ptInvoke = new POINT(ptInvoke);
             invoke.nShow = SW.SHOWNORMAL;
 
             iContextMenu.InvokeCommand(ref invoke);

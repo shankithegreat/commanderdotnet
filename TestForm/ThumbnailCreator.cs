@@ -135,7 +135,7 @@ namespace TestForm
                         IEnumIDList idEnum = null;
                         try
                         {
-                            item.EnumObjects(IntPtr.Zero, (SHCONT.FOLDERS | SHCONT.NONFOLDERS), ref idEnum);
+                            item.EnumObjects(IntPtr.Zero, (SHCONT.Folders | SHCONT.NonFolders), ref idEnum);
                         }
                         catch
                         {
@@ -208,7 +208,7 @@ namespace TestForm
                     if (extractImage != null)
                     {
                         //Got an IExtractImage object!
-                        SIZE size = new SIZE { cx = this.DesiredSize.Width, cy = this.DesiredSize.Height };
+                        SIZE size = new SIZE(this.DesiredSize);
                         StringBuilder location = new StringBuilder(260, 260);
                         int priority = 0;
                         const int requestedColourDepth = 32;

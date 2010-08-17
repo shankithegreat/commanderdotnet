@@ -50,7 +50,7 @@ namespace TestForm
                 if (ContextMenuHelper.GetIContextMenu(parentShellFolder, pidls, out iContextMenuPtr, out iContextMenu))
                 {
                     contextMenu = User32.CreatePopupMenu();
-                    iContextMenu.QueryContextMenu(contextMenu, 0, ShellApi.CmdFirst, ShellApi.CmdLast, CMF.EXPLORE | CMF.CANRENAME | ((Control.ModifierKeys & Keys.Shift) != 0 ? CMF.EXTENDEDVERBS : 0));
+                    iContextMenu.QueryContextMenu(contextMenu, 0, ShellApi.CmdFirst, ShellApi.CmdLast, CMF.Explore | CMF.CanRename | ((Control.ModifierKeys & Keys.Shift) != 0 ? CMF.ExtendedVerbs : 0));
 
                     Marshal.QueryInterface(iContextMenuPtr, ref ShellGuids.IContextMenu2, out iContextMenuPtr2);
                     Marshal.QueryInterface(iContextMenuPtr, ref ShellGuids.IContextMenu3, out iContextMenuPtr3);
@@ -269,7 +269,7 @@ namespace TestForm
             {
                 if (ContextMenuHelper.GetIContextMenu(parentShellFolder, pidls, out icontextMenuPtr, out iContextMenu))
                 {
-                    iContextMenu.QueryContextMenu(contextMenu.Handle, 0, ShellApi.CmdFirst, ShellApi.CmdLast, CMF.DEFAULTONLY);
+                    iContextMenu.QueryContextMenu(contextMenu.Handle, 0, ShellApi.CmdFirst, ShellApi.CmdLast, CMF.DefaultOnly);
 
                     int defaultCommand = User32.GetMenuDefaultItem(contextMenu.Handle, false, 0);
                     if (defaultCommand >= ShellApi.CmdFirst)
