@@ -694,8 +694,8 @@ namespace Shell
     [Flags]
     public enum SHGFP
     {
-        TYPE_CURRENT = 0,
-        TYPE_DEFAULT = 1
+        TypeCurrent = 0,
+        TypeDefault = 1
     }
 
     // The attributes that the caller is requesting, when calling IShellFolder::GetAttributesOf
@@ -1168,202 +1168,202 @@ namespace Shell
     [Flags]
     public enum MFT : uint
     {
-        GRAYED = 0x00000003,
-        DISABLED = 0x00000003,
-        CHECKED = 0x00000008,
-        SEPARATOR = 0x00000800,
-        RADIOCHECK = 0x00000200,
-        BITMAP = 0x00000004,
-        OWNERDRAW = 0x00000100,
-        MENUBARBREAK = 0x00000020,
-        MENUBREAK = 0x00000040,
-        RIGHTORDER = 0x00002000,
-        BYCOMMAND = 0x00000000,
-        BYPOSITION = 0x00000400,
-        POPUP = 0x00000010
+        Grayed = 0x00000003,
+        Disabled = 0x00000003,
+        Checked = 0x00000008,
+        Separator = 0x00000800,
+        RadioCheck = 0x00000200,
+        Bitmap = 0x00000004,
+        Ownerdraw = 0x00000100,
+        MenuBarBreak = 0x00000020,
+        MenuBreak = 0x00000040,
+        RightOrder = 0x00002000,
+        ByCommand = 0x00000000,
+        ByPosition = 0x00000400,
+        Popup = 0x00000010
     }
 
     // Specifies the state of the new menu item
     [Flags]
     public enum MFS : uint
     {
-        GRAYED = 0x00000003,
-        DISABLED = 0x00000003,
-        CHECKED = 0x00000008,
-        HILITE = 0x00000080,
-        ENABLED = 0x00000000,
-        UNCHECKED = 0x00000000,
-        UNHILITE = 0x00000000,
-        DEFAULT = 0x00001000
+        Grayed = 0x00000003,
+        Disabled = 0x00000003,
+        Checked = 0x00000008,
+        Hilite = 0x00000080,
+        Enabled = 0x00000000,
+        Unchecked = 0x00000000,
+        Unhilite = 0x00000000,
+        Default = 0x00001000
     }
 
     // Specifies the content of the new menu item
     [Flags]
     public enum MIIM : uint
     {
-        BITMAP = 0x80,
-        CHECKMARKS = 0x08,
-        DATA = 0x20,
-        FTYPE = 0x100,
-        ID = 0x02,
-        STATE = 0x01,
-        STRING = 0x40,
-        SUBMENU = 0x04,
-        TYPE = 0x10
+        Bitmap = 0x80,
+        CheckMarks = 0x08,
+        Data = 0x20,
+        FType = 0x100,
+        Id = 0x02,
+        State = 0x01,
+        String = 0x40,
+        Submenu = 0x04,
+        Type = 0x10
     }
 
     // Particular clipboard format of interest. 
     // There are three types of formats recognized by OLE
     public enum CF
     {
-        BITMAP = 2,
-        DIB = 8,
-        DIF = 5,
-        DSPBITMAP = 130,
-        DSPENHMETAFILE = 0x8e,
-        DSPMETAFILEPICT = 0x83,
-        DSPTEXT = 0x81,
-        ENHMETAFILE = 14,
-        GDIOBJFIRST = 0x300,
-        GDIOBJLAST = 0x3ff,
-        HDROP = 15,
-        LOCALE = 0x10,
-        MAX = 0x11,
-        METAFILEPICT = 3,
-        OEMTEXT = 7,
-        OWNERDISPLAY = 0x80,
-        PALETTE = 9,
-        PENDATA = 10,
-        PRIVATEFIRST = 0x200,
-        PRIVATELAST = 0x2ff,
-        RIFF = 11,
-        SYLK = 4,
-        TEXT = 1,
-        TIFF = 6,
-        UNICODETEXT = 13,
-        WAVE = 12
+        Bitmap = 2,
+        Dib = 8,
+        Dif = 5,
+        DspBitmap = 130,
+        DspEnhMetaFile = 0x8e,
+        DspMetaFilePict = 0x83,
+        DspText = 0x81,
+        EnhMetaFile = 14,
+        GdiObjFirst = 0x300,
+        GdiObjLast = 0x3ff,
+        HDrop = 15,
+        Locale = 0x10,
+        Max = 0x11,
+        MetaFilePict = 3,
+        OemText = 7,
+        OwnerDisplay = 0x80,
+        Palette = 9,
+        PenData = 10,
+        PrivateFirst = 0x200,
+        PrivateLast = 0x2ff,
+        Riff = 11,
+        Sylk = 4,
+        Text = 1,
+        Tiff = 6,
+        UnicodeText = 13,
+        Wave = 12
     }
 
     // Specifies the desired data or view aspect of the object when drawing or getting data
     [Flags]
     public enum DVASPECT
     {
-        CONTENT = 1,
-        DOCPRINT = 8,
-        ICON = 4,
-        THUMBNAIL = 2
+        Content = 1,
+        DocPrint = 8,
+        Icon = 4,
+        Thumbnail = 2
     }
 
     // Indicates the type of storage medium being used in a data transfer
     [Flags]
     public enum TYMED
     {
-        ENHMF = 0x40,
-        FILE = 2,
-        GDI = 0x10,
-        HGLOBAL = 1,
-        ISTORAGE = 8,
-        ISTREAM = 4,
-        MFPICT = 0x20,
-        NULL = 0
+        EnhMf = 0x40,
+        File = 2,
+        Gdi = 0x10,
+        HGlobal = 1,
+        Storage = 8,
+        Stream = 4,
+        MfPict = 0x20,
+        Null = 0
     }
 
     // Specifies a group of flags for controlling the advisory connection
     [Flags]
     public enum ADVF
     {
-        CACHE_FORCEBUILTIN = 0x10,
-        CACHE_NOHANDLER = 8,
-        CACHE_ONSAVE = 0x20,
-        DATAONSTOP = 0x40,
-        NODATA = 1,
-        ONLYONCE = 4,
-        PRIMEFIRST = 2
+        CacheForceBuiltIn = 0x10,
+        CacheNoHandler = 8,
+        CacheOnSave = 0x20,
+        DataOnStop = 0x40,
+        NoData = 1,
+        OnlyOnce = 4,
+        PrimeFirst = 2
     }
 
     // Flags indicating which mouse buttons are clicked and which modifier keys are pressed
     [Flags]
     public enum MK
     {
-        LBUTTON = 0x0001,
-        RBUTTON = 0x0002,
-        SHIFT = 0x0004,
-        CONTROL = 0x0008,
-        MBUTTON = 0x0010,
-        ALT = 0x0020
+        LButton = 0x0001,
+        RButton = 0x0002,
+        Shift = 0x0004,
+        Control = 0x0008,
+        MButton = 0x0010,
+        Alt = 0x0020
     }
 
     // Are used in activation calls to indicate the execution contexts in which an object is to be run
     [Flags]
     public enum CLSCTX : uint
     {
-        INPROC_SERVER = 0x1,
-        INPROC_HANDLER = 0x2,
-        LOCAL_SERVER = 0x4,
-        INPROC_SERVER16 = 0x8,
-        REMOTE_SERVER = 0x10,
-        INPROC_HANDLER16 = 0x20,
-        RESERVED1 = 0x40,
-        RESERVED2 = 0x80,
-        RESERVED3 = 0x100,
-        RESERVED4 = 0x200,
-        NO_CODE_DOWNLOAD = 0x400,
-        RESERVED5 = 0x800,
-        NO_CUSTOM_MARSHAL = 0x1000,
-        ENABLE_CODE_DOWNLOAD = 0x2000,
-        NO_FAILURE_LOG = 0x4000,
-        DISABLE_AAA = 0x8000,
-        ENABLE_AAA = 0x10000,
-        FROM_DEFAULT_CONTEXT = 0x20000,
-        INPROC = INPROC_SERVER | INPROC_HANDLER,
-        SERVER = INPROC_SERVER | LOCAL_SERVER | REMOTE_SERVER,
-        ALL = SERVER | INPROC_HANDLER
+        InProcServer = 0x1,
+        InProcHandler = 0x2,
+        LocalServer = 0x4,
+        InProcServer16 = 0x8,
+        RemoteServer = 0x10,
+        InProcHandler16 = 0x20,
+        Reserved1 = 0x40,
+        Reserved2 = 0x80,
+        Reserved3 = 0x100,
+        Reserved4 = 0x200,
+        NoCodeDownload = 0x400,
+        Reserved5 = 0x800,
+        NoCustomMarshal = 0x1000,
+        EnableCodeDownload = 0x2000,
+        NoFailureLog = 0x4000,
+        DisableAaa = 0x8000,
+        EnableAaa = 0x10000,
+        FromDefaultContext = 0x20000,
+        Inproc = InProcServer | InProcHandler,
+        Server = InProcServer | LocalServer | RemoteServer,
+        All = Server | InProcHandler
     }
 
     // Describes the event that has occurred
     [Flags]
     public enum SHCNE : uint
     {
-        RENAMEITEM = 0x00000001,
-        CREATE = 0x00000002,
-        DELETE = 0x00000004,
-        MKDIR = 0x00000008,
-        RMDIR = 0x00000010,
-        MEDIAINSERTED = 0x00000020,
-        MEDIAREMOVED = 0x00000040,
-        DRIVEREMOVED = 0x00000080,
-        DRIVEADD = 0x00000100,
-        NETSHARE = 0x00000200,
-        NETUNSHARE = 0x00000400,
-        ATTRIBUTES = 0x00000800,
-        UPDATEDIR = 0x00001000,
-        UPDATEITEM = 0x00002000,
-        SERVERDISCONNECT = 0x00004000,
-        UPDATEIMAGE = 0x00008000,
-        DRIVEADDGUI = 0x00010000,
-        RENAMEFOLDER = 0x00020000,
-        FREESPACE = 0x00040000,
-        EXTENDED_EVENT = 0x04000000,
-        ASSOCCHANGED = 0x08000000,
-        DISKEVENTS = 0x0002381F,
-        GLOBALEVENTS = 0x0C0581E0,
-        ALLEVENTS = 0x7FFFFFFF,
-        INTERRUPT = 0x80000000
+        RenameItem = 0x00000001,
+        Create = 0x00000002,
+        Delete = 0x00000004,
+        MkDir = 0x00000008,
+        RmDir = 0x00000010,
+        MediaInserted = 0x00000020,
+        MediaRemoved = 0x00000040,
+        DriveRemoved = 0x00000080,
+        DriveAdd = 0x00000100,
+        NetShare = 0x00000200,
+        NetUnshare = 0x00000400,
+        Attributes = 0x00000800,
+        UpdateDir = 0x00001000,
+        UpdateItem = 0x00002000,
+        ServerDisconnect = 0x00004000,
+        UpdateImage = 0x00008000,
+        DriveAddGui = 0x00010000,
+        RenameFolder = 0x00020000,
+        FreeSpace = 0x00040000,
+        ExtendedEvent = 0x04000000,
+        AssocChanged = 0x08000000,
+        DiskEvents = 0x0002381F,
+        GlobalEvents = 0x0C0581E0,
+        AllEvents = 0x7FFFFFFF,
+        Interrupt = 0x80000000
     }
 
     // Flags that indicate the meaning of the dwItem1 and dwItem2 parameters
     [Flags]
     public enum SHCNF
     {
-        IDLIST = 0x0000,
-        PATHA = 0x0001,
-        PRINTERA = 0x0002,
-        DWORD = 0x0003,
-        PATHW = 0x0005,
-        PRINTERW = 0x0006,
-        TYPE = 0x00FF,
-        FLUSH = 0x1000,
-        FLUSHNOWAIT = 0x2000
+        IdList = 0x0000,
+        PathA = 0x0001,
+        PrinterA = 0x0002,
+        Dword = 0x0003,
+        PathW = 0x0005,
+        PrinterW = 0x0006,
+        Type = 0x00FF,
+        Flush = 0x1000,
+        FlushNoWait = 0x2000
     }
 
     // Indicate the type of events for which to receive notifications

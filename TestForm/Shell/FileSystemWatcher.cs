@@ -96,8 +96,8 @@ namespace Shell
 
                 switch ((SHCNE)m.LParam)
                 {
-                    case SHCNE.MKDIR:
-                    case SHCNE.UPDATEDIR:
+                    case SHCNE.MkDir:
+                    case SHCNE.UpdateDir:
                         {
                             OnChanged();
                             break;
@@ -131,7 +131,7 @@ namespace Shell
             entry.pIdl = ShellHelper.GetPathPIDL(this.Path);
             entry.Recursively = this.IncludeSubdirectories;
 
-            this.notifyId = Shell32.SHChangeNotifyRegister(this.Handle, SHCNRF.NewDelivery | SHCNRF.InterruptLevel | SHCNRF.ShellLevel, SHCNE.ALLEVENTS, WM.ShNotify, 1, new SHChangeNotifyEntry[] { entry });
+            this.notifyId = Shell32.SHChangeNotifyRegister(this.Handle, SHCNRF.NewDelivery | SHCNRF.InterruptLevel | SHCNRF.ShellLevel, SHCNE.AllEvents, WM.ShNotify, 1, new[] { entry });
         }
 
         private void UnRegisterShellNotify()
