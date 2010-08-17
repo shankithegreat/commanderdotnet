@@ -344,19 +344,19 @@ namespace Shell
     public struct STRRET
     {
         [FieldOffset(0)]
-        public uint uType;
+        public uint Type;
 
         [FieldOffset(4)]
-        public IntPtr pOleStr;
+        public IntPtr OleStringPtr;
 
         [FieldOffset(4)]
-        public IntPtr pStr;
+        public IntPtr StringPtr;
 
         [FieldOffset(4)]
-        public uint uOffset;
+        public uint Offset;
 
         [FieldOffset(4)]
-        public IntPtr cStr;
+        public IntPtr String;
     }
 
     // Contains information about a file object

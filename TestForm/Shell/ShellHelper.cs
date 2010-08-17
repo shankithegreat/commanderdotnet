@@ -10,7 +10,7 @@ namespace Shell
 {
     public static class ShellHelper
     {
-        private static HandleRef nullHandleRef;
+        private static readonly HandleRef nullHandleRef;
 
 
         public static Icon ExtractAssociatedIcon(string path)
