@@ -9,19 +9,8 @@ namespace TestForm
 {
     public class MessageDispatcher
     {
-        private static int countOfDispatchers;
-        private Dictionary<Type, List<MessageCaller>> events = new Dictionary<Type, List<MessageCaller>>();
-
-
-        public MessageDispatcher()
-        {
-            this.Number = countOfDispatchers++;
-        }
-
-
+        private Dictionary<Type, List<MessageInfo>> events = new Dictionary<Type, List<MessageInfo>>();
         public readonly static MessageDispatcher Dispatcher = new MessageDispatcher();
-
-        public int Number { get; private set; }
 
 
         public void Subscribe(object obj)
@@ -31,90 +20,80 @@ namespace TestForm
             foreach (MethodInfo member in type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance))
             {
                 var attributes = member.GetCustomAttributes(typeof(MessageAttribute), true);
-                if (attributes.Length == 0)
-                {
-                    continue;
-                }
 
-                foreach (object attribute in attributes)
+                foreach (MessageAttribute attribute in attributes)
                 {
-                    var types = member.GetParameters();
+                    ParameterInfo[] parameters = member.GetParameters();
 
-                    if (types.Length != 1)
+                    if (parameters.Length != 1)
+                    {
+                        throw new ArgumentException();
+                    }
+                    if (parameters[0].ParameterType != attribute.ArgumentType)
                     {
                         throw new ArgumentException();
                     }
 
-                    if (types[0].ParameterType != ((MessageAttribute)attribute).ArgumentType)
-                    {
-                        throw new ArgumentException();
-                    }
+                    List<MessageInfo> callList = GetEventList(attribute.GetType());
 
-                    List<MessageCaller> callList = GetCallList(attribute.GetType());
-
-                    callList.Add(new MessageCaller(obj, member));
+                    callList.Add(new MessageInfo(obj, member));
                 }
             }
         }
 
         public void Invoke(MessageAttribute attribute)
         {
-            Invoke(attribute, null);
+            Invoke(attribute, new MessageArgs());
         }
 
         public void Invoke(MessageAttribute attribute, MessageArgs param)
         {
-            // Check values;
             if (param == null)
             {
-                param = new MessageArgs();
+                throw new ArgumentNullException();
             }
-
             if (attribute.ArgumentType != param.GetType())
             {
                 throw new ArgumentException("Invalid parameter argument type");
             }
 
-            List<MessageCaller> callList = GetCallList(attribute.GetType());
+            List<MessageInfo> callList = GetEventList(attribute.GetType());
 
+            // Clean
             callList.RemoveAll(val => !val.IsAlive);
 
             bool allAlive = true;
-            foreach (var item in callList)
+            foreach (MessageInfo item in callList)
             {
-                allAlive &= item.Call(new object[] { param });
+                allAlive &= item.Call(param);
             }
 
+            // Clean
             if (!allAlive)
             {
                 callList.RemoveAll(val => !val.IsAlive);
             }
         }
 
-        public override string ToString()
-        {
-            return "Number of dispatcher = " + this.Number;
-        }
 
-
-        private List<MessageCaller> GetCallList(Type type)
+        private List<MessageInfo> GetEventList(Type type)
         {
             if (!events.ContainsKey(type))
             {
-                events.Add(type, new List<MessageCaller>());
+                events.Add(type, new List<MessageInfo>());
             }
 
             return events[type];
         }
 
 
-        private class MessageCaller
+        private class MessageInfo
         {
             private MethodInfo method;
             private WeakReference reference;
 
 
-            public MessageCaller(object target, MethodInfo method)
+            public MessageInfo(object target, MethodInfo method)
             {
                 this.reference = new WeakReference(target);
                 this.method = method;
@@ -124,13 +103,13 @@ namespace TestForm
             public bool IsAlive { get { return reference.IsAlive; } }
 
 
-            public bool Call(object[] parameters)
+            public bool Call(object param)
             {
                 try
                 {
                     object target = reference.Target;
 
-                    method.Invoke(target, parameters);
+                    method.Invoke(target, new[] { param });
 
                     return true;
                 }
