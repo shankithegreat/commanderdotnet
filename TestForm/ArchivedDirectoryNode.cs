@@ -23,6 +23,7 @@ namespace TestForm
             this.list = list;
         }
 
+
         public override bool AllowOpen { get { return true; } set { base.AllowOpen = value; } }
 
         public override FileSystemNode[] ChildNodes { get { return base.ChildNodes ?? (base.ChildNodes = GetChildNodes()); } set { base.ChildNodes = value; } }
@@ -30,6 +31,12 @@ namespace TestForm
         public string InternalPath { get; private set; }
 
         public virtual bool IsVirtual { get { return true; } }
+
+
+        public override int GetImageIndex()
+        {
+            return ShellHelper.GetLargeAssociatedIconIndex("*", FileAttributes.Directory | FileAttributes.Normal);
+        }
 
 
         private FileSystemNode[] GetChildNodes()
@@ -67,11 +74,6 @@ namespace TestForm
             }
 
             return result.ToArray();
-        }
-
-        public override int GetImageIndex()
-        {
-            return ShellHelper.GetLargeAssociatedIconIndex("*", FileAttributes.Directory | FileAttributes.Normal);
         }
     }
 }
