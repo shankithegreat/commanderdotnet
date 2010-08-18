@@ -31,7 +31,7 @@ namespace TestForm
 
         public override string GetDateString()
         {
-            return info.CreationTime.ToString("dd.MM.yyyy hh:mm"); ;
+            return info.CreationTime.ToString("dd.MM.yyyy hh:mm");
         }
 
         public void Activate(ShellContextMenu context)
@@ -43,6 +43,5 @@ namespace TestForm
         {
             return ShellHelper.GetLargeAssociatedIconIndex(this.Path, this.Attributes);
         }
-        
     }
 }
