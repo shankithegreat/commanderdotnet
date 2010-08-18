@@ -73,12 +73,12 @@
             this.cmdLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.cmdLabel.UseMnemonic = false;
             // 
-            // CommandBarBase
+            // CommandBarBase2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel);
-            this.Name = "CommandBarBase";
+            this.Name = "CommandBarBase2";
             this.Size = new System.Drawing.Size(507, 27);
             this.tableLayoutPanel.ResumeLayout(false);
             this.ResumeLayout(false);
