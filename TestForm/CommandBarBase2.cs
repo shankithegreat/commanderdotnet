@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Commander
 {
-    public partial class CommandBarBase : UserControl
+    public partial class CommandBarBase2 : UserControl
     {
-        public CommandBarBase()
+        public CommandBarBase2()
         {
             InitializeComponent();
         }

@@ -3,36 +3,106 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Design;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Commander;
-using TestForm.Messages;
 
 namespace TestForm
 {
-    public partial class CommandBar : CommandBarBase2
+    public partial class CommandBoxBase : ComboBox
     {
         private string selectedDirectory;
 
 
-        public CommandBar()
+        public CommandBoxBase()
         {
             InitializeComponent();
-
-            MessageDispatcher.Dispatcher.Subscribe(this);
         }
 
 
-        private void Run(string fileName)
+        /// <summary>
+        /// Gets an object representing the collection of the items contained in this ComboBox.
+        /// </summary>
+        [Category("Data")]
+        [Editor("System.Windows.Forms.Design.ListControlStringCollectionEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
+        [MergableProperty(false)]
+        public string Lines
+        {
+            get
+            {
+                StringBuilder result = new StringBuilder();
+
+                foreach (string item in this.Items)
+                {
+                    if (result.Length > 0)
+                    {
+                        result.Append("\r\n");
+                    }
+
+                    result.Append(item);
+                }
+
+                return result.ToString();
+            }
+            set
+            {
+                if (this.Lines != value)
+                {
+                    string[] items = value.Split(new[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+                    this.Items.Clear();
+                    this.Items.AddRange(items);
+
+                    OnLinesChanged(EventArgs.Empty);
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Occurs when the Lines property value changes.
+        /// </summary>
+        public event EventHandler LinesChanged;
+
+        public event CdEventHandler CdCommand;
+
+
+        protected virtual void OnLinesChanged(EventArgs args)
+        {
+            if (LinesChanged != null)
+            {
+                LinesChanged(this, args);
+            }
+        }
+
+        protected virtual void OnCdCommand(string path)
+        {
+            if (CdCommand != null)
+            {
+                CdCommand(this, path);
+            }
+        }
+
+        protected void StoryCurrentText()
+        {
+            string cmd = this.Text;
+
+            this.Items.Remove(cmd);
+            this.Items.Insert(0, cmd);
+
+            OnLinesChanged(EventArgs.Empty);
+        }
+
+        protected void Run(string fileName)
         {
             System.Diagnostics.ProcessStartInfo psi = new System.Diagnostics.ProcessStartInfo(fileName);
             psi.WorkingDirectory = selectedDirectory;
             System.Diagnostics.Process.Start(psi);
         }
 
-        private void CommandBar_ComboBoxKeyDown(object sender, KeyEventArgs e)
+
+        private void CommandBoxBase_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -63,7 +133,7 @@ namespace TestForm
                         {
                             if (Directory.Exists(path))
                             {
-                                MessageDispatcher.Dispatcher.Invoke(new DirectorySelectedAttribute(), new DirectorySelectedArgs(path));
+                                OnCdCommand(path);
                                 this.StoryCurrentText();
                             }
 
@@ -91,11 +161,8 @@ namespace TestForm
                 }
             }
         }
-
-        [DirectorySelected]
-        private void dispatcher_DirectorySelected(DirectorySelectedArgs e)
-        {
-            selectedDirectory = e.SelectedDirectory;
-        }
     }
+
+
+    public delegate void CdEventHandler(object sender, string path);
 }
