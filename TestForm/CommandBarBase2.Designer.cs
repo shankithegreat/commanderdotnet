@@ -1,6 +1,6 @@
 ﻿namespace Commander
 {
-    partial class CommandBarBase
+    partial class CommandBarBase2
     {
         /// <summary> 
         /// Required designer variable.

@@ -90,6 +90,18 @@
     <Compile Include="ArchivedFileNode.cs" />
     <Compile Include="ArchiveNode.cs" />
     <Compile Include="ArchiveUpLink.cs" />
+    <Compile Include="CommandBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandBox.Designer.cs">
+      <DependentUpon>CommandBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommandBoxBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommandBoxBase.Designer.cs">
+      <DependentUpon>CommandBoxBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="RarArchiveNode.cs" />
     <Compile Include="ShellDirectoryNode.cs" />
     <Compile Include="Shell\IShellItem.cs" />
@@ -117,11 +129,11 @@
     <Compile Include="CommandBar.Designer.cs">
       <DependentUpon>CommandBar.cs</DependentUpon>
     </Compile>
-    <Compile Include="CommandBarBase.cs">
+    <Compile Include="CommandBarBase2.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="CommandBarBase.Designer.cs">
-      <DependentUpon>CommandBarBase.cs</DependentUpon>
+    <Compile Include="CommandBarBase2.Designer.cs">
+      <DependentUpon>CommandBarBase2.cs</DependentUpon>
     </Compile>
     <Compile Include="CommandToolStrip.cs">
       <SubType>Component</SubType>
@@ -199,8 +211,14 @@
     <EmbeddedResource Include="CommandBar.resx">
       <DependentUpon>CommandBar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CommandBarBase.resx">
-      <DependentUpon>CommandBarBase.cs</DependentUpon>
+    <EmbeddedResource Include="CommandBarBase2.resx">
+      <DependentUpon>CommandBarBase2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBox.resx">
+      <DependentUpon>CommandBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CommandBoxBase.resx">
+      <DependentUpon>CommandBoxBase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CommandToolStrip.resx">
       <DependentUpon>CommandToolStrip.cs</DependentUpon>
