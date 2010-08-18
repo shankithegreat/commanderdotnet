@@ -375,9 +375,9 @@ namespace Shell
         public int Size;
 
         public CMIC Mask;
-        
+
         public IntPtr Hwnd;
-        
+
         public IntPtr Verb;
 
         [MarshalAs(UnmanagedType.LPStr)]
@@ -387,9 +387,9 @@ namespace Shell
         public string Directory;
 
         public SW ShowType;
-        
+
         public int HotKey;
-        
+
         public IntPtr hIcon;
 
         [MarshalAs(UnmanagedType.LPStr)]
@@ -1477,5 +1477,25 @@ namespace Shell
         LinkNoTarget = 0x00002,
         LinkUseTarget = 0x00004,
         UsesLowTip = 0x00008
+    }
+
+    [Flags]
+    public enum ScrollBarMessage
+    {
+        LineUp = 0,
+        LineLeft = 0,
+        LineDown = 1,
+        LineRight = 1,
+        PageUp = 2,
+        PageLeft = 2,
+        PageDown = 3,
+        PageRight = 3,
+        ThumbPosition = 4,
+        ThumbTrack = 5,
+        Top = 6,
+        Left = 6,
+        Bottom = 7,
+        Right = 7,
+        EndScroll = 8
     }
 }

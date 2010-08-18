@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using Shell;
@@ -41,7 +42,7 @@ namespace TestForm
                             selectedNode = value;
                             LoadNode(value);
                             OnNodeSelected(value);
-                        }                        
+                        }
                     }
                     catch (Exception e)
                     {
@@ -76,7 +77,7 @@ namespace TestForm
                 {
                     this.SelectedNode = node;
                 }
-                else if(node is IExecutive)
+                else if (node is IExecutive)
                 {
                     ((IExecutive)node).Activate(contextMenu);
                 }
@@ -129,6 +130,17 @@ namespace TestForm
         }
 
 
+        private void SetVScroll(int value)
+        {
+            User32.SendMessage(this.Handle, WM.VScroll, value, IntPtr.Zero);
+        }
+
+        private void SetHScroll(int value)
+        {
+            User32.SendMessage(this.Handle, WM.HScroll, value, IntPtr.Zero);
+        }
+
+
         private void LoadNode(FileSystemNode node)
         {
             if (node.ChildNodes != null && node.ChildNodes.Length > 0)
@@ -150,6 +162,9 @@ namespace TestForm
                 this.SelectedIndices.Clear();
                 this.SelectedIndices.Add(0);
                 this.EndUpdate();
+
+                SetVScroll((int)ScrollBarMessage.Top);
+                SetHScroll((int)ScrollBarMessage.Left);
             }
         }
 
