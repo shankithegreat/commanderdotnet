@@ -9,7 +9,7 @@ namespace TestForm
 {
     public class MessageDispatcher
     {
-        private Dictionary<Type, List<MessageInfo>> events = new Dictionary<Type, List<MessageInfo>>();
+        private Dictionary<Type, List<MessageInfo>> events = new Dictionary<Type, List<MessageInfo>>(10);
         public readonly static MessageDispatcher Dispatcher = new MessageDispatcher();
 
 
@@ -43,7 +43,7 @@ namespace TestForm
 
         public void Invoke(MessageAttribute attribute)
         {
-            Invoke(attribute, new MessageArgs());
+            Invoke(attribute, MessageArgs.Empty);
         }
 
         public void Invoke(MessageAttribute attribute, MessageArgs param)
@@ -133,5 +133,6 @@ namespace TestForm
 
     public class MessageArgs
     {
+        public static readonly MessageArgs Empty = new MessageArgs();
     }
 }
