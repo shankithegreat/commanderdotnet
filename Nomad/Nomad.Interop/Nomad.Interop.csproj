@@ -1,0 +1,1562 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>local</ProjectType>
+    <ProjectVersion>7.10.3077</ProjectVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F80F640E-8131-4886-8F36-9EEEA3B25F47}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyName>Nomad.Interop</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <OldToolsVersion>0.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugSymbols>true</DebugSymbols>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>false</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugSymbols>false</DebugSymbols>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>true</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\ApplicationRestartOptions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\ActiveX.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\CLSCTX.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\ComRelease.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\ComStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\ComStreamWrapper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\CONTROLINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\CoObjectCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\DragDropHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\DROPEFFECT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\DVASPECT2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\DVASPECTINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\DVASPECTINFOFLAG.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\DVTARGETDEVICE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\FD.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\FILEDESCRIPTORA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\FILEDESCRIPTORW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\FileGroupDescriptorHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\FILE_USAGE_TYPE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IClassFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IDragSourceHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IDropTargetHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IEnumUnknown.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IFileIsInUse.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IFilter\CHUNKSTATE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IFilter\CHUNK_BREAKTYPE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IFilter\FILTERREGION.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IFilter\FULLPROPSPEC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IFilter\IFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IFilter\IFILTER_FLAGS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IFilter\IFILTER_INIT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IFilter\PROPSPEC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IFilter\STAT_CHUNK.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IGlobalInterfaceTable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IObjectArray.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IObjectCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IOleClientSite.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IOleContainer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IOleControl.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IOleObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IParseDisplayName.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IPersist.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IPersistStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\IViewObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\OLECONTF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\OLEGETMONIKER.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\OLEWHICHMK.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\SHDRAGIMAGE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\ShlObj.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\COM\StdGlobalInterfaceTable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\ElevationType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\DetectOption.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\DLCTL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\DOCHOSTUIDBLCLK.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\DOCHOSTUIFLAG.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\DOCHOSTUIINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\DOCHOSTUITYPE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\ICustomDoc.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\IDocHostShowUI.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\IDocHostUIHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLangHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\CMLangConvertCharsetClass.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\CMLangStringClass.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\CMultiLanguageClass.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\DetectEncodingInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\IEnumCodePage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\IEnumRfc1766.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\IEnumScript.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\IMLangCodePages.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\IMLangConvertCharset.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\IMLangFontLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\IMLangFontLink2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\IMLangLineBreakConsole.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\IMLangString.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\IMLangStringAStr.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\IMLangStringBufA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\IMLangStringBufW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\IMLangStringWStr.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\IMultiLanguage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\IMultiLanguage2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\IMultiLanguage3.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\MIMECONTF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\MIMECPINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\MIMECSETINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\MLCONVCHAR.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\MLCPF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\MLDETECTCP.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\RFC1766INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\SCRIPFONTINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\SCRIPTCONTF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\SCRIPTFONTCONTF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\SCRIPTINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\MLang\UNICODERANGE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IE\Mshtml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\AlternateDataStreamInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\BackupEncryptedFileStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\BackupFileStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\BusType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\CompressionFormat.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\DeviceCapabilities.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\DeviceNotReadyException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\Directory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\DriveChars.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\File.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\FileInUseException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\FileSystemChangeNotification.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\FileTimeSetter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\IoHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\KnownFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\Pipes\ListenAsyncResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\Pipes\NamedPipeStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\ReadOnlyFileSystemInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\ReparsePoint.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\ReparsePointInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\ReparseType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\VolumeCache.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\VolumeCapabilities.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\VolumeEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\VolumeEvents.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\VolumeInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\VolumeType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\IO\Win32IOException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\OS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\RecoveryEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\RestartAndRecoveryManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\CLSID.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\CMF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\CMIC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\CMINVOKECOMMANDINFOEX.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\CoDestinationList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\CoKnownFolderManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\CoShellLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\CoTaskbarList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\CoThumbnailCache.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\CSIDL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\DATABLOCKHEADER.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\DLLVERSIONINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\DLLVER_PLATFORM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\ExtractIconWrapper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\EXTRASEARCH.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\FFFP_MODE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\FO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\FOF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\GCS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\GIL_IN.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\GIL_OUT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IContextMenu.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IContextMenu2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IContextMenu3.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\ICustomDestinationList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IEnumExtraSearch.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IEnumIDList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IExtractIconA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IExtractIconW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IKnownFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IKnownFolderManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IMalloc.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IPropertyStore.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\ISharedBitmap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IShellDetails.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IShellFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IShellFolder2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IShellIcon.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IShellIconOverlayIdentifier.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IShellItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IShellItemImageFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IShellLinkA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IShellLinkDataList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IShellLinkW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\ISIOI.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\ITaskbarList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\ITaskbarList2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\ITaskbarList3.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\ITEMIDLIST.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\IThumbnailCache.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\KF_CATEGORY.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\KF_DEFINITION_FLAGS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\KF_FLAG.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\KF_REDIRECTION_CAPABILITIES.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\KF_REDIRECT_FLAGS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\KNOWNDESTCATEGORY.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\KNOWNFOLDER_DEFINITION.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\PropertyKey.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SafeShellItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SEE_MASK.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SFGAO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHARD.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHARDAPPIDINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHARDAPPIDINFOIDLIST.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHARDAPPIDINFOLINK.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHCOLSTATE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHCOLUMNID.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHCONTF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\Shell32.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHELLDETAILS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHELLEXECUTEINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\ShellFolderExtension.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\ShellItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\ShellLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\ShellNew.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\ShellNewCommand.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHELL_LINK_DATA_FLAGS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHFILEINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHFILEOPSTRUCT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHGetDataFromIDListFormat.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHGFI.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHGNO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHGSI.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHITEMID.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHQUERYRBINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHSTOCKICONID.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SHSTOCKICONINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SICHINT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SIGDN.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SIIGBF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SLGP.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\SLR.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\STRRET.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\STRRET_TYPE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\TBATF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\TBPF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\THB.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\THBF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\THUMBBUTTON.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\WTS_ALPHATYPE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\WTS_CACHEFLAGS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Shell\WTS_FLAGS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\AdvApi.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\APPCOMMAND.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\ApplicationRecoveryCallback.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\AW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\BITMAP.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\BITMAPINFOHEADER.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\BkMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\BLENDFUNCTION.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\BS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\BY_HANDLE_FILE_INFORMATION.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\CALLBACK_REASON.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\CDDS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\CDIS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\CDRF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\ClassStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\COLORSCHEME.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\CommCtrl.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\CopyProgressRoutine.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\COPY_FILE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Dbt.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\DBTF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\DBT_DEVTYP.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\DESIRED_ACCESS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\DEVICE_NOTIFY.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\DEV_BROADCAST_HDR.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\DIBSECTION.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\DLGC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\DRAWITEMSTRUCT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Dwm.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\DWMNCRENDERINGPOLICY.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\DWMWINDOWATTRIBUTE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\EC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\ENDSESSION.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\EnumResNameDelegate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\ErrorCodes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\EXECUTION_STATE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\ExportCallback.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\ExStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\FAPPCOMMAND.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\FILE_ALLOCATION_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\FILE_ATTRIBUTE_TAG_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\FILE_BASIC_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\FILE_COMPRESSION_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\FILE_DISPOSITION_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\FILE_END_OF_FILE_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\FILE_FLAG.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\FILE_INFO_BY_HANDLE_CLASS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\FILE_IO_PRIORITY_HINT_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\FILE_NAME_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\FILE_NOTIFY.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\FILE_RENAME_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\FILE_STANDARD_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\FILE_STREAM_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\FILE_SYSTEM_FLAGS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\GET_FILEEX_INFO_LEVELS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\GMEM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\HDF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\HDHITTESTINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\HDI.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\HDITEM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\HHT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\HOTKEYF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\HRESULT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\HS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\HT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IMAGE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\ImportCallback.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\COMPRESSION_FORMAT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\DEVICE_MEDIA_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\DEVICE_MEDIA_INFO_DISK.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\DEVICE_MEDIA_INFO_REMOVABLEDISK.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\DEVICE_MEDIA_INFO_TAPE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\DEVICE_TYPE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\DISK_EXTENT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\DISK_GEOMETRY.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\FILE_ACCESS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\FSCTL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\GET_MEDIA_TYPES.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\IOCTL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\MEDIA_CHARACTERISTICS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\MEDIA_TYPE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\METHOD.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\PREVENT_MEDIA_REMOVAL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\REPARSE_DATA_BUFFER.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\STORAGE_BUS_TYPE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\STORAGE_DESCRIPTOR_HEADER.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\STORAGE_DEVICE_DESCRIPTOR.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\STORAGE_HOTPLUG_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\STORAGE_MEDIA_TYPE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\STORAGE_PROPERTY_ID.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\STORAGE_PROPERTY_QUERY.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\STORAGE_QUERY_TYPE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\IOCTL\VOLUME_DISK_EXTENTS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\KEYEVENTF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\KLF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LMEM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LOAD_LIBRARY.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LOGBRUSH.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LOGPALETTE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LR.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LVCF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LVCFMT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LVCOLUMN.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LVGA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LVGF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LVGIT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LVGROUP.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LVGS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LVHITTESTINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LVHT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LVIF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LVIS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LVITEM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LVNI.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LVS_EX.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\LV_VIEW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\MA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Macros.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\MEASUREITEMSTRUCT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\MENUITEMINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Messages.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\MFS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\MFT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\MIIM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\MOD.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\MSG.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\CONNECT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\Lm.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\LmHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\NAME_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\NETINFOSTRUCT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\NETRESOURCE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\NetworkException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\RESOURCE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\RESOURCEDISPLAYTYPE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\RESOURCETYPE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\RESOURCEUSAGE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\SHARE_INFO_1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\share_info_1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\SHARE_INFO_2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\share_info_50.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\STYPE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\UNIVERSAL_NAME_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\Winnetwk.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Network\WNet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\NMCUSTOMDRAW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\NMHDR.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\NMLVCUSTOMDRAW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\NMLVDISPINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\NMLVGETINFOTIP.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\NMTTDISPINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\NMTVCUSTOMDRAW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\NMTVDISPINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\ODA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\ODS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\ODT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\OEFR.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\OIC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\PAINTSTRUCT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\PredefinedCursor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\PredefinedIcon.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\PRF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\PRIORITY_HINT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\PROGRESS_RESULT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\RDW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\RECT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\RegionResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\ResourceType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\RESTART.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\RGBQUAD.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\RM_APP_STATUS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\RM_APP_TYPE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\RM_PROCESS_INFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\RM_REBOOT_REASON.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\RM_UNIQUE_PROCESS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Rstrtmgr.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SafeEncryptedFileHandle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SafeHandles\SafeBasicHandle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SafeHandles\SafeDeviceNotificationHandle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SafeHandles\SafeFindHandle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SafeHandles\SafeFindVolumeHandle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SafeHandles\SafeFindVolumeMountPointHandle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SafeHandles\SafeLibraryHandle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SafeHandles\SafeNetEnumHandle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SafeHandles\SafePipeHandle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SafeRestartSessionHandle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SB.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SC.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SCROLLINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Security\LUID.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Security\LUID_AND_ATTRIBUTES.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Security\Privileges.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Security\SafeTokenHandle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Security\Security.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Security\TOKEN.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Security\TOKEN_ELEVATION.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Security\TOKEN_ELEVATION_TYPE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Security\TOKEN_INFORMATION_CLASS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Security\TOKEN_PRIVILEGES.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SEM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SIF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SIZE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SizeMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\StreamAttributes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\StreamId.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\STREAM_INFO_LEVELS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SW.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SWP.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\SYMBOLIC_LINK.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\ThreadExecutionStateLock.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\TOOLINFO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\TPM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\TTDT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\TTF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\TVGN.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\TVIF.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\TVINSERTSTRUCT.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\TVIS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\TVIS_EX.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\TVITEM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\TVITEMEX.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\TVS_EX.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\UxTheme.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\WA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Wer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\WIN32_FILE_ATTRIBUTE_DATA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\WIN32_FIND_DATA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\WIN32_FIND_STREAM_DATA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\WIN32_STREAM_ID.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\Windows.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\WindowStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\WindowsWrapper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\WindowThemeAttributeType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\WTA_OPTIONS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\WTNCA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\_DEV_BROADCAST_DEVICEINTERFACE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\_DEV_BROADCAST_HANDLE.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Microsoft\Win32\_DEV_BROADCAST_VOLUME.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Interop\Commons\ByteArrayHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Action!2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Action!3.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Action!4.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Action!5.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Collections\Generic\EnumerableExtension.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Collections\IStructuralEquatable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Func!1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Func!2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Func!3.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Func!4.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Func!5.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Func!6.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\IntPtrExtension.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\IO\UnreadableFileSystemInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Runtime\CompilerServices\ExtensionAttribute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Runtime\InteropServices\ComTypes\PropVariant.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Tuple!1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Tuple!2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Tuple!3.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Tuple!4.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Tuple.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\ButtonExtension.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\ControlExtension.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\DragImage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\ListViewGroupExtension.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\LockWindowRedraw.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\LockWindowUpdate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\ToolStripArrowRenderEventArgsExtender.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\ToolStripExtension.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\ToolStripItemExtension.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\ToolStripItemTextRenderEventArgsExtender.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\TreeViewExtension.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent />
+  </PropertyGroup>
+</Project>

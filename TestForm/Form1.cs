@@ -22,7 +22,7 @@ namespace TestForm
             var ds = ShellFolder.GetDesktopFolder();
 
             //MessageDispatcher.Dispatcher.Invoke(new ShellDirectorySelectedAttribute(), new ShellDirectorySelectedArgs(ds));
-            MessageDispatcher.Dispatcher.Invoke(new DirectorySelectedAttribute(), new DirectorySelectedArgs(@"C:\"));
+            MessageDispatcher.Dispatcher.Invoke(new DirectorySelectedAttribute(), new DirectorySelectedArgs(@"D:\"));
         }
     }
 }

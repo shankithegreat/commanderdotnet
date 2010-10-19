@@ -1,0 +1,1944 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>local</ProjectType>
+    <ProjectVersion>7.10.3077</ProjectVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3FD76EB5-2FA8-437C-AFFF-586FFE98D07F}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyName>Nomad</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>WinExe</OutputType>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <OldToolsVersion>0.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugSymbols>true</DebugSymbols>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>false</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugSymbols>false</DebugSymbols>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>true</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Configuration">
+      <Name>System.Configuration</Name>
+    </Reference>
+    <Reference Include="System.Design">
+      <Name>System.Design</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting">
+      <Name>System.Runtime.Remoting</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.Xml</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\ArgumentKey.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\AvailableItemActions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\BasicForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\ChangeItemAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\ChangeItemErrorEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\AbortException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\Controls\BorderLessToolStripRenderer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\Controls\BreadcrumbToolStripRenderer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\Controls\SimpleBorderToolStipRenderer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\DictionaryRenameFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\ImageListCache.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\IRenameFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\ISetOwnerWindow.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\KeysConverter2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\LightSource.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\LinkLabelExtension.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\Net\CredentialsNeededEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\Net\Ftp.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\Net\FtpMethodCache.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\Net\WebRequestStreamWrapper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\PropertyTag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\PropertyTagHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\PropertyTagType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\RegexRenameFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\SimpleEncrypt.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\SimpleRenameFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Commons\TagExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\ActivePanel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\ApplicationSettingsBaseExtender.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\ConfigurableSettingsProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\ConfirmationSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\FormPlacement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\FormSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\HistorySettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\ListViewColumnCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\ListViewColumnInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\OptionsSection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\OptionsSectionGroup.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\PanelContentContainer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\PanelLayout.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\PanelLayoutEntry.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\PanelToolbar.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\ReleaseType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\SectionBlockCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\SectionBlockElement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\SettingsConfigurationSection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\ToolbarSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\TwoPanelLayout.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\TwoPanelLayoutEntry.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Configuration\XmlSerializable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controller.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\ControllerType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\Action.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\ActionControlLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\ActionControlTypeDescriptionProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\ActionControlTypeDescriptor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\ActionEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\ActionList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\ActionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\ActionState.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\ActionToolStripItemLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\ActionWrapper.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\BindActionProperty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\CustomAction.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\CustomActionLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\CustomBindActionLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\GlobalHotKeyManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\IAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\IActionLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\NonSerializablePropertyDescriptor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\StandardAction.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\StandardActions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\ToolStripItemCollectionExtension.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Actions\UpdateActionEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\AdvancedToolTip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\AnimatedThrobber.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\AnimatedThrobberDesigner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\BeforeLabelEditEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\BeforeLabelEditEventHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Category.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\CategoryList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\CategoryManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ColorButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ColorPickerDropDown.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\DuplicateSearchControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Filter\AdvancedFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Filter\AttrFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Filter\ComplexFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Filter\ComplexFilterView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Filter\ContainerFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Filter\ContentFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Filter\CustomFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Filter\DateFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Filter\HexContentFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Filter\IFilterControl.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Filter\NameFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Filter\PropertyIntegralFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Filter\PropertyStringFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Filter\PropertyVersionFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Filter\SizeFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Filter\TimeFilterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Filter\ViewFilters.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\FormEx.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\GetItemColorsEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\GetItemStateEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\GetNodeColorsEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\GradientPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\HotKeyBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\IProgressBarRenderer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ItemTooltipEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ListViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ListViewHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ListViewHitTestInfo2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ListViewItemEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ListViewItemStateEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\MarqueeStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\MouseWheelHelper.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\NamedComponent.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\NamedComponentDesigner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\NamedShellLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\NodeStateEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\AppAppearanceOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\ArchiveOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\AutoCompleteOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\AutoRefreshOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\BehaviorOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\BreadcrumbOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\ConfigPlacementOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\ConfirmationOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\CopyOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\DialogFontOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\EditorViewerOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\ExternalToolsOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\FormatsOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\FtpOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\HiddenItemsOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\HighlightersOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\HistoryOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\IconOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\KeyboardMapOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\ListViewColorsOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\ListViewOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\TabOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\ToolbarOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\ToolTipOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Option\VirtualPropertyOptionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\PanelEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\PostDrawListViewItemEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\PostDrawListViewSubItemEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\PostDrawTreeNodeEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\PreviewHotKeyEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ProgressBarMarqueeEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ProgressBarMarqueeRenderEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ProgressBarRenderEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ProgressBarValueRenderEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ProgressRenderMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ProgressState.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\PropertyValue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\PropertyValueList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\PropertyValuesWatcher.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Resource.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ScalablePictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Specialized\AutoCompleteEvents.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Specialized\BreadcrumbView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Specialized\FilterComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Specialized\TemplateComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Specialized\VirtualItemToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Specialized\VirtualItemToolStripEvents.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\Specialized\VirtualPathBreadcrumb.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\TextBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ThrobberRenderer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ThrobberRenderEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ThrobberStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ToolStripButtonRenderer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ToolStripThrobberButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\ToolStripThrobberItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\TreeViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\VistaProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\VistaProgressBarRenderer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\WindowStateChangingEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Controls\XPProgressBarRenderer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\CustomBackgroundWorker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\CustomImageProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\DefaultIcon.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\AboutDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\ApplyFilterEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\BasicDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\BasicLoginDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\BookmarkFolderDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\BookmarkTabDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\CheckForUpdatesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\CompareFoldersDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\CopyDestinationItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\CustomizeFolderDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\EditDescriptionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\ExceptionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\FilePackDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\FileSystemCopyDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\FilterDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\FtpConnectDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\InputDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\InputDialogOption.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\MakeFolderDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\MakeLinkDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\ManageColumnsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\ManageListDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\MessageDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\MessageDialogResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\NewFileDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\OptionsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\PasswordDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\PasteNewFileDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\PropertiesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\RunAsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\SearchDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\SelectButtonImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\SelectDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\SelectFolderDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\SelectSearchFoldersDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\SetAttributesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\SetupAndUpgradeDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Dialogs\SortDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\DoubleClickAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\ElevatedProcess.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\EventBackgroundWorker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\ArchiveFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\ArchiveFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\ArchiveFormatConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\ArchiveFormatItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\ArchiveFormatRoot.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\ArchiveItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\ArchiveProperty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\ArchiveFormatCapabilities.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\ArchiveFormatInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\ArchiveFormatManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\ArchiveFormatSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\ArjHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\CheckArj.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\CheckFileSystem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\CheckLzh.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\CheckRar.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\FindFormatResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\FindFormatSource.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\IFlushStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\IGetArchiveFormatInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\IGetStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\ISequenceable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\ISequenceableItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\ISequenceContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\ISequenceProcessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\PersistArchiveFormatInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\ProcessItemEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\ProcessItemHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\ProcessorState.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\SequenseProcessorType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Common\SimpleProcessItemEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\CustomArchiveItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\ArchiveOpenCallback.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\ArchivePropId.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\AskMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\CompressionLevel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\CompressionMethod.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\CreateObjectDelegate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\EncryptionMethod.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\FileTimeType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\GetHandlerProperty2Delegate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\GetHandlerPropertyDelegate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\GetNumberOfFormatsDelegate.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\IArchiveExtractCallback.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\IArchiveOpenCallback.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\IArchiveOpenVolumeCallback.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\IArchiveUpdateCallback.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\IArchiveUpdateCallback2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\ICryptoGetTextPassword.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\ICryptoGetTextPassword2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\IInArchive.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\IInArchiveGetStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\IInStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\InStreamTimedWrapper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\InStreamWrapper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\IOutArchive.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\IOutStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\IOutStreamFlush.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\IProgress.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\ISequentialInStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\ISequentialOutStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\ISetProperties.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\IStreamGetSize.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\ItemPropId.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\KnownSevenZipFormat.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\OperationResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\OutStreamWrapper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\ReadArchiveStreamWrapper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\ReadWriteExtractCallback.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\ReadWriteItemEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\ReadWriteStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\SevenZipArchiveContent.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\SevenZipArchiveItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\SevenZipDeleteProcessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\SevenZipFormatCapabilities.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\SevenZipFormatInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\SevenZipProcessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\SevenZipPropertiesBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\SevenZipSharedArchiveContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\SevenZip\StreamWrapper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\CanYouHandleThisFileHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\ChangeVolProcCallback.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\CloseArchiveHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\ConfigurePackerHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\DeleteFilesHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\GetPackerCapsHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\HeaderData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\HeaderDataEx.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\OpenArchiveData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\OpenArchiveHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\PackDefaultParamStruct.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\PackFilesHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\PackSetDefaultParamsHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\PK_CAPS.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\PK_OM.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\PK_OPERATION.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\PK_PACK.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\PK_VOL.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\ProcessDataProcCallback.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\ProcessFileHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\ReadHeaderHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\ReadHeaderHandlerEx.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\SetChangeVolProcHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\SetProcessDataProcHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\WcxArchiveContent.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\WcxArchiveContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\WcxArchiveItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\WcxArchiveProcessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\WcxDeleteProcessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\WcxErrors.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\WcxException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\WcxFormatInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Archive\Wcx\WcxProcessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Ftp\Cache!2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Ftp\CustomFtpFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Ftp\FtpChangedEventArg.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Ftp\FtpContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Ftp\FtpFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Ftp\FtpFileSystemCreator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Ftp\FtpFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Ftp\FtpItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Ftp\FtpItemCapability.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Ftp\FtpItemInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Ftp\FtpLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Ftp\FtpSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Ftp\ResolveUrlLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Ftp\WebRequestCreateFileStreamWrapper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\LocalFile\AutoRefreshMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\LocalFile\CustomFileSystemFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\LocalFile\CustomFileSystemFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\LocalFile\EjectableFileSystemFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\LocalFile\FileSystemDrive.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\LocalFile\FileSystemFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\LocalFile\FileSystemFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\LocalFile\FileSystemItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\LocalFile\FileSystemShellLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\LocalFile\LocalFileSystemCreator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Network\NetworkFileSystemCreator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Network\NetworkFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Network\NetworkShareFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Null\NullFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Null\NullFileSystemCreator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Null\NullFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Null\NullItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\AudioChannelsTypeConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\AudioSampleRateTypeConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\BitrateTypeConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\ColorSpace.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\DPITypeConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\DurationTypeConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\EncodingConveter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\ImageSizeTypeConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\ISOSpeedTypeConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\CustomExtPropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\DescriptionPropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\DummyClientSite.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\ExtSection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\FileVersionPropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\FlvPropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\HashPropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\HtmlPropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\ImagePropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\OlePropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\PropertyName.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\PropertyProviderInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\PropertyProviderManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\PsdPropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\SimplePropertyProviderFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\SizePropertyBag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\TagLibPropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\TextPropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\TextProviderCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\TextProviderElement.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\TextProviderSection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\ThumbsDbThumbnailProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\VistaThumbnailProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\ContentDefaultParamStruct.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\ContentEditValueHandlerHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\ContentFlag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\ContentGetDefaultSortOrderHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\ContentGetDetectStringHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\ContentGetSupportedFieldFlagsHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\ContentGetSupportedFieldHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\ContentGetValueHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\ContentGetValueWHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\ContentPluginUnloadingHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\ContentSendStateInformationHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\ContentSendStateInformationWHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\ContentSetDefaultParamsHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\ContentSetValueHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\ContentSetValueWHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\ContentStopGetValueHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\ContentStopGetValueWHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\LngResourceManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\tdateformat.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\ttimeformat.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\Wdx.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\WdxContent.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\WdxDetectString.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\WdxFieldInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\WdxPropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\Wdx\WdxPropertyProviderFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\RatingTypeConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\SimplePropertyBag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Shell\ChangeShellFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Shell\CustomShellItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Shell\ShellFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Shell\ShellFileSystemCreator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Shell\ShellFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Special\BookmarksRootFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Special\TempFileSystemFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Special\TempFileSystemFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Special\VirtualTempFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\AggregatedVirtualFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\AsyncFolderResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\BasicCustomizeIni.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\CachedPropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\CanMoveResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\ChangeVector.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\ContextMenuOptions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\CustomAsyncFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\CustomizeFolderExtender.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\CustomizeFolderParts.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\CustomVirtualFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\DelayedExtractMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\DesktopIni.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\DesktopIniCache.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\ExtensiblePropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\AggregatedFilterCondition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\AggregatedVirtualItemFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\FilterContainer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\FilterHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\HighlighterIconType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\IFileSystemInfoFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\IFilterContainter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\ItemDateTimePart.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\IVirtualItemFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\ListViewHighlighter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\NamedFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\NameListCondition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\RestoreSelectionFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\VirtualHighligher.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\VirtualItemAttributeFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\VirtualItemContentFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\VirtualItemDateFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\VirtualItemFullNameFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\VirtualItemHexContentFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\VirtualItemNameFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\VirtualItemNameListFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\VirtualItemSizeFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\VirtualItemTimeFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\Filter\VirtualPropertyFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\FindDuplicateOptions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IconCustomizeIni.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IconOptions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IconStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\ICustomizeFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IVirtualFolderUI.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IVirtualItemUI.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\PanelView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\PathView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\ResolveShellLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\SearchErrorEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\SearchFolderOptions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\SimpleCustomizeFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\SimpleResolveLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\SlowPropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\UrlIni.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\VirtualFolderBranch.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\VirtualIcon.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\VirtualItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\VirtualItemContainer!1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\VirtualItemHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\VirtualItemVisualExtender.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\VirtualResolveContainer!1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\VirtualSearchFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\VirtualToolTip.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\GeneralTab.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\IconPackImageProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\ImageProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\InitTask.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\InitTaskResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Install.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\ItemChangeNotSupportedException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\PreviewContextMenuEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Program.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Properties\Enums.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Properties\IconSet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Properties\Resources.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Properties\Settings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\QuickFindOptions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\SafeMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\SettingsManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\ShellContextMenuHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\ShellImageProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Trace.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\TwoPanelContainer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\TwoPanelContainerSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\TwoPanelTab.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\VirtualClipboardFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\VirtualClipboardFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\VirtualClipboardItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\VirtualFilePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Nomad\VirtualFilePanelSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\VirtualFolderChangedEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\VirtualFolderTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Nomad\VirtualItemDataObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\VirtualItemDragEventArg.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\ArchiveUpdateMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\AsyncBuffersEqualCaller.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\BeforeCopyItemEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\BeforeDeleteItemEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\Buffers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\Compare.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\CompareFoldersOptions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\CompareFoldersWorker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\Configuration\CopySettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\Configuration\WorkerDialogSettings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\ConfirmArchiveActionArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\CopyItemAction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\CopyItemErrorEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\CopyItemEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\CopyMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\CopyProgressSnapshot.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\CopyWorker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\CopyWorkerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\CopyWorkerOptions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\CustomWorkerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\DeleteWorker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\DeleteWorkerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\IOverwriteRule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\ItemWorkerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\OverwriteAllRule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\OverwriteDialogResult.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\OverwritePromtDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\OverwritePropertyRule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\OverwritePropertyValueRule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\PackProgressSnapshot.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\PackStage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\PackWorker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\PackWorkerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\ProcessedSize.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\SetAttributesWorker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\Workers\SetAttributesWorkerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\CanMoveListViewItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\CursorExtension.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\ImageListExtender.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\ListViewExtender.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\Windows\Forms\ListViewItemExtender.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Nomad.Controls.DuplicateSearchControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Filter.AdvancedFilterControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Filter.AttrFilterControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Filter.ComplexFilterControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Filter.ContainerFilterControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Filter.ContentFilterControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Filter.DateFilterControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Filter.HexContentFilterControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Filter.NameFilterControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Filter.PropertyIntegralFilterControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Filter.PropertyStringFilterControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Filter.PropertyVersionFilterControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Filter.SizeFilterControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Filter.TimeFilterControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.AppAppearanceOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.ArchiveOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.AutoCompleteOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.AutoRefreshOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.BehaviorOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.BreadcrumbOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.ConfigPlacementOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.ConfirmationOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.CopyOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.DialogFontOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.EditorViewerOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.ExternalToolsOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.FormatsOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.FtpOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.HiddenItemsOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.HighlightersOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.HistoryOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.IconOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.KeyboardMapOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.ListViewColorsOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.ListViewOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.TabOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.ToolbarOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.ToolTipOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Option.VirtualPropertyOptionControl.resources" />
+    <EmbeddedResource Include="Nomad.Controls.Resource.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.AboutDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.BasicLoginDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.BookmarkFolderDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.BookmarkTabDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.CheckForUpdatesDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.CompareFoldersDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.CustomizeFolderDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.EditDescriptionDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.ExceptionDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.FilePackDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.FileSystemCopyDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.FilterDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.FtpConnectDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.MakeFolderDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.MakeLinkDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.ManageColumnsDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.ManageListDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.NewFileDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.OptionsDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.PasswordDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.PasteNewFileDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.PropertiesDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.RunAsDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.SearchDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.SelectButtonImage.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.SelectDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.SelectFolderDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.SelectSearchFoldersDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.SetAttributesDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.SetupAndUpgradeDialog.resources" />
+    <EmbeddedResource Include="Nomad.Dialogs.SortDialog.resources" />
+    <EmbeddedResource Include="Nomad.MainForm.resources" />
+    <EmbeddedResource Include="Nomad.Properties.DefaultIconSet.resources" />
+    <EmbeddedResource Include="Nomad.Properties.Enums.resources" />
+    <EmbeddedResource Include="Nomad.Properties.InfoTips.resources" />
+    <EmbeddedResource Include="Nomad.Properties.Resources.resources" />
+    <EmbeddedResource Include="Nomad.Properties.VirtualProperties.resources" />
+    <EmbeddedResource Include="Nomad.VirtualFilePanel.resources" />
+    <EmbeddedResource Include="Nomad.Workers.CopyWorkerDialog.resources" />
+    <EmbeddedResource Include="Nomad.Workers.CustomWorkerDialog.resources" />
+    <EmbeddedResource Include="Nomad.Workers.DeleteWorkerDialog.resources" />
+    <EmbeddedResource Include="Nomad.Workers.ItemWorkerDialog.resources" />
+    <EmbeddedResource Include="Nomad.Workers.OverwritePromtDialog.resources" />
+    <EmbeddedResource Include="Nomad.Workers.PackWorkerDialog.resources" />
+    <EmbeddedResource Include="Nomad.Workers.SetAttributesWorkerDialog.resources" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nomad.Commons\Nomad.Commons.csproj">
+      <Project>{8F990218-E1F0-4010-B08D-C1E662CAFAB7}</Project>
+      <Name>Nomad.Commons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nomad.FileSystem\Nomad.FileSystem.csproj">
+      <Project>{EE7AA6EA-DC9E-42D8-B4C5-77E403E7A662}</Project>
+      <Name>Nomad.FileSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nomad.Interop\Nomad.Interop.csproj">
+      <Project>{F80F640E-8131-4886-8F36-9EEEA3B25F47}</Project>
+      <Name>Nomad.Interop</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nomad.Themes\Nomad.Themes.csproj">
+      <Project>{6748AAF2-8872-4C94-9A29-1CCCBB48B3A0}</Project>
+      <Name>Nomad.Themes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\taglib-sharp\taglib-sharp.csproj">
+      <Project>{FDE703E5-7F24-460D-AF06-CC77907ECE13}</Project>
+      <Name>taglib-sharp</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent />
+  </PropertyGroup>
+</Project>

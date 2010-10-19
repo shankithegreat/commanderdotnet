@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>local</ProjectType>
+    <ProjectVersion>7.10.3077</ProjectVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EE7AA6EA-DC9E-42D8-B4C5-77E403E7A662}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyName>Nomad.FileSystem</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <OldToolsVersion>0.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugSymbols>true</DebugSymbols>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>false</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugSymbols>false</DebugSymbols>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>true</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Nomad.Commons">
+      <Name>Nomad.Commons</Name>
+    </Reference>
+    <Reference Include="Nomad.Interop">
+      <Name>Nomad.Interop</Name>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Properties\Settings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\AttributesTypeConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\CrcTypeConveter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\CustomPropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\DateTimeTypeConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\DefaultProperty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\GetVirtualPropertyExtender.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\HashConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\IExtendGetVirtualProperty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\IGetVirtualProperty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\ISetVirtualProperty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\IUpdateVirtualProperty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\PropertyAvailability.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\PropertyMeasure.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\PropertyTypeConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\ILocalFilePropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\IPropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\IPropertyProviderFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\Providers\ISimplePropertyProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\RelevanceTypeConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\SizeFormat.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\SizeTypeConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\VirtualProperty.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\VirtualPropertyOption.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\VirtualPropertySet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Property\VirtualPropertySetConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\CacheState.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\CancelVirtualItemEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\ExecuteAsUser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\ExecuteVerbEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\HandleVirtualItemEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IAsyncVirtualFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IChangeVirtualFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IChangeVirtualItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\ICreateVirtualFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\ICreateVirtualFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\ICreateVirtualLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IGetVirtualRoot.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IGetVirtualVolume.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IPersistVirtualItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IResolveLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IResolveLink2.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\ISimpleItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IVirtualAlternateStreams.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IVirtualCachedFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IVirtualFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IVirtualFileExecute.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IVirtualFileSystemCreator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IVirtualFolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IVirtualItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\IVirtualLink.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\LinkType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\NameComparison.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\VirtualComparer!1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\VirtualItemChangedEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\VirtualItemComparer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\VirtualItemComparerConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\VirtualItemEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Nomad\FileSystem\Virtual\VirtualItemType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent />
+  </PropertyGroup>
+</Project>
