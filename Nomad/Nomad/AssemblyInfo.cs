@@ -1,0 +1,21 @@
+﻿// Assembly Nomad, Version 2.8.7.1685
+
+[assembly: System.Reflection.AssemblyVersion("2.8.7.1685")]
+[assembly: System.Reflection.AssemblyCopyright("Copyright \x00a9 2006-2010 Eugene Sichkar")]
+[assembly: System.Runtime.InteropServices.ComVisible(false)]
+[assembly: System.Runtime.InteropServices.Guid("6e26982b-6c8f-4375-9761-d7f855395528")]
+[assembly: System.Reflection.AssemblyCompany("BMG")]
+[assembly: System.Reflection.AssemblyTrademark("")]
+[assembly: System.Reflection.AssemblyProduct("Nomad.NET")]
+[assembly: System.Reflection.AssemblyConfiguration("")]
+[assembly: System.Resources.NeutralResourcesLanguage("en")]
+[assembly: System.Runtime.CompilerServices.Dependency("Nomad.XmlSerializers", System.Runtime.CompilerServices.LoadHint.Always)]
+[assembly: System.Runtime.CompilerServices.Dependency("taglib-sharp", System.Runtime.CompilerServices.LoadHint.Always)]
+[assembly: System.Diagnostics.Debuggable(System.Diagnostics.DebuggableAttribute.DebuggingModes.DisableOptimizations | System.Diagnostics.DebuggableAttribute.DebuggingModes.EnableEditAndContinue | System.Diagnostics.DebuggableAttribute.DebuggingModes.IgnoreSymbolStoreSequencePoints | System.Diagnostics.DebuggableAttribute.DebuggingModes.Default)]
+[assembly: System.Reflection.AssemblyFileVersion("2.8.7.1685")]
+[assembly: System.Runtime.CompilerServices.CompilationRelaxations(8)]
+[assembly: System.Runtime.CompilerServices.RuntimeCompatibility(WrapNonExceptionThrows=true)]
+[assembly: System.Runtime.CompilerServices.Extension]
+[assembly: System.Reflection.AssemblyTitle("Nomad.NET")]
+[assembly: System.Reflection.AssemblyDescription("Advanced File Manager")]
+

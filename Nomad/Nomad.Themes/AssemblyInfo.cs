@@ -1,0 +1,20 @@
+﻿// Assembly Nomad.Themes, Version 2.8.7.63
+
+[assembly: System.Reflection.AssemblyVersion("2.8.7.63")]
+[assembly: System.Runtime.CompilerServices.CompilationRelaxations(8)]
+[assembly: System.Runtime.CompilerServices.RuntimeCompatibility(WrapNonExceptionThrows=true)]
+[assembly: System.Diagnostics.Debuggable(System.Diagnostics.DebuggableAttribute.DebuggingModes.DisableOptimizations | System.Diagnostics.DebuggableAttribute.DebuggingModes.EnableEditAndContinue | System.Diagnostics.DebuggableAttribute.DebuggingModes.IgnoreSymbolStoreSequencePoints | System.Diagnostics.DebuggableAttribute.DebuggingModes.Default)]
+[assembly: System.Reflection.AssemblyTitle("Nomad.Themes")]
+[assembly: System.Reflection.AssemblyDescription("Themes support for Nomad.NET")]
+[assembly: System.Reflection.AssemblyConfiguration("")]
+[assembly: System.Reflection.AssemblyCompany("BMG")]
+[assembly: System.Reflection.AssemblyProduct("Nomad.NET")]
+[assembly: System.Reflection.AssemblyCopyright("Copyright \x00a9 2009-2010 Eugene Sichkar")]
+[assembly: System.Reflection.AssemblyTrademark("")]
+[assembly: System.Runtime.InteropServices.ComVisible(false)]
+[assembly: System.Runtime.InteropServices.Guid("d9f4110f-2426-4805-9fea-f7347f1d1e16")]
+[assembly: System.Reflection.AssemblyFileVersion("2.8.7.63")]
+[assembly: System.Resources.NeutralResourcesLanguage("en")]
+[assembly: System.Runtime.CompilerServices.DefaultDependency(System.Runtime.CompilerServices.LoadHint.Always)]
+[assembly: System.Security.SecurityTransparent]
+

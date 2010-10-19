@@ -1,0 +1,540 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>local</ProjectType>
+    <ProjectVersion>7.10.3077</ProjectVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FDE703E5-7F24-460D-AF06-CC77907ECE13}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyName>taglib-sharp</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <OldToolsVersion>0.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugSymbols>true</DebugSymbols>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>false</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugSymbols>false</DebugSymbols>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>true</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Global.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Aac\AudioHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Aac\BitStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Aac\File.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Aiff\File.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Aiff\StreamHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ape\CompressionLevel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ape\File.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ape\Footer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ape\FooterFlags.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ape\Item.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ape\ItemType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ape\StreamHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ape\Tag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Asf\ContentDescriptionObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Asf\ContentDescriptor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Asf\DataType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Asf\DescriptionRecord.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Asf\ExtendedContentDescriptionObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Asf\File.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Asf\FilePropertiesObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Asf\Guid.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Asf\HeaderExtensionObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Asf\HeaderObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Asf\MetadataLibraryObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Asf\Object.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Asf\PaddingObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Asf\StreamPropertiesObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Asf\Tag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Asf\UnknownObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\ByteVector.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\ByteVectorCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\CombinedTag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\CorruptFileException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\File.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\FileTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Flac\Block.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Flac\BlockHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Flac\BlockType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Flac\File.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Flac\Metadata.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Flac\Picture.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Flac\StreamHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Genres.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\IAudioCodec.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\ICodec.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v1\StringHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v1\Tag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\AttachedPictureFrame.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\ChannelType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\CommentsFrame.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\ExtendedHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\Footer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\Frame.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\FrameFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\FrameFlags.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\FrameHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\FrameType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\GeneralEncapsulatedObjectFrame.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\Header.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\HeaderFlags.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\MusicCdIdentifierFrame.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\PlayCountFrame.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\PopularimeterFrame.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\PrivateFrame.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\RelativeVolumeFrame.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\SynchData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\SynchedText.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\SynchedTextType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\SynchronisedLyricsFrame.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\Tag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\TermsOfUseFrame.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\TextInformationFrame.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\TimestampFormat.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\UniqueFileIdentifierFrame.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\UnknownFrame.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\UnsynchronisedLyricsFrame.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Id3v2\UserTextInformationFrame.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\ILosslessAudioCodec.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\IPicture.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\IVideoCodec.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\ListBase!1.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\MediaTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\AppleAdditionalInfoBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\AppleAnnotationBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\AppleDataBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\AppleElementaryStreamDescriptor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\AppleItemListBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\AppleTag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\Box.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\BoxFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\BoxHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\BoxType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\File.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\FileParser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\FullBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\IsoAudioSampleEntry.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\IsoChunkLargeOffsetBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\IsoChunkOffsetBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\IsoFreeSpaceBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\IsoHandlerBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\IsoMetaBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\IsoMovieHeaderBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\IsoSampleDescriptionBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\IsoSampleEntry.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\IsoSampleTableBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\IsoUserDataBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\IsoVisualSampleEntry.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg4\UnknownBox.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg\AudioFile.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg\AudioHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg\ChannelMode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg\File.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg\Marker.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg\VBRIHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg\Version.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg\VideoHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Mpeg\XingHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\MusePack\File.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\MusePack\StreamHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\NonContainer\EndTag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\NonContainer\File.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\NonContainer\StartTag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\NonContainer\Tag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ogg\Bitstream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ogg\Codec.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ogg\Codecs\Theora.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ogg\Codecs\Vorbis.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ogg\File.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ogg\GroupedComment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ogg\Page.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ogg\PageFlags.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ogg\PageHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ogg\Paginator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Ogg\XiphComment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Picture.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\PictureType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Properties.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\ReadOnlyByteVector.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\ReadStyle.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Riff\AviAudioStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Riff\AviHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Riff\AviHeaderList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Riff\AviStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Riff\AviStreamHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Riff\AviVideoStream.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Riff\BitmapInfoHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Riff\DivXTag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Riff\File.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Riff\InfoTag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Riff\List.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Riff\ListTag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Riff\MovieIdTag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Riff\WaveFormatEx.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\StringCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\StringType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\SupportedMimeType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\Tag.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\TagTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\UnsupportedFormatException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\WavPack\File.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TagLib\WavPack\StreamHeader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent />
+  </PropertyGroup>
+</Project>

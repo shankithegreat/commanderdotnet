@@ -1,0 +1,21 @@
+﻿// Assembly Nomad.Commons, Version 2.8.7.176
+
+[assembly: System.Reflection.AssemblyVersion("2.8.7.176")]
+[assembly: System.Security.SecurityTransparent]
+[assembly: System.Runtime.CompilerServices.Extension]
+[assembly: System.Reflection.AssemblyTitle("Nomad.Commons")]
+[assembly: System.Runtime.CompilerServices.DefaultDependency(System.Runtime.CompilerServices.LoadHint.Always)]
+[assembly: System.Diagnostics.Debuggable(System.Diagnostics.DebuggableAttribute.DebuggingModes.DisableOptimizations | System.Diagnostics.DebuggableAttribute.DebuggingModes.EnableEditAndContinue | System.Diagnostics.DebuggableAttribute.DebuggingModes.IgnoreSymbolStoreSequencePoints | System.Diagnostics.DebuggableAttribute.DebuggingModes.Default)]
+[assembly: System.Runtime.CompilerServices.CompilationRelaxations(8)]
+[assembly: System.Runtime.CompilerServices.RuntimeCompatibility(WrapNonExceptionThrows=true)]
+[assembly: System.Reflection.AssemblyCopyright("Copyright \x00a9 2006-2010 Eugene Sichkar")]
+[assembly: System.Resources.NeutralResourcesLanguage("en")]
+[assembly: System.Reflection.AssemblyConfiguration("")]
+[assembly: System.Reflection.AssemblyCompany("BMG")]
+[assembly: System.Reflection.AssemblyProduct("Nomad.NET")]
+[assembly: System.Reflection.AssemblyDescription("Common classes for Nomad.NET")]
+[assembly: System.Reflection.AssemblyTrademark("")]
+[assembly: System.Runtime.InteropServices.ComVisible(false)]
+[assembly: System.Runtime.InteropServices.Guid("b8d82ca9-e558-461c-8ea8-1b39691bd6e8")]
+[assembly: System.Reflection.AssemblyFileVersion("2.8.7.176")]
+
