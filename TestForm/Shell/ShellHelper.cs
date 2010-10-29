@@ -43,7 +43,7 @@ namespace Shell
         public static Icon GetSmallAssociatedIcon(string path)
         {
             ShFileInfo fileInfo = new ShFileInfo();
-            Shell32.SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.SmallIcon | SHGFI.Icon);
+            Shell32.SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.SmallIcon | SHGFI.Icon | SHGFI.ShellIconSize);
 
             try
             {
@@ -63,7 +63,7 @@ namespace Shell
         public static Icon GetLargeAssociatedIcon(string path)
         {
             ShFileInfo fileInfo = new ShFileInfo();
-            Shell32.SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.LargeIcon | SHGFI.Icon);
+            Shell32.SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.LargeIcon | SHGFI.Icon | SHGFI.ShellIconSize);
 
             try
             {
@@ -84,7 +84,7 @@ namespace Shell
         {
             ShFileInfo fileInfo = new ShFileInfo();
 
-            Shell32.SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.SmallIcon | SHGFI.SysIconIndex | SHGFI.LinkOverlay);
+            Shell32.SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.SmallIcon | SHGFI.ShellIconSize | SHGFI.SysIconIndex | SHGFI.LinkOverlay);
             Shell32.DestroyIcon(fileInfo.IconHandle);
 
             return fileInfo.IconIndex;
@@ -94,7 +94,7 @@ namespace Shell
         {
             ShFileInfo fileInfo = new ShFileInfo();
 
-            Shell32.SHGetFileInfo(path, attributes, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.SmallIcon | SHGFI.SysIconIndex | SHGFI.UseFileAttributes | SHGFI.LinkOverlay);
+            Shell32.SHGetFileInfo(path, attributes, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.SmallIcon | SHGFI.SysIconIndex | SHGFI.ShellIconSize |  SHGFI.UseFileAttributes | SHGFI.LinkOverlay);
             Shell32.DestroyIcon(fileInfo.IconHandle);
 
             return fileInfo.IconIndex;
@@ -104,7 +104,7 @@ namespace Shell
         {
             ShFileInfo fileInfo = new ShFileInfo();
 
-            Shell32.SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.LargeIcon | SHGFI.SysIconIndex | SHGFI.AddOverlays);
+            Shell32.SHGetFileInfo(path, 0, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.LargeIcon | SHGFI.SysIconIndex | SHGFI.ShellIconSize | SHGFI.AddOverlays);
             Shell32.DestroyIcon(fileInfo.IconHandle);
 
             return fileInfo.IconIndex;
@@ -114,7 +114,7 @@ namespace Shell
         {
             ShFileInfo fileInfo = new ShFileInfo();
 
-            Shell32.SHGetFileInfo(path, attributes, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.LargeIcon | SHGFI.SysIconIndex | SHGFI.AddOverlays);
+            Shell32.SHGetFileInfo(path, attributes, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.LargeIcon | SHGFI.SysIconIndex | SHGFI.ShellIconSize | SHGFI.AddOverlays);
             Shell32.DestroyIcon(fileInfo.IconHandle);
 
             return fileInfo.IconIndex;
