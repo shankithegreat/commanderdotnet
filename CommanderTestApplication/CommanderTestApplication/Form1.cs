@@ -48,10 +48,10 @@ namespace CommanderTestApplication
 
             var fileInfo = new ShFileInfo();
 
-            Shell32.SHGetFileInfo(@"D:\Projects\Commander.Net", 0, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.Icon | SHGFI.OverlayIndex | SHGFI.LargeIcon);
+            Shell32.SHGetFileInfo(@"D:\Projects\Commander.Net\", 0, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.Icon | SHGFI.OverlayIndex | SHGFI.LargeIcon);
 
             var fileInfo0 = new ShFileInfo();
-            Shell32.SHGetFileInfo(@"D:\Projects\Commander.Net\7zip.dll", 0, ref fileInfo0, Marshal.SizeOf(fileInfo0), SHGFI.Icon | SHGFI.LargeIcon | SHGFI.AddOverlays);
+            Shell32.SHGetFileInfo(@"D:\Projects\Commander.Net\Microsoft.WindowsAPICodePack.ShellExtensions.dll", 0, ref fileInfo0, Marshal.SizeOf(fileInfo0), SHGFI.Icon | SHGFI.LargeIcon | SHGFI.AddOverlays);
             Image image = ImageHelper.IconToBitmap(fileInfo0.IconHandle);
             pictureBox1.Image = ImageHelper.IconToBitmap(fileInfo0.IconHandle);
 
@@ -59,7 +59,7 @@ namespace CommanderTestApplication
             Shell32.DestroyIcon(fileInfo0.IconHandle);
 
             fileInfo = new ShFileInfo();
-            Shell32.SHGetFileInfo(@"D:\Projects\Commander.Net\7zip.dll", 0, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.Icon | SHGFI.OverlayIndex | SHGFI.LargeIcon);
+            Shell32.SHGetFileInfo(@"D:\Projects\Commander.Net\Microsoft.WindowsAPICodePack.ShellExtensions.dll", 0, ref fileInfo, Marshal.SizeOf(fileInfo), SHGFI.Icon | SHGFI.OverlayIndex | SHGFI.LargeIcon);
 
 
             //int i = Shell32.SHGetIconOverlayIndex(@"D:\Projects\Commander.Net", fileInfo.IconIndex);

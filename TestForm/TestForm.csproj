@@ -104,6 +104,8 @@
       <DependentUpon>CommandBoxBase.cs</DependentUpon>
     </Compile>
     <Compile Include="RarArchiveNode.cs" />
+    <Compile Include="Shell2DirectoryNode.cs" />
+    <Compile Include="Shell2FileNode.cs" />
     <Compile Include="ShellDirectoryNode.cs" />
     <Compile Include="Shell\IShellItem.cs" />
     <Compile Include="Shell\ShellGuids.cs" />

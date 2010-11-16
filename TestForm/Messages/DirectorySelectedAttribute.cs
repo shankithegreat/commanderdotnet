@@ -43,6 +43,25 @@ namespace TestForm.Messages
         public Shell.ShellFolder SelectedDirectory { get; set; }
     }
 
+    public class Shell2DirectorySelectedAttribute : MessageAttribute
+    {
+        public Shell2DirectorySelectedAttribute()
+        {
+            this.ArgumentType = typeof(Shell2DirectorySelectedArgs);
+        }
+    }
+
+    public class Shell2DirectorySelectedArgs : MessageArgs
+    {
+        public Shell2DirectorySelectedArgs(Microsoft.WindowsAPICodePack.Shell.ShellFolder selectedDirectory)
+        {
+            this.SelectedDirectory = selectedDirectory;
+        }
+
+
+        public Microsoft.WindowsAPICodePack.Shell.ShellFolder SelectedDirectory { get; set; }
+    }
+
 
     public class UpDirectorySelectedAttribute : MessageAttribute
     {

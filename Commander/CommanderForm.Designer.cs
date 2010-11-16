@@ -153,12 +153,12 @@
             this.buttonCommandPanel.Name = "buttonCommandPanel";
             this.buttonCommandPanel.Size = new System.Drawing.Size(874, 27);
             this.buttonCommandPanel.TabIndex = 5;
-            this.buttonCommandPanel.DeleteClick += new System.EventHandler(this.deleteMenuItem_Click);
-            this.buttonCommandPanel.CopyClick += new System.EventHandler(this.copyMenuItem_Click);
             this.buttonCommandPanel.EditClick += new System.EventHandler(this.editMenuItem_Click);
-            this.buttonCommandPanel.CreteFolderClick += new System.EventHandler(this.createFolderMenuItem_Click);
-            this.buttonCommandPanel.ExitClick += new System.EventHandler(this.exitMenuItem_Click);
+            this.buttonCommandPanel.CopyClick += new System.EventHandler(this.copyMenuItem_Click);
             this.buttonCommandPanel.MoveClick += new System.EventHandler(this.moveMenuItem_Click);
+            this.buttonCommandPanel.CreteFolderClick += new System.EventHandler(this.createFolderMenuItem_Click);
+            this.buttonCommandPanel.DeleteClick += new System.EventHandler(this.deleteMenuItem_Click);
+            this.buttonCommandPanel.ExitClick += new System.EventHandler(this.exitMenuItem_Click);
             // 
             // listImageList
             // 
