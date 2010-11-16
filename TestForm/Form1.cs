@@ -19,10 +19,10 @@ namespace TestForm
         {
             InitializeComponent();
 
-            var ds = ShellFolder.GetDesktopFolder();
-
-            //MessageDispatcher.Dispatcher.Invoke(new ShellDirectorySelectedAttribute(), new ShellDirectorySelectedArgs(ds));
-            MessageDispatcher.Dispatcher.Invoke(new DirectorySelectedAttribute(), new DirectorySelectedArgs(@"D:\"));
+            //var ds = ShellFolder.GetDesktopFolder();
+            var d = Microsoft.WindowsAPICodePack.Shell.ShellFileSystemFolder.FromFolderPath(Microsoft.WindowsAPICodePack.Shell.KnownFolders.Desktop.Path);
+            MessageDispatcher.Dispatcher.Invoke(new Shell2DirectorySelectedAttribute(), new Shell2DirectorySelectedArgs(d));
+            //MessageDispatcher.Dispatcher.Invoke(new DirectorySelectedAttribute(), new DirectorySelectedArgs(@"D:\"));
         }
     }
 }
